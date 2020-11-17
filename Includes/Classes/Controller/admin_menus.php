@@ -1,6 +1,8 @@
 <?php
 
-namespace SWPTS\Includes\Classes\Controller;
+namespace GSWPTS\Includes\Classes\Controller;
+
+use GSWPTS\Includes\Templates\Mange_Tables;
 
 class Admin_Menus {
     public function __construct() {
@@ -8,42 +10,43 @@ class Admin_Menus {
     }
     public function admin_menus() {
         add_menu_page(
-            _('SpreadSheet to wpTable', 'swpts'),
-            _('SpreadSheet to wpTable', 'swpts'),
+            _('G SpreadSheet to WP Table', 'gswpts'),
+            _('G SpreadSheet to WP Table', 'gswpts'),
             'manage_options',
-            'swpts-dashboard',
-            [get_called_class(), 'swpts_dashboard'],
+            'gswpts-dashboard',
+            [get_called_class(), 'gswpts_dashboard'],
             'dashicons-media-spreadsheet'
         );
         add_submenu_page(
-            'swpts-dashboard',
-            _('DashBoard', 'swpts'),
-            _('DashBoard', 'swpts'),
+            'gswpts-dashboard',
+            _('DashBoard', 'gswpts'),
+            _('DashBoard', 'gswpts'),
             'manage_options',
-            'swpts-dashboard',
-            [get_called_class(), 'swpts_dashboard']
+            'gswpts-dashboard',
+            [get_called_class(), 'gswpts_dashboard']
         );
         add_submenu_page(
-            'swpts-dashboard',
-            _('Manage Tables', 'swpts'),
-            _('Manage Tables', 'swpts'),
+            'gswpts-dashboard',
+            _('Manage Tables', 'gswpts'),
+            _('Manage Tables', 'gswpts'),
             'manage_options',
-            'swpts-tables',
-            [get_called_class(), 'swpts_tables']
+            'gswpts-tables',
+            [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(
-            'swpts-dashboard',
-            _('Create Table', 'swpts'),
-            _('Create Table', 'swpts'),
+            'gswpts-dashboard',
+            _('Create Table', 'gswpts'),
+            _('Create Table', 'gswpts'),
             'manage_options',
-            'swpts-create-tables',
-            [get_called_class(), 'swpts_create_tables']
+            'gswpts-create-tables',
+            [get_called_class(), 'gswpts_create_tables']
         );
     }
-    public static function swpts_dashboard() {
+    public static function gswpts_dashboard() {
     }
-    public static function swpts_tables() {
+    public static function gswpts_tables() {
+        require_once  GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php';
     }
-    public static function swpts_create_tables() {
+    public static function gswpts_create_tables() {
     }
 }

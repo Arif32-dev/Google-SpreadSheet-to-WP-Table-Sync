@@ -1,9 +1,9 @@
 <?php
 
-namespace SWPTS\Includes;
+namespace GSWPTS\Includes;
 
-use SWPTS\Includes\Classes\Class_Enqueue_Files as Enqueue_Files;
-use SWPTS\Includes\Classes\Controller\Admin_Menus;
+use GSWPTS\Includes\Classes\Controller\Admin_Menus;
+use GSWPTS\Includes\Classes\Enqueue_Files;
 
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');

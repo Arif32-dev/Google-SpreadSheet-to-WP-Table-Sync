@@ -17,7 +17,7 @@
  * Requires PHP:      7.0.0
  * Author:             Arifur Rahman Arif
  * Author URI:        https://example.com
- * Text Domain:       swpts
+ * Text Domain:       gswpts
  * License:           GPL v2 or later
  * License URI:       
  */
@@ -27,25 +27,25 @@ if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
 }
 
-if (!defined('SWPTS_VERSION')) {
-    define('SWPTS_VERSION', '1.0.0');
+if (!defined('GSWPTS_VERSION')) {
+    define('GSWPTS_VERSION', '1.0.0');
 }
 
-if (!defined('SWPTS_BASE_PATH')) {
-    define('SWPTS_BASE_PATH', plugin_dir_path(__FILE__));
+if (!defined('GSWPTS_BASE_PATH')) {
+    define('GSWPTS_BASE_PATH', plugin_dir_path(__FILE__));
 }
 
-if (!defined('SWPTS_BASE_URL')) {
-    define('SWPTS_BASE_URL', plugin_dir_url(__FILE__));
+if (!defined('GSWPTS_BASE_URL')) {
+    define('GSWPTS_BASE_URL', plugin_dir_url(__FILE__));
 }
 
-if (!file_exists(SWPTS_BASE_PATH . 'vendor/autoload.php')) {
+if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
     return;
 }
 
-require_once SWPTS_BASE_PATH . 'vendor/autoload.php';
+require_once GSWPTS_BASE_PATH . 'vendor/autoload.php';
 
-final class SWPTS_Plugin {
+final class GSWPTS_Plugin {
 
     public function __construct() {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -95,7 +95,7 @@ final class SWPTS_Plugin {
      * @return void
      */
     public function include_file() {
-        new SWPTS\Includes\Plugin;
+        new GSWPTS\Includes\Plugin;
     }
     public static function add_action_links($links) {
         $mylinks = array(
@@ -105,13 +105,13 @@ final class SWPTS_Plugin {
     }
 }
 
-if (!class_exists('SWPTS_Plugin')) {
+if (!class_exists('GSWPTS_Plugin')) {
     return;
 }
 
-if (!function_exists('SWPTS_plugin')) {
-    function SWPTS_plugin() {
-        return new SWPTS_Plugin;
+if (!function_exists('GSWPTS_plugin')) {
+    function GSWPTS_plugin() {
+        return new GSWPTS_Plugin;
     }
 }
-SWPTS_plugin();
+GSWPTS_plugin();
