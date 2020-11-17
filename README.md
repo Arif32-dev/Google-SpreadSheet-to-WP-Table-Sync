@@ -1,0 +1,1 @@
+This is a WordPress plugin to synchronize google spreadsheet data into wordpress table
