@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller;
+namespace GSWPTS\Includes\Classes;
 
 final class DB_Tables {
     private $sql;
@@ -11,6 +11,7 @@ final class DB_Tables {
         $this->sql = "CREATE TABLE {$table} (
                                   id INT(11) NOT NULL AUTO_INCREMENT,
                                   table_name VARCHAR(255) NOT NULL,
+                                  sheet_url VARCHAR(255) NOT NULL,
                                   table_sortcode VARCHAR(255) NOT NULL,
                                   UNIQUE KEY id (id)
                                 ) DEFAULT CHARSET=$collate";

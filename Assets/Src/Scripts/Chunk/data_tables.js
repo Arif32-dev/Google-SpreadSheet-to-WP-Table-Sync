@@ -9,7 +9,13 @@ jQuery(document).ready(function ($) {
             this.show_manage_tables();
         }
         show_manage_tables() {
-            this.mange_tables.DataTable();
+            this.mange_tables.DataTable({
+                "columnDefs": [{
+                    "targets": 0,
+                    "orderable": false,
+                }],
+                "order": [[1, 'asc']]
+            });
             this.create_table.DataTable();
         }
     }

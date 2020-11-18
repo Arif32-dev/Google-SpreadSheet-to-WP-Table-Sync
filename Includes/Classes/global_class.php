@@ -1,0 +1,35 @@
+<?php
+
+namespace GSWPTS\Includes\Classes;
+
+class Global_Class {
+    public function data_table_styles() {
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
+    }
+    public function data_table_scripts() {
+        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', [], GSWPTS_VERSION, true);
+    }
+    public function nonce_field($nonce_action, $nonce_name) {
+        wp_nonce_field($nonce_action, $nonce_name);
+    }
+    public function bootstrap_files() {
+        wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
+    }
+    public function get_sheet_id(string $string) {
+        $pattern = "/\//";
+        $components = preg_split($pattern, $string);
+        if ($components) {
+            if (array_key_exists(5, $components)) {
+                return $components[5];
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+}

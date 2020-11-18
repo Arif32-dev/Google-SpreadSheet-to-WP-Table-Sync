@@ -83,7 +83,7 @@ final class GSWPTS_Plugin {
      */
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
-            new GSWPTS\Includes\Classes\Controller\DB_Tables;
+            new GSWPTS\Includes\Classes\DB_Tables;
             flush_rewrite_rules();
         });
         register_activation_hook(__FILE__, function () {

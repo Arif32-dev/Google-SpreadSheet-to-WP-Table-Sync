@@ -45,13 +45,9 @@ class Admin_Menus {
     public static function gswpts_dashboard() {
     }
     public static function gswpts_tables() {
-        wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php', true);
     }
     public static function gswpts_create_tables() {
-        wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/create_tables.php', true);
     }
 }
