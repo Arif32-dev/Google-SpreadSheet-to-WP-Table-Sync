@@ -1,3 +1,1 @@
-jQuery(document).ready(function ($) {
-    $('#example').DataTable();
-})
+import './Chunk/data_tables'
