@@ -2,12 +2,13 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
+
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
 }
 
 class Ajax_Handler {
-    private $output = [];
+    private static $output = [];
 
     public function __construct() {
         $this->events();
@@ -19,8 +20,8 @@ class Ajax_Handler {
     public function sheet_creation() {
 
         if ($_POST['action'] != 'gswpts_sheet_create') {
-            $this->output['error_type'] = 'invalid_action';
-            $this->output['error_message'] = 'Action is invalid';
+            self::$output['response_type'] = 'invalid_action';
+            self::$output['output'] = 'Action is invalid';
             echo json_encode($this->output);
             wp_die();
         }
@@ -30,16 +31,45 @@ class Ajax_Handler {
         if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
             wp_die();
         }
-
-        global $gswpts;
-
-        // print_r($gswpts->get_sheet_id($parsed_data['sheet_url']));
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request(
-            'GET',
-            'https://spreadsheets.google.com/feeds/cells/1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ/1/public/full?alt=json'
-        );
-        print_r(json_decode($res->getBody(), true, 99)['feed']);
+        echo json_encode(self::sheet_html($parsed_data['sheet_url']));
         wp_die();
+    }
+
+
+    public static function sheet_html($url) {
+        global $gswpts;
+        $table = '<table id="create_tables" class="ui celled table">';
+        $sheet_response = $gswpts->get_csv_data($url);
+        $i = 0;
+        while (!feof($sheet_response)) {
+            if ($i == 0) {
+                $table .= '<thead><tr>';
+                foreach (fgetcsv($sheet_response) as $cell_value) {
+                    if ($cell_value) {
+                        $table .= '<th>' . $cell_value . '</th>';
+                    } else {
+                        $table .= '<th>&nbsp;</th>';
+                    }
+                }
+                $table .= '</tr></thead>';
+            } else {
+                $table .= '<tr>';
+                foreach (fgetcsv($sheet_response) as $cell_value) {
+                    if ($cell_value) {
+                        $table .= '<td>' . $cell_value . '</td>';
+                    } else {
+                        $table .= '<td>&nbsp;</td>';
+                    }
+                }
+                $table .= '</tr>';
+            }
+            $i++;
+        }
+        fclose($sheet_response);
+
+        $table .= '</table>';
+        self::$output['response_type'] = 'success';
+        self::$output['output'] = "" . $table . "";
+        return self::$output;
     }
 }

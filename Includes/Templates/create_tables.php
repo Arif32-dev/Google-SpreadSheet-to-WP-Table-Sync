@@ -19,8 +19,8 @@ $gswpts->data_table_scripts();
             </div>
         </div>
         <div class="row mt-5 p-3">
-            <div class="col-12 d-flex justify-content-center align-content-center p-relative">
-                <table id="create_tables" class="ui celled table">
+            <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
+                <!-- <table id="create_tables" class="ui celled table">
                     <thead>
                         <tr>
                             <th>Table ID</th>
@@ -29,21 +29,19 @@ $gswpts->data_table_scripts();
                             <th>Shortcode</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                        </tr>
-                        <tr>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <tr>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                    </tr>
+                    <tr>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td>2011/07/25</td>
+                    </tr>
+                </table> -->
             </div>
         </div>
     </div>

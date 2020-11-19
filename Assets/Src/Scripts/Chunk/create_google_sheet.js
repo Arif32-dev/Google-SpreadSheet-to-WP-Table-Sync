@@ -18,7 +18,13 @@ jQuery(document).ready(function ($) {
                 },
                 type: 'post',
                 success: res => {
-                    console.log(res)
+                    console.log(JSON.parse(res))
+                    $('#spreadsheet_container').html(JSON.parse(res).output)
+                },
+                complete: () => {
+                    $('#create_tables').DataTable({
+                        "order": []
+                    });
                 },
                 error: err => {
                     alert('Wrong');

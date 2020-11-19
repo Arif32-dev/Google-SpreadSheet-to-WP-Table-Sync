@@ -7,7 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'GSWPTS\\Includes\\Classes\\Controller\\Admin_Menus' => $baseDir . '/Includes/Classes/Controller/admin_menus.php',
+    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Handler' => $baseDir . '/Includes/Classes/Controller/ajax_handler.php',
+    'GSWPTS\\Includes\\Classes\\DB_Tables' => $baseDir . '/Includes/Classes/db_tables.php',
     'GSWPTS\\Includes\\Classes\\Enqueue_Files' => $baseDir . '/Includes/Classes/enqueue_files.php',
+    'GSWPTS\\Includes\\Classes\\Global_Class' => $baseDir . '/Includes/Classes/global_class.php',
     'GSWPTS\\Includes\\Plugin' => $baseDir . '/Includes/plugin.php',
     'GuzzleHttp\\BodySummarizer' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizer.php',
     'GuzzleHttp\\BodySummarizerInterface' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',

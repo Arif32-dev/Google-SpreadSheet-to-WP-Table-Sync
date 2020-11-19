@@ -32,4 +32,24 @@ class Global_Class {
             return false;
         }
     }
+    public function get_json_data($url) {
+        $sheet_id = $this->get_sheet_id($url);
+        if (!$sheet_id) {
+            return;
+        }
+        $sheet_url = "https://spreadsheets.google.com/feeds/cells/" . $sheet_id . "/1/public/full?alt=json";
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request(
+            'GET',
+            $sheet_url
+        );
+        return json_decode($res->getBody(), true, 99)['feed'];
+    }
+    public function get_csv_data($url) {
+        $sheet_id = $this->get_sheet_id($url);
+        if (!$sheet_id) {
+            return;
+        }
+        return  fopen("https://docs.google.com/spreadsheets/d/" . $sheet_id . "/export?format=csv&id=" . $sheet_id . "", "r");
+    }
 }

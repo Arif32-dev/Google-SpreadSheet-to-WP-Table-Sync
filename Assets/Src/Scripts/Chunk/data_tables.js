@@ -16,7 +16,10 @@ jQuery(document).ready(function ($) {
                 }],
                 "order": [[1, 'asc']]
             });
-            this.create_table.DataTable();
+
+            this.create_table.DataTable({
+                "order": []
+            });
         }
     }
     new Data_Tables;
