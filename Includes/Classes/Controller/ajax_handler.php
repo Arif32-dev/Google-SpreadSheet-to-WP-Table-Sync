@@ -21,16 +21,27 @@ class Ajax_Handler {
 
         if ($_POST['action'] != 'gswpts_sheet_create') {
             self::$output['response_type'] = 'invalid_action';
-            self::$output['output'] = 'Action is invalid';
-            echo json_encode($this->output);
+            self::$output['output'] = '<b>Action is invalid</b>';
+            echo json_encode(self::$output);
             wp_die();
         }
 
         parse_str($_POST['form_data'], $parsed_data);
 
         if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = '<b>Request is invalid</b>';
+            echo json_encode(self::$output);
             wp_die();
         }
+
+        if (!$parsed_data['sheet_url'] && $parsed_data['sheet_url'] == "") {
+            self::$output['response_type'] = 'empty_field';
+            self::$output['output'] = '<b>Form field is empty. Please fill out the sheet url</b>';
+            echo json_encode(self::$output);
+            wp_die();
+        }
+
         echo json_encode(self::sheet_html($parsed_data['sheet_url']));
         wp_die();
     }
@@ -40,6 +51,11 @@ class Ajax_Handler {
         global $gswpts;
         $table = '<table id="create_tables" class="ui celled table">';
         $sheet_response = $gswpts->get_csv_data($url);
+        if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = '<b>The SpreadSheet url is invalid. Please enter a valid public sheet url</b>';
+            return self::$output;
+        }
         $i = 0;
         while (!feof($sheet_response)) {
             if ($i == 0) {
@@ -68,7 +84,15 @@ class Ajax_Handler {
         fclose($sheet_response);
 
         $table .= '</table>';
+
+        $json_res = $gswpts->get_json_data($url);
+
         self::$output['response_type'] = 'success';
+        self::$output['sheet_data'] = [
+            'sheet_name' => $json_res['title']['$t'],
+            'author_info' => $json_res['author'],
+            'sheet_total_result' => $json_res['openSearch$totalResults'],
+        ];
         self::$output['output'] = "" . $table . "";
         return self::$output;
     }

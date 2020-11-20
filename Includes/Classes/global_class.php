@@ -19,6 +19,15 @@ class Global_Class {
         wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
+
+    public function alert_files() {
+?>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Backend/Package/alert.min.css' ?>">
+        <script type="text/javascript" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Backend/Package/alert.min.js' ?>"></script>
+<?php
+    }
+
     public function get_sheet_id(string $string) {
         $pattern = "/\//";
         $components = preg_split($pattern, $string);

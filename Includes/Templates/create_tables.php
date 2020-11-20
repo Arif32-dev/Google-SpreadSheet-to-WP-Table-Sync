@@ -3,6 +3,7 @@ global $gswpts;
 $gswpts->bootstrap_files();
 $gswpts->data_table_styles();
 $gswpts->data_table_scripts();
+$gswpts->alert_files();
 ?>
 <div class="gswpts_container">
     <div class="container pl-0">
@@ -10,11 +11,17 @@ $gswpts->data_table_scripts();
             <div class="col-12">
                 <form id="gswpts_create_table" class="ui form">
                     <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce') ?>
-                    <div class="field">
-                        <label for="sheet_url">Google SpreadSheet Url: </label>
-                        <input type="text" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ/edit">
+                    <div class="row">
+                        <div class="field col-12 col-lg-7">
+                            <label for="sheet_url">Google SpreadSheet Url: </label>
+                            <input required type="text" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ/edit">
+                        </div>
+                        <div class="field col-12 col-lg-5">
+                            <label for="sheet_url">Table Name: </label>
+                            <input type="text" name="table_name" id="table_name" placeholder="Table Name">
+                        </div>
                     </div>
-                    <button class="ui button" type="submit">Save Changes</button>
+                    <button class="mt-2 ui button" type="submit" req-type="fetch">Fetch Data</button>
                 </form>
             </div>
         </div>
@@ -43,6 +50,7 @@ $gswpts->data_table_scripts();
                     </tr>
                 </table> -->
             </div>
+
         </div>
     </div>
 </div>
