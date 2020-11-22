@@ -12,7 +12,7 @@ final class DB_Tables {
                                   id INT(11) NOT NULL AUTO_INCREMENT,
                                   table_name VARCHAR(255) NOT NULL,
                                   sheet_url VARCHAR(255) NOT NULL,
-                                  table_sortcode VARCHAR(255) NOT NULL,
+                                  table_sortcode_id INT(11) NOT NULL,
                                   UNIQUE KEY id (id)
                                 ) DEFAULT CHARSET=$collate";
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';

@@ -42,7 +42,21 @@ class Ajax_Handler {
             wp_die();
         }
 
-        echo json_encode(self::sheet_html($parsed_data['sheet_url']));
+
+        if ($_POST['type'] == 'fetch') {
+            echo json_encode(self::sheet_html($parsed_data['sheet_url']));
+            wp_die();
+        }
+
+        if ($_POST['type'] == 'save') {
+            // echo json_encode(self::sheet_html($parsed_data['sheet_url']));
+            // wp_die();
+            self::save_table($parsed_data);
+        }
+
+        self::$output['response_type'] = 'invalid_request';
+        self::$output['output'] = '<b>Request is invalid</b>';
+        echo json_encode(self::$output);
         wp_die();
     }
 
@@ -91,9 +105,30 @@ class Ajax_Handler {
         self::$output['sheet_data'] = [
             'sheet_name' => $json_res['title']['$t'],
             'author_info' => $json_res['author'],
-            'sheet_total_result' => $json_res['openSearch$totalResults'],
+            'sheet_total_result' => $json_res['openSearch$totalResults']['$t'],
+            'total_rows' => $i,
         ];
         self::$output['output'] = "" . $table . "";
         return self::$output;
+    }
+    public static function save_table(array $parsed_data) {
+        global $wpdb;
+        $data = [
+            'table_name' => sanitize_text_field($parsed_data['table_name']),
+            'sheet_url' => esc_url($parsed_data['sheet_url']),
+            'table_sortcode' => 'null'
+        ];
+        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $db_respond = $wpdb->insert($table, $data, [
+            '%s',
+            '%s',
+            '%s',
+        ]);
+        if (is_int($db_respond)) {
+            $last_record = "SELECT * FROM {$table} ORDER BY id DESC LIMIT 1";
+            $last_row = $wpdb->get_results($wpdb->prepare($last_record));
+            print_r($last_row);
+        }
+        wp_die();
     }
 }

@@ -25,9 +25,11 @@ $gswpts->alert_files();
                 </form>
             </div>
         </div>
+        <div class="row" id="sheet_details">
+        </div>
         <div class="row mt-5 p-3">
             <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
-                <!-- <table id="create_tables" class="ui celled table">
+                <!-- <table id="create_tables" class="ui celled table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>Table ID</th>
