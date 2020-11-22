@@ -7,7 +7,17 @@ $gswpts->alert_files();
 ?>
 <div class="gswpts_container">
     <div class="container pl-0">
-        <div class="row mt-5">
+        <div id="create_button_container" class="row">
+            <div class="col-12">
+                <button id="create_button" class="positive ui button float-right transition hidden">
+                    <span>
+                        Create New &nbsp;
+                        <i class="plus icon"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-4">
             <div class="col-12">
                 <form id="gswpts_create_table" class="ui form">
                     <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce') ?>

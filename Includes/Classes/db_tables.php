@@ -12,13 +12,12 @@ final class DB_Tables {
                                   id INT(11) NOT NULL AUTO_INCREMENT,
                                   table_name VARCHAR(255) NOT NULL,
                                   sheet_url VARCHAR(255) NOT NULL,
-                                  table_sortcode_id INT(11) NOT NULL,
                                   UNIQUE KEY id (id)
                                 ) DEFAULT CHARSET=$collate";
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         $this->create_tables();
     }
-    public function create_tables() {
+    private function create_tables() {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($this->sql);
     }
