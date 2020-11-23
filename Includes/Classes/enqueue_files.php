@@ -12,6 +12,7 @@ class Enqueue_Files {
     }
     public function backend_files() {
         /* CSS Files */
+        wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL . 'Assets/Public/Backend/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
 
         /* Javascript Files */
         wp_enqueue_script('jquery');
@@ -19,5 +20,7 @@ class Enqueue_Files {
         wp_localize_script('GSWPTS-admin-js', 'file_url', [
             'admin_ajax' => admin_url('admin-ajax.php'),
         ]);
+        wp_enqueue_script('GSWPTS-jquery-js', '//code.jquery.com/jquery-3.5.1.min.js');
+        wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Backend/Package/alert.min.js', ['GSWPTS-jquery-js'], GSWPTS_VERSION, true);
     }
 }
