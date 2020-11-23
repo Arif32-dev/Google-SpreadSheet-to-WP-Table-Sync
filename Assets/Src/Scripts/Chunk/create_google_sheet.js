@@ -88,9 +88,11 @@ jQuery(document).ready(function ($) {
                     if (JSON.parse(res).response_type == 'saved') {
                         this.btn_changer(submit_button, 'Table Saved', 'saved');
                         this.call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
-                        this.show_shortcode(JSON.parse(res).id);
+                        let id = (Object.values(JSON.parse(res).id)[0]);
+                        this.show_shortcode(id);
                         this.sheet_url = JSON.parse(res).sheet_url;
                         this.show_create_btn();
+                        this.push_parameter(id);
                     }
 
                     if (JSON.parse(res).response_type == 'sheet_exists') {
@@ -215,15 +217,26 @@ jQuery(document).ready(function ($) {
         }
 
         show_create_btn() {
-            $('#create_button_container').addClass('mt-4');
-            $('#create_button').transition('scale');
+            if (!$('#create_button_container').hasClass('mt-4') || !$('#create_button').hasClass('visible')) {
+                $('#create_button_container').addClass('mt-4');
+                $('#create_button').transition('scale');
+            }
         }
         clear_fields() {
-            this.sheet_form.find('input').val('');
+            this.sheet_form.find('input[name=sheet_url], input[name=table_name]').val('');
             $('#sheet_ui_card').transition('scale');
-            this.sheet_container.transition('scale');
+            $('#create_tables_wrapper').transition('scale');
             this.btn_changer(this.sheet_form.find('button'), 'Fetch Data', 'fetch');
             this.sheet_url = '';
+            setTimeout(() => {
+                $('#sheet_ui_card').remove();
+                $('#create_tables_wrapper').remove();
+            }, 300);
+        }
+        push_parameter(id) {
+            const url = new URL(window.location);
+            url.searchParams.set('id', id);
+            window.history.pushState({}, '', url);
         }
     }
     new Google_Sheets_Creation;

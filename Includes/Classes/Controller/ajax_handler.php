@@ -62,42 +62,15 @@ class Ajax_Handler {
 
     public static function sheet_html($url) {
         global $gswpts;
-        $table = '<table id="create_tables" class="ui celled table">';
+
         $sheet_response = $gswpts->get_csv_data($url);
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = 'invalid_request';
             self::$output['output'] = '<b>The SpreadSheet url is invalid. Please enter a valid public sheet url</b>';
             return self::$output;
         }
-        $i = 0;
-        while (!feof($sheet_response)) {
-            if ($i == 0) {
-                $table .= '<thead><tr>';
-                foreach (fgetcsv($sheet_response) as $cell_value) {
-                    if ($cell_value) {
-                        $table .= '<th>' . $cell_value . '</th>';
-                    } else {
-                        $table .= '<th>&nbsp;</th>';
-                    }
-                }
-                $table .= '</tr></thead>';
-            } else {
-                $table .= '<tr>';
-                foreach (fgetcsv($sheet_response) as $cell_value) {
-                    if ($cell_value) {
-                        $table .= '<td>' . $cell_value . '</td>';
-                    } else {
-                        $table .= '<td>&nbsp;</td>';
-                    }
-                }
-                $table .= '</tr>';
-            }
-            $i++;
-        }
-        fclose($sheet_response);
 
-        $table .= '</table>';
-
+        $response = $gswpts->get_table(true, $sheet_response);
         $json_res = $gswpts->get_json_data($url);
 
         self::$output['response_type'] = 'success';
@@ -105,9 +78,9 @@ class Ajax_Handler {
             'sheet_name' => $json_res['title']['$t'],
             'author_info' => $json_res['author'],
             'sheet_total_result' => $json_res['openSearch$totalResults']['$t'],
-            'total_rows' => $i,
+            'total_rows' => $response['count'],
         ];
-        self::$output['output'] = "" . $table . "";
+        self::$output['output'] = "" . $response['table'] . "";
         return self::$output;
     }
 
@@ -130,19 +103,15 @@ class Ajax_Handler {
             '%s',
         ]);
         if (is_int($db_respond)) {
-            $last_record = "SELECT id FROM {$table} ORDER BY id DESC LIMIT 1";
-            $last_row = $wpdb->get_results($wpdb->prepare($last_record));
-            if ($last_row[0]->id) {
-                self::$output['response_type'] = 'saved';
-                self::$output['id'] = $last_row[0]->id;
-                self::$output['sheet_url'] = $parsed_data['sheet_url'];
-                self::$output['output'] = '<b>Table saved successfully</b>';
-            } else {
-                self::$output['response_type'] = 'invalid_request';
-                self::$output['output'] = "<b>Table couldn't be saved. Please try again</b>";
-            }
-            return self::$output;
+            self::$output['response_type'] = 'saved';
+            self::$output['id'] = $wpdb->get_results("SELECT LAST_INSERT_ID();")[0];
+            self::$output['sheet_url'] = $parsed_data['sheet_url'];
+            self::$output['output'] = '<b>Table saved successfully</b>';
+        } else {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = "<b>Table couldn't be saved. Please try again</b>";
         }
+        return self::$output;
     }
 
     public static function check_sheet_url(string $url) {

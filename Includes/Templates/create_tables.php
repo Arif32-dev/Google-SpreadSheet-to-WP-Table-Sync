@@ -5,11 +5,16 @@ $gswpts->data_table_styles();
 $gswpts->data_table_scripts();
 $gswpts->alert_files();
 ?>
+<style>
+    #create_tables_paginate>div {
+        padding-top: 0 !important;
+    }
+</style>
 <div class="gswpts_container">
     <div class="container pl-0">
-        <div id="create_button_container" class="row">
+        <div id="create_button_container" class="row <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'mt-4' : '' ?>">
             <div class="col-12">
-                <button id="create_button" class="positive ui button float-right transition hidden">
+                <button id="create_button" class="positive ui button float-right <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition visible' : 'transition hidden' ?>">
                     <span>
                         Create New &nbsp;
                         <i class="plus icon"></i>
@@ -24,45 +29,24 @@ $gswpts->alert_files();
                     <div class="row">
                         <div class="field col-12 col-lg-7">
                             <label for="sheet_url">Google SpreadSheet Url: </label>
-                            <input required type="text" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ/edit">
+                            <input required type="text" name="sheet_url" value="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? $gswpts->input_values()['sheet_url'] : '' ?>" placeholder="https://docs.google.com/spreadsheets/d/1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ/edit">
                         </div>
                         <div class="field col-12 col-lg-5">
                             <label for="sheet_url">Table Name: </label>
-                            <input type="text" name="table_name" id="table_name" placeholder="Table Name">
+                            <input type="text" name="table_name" value="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? $gswpts->input_values()['table_name'] : '' ?>" id="table_name" placeholder="Table Name">
                         </div>
                     </div>
                     <button class="mt-2 ui button" type="submit" req-type="fetch">Fetch Data</button>
                 </form>
             </div>
         </div>
-        <div class="row" id="sheet_details">
+        <div class="row <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'mt-5 p-3' : '' ?>" id="sheet_details">
+            <?php echo $gswpts->sheet_details($gswpts->get_table()) ?>
         </div>
         <div class="row mt-5 p-3">
             <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
-                <!-- <table id="create_tables" class="ui celled table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Table ID</th>
-                            <th>Table Name</th>
-                            <th>Type</th>
-                            <th>Shortcode</th>
-                        </tr>
-                    </thead>
-                    <tr>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                    </tr>
-                    <tr>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                    </tr>
-                </table> -->
+                <?php echo $gswpts->get_table()['table']['table'] ?>
             </div>
-
         </div>
     </div>
 </div>
