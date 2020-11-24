@@ -13,7 +13,7 @@ $gswpts->data_table_scripts();
     <?php if (wp_style_is('GSWPTS-semanticui-css', 'enqueued') && wp_script_is('GSWPTS-semantic-js', 'enqueued')) : ?>
         <div class="ui segment gswpts_main_loader mr-3" style="position: absolute; left: 0; top:0; right: 0; bottom: 0; z-index: 5;">
             <div class="ui active inverted dimmer">
-                <div class="ui massive text loader">Loading</div>
+                <div class="ui massive text loader"></div>
             </div>
             <p></p>
             <p></p>
@@ -21,6 +21,7 @@ $gswpts->data_table_scripts();
         </div>
 
         <div class="container pl-0 gswpts_content_container transition hidden">
+
             <div id="create_button_container" class="row <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'mt-4' : '' ?>">
                 <div class="col-12">
                     <button id="create_button" <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="positive ui button float-right <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition visible' : 'transition hidden' ?>">
@@ -87,7 +88,7 @@ $gswpts->data_table_scripts();
             </div>
 
 
-            <div class="row mt-5 p-3">
+            <div class="row mt-5 pr-3 pl-3">
                 <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
 
                     <?php if (isset($_GET['id']) && !empty($_GET['id'])) : ?>

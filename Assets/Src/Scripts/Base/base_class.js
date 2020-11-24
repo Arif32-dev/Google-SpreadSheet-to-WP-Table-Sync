@@ -80,5 +80,14 @@ export default class Base_Class {
 
         submit_button.attr('req-type', reqType)
     }
-
+    get_slug_parameter(slug) {
+        let url = new URL(window.location);
+        let params = new URLSearchParams(url.search);
+        let retrieve_param = params.get(slug);
+        if (retrieve_param) {
+            return retrieve_param
+        } else {
+            return false;
+        }
+    }
 }

@@ -57,7 +57,10 @@ class ComposerStaticInit9d7906fd3cf8a27ad792d2a8c967981c
 
     public static $classMap = array (
         'GSWPTS\\Includes\\Classes\\Controller\\Admin_Menus' => __DIR__ . '/../..' . '/Includes/Classes/Controller/admin_menus.php',
-        'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Handler' => __DIR__ . '/../..' . '/Includes/Classes/Controller/ajax_handler.php',
+        'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Ajax_Handler' => __DIR__ . '/../..' . '/Includes/Classes/Controller/ajax_handler.php',
+        'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Sheet_Creation' => __DIR__ . '/../..' . '/Includes/Classes/Controller/Ajax_Parts/sheet_creation.php',
+        'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Sheet_Fetching' => __DIR__ . '/../..' . '/Includes/Classes/Controller/Ajax_Parts/sheet_fetching.php',
+        'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Table_Fetch' => __DIR__ . '/../..' . '/Includes/Classes/Controller/Ajax_Parts/table_fetch.php',
         'GSWPTS\\Includes\\Classes\\DB_Tables' => __DIR__ . '/../..' . '/Includes/Classes/db_tables.php',
         'GSWPTS\\Includes\\Classes\\Enqueue_Files' => __DIR__ . '/../..' . '/Includes/Classes/enqueue_files.php',
         'GSWPTS\\Includes\\Classes\\Global_Class' => __DIR__ . '/../..' . '/Includes/Classes/global_class.php',

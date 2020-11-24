@@ -11,10 +11,10 @@ jQuery(document).ready(function ($) {
         show_manage_tables() {
             this.mange_tables.DataTable({
                 "columnDefs": [{
-                    "targets": 0,
+                    "targets": [0, 5],
                     "orderable": false,
                 }],
-                "order": [[1, 'asc']]
+                "order": []
             });
 
             this.create_table.DataTable({

@@ -125,6 +125,17 @@ class Global_Class {
             return false;
         }
     }
+    public function fetch_gswpts_tables() {
+        global $wpdb;
+        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . ""));
+        if (!empty($result)) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function sheet_details($data) {
         $sheet_details = false;
         if (isset($_GET['id']) && !empty($_GET['id'])) {
