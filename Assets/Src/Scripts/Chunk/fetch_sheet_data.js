@@ -1,6 +1,12 @@
+import Base_Class from './../Base/base_class';
+
 jQuery(document).ready(function ($) {
-    class Fetch_Sheet_Data {
+    class Fetch_Sheet_Data extends Base_Class {
         constructor() {
+            super();
+            this.sheet_skeleton = $('.gswpts_sheet_details_skeleton');
+            this.input_skeleton = $('.gswpts_input_skeleton');
+            this.input_form_container = $('.gswpts_form_container');
             this.events();
         }
         events() {
@@ -8,7 +14,6 @@ jQuery(document).ready(function ($) {
         }
         fetch_data_by_id() {
             if (!this.get_id_parameter()) {
-                console.log(this.get_id_parameter());
                 return;
             }
             $.ajax({
@@ -18,15 +23,58 @@ jQuery(document).ready(function ($) {
                     action: 'gswpts_sheet_fetch',
                     id: this.get_id_parameter()
                 },
-
                 type: 'post',
+
                 success: res => {
-                    console.log(res);
+                    console.log(JSON.parse(res));
+                    if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
+                        this.input_skeleton.transition('scale');
+                        this.sheet_skeleton.transition('scale');
+                        this.sheet_container.html('');
+                        this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
+                    }
+
+                    if (JSON.parse(res).response_type == 'success') {
+                        $('#create_button').removeAttr('disabled');
+                        this.input_skeleton.transition('scale');
+
+                        this.sheet_skeleton.transition('scale');
+                        this.sheet_details.addClass('mt-5 p-3');
+                        setTimeout(() => {
+                            this.input_form_container.transition('scale');
+                            this.input_form_container.find('input[name=sheet_url]').val(JSON.parse(res).table_data.sheet_url)
+                            this.input_form_container.find('input[name=table_name]').val(JSON.parse(res).table_data.table_name)
+                            this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
+                            this.sheet_details.transition('scale');
+                            this.show_shortcode(this.get_id_parameter());
+                        }, 400);
+                        this.sheet_container.html(JSON.parse(res).output)
+                    }
                 },
+
                 error: err => {
-                }
+                    this.call_alert('Error &#128683;', '<b>Something went wrong</b>', 'error', 3)
+                    this.sheet_container.html('');
+                },
+
+                complete: (res) => {
+
+                    if (JSON.parse(res.responseText).response_type == 'success') {
+                        $('#create_tables').DataTable({
+                            "order": []
+                        });
+
+                        setTimeout(() => {
+
+                            this.call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
+
+                        }, 700);
+                    }
+
+                },
             })
         }
+
         get_id_parameter() {
             let url = new URL(window.location);
             let params = new URLSearchParams(url.search);

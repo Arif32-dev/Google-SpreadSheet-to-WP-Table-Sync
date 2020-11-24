@@ -21,9 +21,9 @@ $gswpts->data_table_scripts();
         </div>
 
         <div class="container pl-0 gswpts_content_container transition hidden">
-            <div id="create_button_container" class="row">
+            <div id="create_button_container" class="row <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'mt-4' : '' ?>">
                 <div class="col-12">
-                    <button id="create_button" class="positive ui button float-right transition hidden">
+                    <button id="create_button" <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="positive ui button float-right <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition visible' : 'transition hidden' ?>">
                         <span>
                             Create New &nbsp;
                             <i class="plus icon"></i>
@@ -31,7 +31,25 @@ $gswpts->data_table_scripts();
                     </button>
                 </div>
             </div>
-            <div class="row mt-4">
+
+
+            <div class="row mt-4 gswpts_input_skeleton">
+                <div class="col-lg-7 <?php echo (isset($_GET['id']) && !empty($_GET['id'])) ? 'transition visible' : 'transition hidden' ?>">
+                    <div class="ui placeholder" style="max-width: 100%;">
+                        <div class="very long line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="col-lg-5 <?php echo (isset($_GET['id']) && !empty($_GET['id'])) ? 'transition visible' : 'transition hidden' ?>">
+                    <div class="ui placeholder" style="max-width: 100%;">
+                        <div class="very long line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row gswpts_form_container mt-4 <?php echo (isset($_GET['id']) && !empty($_GET['id'])) ? 'transition hidden' : 'transition visible' ?>">
                 <div class="col-12">
                     <form id="gswpts_create_table" class="ui form">
                         <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce') ?>
@@ -49,12 +67,44 @@ $gswpts->data_table_scripts();
                     </form>
                 </div>
             </div>
-            <div class="row" id="sheet_details">
-            </div>
-            <div class="row mt-5 p-3">
-                <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
+
+
+
+            <div class="row mt-5 gswpts_sheet_details_skeleton <?php echo (isset($_GET['id']) && !empty($_GET['id'])) ? 'transition visible' : 'transition hidden' ?>">
+                <div class="col-12 mt-2">
+                    <div class="ui placeholder">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
                 </div>
             </div>
+
+
+            <div class="row transition hidden" id="sheet_details">
+            </div>
+
+
+            <div class="row mt-5 p-3">
+                <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
+
+                    <?php if (isset($_GET['id']) && !empty($_GET['id'])) : ?>
+
+                        <div class="ui segment" style="width: 100%; min-height: 400px; margin-left: -18px;">
+                            <div class="ui active inverted dimmer">
+                                <div class="ui large text loader">Loading</div>
+                            </div>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                    <?php endif ?>
+
+                </div>
+            </div>
+
         </div>
     <?php endif; ?>
 </div>

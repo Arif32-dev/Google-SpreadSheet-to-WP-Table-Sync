@@ -167,18 +167,16 @@ class Global_Class {
             return $sheet_details;
         }
     }
-    public function input_values() {
-        if (isset($_GET['id']) && !empty($_GET['id'])) {
-            $db_result = $this->fetch_db_by_id($_GET['id']);
-            if ($db_result) {
-                $input_values = [
-                    'sheet_url' => $db_result[0]->sheet_url,
-                    'table_name' => $db_result[0]->table_name
-                ];
-                return $input_values;
-            } else {
-                return false;
-            }
+    public function input_values(int $id) {
+        $db_result = $this->fetch_db_by_id($id);
+        if ($db_result) {
+            $input_values = [
+                'sheet_url' => $db_result[0]->sheet_url,
+                'table_name' => $db_result[0]->table_name
+            ];
+            return $input_values;
+        } else {
+            return false;
         }
         return false;
     }
