@@ -13,19 +13,10 @@ $gswpts->data_table_scripts();
     #manage_tables td {
         vertical-align: middle;
     }
-
-    /* .gswpts_modal {
-        top: 20%;
-        left: 50%;
-        z-index: 20;
-        transform: translateX(-20%);
-    } */
 </style>
 <div class="gswpts_container position-relative" style="min-height: 100vh;">
 
     <?php if (wp_style_is('GSWPTS-semanticui-css', 'enqueued') && wp_script_is('GSWPTS-semantic-js', 'enqueued')) : ?>
-
-
 
         <div class="ui segment gswpts_main_loader mr-3" style="position: absolute; left: 0; top:0; right: 0; bottom: 0; z-index: 5;">
             <div class="ui active inverted dimmer">
@@ -48,7 +39,7 @@ $gswpts->data_table_scripts();
                 </div>
             </div>
 
-            <div class="row mt-5 pr-0 pl-3">
+            <div class="row mt-4 pr-0 pl-3">
 
                 <div class="col-12 gswpts_modal d-flex justify-content-center align-items-center transition hidden">
                     <div class="ui action input" style="margin-right: 85px;">

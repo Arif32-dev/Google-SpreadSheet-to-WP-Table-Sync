@@ -53,8 +53,8 @@ class Table_Fetch {
                                     </td>
                                     <td class="text-center">' . $table_data->id . '</td>
                                     <td class="text-center d-flex justify-content-around align-items-center">
-                                        <a class="table_name" href="' . admin_url('admin.php?page=gswpts-create-tables&id=' . $table_data->id . '') . '">' . $table_data->table_name . '</a>
-                                        <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-2">
+                                        <a data-updated="false" class="table_name" href="' . admin_url('admin.php?page=gswpts-create-tables&id=' . $table_data->id . '') . '">' . $table_data->table_name . '</a>
+                                        <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1">
                                             <i class="edit icon"></i>
                                         </button>
                                     </td>

@@ -64,7 +64,9 @@ $gswpts->data_table_scripts();
                                 <input type="text" name="table_name" value="" id="table_name" placeholder="Table Name">
                             </div>
                         </div>
-                        <button class="mt-2 ui button" type="submit" req-type="fetch">Fetch Data</button>
+                        <button class="mt-2 ui button" type="submit" req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
+                            <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>
+                        </button>
                     </form>
                 </div>
             </div>

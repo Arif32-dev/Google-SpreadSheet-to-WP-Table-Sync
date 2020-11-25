@@ -5,6 +5,7 @@ namespace GSWPTS\Includes\Classes\Controller;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Creation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Fetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Table_Fetch;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UD_Tables;
 
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
@@ -22,10 +23,12 @@ class Ajax_Handler {
         /* Sheet Fetching */
         add_action('wp_ajax_gswpts_sheet_fetch', [$this, 'sheet_fetch']);
         add_action('wp_ajax_nopriv_gswpts_sheet_fetch', [$this, 'sheet_fetch']);
-
         /* Table Fetching */
         add_action('wp_ajax_gswpts_table_fetch', [$this, 'table_fetch']);
         add_action('wp_ajax_nopriv_gswpts_table_fetch', [$this, 'table_fetch']);
+        /* Table Fetching */
+        add_action('wp_ajax_gswpts_ud_table', [$this, 'ud_tables']);
+        add_action('wp_ajax_nopriv_gswpts_ud_table', [$this, 'ud_tables']);
     }
     public function sheet_creation() {
         $sheet_creation = new Sheet_Creation;
@@ -40,5 +43,10 @@ class Ajax_Handler {
     public function table_fetch() {
         $table_fetching = new Table_Fetch;
         $table_fetching->table_fetch();
+    }
+
+    public function ud_tables() {
+        $ud_tables = new UD_Tables;
+        $ud_tables->ud_tables();
     }
 }

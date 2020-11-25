@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
                 type: 'post',
 
                 success: res => {
-                    console.log(JSON.parse(res));
+
                     if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
                         this.input_skeleton.transition('scale');
                         this.sheet_skeleton.transition('scale');
@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
                             this.input_form_container.find('input[name=table_name]').val(JSON.parse(res).table_data.table_name)
                             this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                             this.sheet_details.transition('scale');
-                            this.show_shortcode(this.get_id_parameter());
+                            this.show_shortcode(this.get_slug_parameter('id'));
                         }, 400);
                         this.sheet_container.html(JSON.parse(res).output)
                     }

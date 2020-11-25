@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
                 type: 'post',
 
                 success: res => {
-                    console.log(JSON.parse(res));
+
                     if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
                         this.table_container.html('');
                         this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
