@@ -16,7 +16,7 @@ export default class Base_Class {
     }
     html_loader() {
         let loader = `
-                <div class="ui segment" style="width: 100%; min-height: 400px; margin-left: -18px;">
+                <div class="ui segment" style="width: 102%; min-height: 400px; margin-left: -5px;">
                     <div class="ui active inverted dimmer">
                         <div class="ui large text loader">Loading</div>
                     </div>
@@ -80,6 +80,7 @@ export default class Base_Class {
 
         submit_button.attr('req-type', reqType)
     }
+
     get_slug_parameter(slug) {
         let url = new URL(window.location);
         let params = new URLSearchParams(url.search);

@@ -150,6 +150,7 @@ jQuery(document).ready(function ($) {
                 $('#create_button').transition('scale');
             }
         }
+
         clear_fields() {
             this.sheet_form.find('input[name=sheet_url], input[name=table_name]').val('');
             $('#sheet_ui_card').transition('scale');

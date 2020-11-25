@@ -30,13 +30,14 @@ class Table_Fetch {
                             <thead>
                                 <tr>
                                     <th class="text-center">
-                                        <input type="checkbox" name="manage_tables_checkbox" class="manage_tables_checkbox">
+                                        <input data-show="false" type="checkbox" name="manage_tables_checkbox" id="manage_tables_checkbox">
                                     </th>
-                                    <th>Table ID</th>
-                                    <th>Table Name</th>
-                                    <th>Type</th>
-                                    <th>Shortcode</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Table ID</th>
+                                    <th class="text-center">Table Name</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Shortcode</th>
+                                    <th class="text-center">Update</th>
+                                    <th class="text-center">Delete</th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -50,16 +51,23 @@ class Table_Fetch {
                                     <td class="text-center">
                                         <input type="checkbox" value="' . $table_data->id . '" name="manage_tables_checkbox" class="manage_tables_checkbox">
                                     </td>
-                                    <td>' . $table_data->id . '</td>
-                                    <td><a href="' . admin_url('admin.php?page=gswpts-create-tables&id=' . $table_data->id . '') . '">' . $table_data->table_name . '</a></td>
-                                    <td>SpreadSheet</td>
+                                    <td class="text-center">' . $table_data->id . '</td>
+                                    <td class="text-center d-flex justify-content-around align-items-center">
+                                        <a class="table_name" href="' . admin_url('admin.php?page=gswpts-create-tables&id=' . $table_data->id . '') . '">' . $table_data->table_name . '</a>
+                                        <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-2">
+                                            <i class="edit icon"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">SpreadSheet</td>
                                     <td class="d-flex justify-content-around align-items-center">
-                                        [gswpts_table id=' . $table_data->id . ']
+                                        <input type="hidden" class="table_copy_sortcode" value="[gswpts_table id=' . $table_data->id . ']">
+                                        <span>[gswpts_table id=' . $table_data->id . ']</span>
                                         <button type="button" name="copyToken" value="copy" class="copyToken ui right icon button gswpts_sortcode_copy">
                                             <i class="clone icon"></i>
                                         </button>
                                     </td>
-                                    <td class="text-center"><button id="' . $table_data->id . '" class="negative ui button">Delete</button></td>
+                                    <td class="text-center"><button id="' . $table_data->id . '"  class="ui yellow button gswpts_table_update_btn">Update</button></td>
+                                    <td class="text-center"><button id="' . $table_data->id . '" class="negative ui button gswpts_table_delete_btn">Delete</button></td>
                                 </tr>';
             }
         }

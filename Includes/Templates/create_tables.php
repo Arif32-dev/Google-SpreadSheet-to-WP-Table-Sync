@@ -88,12 +88,12 @@ $gswpts->data_table_scripts();
             </div>
 
 
-            <div class="row mt-5 pr-3 pl-3">
+            <div class="row mt-5 pr-0 pl-3">
                 <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative">
 
                     <?php if (isset($_GET['id']) && !empty($_GET['id'])) : ?>
 
-                        <div class="ui segment" style="width: 100%; min-height: 400px; margin-left: -18px;">
+                        <div class="ui segment" style="width: 102%; min-height: 400px; margin-left: -5px;">
                             <div class="ui active inverted dimmer">
                                 <div class="ui large text loader">Loading</div>
                             </div>
@@ -101,6 +101,7 @@ $gswpts->data_table_scripts();
                             <p></p>
                             <p></p>
                         </div>
+
                     <?php endif ?>
 
                 </div>
