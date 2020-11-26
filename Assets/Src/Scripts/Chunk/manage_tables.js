@@ -39,6 +39,7 @@ jQuery(document).ready(function ($) {
                     if (JSON.parse(res).response_type == 'success') {
                         this.table_container.html(JSON.parse(res).output);
                     }
+
                 },
 
                 error: err => {
@@ -58,8 +59,11 @@ jQuery(document).ready(function ($) {
                         });
 
                         setTimeout(() => {
-
-                            this.call_alert('Successfull &#128077;', '<b>All SpreadSheet Tables Fetched Successfully</b>', 'success', 3)
+                            if (JSON.parse(res.responseText).no_data == 'true') {
+                                this.call_alert('Warning &#9888;&#65039;', "<b>No tables found. Create a new</b>", 'warning', 3)
+                            } else {
+                                this.call_alert('Successfull &#128077;', '<b>All SpreadSheet Tables Fetched Successfully</b>', 'success', 3)
+                            }
 
                         }, 700);
                     }

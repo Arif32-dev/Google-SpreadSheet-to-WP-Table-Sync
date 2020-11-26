@@ -30,7 +30,7 @@ class Table_Fetch {
                             <thead>
                                 <tr>
                                     <th class="text-center">
-                                        <input data-show="false" type="checkbox" name="manage_tables_checkbox" id="manage_tables_checkbox">
+                                        <input data-show="false" type="checkbox" name="manage_tables_main_checkbox" id="manage_tables_checkbox">
                                     </th>
                                     <th class="text-center">Table ID</th>
                                     <th class="text-center">Table Name</th>
@@ -77,6 +77,9 @@ class Table_Fetch {
                 </table>
         ';
         self::$output['response_type'] = 'success';
+        if (!$fetched_tables) {
+            self::$output['no_data'] = 'true';
+        }
         self::$output['output'] = "" . $table . "";
         return self::$output;
     }

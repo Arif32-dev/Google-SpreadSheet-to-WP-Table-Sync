@@ -9,8 +9,11 @@ $gswpts->data_table_scripts();
         padding-top: 0 !important;
     }
 </style>
+
 <div class="gswpts_container pr-3 position-relative" style="min-height: 100vh;">
+
     <?php if (wp_style_is('GSWPTS-semanticui-css', 'enqueued') && wp_script_is('GSWPTS-semantic-js', 'enqueued')) : ?>
+
         <div class="ui segment gswpts_main_loader mr-3" style="position: absolute; left: 0; top:0; right: 0; bottom: 0; z-index: 5;">
             <div class="ui active inverted dimmer">
                 <div class="ui massive text loader"></div>
@@ -48,7 +51,6 @@ $gswpts->data_table_scripts();
                     </div>
                 </div>
             </div>
-
 
             <div class="row gswpts_form_container mt-4 <?php echo (isset($_GET['id']) && !empty($_GET['id'])) ? 'transition hidden' : 'transition visible' ?>">
                 <div class="col-12">

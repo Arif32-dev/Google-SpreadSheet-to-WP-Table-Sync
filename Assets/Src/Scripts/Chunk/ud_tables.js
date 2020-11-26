@@ -5,6 +5,7 @@ jQuery(document).ready(function ($) {
         constructor() {
             super();
             this.updateCheck = false;
+            this.deleteBtn = $('#delete_button');
             this.events();
         }
         events() {
@@ -19,6 +20,9 @@ jQuery(document).ready(function ($) {
             })
             $(document).on('click', '.gswpts_table_delete_btn', (e) => {
                 this.delete_table(e);
+            })
+            this.deleteBtn.on('click', (e) => {
+                this.delete_all_table(e)
             })
         }
         update_table_name(e) {
@@ -41,6 +45,32 @@ jQuery(document).ready(function ($) {
                 table_id: $(e.currentTarget).attr('id'),
             }
             this.ajax_request(data, e)
+        }
+
+        delete_all_table(e) {
+            let allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+
+            let data = {
+                reqType: 'deleteAll',
+            }
+            let table_ids = [];
+
+            $.each(allCheckBox, function (indexInArray, valueOfElement) {
+                table_ids.push($(valueOfElement).val())
+            });
+
+            data.table_ids = table_ids;
+            if (data.table_ids.length > 0) {
+
+                if (confirm("Are you sure you want to delete selected tables ?")) {
+                    this.ajax_request(data, e)
+                } else {
+                    return;
+                }
+            } else {
+                this.call_alert('Warning &#9888;&#65039;', "<b>No table is selected to delete</b>", 'warning', 3)
+                return;
+            }
         }
 
         ajax_request(data, e) {
@@ -67,6 +97,12 @@ jQuery(document).ready(function ($) {
                         <div class="ui active mini inline loader"></div>
                     `)
                     }
+                    if (data.reqType == 'deleteAll') {
+                        $(e.currentTarget).html(`
+                        Deleting &nbsp;
+                        <div class="ui active mini inline loader"></div>
+                    `)
+                    }
                 },
 
                 success: res => {
@@ -84,6 +120,11 @@ jQuery(document).ready(function ($) {
                         currentTarget.parent().parent().transition('fade');
                         this.call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
                     }
+                    if (JSON.parse(res).response_type == 'deleted_All') {
+                        this.remove_seleted_tables();
+                        currentTarget.html('Delete Selected')
+                        this.call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
+                    }
                 },
 
                 error: err => {
@@ -92,7 +133,17 @@ jQuery(document).ready(function ($) {
 
             })
         }
-
+        remove_seleted_tables() {
+            let allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+            $.each(allCheckBox, function (indexInArray, valueOfElement) {
+                $(valueOfElement).parent().parent().transition('fade');
+            });
+            setTimeout(() => {
+                $.each(allCheckBox, function (indexInArray, valueOfElement) {
+                    $(valueOfElement).parent().parent().remove();
+                });
+            }, 300);
+        }
         edit_table_name(e) {
             if ($('.gswpts_modal').hasClass('hidden')) {
                 $('.gswpts_input_table_name').val(this.get_table_name(e));

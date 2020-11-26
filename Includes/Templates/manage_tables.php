@@ -33,7 +33,7 @@ $gswpts->data_table_scripts();
                 <div class="col-12">
                     <button id="delete_button" class="negative ui button float-right transition hidden" data-show="false">
                         <span>
-                            Delete Selected &nbsp;
+                            Delete Selected
                         </span>
                     </button>
                 </div>

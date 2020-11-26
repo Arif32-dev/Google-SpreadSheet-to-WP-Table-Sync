@@ -7,6 +7,7 @@ use GSWPTS\Includes\Templates\Mange_Tables;
 class Admin_Menus {
     public function __construct() {
         add_action('admin_menu', [$this, 'admin_menus']);
+        add_action('admin_menu', [$this, 'add_logo']);
     }
     public function admin_menus() {
         add_menu_page(
@@ -15,7 +16,8 @@ class Admin_Menus {
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
-            'dashicons-media-spreadsheet'
+            'dashicons-media-spreadsheet',
+            101
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -41,6 +43,10 @@ class Admin_Menus {
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
         );
+    }
+    public function add_logo() {
+        global $menu;
+        $menu[101][6] = GSWPTS_BASE_URL . 'Assets/Public/Backend/Images/Google_Sheets_logo.svg';
     }
     public static function gswpts_dashboard() {
     }

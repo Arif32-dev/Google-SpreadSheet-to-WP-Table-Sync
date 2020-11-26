@@ -6,6 +6,7 @@ use GSWPTS\Includes\Classes\Controller\Admin_Menus;
 use GSWPTS\Includes\Classes\Controller\Ajax_Handler;
 use GSWPTS\Includes\Classes\Enqueue_Files;
 use GSWPTS\Includes\Classes\Global_Class;
+use GSWPTS\Includes\Classes\Sortcode;
 
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
@@ -21,6 +22,7 @@ class Plugin {
         new Enqueue_Files;
         new Admin_Menus;
         new Ajax_Handler;
+        new Sortcode;
     }
     public function global_functions() {
         global $gswpts;
