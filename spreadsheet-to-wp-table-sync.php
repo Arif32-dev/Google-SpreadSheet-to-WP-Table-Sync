@@ -100,7 +100,7 @@ final class GSWPTS_Plugin {
     }
     public static function add_action_links($links) {
         $mylinks = array(
-            '<a href="' . admin_url('options-general.php?page=wp_user_control') . '">Settigns Page</a>',
+            '<a href="' . admin_url('admin.php?page=gswpts-dashboard') . '">Settigns Page</a>',
         );
         return array_merge($links, $mylinks);
     }

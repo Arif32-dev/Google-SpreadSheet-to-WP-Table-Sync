@@ -91,4 +91,13 @@ export default class Base_Class {
             return false;
         }
     }
+    export_to_json(e, target) {
+        target.tableHTMLExport({ type: 'json', filename: 'sample.json' });
+    }
+    export_to_csv(e, target) {
+        target.tableHTMLExport({ type: 'csv', filename: 'sample.csv' });
+    }
+    export_to_pdf(e, target) {
+        target.tableHTMLExport({ type: 'pdf', filename: 'sample.pdf' });
+    }
 }
