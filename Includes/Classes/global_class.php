@@ -53,18 +53,18 @@ class Global_Class {
         }
         return  fopen("https://docs.google.com/spreadsheets/d/" . $sheet_id . "/export?format=csv&id=" . $sheet_id . "", "r");
     }
-    public function get_table($ajax_req = false, $sheet_response = null) {
+    public function get_table($ajax_req = false, $sheet_response = null, $table_id = null) {
         if ($ajax_req && $sheet_response) {
             return $this->the_table($sheet_response);
         }
-        if (isset($_GET['id']) && !empty($_GET['id'])) {
-            $db_result = $this->fetch_db_by_id($_GET['id']);
+        if (isset($table_id) && $table_id != null) {
+            $db_result = $this->fetch_db_by_id($table_id);
             if ($db_result) {
                 $sheet_response = $this->get_csv_data($db_result[0]->sheet_url);
                 $json_response = $this->get_json_data($db_result[0]->sheet_url);
                 $table = $this->the_table($sheet_response);
                 $output = [
-                    'id' => $_GET['id'],
+                    'id' => $table_id,
                     'table' => $table,
                     'sheet_name' => $json_response['title']['$t'],
                     'author_info' => $json_response['author'],

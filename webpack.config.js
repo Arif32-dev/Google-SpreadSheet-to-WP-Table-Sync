@@ -4,10 +4,11 @@ module.exports = {
     mode: 'production',
     entry: {
         admin: path.resolve(__dirname, 'Assets/Src/Scripts/admin.js'),
+        frontend: path.resolve(__dirname, 'Assets/Src/Scripts/frontend.js'),
     },
     output: {
         filename: '[name].min.js',
-        path: path.resolve(__dirname, 'Assets/Public/Backend/Scripts/'),
+        path: path.resolve(__dirname, 'Assets/Public/Scripts/'),
     },
     module: {
         rules: [{

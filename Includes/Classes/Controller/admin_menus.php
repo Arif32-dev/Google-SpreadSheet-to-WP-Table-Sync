@@ -46,7 +46,7 @@ class Admin_Menus {
     }
     public function add_logo() {
         global $menu;
-        $menu[101][6] = GSWPTS_BASE_URL . 'Assets/Public/Backend/Images/Google_Sheets_logo.svg';
+        $menu[101][6] = GSWPTS_BASE_URL . 'Assets/Public/Images/Google_Sheets_logo.svg';
     }
     public static function gswpts_dashboard() {
     }

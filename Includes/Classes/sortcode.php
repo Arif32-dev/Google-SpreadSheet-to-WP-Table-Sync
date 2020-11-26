@@ -7,7 +7,14 @@ class Sortcode {
         add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes']);
     }
     public function gswpts_sortcodes($atts) {
-        // $return_value = $atts['id'] . 'hello';
-        // return $return_value;
+        $output = "<b>No table data found</b>";
+        global $gswpts;
+        if (!is_int(intval($atts['id']))) {
+            return $output;
+        }
+        $respond = $gswpts->get_table(false, null, $atts['id']);
+        $output = '<h3>' . $gswpts->input_values($atts['id'])['table_name'] . '</h3>';
+        $output .= $respond['table']['table'];
+        return $output;
     }
 }
