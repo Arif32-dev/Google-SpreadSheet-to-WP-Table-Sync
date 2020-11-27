@@ -19,6 +19,24 @@ class Global_Class {
         wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
+    public function frontend_tables_assets() { ?>
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css' ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/css/jquery.dataTables.min.css' ?>">
+
+        <!-- scritps -->
+        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" language="javascript" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js' ?>"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+
+<?php
+    }
 
     public function get_sheet_id(string $string) {
         $pattern = "/\//";
@@ -112,6 +130,39 @@ class Global_Class {
             'count' => $i
         ];
         return $response;
+    }
+
+    public function the_hidden_table($sheet_response) {
+        $table = '<table id="hidden" class="ui celled table">';
+        $i = 0;
+        while (!feof($sheet_response)) {
+            if ($i == 0) {
+                $table .= '<thead><tr>';
+                foreach (fgetcsv($sheet_response) as $cell_value) {
+                    if ($cell_value) {
+                        $table .= '<th>' . $cell_value . '</th>';
+                    } else {
+                        $table .= '<th>&nbsp;</th>';
+                    }
+                }
+                $table .= '</tr></thead>';
+            } else {
+                $table .= '<tr>';
+                foreach (fgetcsv($sheet_response) as $cell_value) {
+                    if ($cell_value) {
+                        $table .= '<td>' . $cell_value . '</td>';
+                    } else {
+                        $table .= '<td>&nbsp;</td>';
+                    }
+                }
+                $table .= '</tr>';
+            }
+            $i++;
+        }
+        fclose($sheet_response);
+
+        $table .= '</table>';
+        return $table;
     }
 
     public function fetch_db_by_id($id) {
