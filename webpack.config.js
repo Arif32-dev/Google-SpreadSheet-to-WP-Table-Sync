@@ -24,19 +24,19 @@ module.exports = {
             ]
         }],
     },
-    plugins: [
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 4040,
-            injectChanges: true,
-            watch: true,
-            reloadOnRestart: true,
-            reloadDelay: 400,
-            files: ['./**/*.php', './Assets/Public/**/*.min.css', './Assets/Public/**/*.min.js'],
-            watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
-            proxy: 'http://localhost/wordpress/wp-admin',
-        })
-    ],
+    // plugins: [
+    //     new BrowserSyncPlugin({
+    //         host: 'localhost',
+    //         port: 4040,
+    //         injectChanges: true,
+    //         watch: true,
+    //         reloadOnRestart: true,
+    //         reloadDelay: 400,
+    //         files: ['./**/*.php', './Assets/Public/**/*.min.css', './Assets/Public/**/*.min.js'],
+    //         watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
+    //         proxy: 'http://localhost/wordpress/wp-admin',
+    //     })
+    // ],
     devtool: 'source-map',
     watch: true,
     watchOptions: {

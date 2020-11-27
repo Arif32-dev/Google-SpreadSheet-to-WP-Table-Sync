@@ -26,13 +26,14 @@ class Enqueue_Files {
     }
 
     public function frontend_files() {
+
         global $gswpts;
         $gswpts->frontend_tables_assets();
 
         wp_enqueue_script(
             'GSWPTS-frontend-js',
             GSWPTS_BASE_URL . 'Assets/Public/Scripts/frontend.min.js',
-            [],
+            ['jquery'],
             GSWPTS_VERSION,
             true
         );

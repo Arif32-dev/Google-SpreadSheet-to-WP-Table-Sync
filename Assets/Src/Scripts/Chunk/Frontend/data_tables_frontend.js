@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         show_manage_tables() {
             this.frontend_table.DataTable({
-                dom: 'Bfrtip',
+                dom: 'lBfrtip',
                 buttons: [
                     {
                         text: 'JSON',
@@ -31,7 +31,6 @@ $(document).ready(function () {
                     { extend: 'print', className: 'ui inverted secondary button' }
 
                 ],
-
                 "order": [],
             });
         }
