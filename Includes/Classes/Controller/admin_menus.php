@@ -11,8 +11,8 @@ class Admin_Menus {
     }
     public function admin_menus() {
         add_menu_page(
-            _('G SpreadSheet to WP Table', 'gswpts'),
-            _('G SpreadSheet to WP Table', 'gswpts'),
+            'G SpreadSheet to WP Table',
+            'G SpreadSheet to WP Table',
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
@@ -21,24 +21,24 @@ class Admin_Menus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            _('DashBoard', 'gswpts'),
-            _('DashBoard', 'gswpts'),
+            'DashBoard',
+            'DashBoard',
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            _('Manage Tables', 'gswpts'),
-            _('Manage Tables', 'gswpts'),
+            'Manage Tables',
+            'Manage Tables',
             'manage_options',
             'gswpts-tables',
             [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            _('Create Table', 'gswpts'),
-            _('Create Table', 'gswpts'),
+            'Create Table',
+            'Create Table',
             'manage_options',
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
