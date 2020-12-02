@@ -1,5 +1,15 @@
 .gswpts_dashboard_container{
     margin-right: 25px;
+    *{
+        font-family: $font-family;
+    }
+    a {
+        color: $link-color;
+        transition: color 0.1s ease-in-out;
+        &:hover{
+            color: $link-hover-color;
+        }
+    }
 }
 .heading_row{
     button{
@@ -13,6 +23,45 @@
     background-color: $bg-color;
     border-radius: $border-radious;
 }
-// .info_cards{
-//     width: 100%;
-// }
+.latest_table{
+    .details{
+       .ui.label{
+           font-size: 13px;
+       }
+       i{
+            cursor: pointer;
+       }
+       .ui.tag.label{
+           font-size: 10px;
+       }
+    }
+    .card-body{
+        .total_created{
+            span:nth-of-type(1){
+                    font-size: 40px;
+                    margin-bottom: 10px;
+            }
+        }
+    }
+}
+.change_logs{
+	.info_circle{
+		color: $link-hover-color;
+	}
+}
+.card-header {
+	.title{
+		i {
+			color: $link-hover-color;
+		}
+	}
+}
+.pro_box{
+	
+	li{
+		i{
+			color: $link-color;
+		}
+	}
+	
+}

@@ -66,17 +66,17 @@ module.exports = {
         ],
     },
     plugins: [
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 4040,
-            injectChanges: true,
-            watch: true,
-            reloadOnRestart: true,
-            reloadDelay: 400,
-            files: ['./**/*.php', './Assets/Public/**/*.min.css', './Assets/Public/**/*.min.js'],
-            watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
-            proxy: 'http://localhost/wordpress/wp-admin',
-        }),
+        // new BrowserSyncPlugin({
+        //     host: 'localhost',
+        //     port: 4040,
+        //     injectChanges: true,
+        //     watch: true,
+        //     reloadOnRestart: true,
+        //     reloadDelay: 400,
+        //     files: ['./**/*.php', './Assets/Public/**/*.min.css', './Assets/Public/**/*.min.js'],
+        //     watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
+        //     proxy: 'http://localhost/wordpress/wp-admin',
+        // }),
         new MiniCssExtractPlugin({
             filename: 'Styles/[name].min.css',
         })

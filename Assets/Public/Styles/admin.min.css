@@ -1,3 +1,4 @@
-.gswpts_dashboard_container{margin-right:25px}.heading_row button span{font-size:15px;margin-left:5px}.dash_boxes{background-color:#fff;border-radius:4px}body{background-color:#f1f1f1 !important}
+@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap);
+.gswpts_dashboard_container{margin-right:25px}.gswpts_dashboard_container *{font-family:"Raleway",sans-serif}.gswpts_dashboard_container a{color:#2ecc40;-webkit-transition:color .1s ease-in-out;-o-transition:color .1s ease-in-out;transition:color .1s ease-in-out}.gswpts_dashboard_container a:hover{color:#6435c9}.heading_row button span{font-size:15px;margin-left:5px}.dash_boxes{background-color:#fff;border-radius:4px}.latest_table .details .ui.label{font-size:13px}.latest_table .details i{cursor:pointer}.latest_table .details .ui.tag.label{font-size:10px}.latest_table .card-body .total_created span:nth-of-type(1){font-size:40px;margin-bottom:10px}.change_logs .info_circle{color:#6435c9}.card-header .title i{color:#6435c9}.pro_box li i{color:#2ecc40}body{background-color:#f1f1f1 !important}
 
 /*# sourceMappingURL=admin.min.css.map*/
