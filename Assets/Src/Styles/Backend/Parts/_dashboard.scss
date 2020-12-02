@@ -4,6 +4,7 @@
         font-family: $font-family;
     }
     a {
+        cursor: pointer;
         color: $link-color;
         transition: color 0.1s ease-in-out;
         &:hover{
@@ -57,11 +58,18 @@
 	}
 }
 .pro_box{
-	
+    .card{
+        background-repeat: no-repeat;
+        background-position: 90% bottom;
+    }
 	li{
 		i{
 			color: $link-color;
 		}
 	}
-	
+}
+.subscribe_sec{
+    .ui.cards > .card{
+        width: 100%;
+    }
 }

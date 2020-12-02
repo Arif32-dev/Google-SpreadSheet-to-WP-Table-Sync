@@ -46,7 +46,7 @@ $gswpts->semantic_files();
 
         <div class="row mt-3  pt-3 pb-3">
             <div class="col-6 p-0 m-0">
-
+                <!-- Latest table start -->
                 <div class="col-md-12 p-0 pr-2 latest_table">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
@@ -80,12 +80,14 @@ $gswpts->semantic_files();
                         </div>
                     </div>
                 </div>
+                <!-- Latest end start -->
 
+                <!-- Change Logs start -->
                 <div class="col-md-12 p-0 pr-2 mt-3 change_logs">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-								<i class="fas fa-file-alt"></i>
+                                <i class="fas fa-file-alt"></i>
                                 <span class="ml-2">Change Logs</span>
                             </div>
                             <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
@@ -93,36 +95,37 @@ $gswpts->semantic_files();
                             </a>
                         </div>
                         <div class="card-body">
-							<div class="col-12 mb-2">
-								You are currently using Version 2.1.3
-							</div>
-							<div class="col-12 mb-2">
-								A major update with new table type, and a couple of bug fixes and stability improvements:
-							</div>
-							<div class="col-12 mt-4 d-flex">
-							
-								<div class="col-1 p-0 info_circle">
-									<i class="fas fa-info-circle"></i>
-								</div>
-								
-								<div class="col-11 p-0">
-									<ul>
-										<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.</li>
-										<li>Feature: Added Slovenian translation</li>
-										<li>Improvement: Update French translation</li>
-										<li>Lorem Ipsum is simply dummy text of the printing</li>
-				
-									</ul>
-								</div>
-								
-							</div>
-							
+                            <div class="col-12 mb-2">
+                                You are currently using Version 2.1.3
+                            </div>
+                            <div class="col-12 mb-2">
+                                A major update with new table type, and a couple of bug fixes and stability improvements:
+                            </div>
+                            <div class="col-12 mt-4 d-flex">
+
+                                <div class="col-1 p-0 info_circle">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+
+                                <div class="col-11 p-0">
+                                    <ul>
+                                        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.</li>
+                                        <li>Feature: Added Slovenian translation</li>
+                                        <li>Improvement: Update French translation</li>
+                                        <li>Lorem Ipsum is simply dummy text of the printing</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
-				
-				
-				 <div class="col-md-12 p-0 pr-2 mt-3 news_blogs">
+                <!-- Change Logs end -->
+
+                <!-- News Blogs start -->
+                <div class="col-md-12 p-0 pr-2 mt-3 news_blogs">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
@@ -134,26 +137,68 @@ $gswpts->semantic_files();
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="col-12 d-flex p-0">
-                                <div class="col-6">
-                                    <h4 class="">
-                                        Need some help
-                                    </h4>
-                                    <p>
-                                        We provide professional support to all our users via our ticketing system.
-                                    </p>
-                                    <a href="http://localhost/wordpress/wp-admin/admin.php?page=wpdatatables-support">
-                                        Visit Support Center
+                            <div class="col-12">
+                                <p>Checkout useful articles from wpdatatables.com</p>
+                                <div class="col-12 p-0 mt-3 useful_links">
+
+                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
+                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
+                                        <span><i class="fas fa-link"></i></span>
                                     </a>
+                                    <div class="ui fitted divider mt-2 mb-2"></div>
+
+                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
+                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce</p>
+                                        <span><i class="fas fa-link"></i></span>
+                                    </a>
+                                    <div class="ui fitted divider mt-2 mb-2"></div>
+
+                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
+                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
+                                        <span><i class="fas fa-link"></i></span>
+                                    </a>
+                                    <div class="ui fitted divider mt-2 mb-2"></div>
+
+                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
+                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
+                                        <span><i class="fas fa-link"></i></span>
+                                    </a>
+                                    <div class="ui fitted divider mt-2 mb-2"></div>
                                 </div>
-                                <div class="col-6">
-                                    <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg' ?>" alt="" class="img-fluid">
+
+                                <div class="col-12 p-0 mt-4 subscribe_sec">
+
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Get Subscribed</div>
+                                                <div class="description">
+
+                                                    <p>
+                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter! Join 3000+ subscribers. 
+                                                        We send about 1 message per month and never spam! 
+                                                    </p>
+
+                                                    <div class="ui right labeled left icon input mt-3">
+                                                        <i class="bell icon"></i>
+                                                        <input type="text" placeholder="You email">
+                                                        <a class="ui violet tag label">
+                                                            Get Subscribed
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- News Blog End -->
             </div>
 
 
@@ -190,10 +235,10 @@ $gswpts->semantic_files();
                         </div>
                     </div>
                 </div>
-				
-				
-				<div class="col-md-12 p-0 pl-2 mt-3 pro_box">
-                    <div class="card p-0 m-0">
+
+
+                <div class="col-md-12 p-0 pl-2 mt-3 pro_box">
+                    <div class="card p-0 m-0" style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg' ?>);">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span><i class="fas fa-medal"></i></span>
@@ -206,48 +251,48 @@ $gswpts->semantic_files();
                         <div class="card-body">
                             <div class="col-12">
                                 <p>
-									Get the most out of wpDataTables by upgrading to Premium and unlocking all of the powerful features.
-								</p>
-								<ul>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dummy text
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dummy text of the print
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dustry
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dummy text of the printi
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dustry
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dummy text
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Lorem Ipsum is simply dummy text of the printing
-									</li>
-									<li class="d-flex align-items-center mb-3">
-										<span class="mr-2"><i class="fas fa-check-circle"></i></span>
-										Create a table manually
-									</li>
-								</ul>
+                                    Get the most out of wpDataTables by upgrading to Premium and unlocking all of the powerful features.
+                                </p>
+                                <ul>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dummy text
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dummy text of the print
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dustry
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dummy text of the printi
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dustry
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dummy text
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Lorem Ipsum is simply dummy text of the printing
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                        Create a table manually
+                                    </li>
+                                </ul>
                             </div>
-							<div class="col-12">
-								<a class="ui violet button m-0">
-									Get Pro Today <span class="ml-2"><i class="fas fa-medal"></i></span>
-								</a>
-							</div>
+                            <div class="col-12">
+                                <a class="ui violet button m-0">
+                                    Get Pro Today <span class="ml-2"><i class="fas fa-medal"></i></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
