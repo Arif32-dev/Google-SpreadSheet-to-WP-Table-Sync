@@ -14,6 +14,9 @@ class Enqueue_Files {
     public function backend_files() {
         /* CSS Files */
         wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/admin.min.css', [], time(), 'all');
+        wp_enqueue_style('GSWPTS-fontawesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
 
         /* Javascript Files */
         wp_enqueue_script('jquery');

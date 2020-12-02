@@ -49,6 +49,7 @@ class Admin_Menus {
         $menu[101][6] = GSWPTS_BASE_URL . 'Assets/Public/Images/Google_Sheets_logo.svg';
     }
     public static function gswpts_dashboard() {
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/dashboard.php', true);
     }
     public static function gswpts_tables() {
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php', true);

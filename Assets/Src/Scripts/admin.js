@@ -1,3 +1,5 @@
+import '../Styles/Backend/admin.scss'
+
 import './Chunk/data_tables'
 import './Chunk/create_google_sheet'
 import './Chunk/fetch_sheet_data'

@@ -16,8 +16,12 @@ class Global_Class {
         wp_nonce_field($nonce_action, $nonce_name);
     }
     public function bootstrap_files() {
-        wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap-dist/js/bootstrap.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_style('GSWPTS-bootstap-css', '//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+        wp_enqueue_script('GSWPTS-bootstap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js');
+    }
+    public function semantic_files() {
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', [], GSWPTS_VERSION, false);
     }
     public function frontend_tables_assets() { ?>
         <!-- styles -->
