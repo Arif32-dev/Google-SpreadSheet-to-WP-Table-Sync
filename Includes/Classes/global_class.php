@@ -25,6 +25,11 @@ class Global_Class {
         wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', [], GSWPTS_VERSION, false);
     }
+    public function dropdown_files() {
+        wp_enqueue_style('GSWPTS-dropdown-css', GSWPTS_BASE_URL . 'Assets/Public/Package/Dropdown/dropdown.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-dropdown-js', GSWPTS_BASE_URL . 'Assets/Public/Package/Dropdown/dropdown.min.js', [], GSWPTS_VERSION, false);
+    }
+
     public function frontend_tables_assets() { ?>
         <!-- styles -->
         <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css' ?>">

@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+
+
+@import './Parts/loader';
 @import './Parts/variable';
 @import './Parts/dashboard';
+@import './Parts/manage_table';
+@import './Parts/create_table';
 
 body {
     background-color: #f1f1f1 !important;

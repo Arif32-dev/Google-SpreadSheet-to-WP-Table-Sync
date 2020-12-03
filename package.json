@@ -42,5 +42,7 @@
     "iOS 7",
     "last 3 iOS versions"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "semantic-ui-dropdown": "^2.4.1"
+  }
 }

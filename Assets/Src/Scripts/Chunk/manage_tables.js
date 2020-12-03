@@ -84,7 +84,6 @@ jQuery(document).ready(function ($) {
         toggle_content(e) {
             console.log($(e.currentTarget).attr('data-show'));
             if ($(e.currentTarget).attr('data-show') == 'false') {
-                $('#delete_button_container').addClass('mt-4');
                 $('#delete_button').transition('scale');
                 this.check_all_checkbox();
                 this.checkbox_switcher = true
@@ -92,7 +91,6 @@ jQuery(document).ready(function ($) {
             if ($(e.currentTarget).attr('data-show') == 'true') {
                 $('#delete_button').transition('scale');
                 setTimeout(() => {
-                    $('#delete_button_container').removeClass('mt-4');
                 }, 300);
                 this.uncheck_all_checkbox();
                 this.checkbox_switcher = false

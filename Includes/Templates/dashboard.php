@@ -4,7 +4,18 @@ $gswpts->bootstrap_files();
 $gswpts->semantic_files();
 ?>
 <div class="gswpts_dashboard_container">
-    <div class="container mt-4">
+
+    <div class="ui segment gswpts_loader">
+            <div class="ui active inverted dimmer">
+                <div class="ui massive text loader"></div>
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+    </div>
+
+
+    <div class="container mt-4 dashboard_content transition hidden">
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">

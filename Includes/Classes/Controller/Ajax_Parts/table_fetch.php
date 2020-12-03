@@ -26,7 +26,7 @@ class Table_Fetch {
     }
     public static function table_html() {
         global $gswpts;
-        $table = '<table id="manage_tables" class="ui celled table" style="width:100%">
+        $table = '<table id="manage_tables" class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center">
