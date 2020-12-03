@@ -8,7 +8,6 @@ import './Chunk/manage_tables'
 import './Chunk/ud_tables'
 
 jQuery(document).ready(function () {
-
     $('.gswpts_loader').transition('fade');
     $('.dashboard_content, .manage_table_content, .create_table_content').transition('fade');
 })

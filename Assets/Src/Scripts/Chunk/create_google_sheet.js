@@ -5,12 +5,19 @@ jQuery(document).ready(function ($) {
 
         constructor() {
             super();
+            this.fetch_and_save_button = $('#fetch_save_btn')
             this.sheet_url = '';
+            this.dropdown_select = $('#table_type')
             this.events();
+            $('#table_type').dropdown();
         }
 
         events() {
-            this.sheet_form.on('submit', (e) => {
+            this.dropdown_select.on('change', (e) => {
+                this.show_fetch_btn(e);
+                this.show_hidden_input(e)
+            })
+            this.fetch_and_save_button.on('click', (e) => {
                 this.handle_submit(e);
             })
             $(document).on('click', '#sortcode_copy', (e) => {
@@ -19,6 +26,45 @@ jQuery(document).ready(function ($) {
             $(document).on('click', '#create_button', (e) => {
                 this.clear_fields();
             })
+            $('.edit_table_name').on('click', (e) => {
+                this.edit_table_name(e)
+            })
+        }
+        edit_table_name(e){
+            $(e.currentTarget).siblings('input').select();
+        }
+        
+        show_fetch_btn(e) {
+            if($(e.currentTarget).find('input[name=source_type]').val()){
+                if ($('#fetch_save_btn').hasClass('hidden')) {
+                    $('#fetch_save_btn').transition('scale');
+                }
+            }
+        }
+
+        show_hidden_input(e) {
+            if ($(e.currentTarget).find('input[name=source_type]').val() == 'spreadsheet') {
+                this.show_file_input()
+                if ($('.browse_input').hasClass('visible')) {
+                    $('.browse_input').transition('scale');
+                }
+            }
+            if ($(e.currentTarget).find('input[name=source_type]').val() == 'csv') {
+                this.show_file_input()
+                this.show_browser_input()
+            }
+        }
+
+        show_file_input() {
+            if ($('.file_input').hasClass('hidden')) {
+                $('.file_input').transition('scale');
+            }
+        }
+
+        show_browser_input() {
+            if ($('.browse_input').hasClass('hidden')) {
+                $('.browse_input').transition('scale');
+            }
         }
 
         handle_submit(e) {

@@ -3,7 +3,6 @@ global $gswpts;
 $gswpts->bootstrap_files();
 $gswpts->data_table_styles();
 $gswpts->data_table_scripts();
-// $gswpts->dropdown_files();
 ?>
 
 
@@ -29,8 +28,6 @@ $gswpts->data_table_scripts();
                 </span>
             </div>
         </div>
-
-
 
 
         <!-- <div class="row mt-4 gswpts_input_skeleton">
@@ -119,15 +116,27 @@ $gswpts->data_table_scripts();
             </div> -->
 
         <div class="row mt-3">
-            <div class="col-12 p-0 d-flex align-items-center justify-content-end">
-                <button id="create_button" class="ui violet button m-0 mr-2 transition hidden"
-                    style="padding-left: 30px;">
-                    Create New &nbsp; <i class="plus icon"></i>
-                </button>
-                <button class="ui inverted green button m-0" type="button"
-                    req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
-                    <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>
-                </button>
+            <div class="col-12 p-0 d-flex align-items-center">
+
+                    <div class="ui action input">
+                        <input type="text" placeholder="Table Name" class="table_name" value="GSWPTS Table">
+                        <button class="ui button edit_table_name">
+                            Edit &nbsp; 
+                            <span><i class="edit icon"></i></span>
+                        </button>
+                    </div>
+
+                <div class="col p-0 d-flex align-items-center justify-content-end">
+                    <button id="create_button" class="positive ui button m-0 mr-2 transition hidden"
+                        style="padding-left: 30px;">
+                        Create New &nbsp; <i class="plus icon"></i>
+                    </button>
+                    <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn"
+                        req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
+                        <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>
+                    </button>
+                </div>
+
             </div>
         </div>
 
@@ -180,8 +189,62 @@ $gswpts->data_table_scripts();
                             <div class="col-12 p-0">
                                 <form id="gswpts_create_table" class="ui form">
                                     <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce') ?>
-                                    <div class="field col-12 p-0 col-md-3">
-                                        
+                                    <div class="row input_fields">
+
+                                        <div class="col-12 col-md-4">
+
+                                            <div class="ui fluid search selection dropdown" id="table_type">
+                                                <input type="hidden" name="source_type">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Choose Source Type</div>
+                                                <div class="menu">
+                                                    <div class="item" data-value="spreadsheet">
+                                                        Google Spreadsheet
+                                                    </div>
+                                                    <div class="item d-flex justify-content-between align-items-center"
+                                                        data-value="csv">
+                                                        CSV File
+                                                    </div>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item"
+                                                        data-value="excel">
+                                                        <span>Excel File</span>
+                                                        <i class="fas fa-medal"></i>
+                                                    </div>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item"
+                                                        data-value="xml">
+                                                        <span>XML File</span>
+                                                        <i class="fas fa-medal"></i>
+                                                    </div>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item"
+                                                        data-value="json">
+                                                        <span>JSON File</span>
+                                                        <i class="fas fa-medal"></i>
+                                                    </div>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item"
+                                                        data-value="php_array">
+                                                        <span>PHP Array</span>
+                                                        <i class="fas fa-medal"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12 col-md-6 transition hidden file_input">
+                                            <div class="ui icon input">
+                                                <input type="text" name="file_input"
+                                                    placeholder="Enter URL or path, or click Browse to choose.">
+                                                <i class="file icon"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-2 pl-2 transition hidden browse_input">
+                                            <button id="create_button" class="positive ui button m-0">
+                                                Browse File&nbsp;
+                                                <i class="fas fa-hand-pointer"></i>
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </form>
 
@@ -204,7 +267,29 @@ $gswpts->data_table_scripts();
             </div>
         </div>
 
+        <div class="row" id="sheet_details">
+        </div>
 
+        <div class="row mt-4">
+            <div id="spreadsheet_container"
+                class="col-12 d-flex justify-content-center align-content-center p-relative p-0 position-relative">
+
+                <!-- <?php if (isset($_GET['id']) && !empty($_GET['id'])) : ?>
+
+                    <div class="ui segment gswpts_table_loader" style="z-index: -1;">
+                        <div class="ui active inverted dimmer">
+                            <div class="ui large text loader">Loading</div>
+                        </div>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+
+                    <?php endif ?> -->
+
+
+            </div>
+        </div>
 
 
     </div>

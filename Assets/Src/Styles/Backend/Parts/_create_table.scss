@@ -13,6 +13,7 @@
     }
     .gswpts_table_loader {
         min-height: 450px;
+        width: 100% !important;
     }
     #gswpts_tables_container .ui.stackable.grid {
         margin: 0;
@@ -28,6 +29,36 @@
     #manage_tables td {
         vertical-align: middle;
     }
+    .input_fields{
+       .ui.search.dropdown.selection{
+           width: 100%;
+       }
+       .ui.icon.input{
+           width: 100%;
+       }
+    }
+    #table_type{
+        z-index: 20;
+        i{
+            color: $link-hover-color;
+            margin-right: 5px;
+        }
+    }
+     #spreadsheet_container .ui.stackable.grid {
+         margin: 0;
+          .row {
+              width: 105% !important;
+          }
+
+          #create_tables_paginate>div {
+              padding-top: 0 !important;
+          }
+
+          #manage_tables th,
+          #manage_tables td {
+              vertical-align: middle;
+          }
+     }
 }
 #gswpts_tabs {
     /* colors */
@@ -164,7 +195,7 @@
         }
 
         .content {
-            margin-top: 15px;
+            margin-top: 25px;
 
             section {
                 display: none;
