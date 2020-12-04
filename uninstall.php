@@ -25,7 +25,7 @@ class Plugin_Uninstall {
     public function db_tables() {
         global $wpdb;
         $tables = [
-            $wpdb->prefix . 'gswpts_spreadsheet',
+            $wpdb->prefix . 'gswpts_tables',
         ];
         return $tables;
     }

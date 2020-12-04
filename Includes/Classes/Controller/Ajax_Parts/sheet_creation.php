@@ -22,23 +22,26 @@ class Sheet_Creation {
             wp_die();
         }
 
-        if (!$parsed_data['sheet_url'] && $parsed_data['sheet_url'] == "") {
-            self::$output['response_type'] = 'empty_field';
-            self::$output['output'] = '<b>Form field is empty. Please fill out the sheet url</b>';
-            echo json_encode(self::$output);
-            wp_die();
+        if ($parsed_data['source_type'] === 'spreadsheet') {
+
+            if (!$parsed_data['file_input'] && $parsed_data['file_input'] == "") {
+                self::$output['response_type'] = 'empty_field';
+                self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
+                echo json_encode(self::$output);
+                wp_die();
+            }
+
+            if ($_POST['type'] == 'fetch') {
+                echo json_encode(self::sheet_html($parsed_data['file_input']));
+                wp_die();
+            }
+
+            if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
+                echo json_encode(self::save_table($parsed_data, $_POST['table_name']));
+                wp_die();
+            }
         }
 
-
-        if ($_POST['type'] == 'fetch') {
-            echo json_encode(self::sheet_html($parsed_data['sheet_url']));
-            wp_die();
-        }
-
-        if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
-            echo json_encode(self::save_table($parsed_data));
-            wp_die();
-        }
 
         self::$output['response_type'] = 'invalid_request';
         self::$output['output'] = '<b>Request is invalid</b>';
@@ -70,28 +73,34 @@ class Sheet_Creation {
         return self::$output;
     }
 
-    public static function save_table(array $parsed_data) {
+    public static function save_table(array $parsed_data, $table_name) {
         global $wpdb;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
-        if (self::check_sheet_url($parsed_data['sheet_url']) == false) {
+        if (self::check_sheet_url($parsed_data['file_input']) == false) {
             self::$output['response_type'] = 'sheet_exists';
             self::$output['output'] = "<b>This SpreadSheet already exists. Try new one</b>";
             return self::$output;
         }
 
         $data = [
-            'table_name' => sanitize_text_field($parsed_data['table_name']),
-            'sheet_url' => esc_url($parsed_data['sheet_url']),
+            'table_name' => sanitize_text_field($table_name),
+            'source_url' => esc_url($parsed_data['file_input']),
+            'source_type' => sanitize_text_field($parsed_data['source_type']),
+            'table_settings' => false
         ];
+
         $db_respond = $wpdb->insert($table, $data, [
             '%s',
             '%s',
+            '%s',
+            '%d',
         ]);
+
         if (is_int($db_respond)) {
             self::$output['response_type'] = 'saved';
             self::$output['id'] = $wpdb->get_results("SELECT LAST_INSERT_ID();")[0];
-            self::$output['sheet_url'] = $parsed_data['sheet_url'];
+            self::$output['sheet_url'] = $parsed_data['file_input'];
             self::$output['output'] = '<b>Table saved successfully</b>';
         } else {
             self::$output['response_type'] = 'invalid_request';
@@ -103,12 +112,12 @@ class Sheet_Creation {
     public static function check_sheet_url(string $url) {
         global $wpdb;
         global $gswpts;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
-        $fetch_data = $wpdb->get_results($wpdb->prepare("SELECT sheet_url FROM " . $table . ""));
+        $fetch_data = $wpdb->get_results($wpdb->prepare("SELECT source_url FROM " . $table . ""));
         if (!empty($fetch_data)) {
-            foreach ($fetch_data as $sheet_url) {
-                if ($gswpts->get_sheet_id($sheet_url->sheet_url) == $gswpts->get_sheet_id($url)) {
+            foreach ($fetch_data as $data) {
+                if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
                     return false;
                 } else {
                     return true;

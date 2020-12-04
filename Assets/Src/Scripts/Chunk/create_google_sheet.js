@@ -30,12 +30,12 @@ jQuery(document).ready(function ($) {
                 this.edit_table_name(e)
             })
         }
-        edit_table_name(e){
+        edit_table_name(e) {
             $(e.currentTarget).siblings('input').select();
         }
-        
+
         show_fetch_btn(e) {
-            if($(e.currentTarget).find('input[name=source_type]').val()){
+            if ($(e.currentTarget).find('input[name=source_type]').val()) {
                 if ($('#fetch_save_btn').hasClass('hidden')) {
                     $('#fetch_save_btn').transition('scale');
                 }
@@ -70,15 +70,19 @@ jQuery(document).ready(function ($) {
         handle_submit(e) {
 
             e.preventDefault();
+            let submit_button = $(e.currentTarget);
+            let table_name = $('#table_name').val();
+            let form_data = this.sheet_form.serialize();
+            if (this.sheet_form.find('input[name=file_input]').val() == "") {
+                this.call_alert('Warning &#9888;&#65039;', "<b>Form field is empty. Please fill out the field</b>", 'warning', 3)
+                return;
+            }
 
-            let submit_button = $(e.currentTarget).find('button');
-            let table_name = $(e.currentTarget).find('input[name=table_name]');
-            let form_data = $(e.currentTarget).serialize();
-
-            if (this.sheet_url == $(e.currentTarget).find('input[name=sheet_url]').val()) {
+            if (this.sheet_url == this.sheet_form.find('input[name=file_input]').val()) {
                 this.call_alert('Warning &#9888;&#65039;', "<b>This SpreadSheet already exists. Try new one</b>", 'warning', 3)
                 return;
             }
+
 
             $.ajax({
 
@@ -87,6 +91,7 @@ jQuery(document).ready(function ($) {
                 data: {
                     action: 'gswpts_sheet_create',
                     form_data: form_data,
+                    table_name: table_name,
                     type: submit_button.attr('req-type')
                 },
 
@@ -128,9 +133,10 @@ jQuery(document).ready(function ($) {
                     }
 
                     if (JSON.parse(res).response_type == 'success') {
-                        this.sheet_details.addClass('mt-5 p-3');
+                        this.sheet_details.addClass('mt-4 p-0');
                         this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                         this.sheet_details.transition('scale');
+                        this.sheet_container.parent().removeClass('mt-4').addClass('mt-3');
                         this.sheet_container.html(JSON.parse(res).output);
                     }
 
@@ -159,12 +165,6 @@ jQuery(document).ready(function ($) {
 
                         this.btn_changer(submit_button, 'Save Table', 'save')
 
-                        let sheet_res = JSON.parse(res.responseText);
-
-                        if (table_name.val() == "" || !table_name.val()) {
-                            table_name.val(sheet_res.sheet_data.sheet_name)
-                        }
-
                         setTimeout(() => {
 
                             this.call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
@@ -191,18 +191,17 @@ jQuery(document).ready(function ($) {
         }
 
         show_create_btn() {
-            if (!$('#create_button_container').hasClass('mt-4') || !$('#create_button').hasClass('visible')) {
-                $('#create_button_container').addClass('mt-4');
+            if (!$('#create_button').hasClass('visible')) {
                 $('#create_button').transition('scale');
             }
         }
 
         clear_fields() {
-            this.sheet_form.find('input[name=sheet_url], input[name=table_name]').val('');
+            this.sheet_form.find('input[name=file_input]').val('');
+            $('#table_name').val('');
             $('#sheet_ui_card').transition('scale');
             $('#create_tables_wrapper').transition('scale');
-            this.btn_changer(this.sheet_form.find('button'), 'Fetch Data', 'fetch');
-            this.sheet_url = '';
+            this.btn_changer(this.fetch_and_save_button, 'Fetch Data', 'fetch');
             setTimeout(() => {
                 this.sheet_details.transition('scale');
                 $('#sheet_ui_card').remove();

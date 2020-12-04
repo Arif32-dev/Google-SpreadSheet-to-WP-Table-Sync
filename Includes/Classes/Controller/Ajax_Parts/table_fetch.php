@@ -58,7 +58,9 @@ class Table_Fetch {
                                             <i class="edit icon"></i>
                                         </button>
                                     </td>
-                                    <td class="text-center">SpreadSheet</td>
+                                    <td class="text-center">
+                                        ' . self::table_type($table_data->source_type) . '
+                                    </td>
                                     <td class="d-flex justify-content-around align-items-center">
                                         <input type="hidden" class="table_copy_sortcode" value="[gswpts_table id=' . $table_data->id . ']">
                                         <span>[gswpts_table id=' . $table_data->id . ']</span>
@@ -82,5 +84,14 @@ class Table_Fetch {
         }
         self::$output['output'] = "" . $table . "";
         return self::$output;
+    }
+    public static function table_type($type) {
+        if ($type == 'spreadsheet') {
+            return 'Spreadsheet';
+        } elseif ($type == 'csv') {
+            return 'CSV';
+        } else {
+            return 'No type';
+        }
     }
 }

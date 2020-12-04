@@ -31,12 +31,13 @@ class Sheet_Fetching {
             self::$output['output'] = '<b>Request is invalid</b>';
             return self::$output;
         }
-        $sheet_url = $db_result[0]->sheet_url;
+        $source_url = $db_result[0]->source_url;
         $table_name = $db_result[0]->table_name;
-        return self::sheet_html($sheet_url, $table_name);
+        $source_type = $db_result[0]->source_type;
+        return self::sheet_html($source_url, $table_name, $source_type);
     }
 
-    public static function sheet_html($url, $table_name) {
+    public static function sheet_html($url, $table_name, $source_type) {
         global $gswpts;
 
         $sheet_response = $gswpts->get_csv_data($url);
@@ -57,8 +58,9 @@ class Sheet_Fetching {
             'total_rows' => $response['count'],
         ];
         self::$output['table_data'] = [
-            'sheet_url' => $url,
-            'table_name' => $table_name
+            'source_url' => $url,
+            'table_name' => $table_name,
+            'source_type' => $source_type
         ];
         self::$output['output'] = "" . $response['table'] . "";
         return self::$output;

@@ -65,7 +65,7 @@ class UD_Tables {
     }
     public static function update_table(array $sanitized_data) {
         global $wpdb;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $update_response = $wpdb->update(
             $table,
@@ -90,7 +90,7 @@ class UD_Tables {
     }
     public static function delete_table(array $sanitized_data) {
         global $wpdb;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $update_response = $wpdb->delete(
             $table,

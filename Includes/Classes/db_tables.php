@@ -3,22 +3,25 @@
 namespace GSWPTS\Includes\Classes;
 
 final class DB_Tables {
+    private $connection;
     private $sql;
     public function __construct() {
+        $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         global $wpdb;
         $collate = $wpdb->get_charset_collate();
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
-        $this->sql = "CREATE TABLE {$table} (
-                                  id INT(11) NOT NULL AUTO_INCREMENT,
-                                  table_name VARCHAR(255) NOT NULL,
-                                  sheet_url VARCHAR(255) NOT NULL,
-                                  UNIQUE KEY id (id)
-                                ) DEFAULT CHARSET=$collate";
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+        $table = $wpdb->prefix . 'gswpts_tables';
+        $this->sql = "CREATE TABLE " . $table . " (
+                                    `id` INT(255) NOT NULL AUTO_INCREMENT,
+                                    `table_name` VARCHAR(255) DEFAULT NULL,
+                                    `source_url` LONGTEXT,
+                                    `source_type` VARCHAR(255),
+                                    `table_settings` LONGTEXT,
+                                    PRIMARY KEY (`id`)
+                                ) ENGINE=InnoDB " . $collate . "";
         $this->create_tables();
     }
-    private function create_tables() {
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta($this->sql);
+    public function create_tables() {
+        $this->connection->query($this->sql);
     }
 }

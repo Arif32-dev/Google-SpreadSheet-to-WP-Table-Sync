@@ -4,9 +4,6 @@ jQuery(document).ready(function ($) {
     class Fetch_Sheet_Data extends Base_Class {
         constructor() {
             super();
-            this.sheet_skeleton = $('.gswpts_sheet_details_skeleton');
-            this.input_skeleton = $('.gswpts_input_skeleton');
-            this.input_form_container = $('.gswpts_form_container');
             this.events();
         }
         events() {
@@ -28,22 +25,19 @@ jQuery(document).ready(function ($) {
                 success: res => {
 
                     if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
-                        this.input_skeleton.transition('scale');
-                        this.sheet_skeleton.transition('scale');
                         this.sheet_container.html('');
                         this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
                     }
 
                     if (JSON.parse(res).response_type == 'success') {
-                        $('#create_button').removeAttr('disabled');
-                        this.input_skeleton.transition('scale');
 
-                        this.sheet_skeleton.transition('scale');
-                        this.sheet_details.addClass('mt-5 p-3');
+                        this.sheet_details.addClass('mt-4 p-0');
                         setTimeout(() => {
-                            this.input_form_container.transition('scale');
-                            this.input_form_container.find('input[name=sheet_url]').val(JSON.parse(res).table_data.sheet_url)
-                            this.input_form_container.find('input[name=table_name]').val(JSON.parse(res).table_data.table_name)
+                            $('.edit_table_name').siblings('input[name=table_name]').val(JSON.parse(res).table_data.table_name);
+                            $('.edit_table_name').parent().transition('fade up');
+                            $("#table_type").dropdown('set selected', JSON.parse(res).table_data.source_type);
+
+                            this.sheet_form.find('input[name=file_input]').val(JSON.parse(res).table_data.source_url)
                             this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                             this.sheet_details.transition('scale');
                             this.show_shortcode(this.get_slug_parameter('id'));

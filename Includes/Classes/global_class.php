@@ -178,7 +178,7 @@ class Global_Class {
 
     public function fetch_db_by_id($id) {
         global $wpdb;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . " WHERE id=%d", sanitize_text_field($id)));
         if (!empty($result)) {
@@ -189,7 +189,7 @@ class Global_Class {
     }
     public function fetch_gswpts_tables() {
         global $wpdb;
-        $table = $wpdb->prefix . 'gswpts_spreadsheet';
+        $table = $wpdb->prefix . 'gswpts_tables';
         $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . ""));
         if (!empty($result)) {
             return $result;
@@ -244,7 +244,7 @@ class Global_Class {
         $db_result = $this->fetch_db_by_id($id);
         if ($db_result) {
             $input_values = [
-                'sheet_url' => $db_result[0]->sheet_url,
+                'source_url' => $db_result[0]->source_url,
                 'table_name' => $db_result[0]->table_name
             ];
             return $input_values;
