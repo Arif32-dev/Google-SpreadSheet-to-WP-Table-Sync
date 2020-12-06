@@ -11,8 +11,8 @@ class Admin_Menus {
     }
     public function admin_menus() {
         add_menu_page(
-            'G SpreadSheet to WP Table',
-            'G SpreadSheet to WP Table',
+            'Spreadsheet to Table Sync',
+            'Spreadsheet to Table Sync',
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],

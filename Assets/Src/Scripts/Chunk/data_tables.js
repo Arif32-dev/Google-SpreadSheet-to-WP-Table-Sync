@@ -18,7 +18,8 @@ jQuery(document).ready(function ($) {
             });
 
             this.create_table.DataTable({
-                "order": []
+                "order": [],
+                responsive: true
             });
         }
     }

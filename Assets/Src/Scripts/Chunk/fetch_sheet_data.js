@@ -55,7 +55,8 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
                         $('#create_tables').DataTable({
-                            "order": []
+                            "order": [],
+                            responsive: true
                         });
 
                         setTimeout(() => {

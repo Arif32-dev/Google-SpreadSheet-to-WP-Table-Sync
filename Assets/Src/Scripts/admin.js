@@ -6,6 +6,7 @@ import './Chunk/create_google_sheet'
 import './Chunk/fetch_sheet_data'
 import './Chunk/manage_tables'
 import './Chunk/ud_tables'
+import './Chunk/table_changes'
 
 jQuery(document).ready(function () {
     $('.gswpts_loader').transition('fade');

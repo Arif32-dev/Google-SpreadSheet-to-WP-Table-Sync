@@ -29,36 +29,43 @@
     #manage_tables td {
         vertical-align: middle;
     }
-    .input_fields{
-       .ui.search.dropdown.selection{
-           width: 100%;
-       }
-       .ui.icon.input{
-           width: 100%;
-       }
+    .input_fields {
+        .ui.search.dropdown.selection {
+            width: 100%;
+        }
+        .ui.icon.input {
+            width: 100%;
+        }
     }
-    #table_type{
+    #table_type {
         z-index: 20;
-        i{
+        i {
             color: $link-hover-color;
             margin-right: 5px;
         }
     }
-     #spreadsheet_container .ui.stackable.grid {
-         margin: 0;
-          .row {
-              width: 105% !important;
-          }
+    #spreadsheet_container .ui.stackable.grid {
+        margin: 0;
+        .row {
+            width: 105% !important;
+        }
 
-          #create_tables_paginate>div {
-              padding-top: 0 !important;
-          }
+        #create_tables_paginate > div {
+            padding-top: 0 !important;
+        }
 
-          #manage_tables th,
-          #manage_tables td {
-              vertical-align: middle;
-          }
-     }
+        #manage_tables th,
+        #manage_tables td {
+            vertical-align: middle;
+        }
+        table {
+            th,
+            td {
+                max-width: 150px;
+                overflow-wrap: break-word;
+            }
+        }
+    }
 }
 #gswpts_tabs {
     /* colors */
@@ -286,6 +293,33 @@
                 section h2 {
                     display: block;
                 }
+            }
+        }
+    }
+    #display_settings {
+        .content {
+            margin-top: 5px;
+            .ui.dropdown {
+                width: 100%;
+                margin-top: 8px;
+            }
+        }
+        .ui.toggle.checkbox {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+
+            input {
+                visibility: hidden;
+            }
+            label {
+                cursor: pointer;
+            }
+            input:checked ~ .box:before,
+            input:checked ~ label:before {
+                background-color: $link-color !important;
             }
         }
     }

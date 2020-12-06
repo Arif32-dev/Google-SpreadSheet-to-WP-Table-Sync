@@ -114,13 +114,12 @@ class Sheet_Creation {
         global $gswpts;
         $table = $wpdb->prefix . 'gswpts_tables';
 
-        $fetch_data = $wpdb->get_results($wpdb->prepare("SELECT source_url FROM " . $table . ""));
+        $fetch_data = $wpdb->get_results("SELECT source_url FROM " . $table . "");
         if (!empty($fetch_data)) {
             foreach ($fetch_data as $data) {
                 if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+                    break;
                     return false;
-                } else {
-                    return true;
                 }
             }
         } else {

@@ -41,7 +41,7 @@ $gswpts->data_table_scripts();
                 </div>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
-                    <button id="create_button" class="positive ui button m-0 mr-2 transition hidden" style="padding-left: 30px;">
+                    <button id="create_button" class="positive ui button m-0 mr-2 <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
                         Create New &nbsp; <i class="plus icon"></i>
                     </button>
                     <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
@@ -62,28 +62,28 @@ $gswpts->data_table_scripts();
                     <input type="radio" id="tab3" name="tab-control">
                     <input type="radio" id="tab4" name="tab-control">
                     <ul>
-                        <li title="Data Source">
+                        <li title="Data Source" class="tables_settings" data-btn-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>" data-attr-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
                             <label for="tab1" role="button">
                                 <span><i class="fas fa-archive"></i></span>
                                 <span>Data Source</span>
                             </label>
                         </li>
 
-                        <li title="Display Settings">
+                        <li title="Display Settings" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab2" role="button">
                                 <span><i class="fas fa-cogs"></i></span>
                                 <span>Display Settings</span>
                             </label>
                         </li>
 
-                        <li title="Delivery Contents">
+                        <li title="Delivery Contents" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab3" role="button">
                                 <span><i class="fas fa-sort-numeric-up"></i></span>
                                 <span>Sort & Filter</span>
                             </label>
                         </li>
 
-                        <li title="Table Tools">
+                        <li title="Table Tools" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab4" role="button">
                                 <span><i class="fas fa-tools"></i></span>
                                 <span>Table Tools</span>
@@ -113,8 +113,9 @@ $gswpts->data_table_scripts();
                                                     <div class="item" data-value="spreadsheet">
                                                         Google Spreadsheet
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center" data-value="csv">
-                                                        CSV File
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="csv">
+                                                        <span>CSV File</span>
+                                                        <i class="fas fa-medal"></i>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="excel">
                                                         <span>Excel File</span>
@@ -158,9 +159,113 @@ $gswpts->data_table_scripts();
 
                         </section>
 
-                        <!-- <section>
-                          
-                        </section> -->
+                        <section id="display_settings">
+                            <div class="row">
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Table Title</div>
+                                                <div class="description">
+                                                    Enable this to show the table title in <i>h3</i> tag above the table
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="show_title" id="show_title">
+                                                <label for="show_title"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Default rows per page</div>
+                                                <div class="description">
+                                                    This will show rows per page in the frontend
+                                                </div>
+                                                <select class="ui dropdown" id="rows_per_page">
+                                                    <option value="1">1</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10" selected>10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                    <option value="all">All</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Show info block</div>
+                                                <div class="description">
+                                                    Show information block below the table
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="info_block" id="info_block">
+                                                <label for="info_block"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Resposive table</div>
+                                                <div class="description">
+                                                    Allow collapsing on mobile and tablet screen
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="responsive" id="responsive">
+                                                <label for="responsive"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Show X entries</div>
+                                                <div class="description">
+                                                    Show X entries per page dropdown on frontend
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="show_entries" id="show_entries">
+                                                <label for="show_entries"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="ui violet button m-0" type="button">
+                                        View Display Documention
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
                         <!-- <section>
                          
                         </section> -->

@@ -113,7 +113,6 @@ jQuery(document).ready(function ($) {
                                 Saving Table &nbsp;
                                 <div class="ui active mini inline loader"></div>
                             `
-                        this.btn_changer(submit_button, html, 'fetch')
                     }
                 },
 
@@ -160,7 +159,8 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
                         $('#create_tables').DataTable({
-                            "order": []
+                            "order": [],
+                            responsive: true
                         });
 
                         this.btn_changer(submit_button, 'Save Table', 'save')
@@ -199,6 +199,7 @@ jQuery(document).ready(function ($) {
         clear_fields() {
             this.sheet_form.find('input[name=file_input]').val('');
             $('#table_name').val('');
+            $('#table_name').attr('disabled', false);
             $('#sheet_ui_card').transition('scale');
             $('#create_tables_wrapper').transition('scale');
             this.btn_changer(this.fetch_and_save_button, 'Fetch Data', 'fetch');
