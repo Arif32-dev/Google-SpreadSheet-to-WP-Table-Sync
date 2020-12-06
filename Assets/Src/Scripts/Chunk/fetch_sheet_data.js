@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Fetch_Sheet_Data extends Base_Class {
         constructor() {
             super();
@@ -55,6 +55,26 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
                         $('#create_tables').DataTable({
+                            dom: 'lBfrtip',
+                            buttons: [{
+                                    text: 'JSON',
+                                    className: 'ui inverted yellow button',
+                                    action: function(e, dt, button, config) {
+                                        var data = dt.buttons.exportData();
+
+                                        $.fn.dataTable.fileSave(
+                                            new Blob([JSON.stringify(data)]),
+                                            'Export.json'
+                                        );
+                                    }
+                                },
+                                { extend: 'pdf', className: 'ui inverted red button' },
+                                { extend: 'csv', className: 'ui inverted green button' },
+                                { extend: 'excel', className: 'ui inverted green button' },
+                                { extend: 'print', className: 'ui inverted secondary button' },
+                                { extend: 'copy', className: 'ui inverted violet button' }
+
+                            ],
                             "order": [],
                             responsive: true
                         });

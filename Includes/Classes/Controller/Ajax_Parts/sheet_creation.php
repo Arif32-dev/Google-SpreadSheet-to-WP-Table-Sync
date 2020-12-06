@@ -110,6 +110,7 @@ class Sheet_Creation {
     }
 
     public static function check_sheet_url(string $url) {
+        $return_value = true;
         global $wpdb;
         global $gswpts;
         $table = $wpdb->prefix . 'gswpts_tables';
@@ -118,12 +119,15 @@ class Sheet_Creation {
         if (!empty($fetch_data)) {
             foreach ($fetch_data as $data) {
                 if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+                    $return_value = false;
                     break;
-                    return false;
+                } else {
+                    $return_value = true;
                 }
             }
         } else {
-            return true;
+            $return_value = true;
         }
+        return $return_value;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 global $gswpts;
 $gswpts->bootstrap_files();
-$gswpts->data_table_styles();
-$gswpts->data_table_scripts();
+$gswpts->semantic_files();
+// $gswpts->data_table_styles();
+// $gswpts->data_table_scripts();
+$gswpts->download_datatables();
 ?>
 
 
@@ -34,7 +36,7 @@ $gswpts->data_table_scripts();
 
                 <div class="ui action input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition hidden' : '' ?>">
                     <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" class="table_name" value="GSWPTS Table">
-                    <button class="ui button edit_table_name ">
+                    <button <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="ui button edit_table_name ">
                         Edit &nbsp;
                         <span><i class=" edit icon"></i></span>
                     </button>
@@ -96,6 +98,7 @@ $gswpts->data_table_scripts();
                         <div class="indicator"></div>
                     </div>
                     <div class="content">
+
                         <section>
 
                             <div class="col-12 p-0">
@@ -261,17 +264,96 @@ $gswpts->data_table_scripts();
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        View Display Documention
+                                        Display Documention <span class="ml-2"><i class="fas fa-cogs"></i></span>
                                     </button>
                                 </div>
                             </div>
                         </section>
-                        <!-- <section>
-                         
-                        </section> -->
-                        <!-- <section>
-                         
-                        </section> -->
+
+                        <section id="sort_filter">
+                            <div class="row">
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Allow Sorting</div>
+                                                <div class="description">
+                                                    Enable this feature to sort table data for frontend.
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="sorting" id="sorting">
+                                                <label for="sorting"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Search Bar</div>
+                                                <div class="description">
+                                                    Enable this feature to show a search bar in for the table. It will help user to search data in the table
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="search_table" id="search_table">
+                                                <label for="search_table"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="ui violet button m-0" type="button">
+                                        Sorting Documention <span class="ml-2"><i class="fas fa-sort-numeric-up"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="table_tools">
+
+                            <div class="row">
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Table Exporting</div>
+                                                <div class="description">
+                                                    Enable this feature in order to allow your user to download your table content as various format.
+                                                </div>
+                                                <select name="skills" multiple="" class="ui fluid dropdown mt-2" id="table_exporting">
+                                                    <option value="">Select Type</option>
+                                                    <option value="json">JSON</option>
+                                                    <option value="csv">Angular</option>
+                                                    <option value="pdf">PDF</option>
+                                                    <option value="excel">Excel</option>
+                                                    <option value="print">Print</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="ui violet button m-0" type="button">
+                                        Table Tools Doc<span class="ml-2"><i class="fas fa-tools"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </section>
                     </div>
                 </div>
 

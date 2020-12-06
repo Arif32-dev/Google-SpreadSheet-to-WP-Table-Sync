@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Data_Tables {
         constructor() {
             this.mange_tables = $('#manage_tables');
@@ -15,11 +15,6 @@ jQuery(document).ready(function ($) {
                     "orderable": false,
                 }],
                 "order": []
-            });
-
-            this.create_table.DataTable({
-                "order": [],
-                responsive: true
             });
         }
     }

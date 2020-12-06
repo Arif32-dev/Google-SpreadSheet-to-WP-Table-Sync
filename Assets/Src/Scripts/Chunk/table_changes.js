@@ -25,6 +25,7 @@ jQuery(document).ready(function ($) {
 
         add_select_box_style(){
             $('#rows_per_page').dropdown();
+            $('#table_exporting').dropdown();
         }
      
     }

@@ -113,6 +113,8 @@ jQuery(document).ready(function ($) {
                                 Saving Table &nbsp;
                                 <div class="ui active mini inline loader"></div>
                             `
+                        this.btn_changer(submit_button, html, 'save')
+
                     }
                 },
 
@@ -198,6 +200,7 @@ jQuery(document).ready(function ($) {
 
         clear_fields() {
             this.sheet_form.find('input[name=file_input]').val('');
+            $('.edit_table_name').attr('disabled', false);
             $('#table_name').val('');
             $('#table_name').attr('disabled', false);
             $('#sheet_ui_card').transition('scale');

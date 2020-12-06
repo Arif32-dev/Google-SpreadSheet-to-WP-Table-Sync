@@ -21,10 +21,9 @@
             width: 105% !important;
         }
     }
-    #manage_tables_paginate > div {
+    #manage_tables_paginate>div {
         padding-top: 0 !important;
     }
-
     #manage_tables th,
     #manage_tables td {
         vertical-align: middle;
@@ -49,11 +48,6 @@
         .row {
             width: 105% !important;
         }
-
-        #create_tables_paginate > div {
-            padding-top: 0 !important;
-        }
-
         #manage_tables th,
         #manage_tables td {
             vertical-align: middle;
@@ -61,60 +55,51 @@
         table {
             th,
             td {
-                max-width: 150px;
+                max-width: 180px;
                 overflow-wrap: break-word;
             }
         }
     }
+    #spreadsheet_container {
+        #create_tables_paginate>div {
+            padding-top: 0 !important;
+        }
+    }
 }
+
 #gswpts_tabs {
     /* colors */
     $blue: $link-color;
     $red: #ff4a53;
     $dark: #333;
-
     $accent: $blue;
     $accent-inactive: desaturate($accent, 85%);
     $secondary: $accent-inactive;
-
     /* tab setting */
     $tab-count: 4;
     $indicator-width: 50px;
     $indicator-height: 4px;
-
     /* breakpoints */
-    $breakpoints: (
-        medium: #{$tab-count * 250px},
-        small: #{$tab-count * 150px},
-    );
-
+    $breakpoints: ( medium: #{$tab-count * 250px}, small: #{$tab-count * 150px}, );
     /* selectors relative to radio inputs */
     $label-selector: "~ ul > li";
     $slider-selector: "~ .slider";
     $content-selector: "~ .content > section";
-
-    @mixin tabs(
-        $label-selector: $label-selector,
-        $slider-selector: $slider-selector,
-        $content-selector: $content-selector
-    ) {
+    @mixin tabs( $label-selector: $label-selector, $slider-selector: $slider-selector, $content-selector: $content-selector) {
         @for $i from 1 through $tab-count {
             &:nth-of-type(#{$i}):checked {
                 #{$label-selector}:nth-child(#{$i}) {
                     @content;
                 }
-
                 #{$slider-selector} {
                     transform: translateX(#{100% * ($i - 1)});
                 }
-
                 #{$content-selector}:nth-child(#{$i}) {
                     display: block;
                 }
             }
         }
     }
-
     .tabs {
         padding: 20px;
         width: 100%;
@@ -124,14 +109,12 @@
         input[name="tab-control"] {
             display: none;
         }
-
         .content section h2,
         ul li label {
             font-weight: bold;
             font-size: 18px;
             color: $accent;
         }
-
         ul {
             list-style-type: none;
             padding-left: 0;
@@ -141,14 +124,12 @@
             justify-content: space-between;
             align-items: flex-end;
             flex-wrap: wrap;
-
             li {
                 box-sizing: border-box;
                 flex: 1;
                 width: #{100% / $tab-count};
                 padding: 0 10px;
                 text-align: center;
-
                 label {
                     transition: all 0.3s ease-in-out;
                     color: $secondary;
@@ -160,11 +141,9 @@
                     transition: all 0.2s ease-in-out;
                     white-space: nowrap;
                     -webkit-touch-callout: none;
-
                     br {
                         display: none;
                     }
-
                     svg {
                         fill: $secondary;
                         height: 1.2em;
@@ -172,7 +151,6 @@
                         margin-right: 0.2em;
                         transition: all 0.2s ease-in-out;
                     }
-
                     &:hover,
                     &:focus,
                     &:active {
@@ -185,7 +163,6 @@
                 }
             }
         }
-
         .slider {
             position: relative;
             width: #{100% / $tab-count};
@@ -200,10 +177,8 @@
                 border-radius: 1px;
             }
         }
-
         .content {
             margin-top: 25px;
-
             section {
                 display: none;
                 animation: {
@@ -214,7 +189,6 @@
                     iteration-count: 1;
                 }
                 line-height: 1.4;
-
                 h2 {
                     color: $accent;
                     display: none;
@@ -231,24 +205,20 @@
                 }
             }
         }
-
         input[name="tab-control"] {
             @include tabs {
-                > label {
+                >label {
                     cursor: default;
                     color: $accent;
-
                     svg {
                         fill: $accent;
                     }
-
                     @media (max-width: map-get($breakpoints, small)) {
                         background: rgba(0, 0, 0, 0.08);
                     }
                 }
             }
         }
-
         @keyframes content {
             from {
                 opacity: 0;
@@ -259,35 +229,28 @@
                 transform: translateY(0%);
             }
         }
-
         @media (max-width: map-get($breakpoints, medium)) {
             ul li label {
                 white-space: initial;
-
                 br {
                     display: initial;
                 }
-
                 svg {
                     height: 1.5em;
                 }
             }
         }
-
         @media (max-width: map-get($breakpoints, small)) {
             ul li label {
                 padding: 5px;
                 border-radius: 5px;
-
                 span {
                     display: none;
                 }
             }
-
             .slider {
                 display: none;
             }
-
             .content {
                 margin-top: 20px;
                 section h2 {
@@ -296,12 +259,18 @@
             }
         }
     }
-    #display_settings {
+    #display_settings,
+    #sort_filter,
+    #table_tools {
         .content {
             margin-top: 5px;
             .ui.dropdown {
                 width: 100%;
                 margin-top: 8px;
+                .ui.label {
+                    background-color: $link-hover-color;
+                    color: #fff;
+                }
             }
         }
         .ui.toggle.checkbox {
@@ -310,15 +279,14 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 8px;
-
             input {
                 visibility: hidden;
             }
             label {
                 cursor: pointer;
             }
-            input:checked ~ .box:before,
-            input:checked ~ label:before {
+            input:checked~.box:before,
+            input:checked~label:before {
                 background-color: $link-color !important;
             }
         }
