@@ -64,6 +64,30 @@
         #create_tables_paginate>div {
             padding-top: 0 !important;
         }
+        .dt-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 5px;
+            button {
+                font-size: 13px;
+                margin: 0 5px;
+            }
+        }
+        #filtering_input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0 5px 0;
+        }
+        #botton_options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            .dataTables_info {
+                padding-top: 0 !important;
+            }
+        }
     }
 }
 

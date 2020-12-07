@@ -1,11 +1,12 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Table_Changes extends Base_Class {
 
         constructor() {
             super();
             this.table_settings = $('.tables_settings');
+            this.settings = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #sorting, #search_table, #table_exporting')
             this.events();
         }
 
@@ -14,20 +15,23 @@ jQuery(document).ready(function ($) {
                 this.change_btn_text(e);
             })
             this.add_select_box_style()
+            this.settings.on('change', (e) => {
+                alert('hello');
+            })
         }
 
-        change_btn_text(e){
+        change_btn_text(e) {
             let btn_text_value = $(e.currentTarget).attr('data-btn-text');
             let btn_attr_value = $(e.currentTarget).attr('data-attr-text');
             $('#fetch_save_btn').html(btn_text_value);
             $('#fetch_save_btn').attr('req-type', btn_attr_value);
         }
 
-        add_select_box_style(){
+        add_select_box_style() {
             $('#rows_per_page').dropdown();
             $('#table_exporting').dropdown();
         }
-     
+
     }
     new Table_Changes;
 })

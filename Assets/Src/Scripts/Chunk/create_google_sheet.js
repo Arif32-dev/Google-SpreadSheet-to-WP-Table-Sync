@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Google_Sheets_Creation extends Base_Class {
 
         constructor() {
@@ -160,9 +160,60 @@ jQuery(document).ready(function ($) {
                 complete: (res) => {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
+                        let table_name = $('#table_name').val();
                         $('#create_tables').DataTable({
+                            dom: 'B<"#filtering_input"lf>rt<"#botton_options"ip>',
+                            buttons: [{
+                                    text: 'JSON { }',
+                                    className: 'ui inverted yellow button',
+                                    action: function(e, dt, button, config) {
+                                        var data = dt.buttons.exportData();
+
+                                        $.fn.dataTable.fileSave(
+                                            new Blob([JSON.stringify(data)]),
+                                            `${table_name}.json`
+                                        );
+                                    }
+                                },
+                                {
+                                    text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
+                                    extend: 'pdf',
+                                    className: 'ui inverted red button',
+                                    title: `${table_name}`
+                                },
+                                {
+                                    text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
+                                    extend: 'csv',
+                                    className: 'ui inverted green button',
+                                    title: `${table_name}`
+                                },
+                                {
+                                    text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
+                                    extend: 'excel',
+                                    className: 'ui inverted green button',
+                                    title: `${table_name}`
+                                },
+                                {
+                                    text: 'Print &nbsp; <i class="fas fa-print"></i>',
+                                    extend: 'print',
+                                    className: 'ui inverted secondary button',
+                                    title: `${table_name}`
+                                },
+                                {
+                                    text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
+                                    extend: 'copy',
+                                    className: 'ui inverted violet button',
+                                    title: `${table_name}`
+                                }
+
+                            ],
                             "order": [],
-                            responsive: true
+                            "responsive": true,
+                            "lengthMenu": [
+                                [1, 5, 10, 15, 25, 50, 100, -1],
+                                [1, 5, 10, 15, 25, 50, 100, "All"]
+                            ],
+                            "pageLength": 10,
                         });
 
                         this.btn_changer(submit_button, 'Save Table', 'save')
@@ -203,6 +254,7 @@ jQuery(document).ready(function ($) {
             $('.edit_table_name').attr('disabled', false);
             $('#table_name').val('');
             $('#table_name').attr('disabled', false);
+            $('#tab1').prop('checked', true)
             $('#sheet_ui_card').transition('scale');
             $('#create_tables_wrapper').transition('scale');
             this.btn_changer(this.fetch_and_save_button, 'Fetch Data', 'fetch');
@@ -212,11 +264,14 @@ jQuery(document).ready(function ($) {
                 $('#create_tables_wrapper').remove();
             }, 300);
         }
+
         push_parameter(id) {
             const url = new URL(window.location);
             url.searchParams.set('id', id);
             window.history.pushState({}, '', url);
         }
+
+
     }
     new Google_Sheets_Creation;
 })

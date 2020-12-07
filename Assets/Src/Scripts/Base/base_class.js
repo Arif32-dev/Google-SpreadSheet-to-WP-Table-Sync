@@ -100,4 +100,18 @@ export default class Base_Class {
     export_to_pdf(e, target) {
         target.tableHTMLExport({ type: 'pdf', filename: 'sample.pdf' });
     }
+
+    table_settings() {
+        let settings = {
+            table_title: $('#show_title').prop('checked'),
+            defaultRowsPerPage: $('#rows_per_page').val(),
+            showInfoBlock: $('#info_block').prop('checked'),
+            responsiveTable: $('#responsive').prop('checked'),
+            showXEntries: $('#show_entries').prop('checked'),
+            allowSorting: $('#sorting').prop('checked'),
+            searchBar: $('#search_table').prop('checked'),
+            tableExport: $('#table_exporting').val(),
+        }
+        return settings;
+    }
 }

@@ -35,7 +35,7 @@ $gswpts->download_datatables();
             <div class="col-12 p-0 d-flex align-items-center">
 
                 <div class="ui action input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition hidden' : '' ?>">
-                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" class="table_name" value="GSWPTS Table">
+                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="ui button edit_table_name ">
                         Edit &nbsp;
                         <span><i class=" edit icon"></i></span>
@@ -213,7 +213,9 @@ $gswpts->download_datatables();
                                             <div class="content">
                                                 <div class="header">Show info block</div>
                                                 <div class="description">
-                                                    Show information block below the table
+                                                    Show <i>Showing 1 to 10 of 15 entries
+                                                    </i>
+                                                    block below the table
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
@@ -247,7 +249,7 @@ $gswpts->download_datatables();
                                             <div class="content">
                                                 <div class="header">Show X entries</div>
                                                 <div class="description">
-                                                    Show X entries per page dropdown on frontend
+                                                    <i>Show X entries</i> per page dropdown
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
@@ -333,10 +335,11 @@ $gswpts->download_datatables();
                                                 <select name="skills" multiple="" class="ui fluid dropdown mt-2" id="table_exporting">
                                                     <option value="">Select Type</option>
                                                     <option value="json">JSON</option>
-                                                    <option value="csv">Angular</option>
                                                     <option value="pdf">PDF</option>
+                                                    <option value="csv">CSV</option>
                                                     <option value="excel">Excel</option>
                                                     <option value="print">Print</option>
+                                                    <option value="copy">Copy</option>
                                                 </select>
                                             </div>
                                         </div>
