@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Manage_Tables extends Base_Class {
         constructor() {
             super();
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
                     if (JSON.parse(res.responseText).response_type == 'success') {
                         $('#manage_tables').DataTable({
                             "columnDefs": [{
-                                "targets": [0, 5],
+                                "targets": [0, 5, 6],
                                 "orderable": false,
                             }],
                             "order": []
@@ -90,8 +90,7 @@ jQuery(document).ready(function ($) {
             }
             if ($(e.currentTarget).attr('data-show') == 'true') {
                 $('#delete_button').transition('scale');
-                setTimeout(() => {
-                }, 300);
+                setTimeout(() => {}, 300);
                 this.uncheck_all_checkbox();
                 this.checkbox_switcher = false
             }

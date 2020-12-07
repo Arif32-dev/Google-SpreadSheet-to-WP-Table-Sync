@@ -285,7 +285,7 @@ $gswpts->download_datatables();
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="sorting" id="sorting">
+                                                <input type="checkbox" checked name="sorting" id="sorting">
                                                 <label for="sorting"></label>
                                             </div>
                                         </div>
@@ -302,7 +302,7 @@ $gswpts->download_datatables();
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="search_table" id="search_table">
+                                                <input type="checkbox" checked name="search_table" id="search_table">
                                                 <label for="search_table"></label>
                                             </div>
                                         </div>
