@@ -4,9 +4,9 @@ jQuery(document).ready(function ($) {
     class Table_Changes extends Base_Class {
 
         constructor() {
-            super();
+            super($);
             this.table_settings = $('.tables_settings');
-            this.settings = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #sorting, #search_table, #table_exporting')
+            this.settings = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table, #table_exporting')
             this.events();
         }
 
@@ -35,6 +35,8 @@ jQuery(document).ready(function ($) {
 
         update_table_by_changes(e) {
 
+            let table_name = $('.edit_table_name').siblings('input[name=table_name]').val();
+
             if ($(e.currentTarget).attr('id') == 'table_exporting') {
                 let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
 
@@ -49,127 +51,104 @@ jQuery(document).ready(function ($) {
 
             if ($(e.currentTarget).attr('id') == 'sorting') {
 
+                let table_settings = this.table_settings_obj();
+                table_settings.tableExport.forEach(btn => {
+                    setTimeout(() => {
+                        this.export_button_revealer_by_other_input(btn)
+                    }, 200);
+                });
+
                 if ($(e.currentTarget).prop('checked') == false) {
                     $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable({
-                        dom: 'B<"#filtering_input"lf>rt<"#botton_options"ip>',
-                        buttons: [{
-                            text: 'JSON { }',
-                            className: 'ui inverted yellow button transition hidden json_btn',
-                            action: function (e, dt, button, config) {
-                                var data = dt.buttons.exportData();
-
-                                $.fn.dataTable.fileSave(
-                                    new Blob([JSON.stringify(data)]),
-                                    `${$('.edit_table_name').siblings('input[name=table_name]').val()}.json`
-                                );
-                            }
-                        },
-                        {
-                            text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
-                            extend: 'pdf',
-                            className: 'ui inverted red button transition hidden pdf_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
-                            extend: 'csv',
-                            className: 'ui inverted green button transition hidden csv_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
-                            extend: 'excel',
-                            className: 'ui inverted green button transition hidden excel_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Print &nbsp; <i class="fas fa-print"></i>',
-                            extend: 'print',
-                            className: 'ui inverted secondary button transition hidden print_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
-                            extend: 'copy',
-                            className: 'ui inverted violet button transition hidden copy_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        }
-
-                        ],
-                        "order": [],
-                        "responsive": true,
-                        "lengthMenu": [
-                            [1, 5, 10, 15, 25, 50, 100, -1],
-                            [1, 5, 10, 15, 25, 50, 100, "All"]
-                        ],
-                        "pageLength": 10,
-                        "ordering": false
-                    });
+                    $('#create_tables').DataTable(this.table_object(table_name, table_settings.defaultRowsPerPage, false));
                 } else {
                     $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable({
-                        dom: 'B<"#filtering_input"lf>rt<"#botton_options"ip>',
-                        buttons: [{
-                            text: 'JSON { }',
-                            className: 'ui inverted yellow button transition hidden json_btn',
-                            action: function (e, dt, button, config) {
-                                var data = dt.buttons.exportData();
+                    $('#create_tables').DataTable(this.table_object(table_name, table_settings.defaultRowsPerPage, true));
+                }
+            }
 
-                                $.fn.dataTable.fileSave(
-                                    new Blob([JSON.stringify(data)]),
-                                    `${$('.edit_table_name').siblings('input[name=table_name]').val()}.json`
-                                );
-                            }
-                        },
-                        {
-                            text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
-                            extend: 'pdf',
-                            className: 'ui inverted red button transition hidden pdf_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
-                            extend: 'csv',
-                            className: 'ui inverted green button transition hidden csv_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
-                            extend: 'excel',
-                            className: 'ui inverted green button transition hidden excel_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Print &nbsp; <i class="fas fa-print"></i>',
-                            extend: 'print',
-                            className: 'ui inverted secondary button transition hidden print_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        },
-                        {
-                            text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
-                            extend: 'copy',
-                            className: 'ui inverted violet button transition hidden copy_btn',
-                            title: `${$('.edit_table_name').siblings('input[name=table_name]').val()}`
-                        }
+            if ($(e.currentTarget).attr('id') == 'show_entries') {
+                $('#create_tables_length').transition('scale');
+            }
 
-                        ],
-                        "order": [],
-                        "responsive": true,
-                        "lengthMenu": [
-                            [1, 5, 10, 15, 25, 50, 100, -1],
-                            [1, 5, 10, 15, 25, 50, 100, "All"]
-                        ],
-                        "pageLength": 10,
-                        "ordering": true
+            if ($(e.currentTarget).attr('id') == 'info_block') {
+                $('#create_tables_info').transition('scale');
+            }
+
+            /* Swaping Filter Inputs */
+            if ($(e.currentTarget).attr('id') == 'swap_filter_inputs') {
+
+                if ($(e.currentTarget).prop('checked')) {
+                    $('#filtering_input').css('flex-direction', 'row-reverse');
+                    $('#create_tables_length').css({
+                        'margin-right': '0',
+                        'margin-left': 'auto'
+                    });
+                    $('#create_tables_filter').css({
+                        'margin-left': '0',
+                        'margin-right': 'auto',
+                    });
+                } else {
+                    $('#filtering_input').css('flex-direction', 'row');
+                    $('#create_tables_length').css({
+                        'margin-right': 'auto',
+                        'margin-left': '0'
+                    });
+                    $('#create_tables_filter').css({
+                        'margin-left': 'auto',
+                        'margin-right': '0',
                     });
                 }
             }
 
+            /* Swaping bottom elemts */
 
+            if ($(e.currentTarget).attr('id') == 'swap_bottom_options') {
+
+                if ($(e.currentTarget).prop('checked')) {
+                    $('#bottom_options').css('flex-direction', 'row-reverse');
+                    $('#create_tables_info').css({
+                        'margin-right': '0',
+                        'margin-left': 'auto'
+                    });
+                    $('#create_tables_paginate').css({
+                        'margin-left': '0',
+                        'margin-right': 'auto',
+                    });
+                } else {
+                    $('#bottom_options').css('flex-direction', 'row');
+                    $('#create_tables_info').css({
+                        'margin-right': 'auto',
+                        'margin-left': '0'
+                    });
+                    $('#create_tables_paginate').css({
+                        'margin-left': 'auto',
+                        'margin-right': '0',
+                    });
+                }
+            }
+
+            if ($(e.currentTarget).attr('id') == 'rows_per_page') {
+
+                let table_settings = this.table_settings_obj()
+                table_settings.tableExport.forEach(btn => {
+                    setTimeout(() => {
+                        this.export_button_revealer_by_other_input(btn)
+                    }, 200);
+                });
+
+                if ($(e.currentTarget).val() == 'all') {
+                    $('#create_tables').DataTable().destroy();
+                    $('#create_tables').DataTable(this.table_object(table_name, -1, table_settings.allowSorting));
+                } else {
+                    $('#create_tables').DataTable().destroy();
+                    $('#create_tables').DataTable(this.table_object(table_name, $(e.currentTarget).val(), table_settings.allowSorting));
+                }
+            }
         }
 
         button_reavealer(e, target) {
+
             if ($(e.currentTarget).val().includes(target)) {
                 if ($('.' + target + '_btn').hasClass('hidden')) {
                     $('.' + target + '_btn').transition('scale');
@@ -181,6 +160,39 @@ jQuery(document).ready(function ($) {
                     return;
                 }
             }
+        }
+
+        export_button_revealer_by_other_input(btn) {
+            if ($('.' + btn + '_btn').hasClass('hidden')) {
+                $('.' + btn + '_btn').transition('scale');
+            }
+        }
+
+        set_default() {
+            let default_settings = this.default_settings();
+            $.each(this.settings, function (index, value) {
+                if ($(value).attr('id') == 'show_title') {
+                    $(value).prop('checked', default_settings.table_title);
+                }
+                if ($(value).attr('id') == 'responsive') {
+                    $(value).prop('checked', default_settings.responsiveTable);
+                }
+                if ($(value).attr('id') == 'search_table') {
+                    $(value).prop('checked', default_settings.searchBar);
+                }
+                if ($(value).attr('id') == 'show_entries') {
+                    $(value).prop('checked', default_settings.showXEntries);
+                }
+                if ($(value).attr('id') == 'info_block') {
+                    $(value).prop('checked', default_settings.showInfoBlock);
+                }
+                if ($(value).attr('id') == 'swap_filter_inputs') {
+                    $(value).prop('checked', default_settings.swapFilterInputs);
+                }
+                if ($(value).attr('id') == 'swap_bottom_options') {
+                    $(value).prop('checked', default_settings.swapBottomOptions);
+                }
+            });
         }
 
     }

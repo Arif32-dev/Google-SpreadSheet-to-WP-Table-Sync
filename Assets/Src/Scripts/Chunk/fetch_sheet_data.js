@@ -3,7 +3,7 @@ import Base_Class from './../Base/base_class';
 jQuery(document).ready(function ($) {
     class Fetch_Sheet_Data extends Base_Class {
         constructor() {
-            super();
+            super($);
             this.events();
         }
         events() {
@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
                         $('#create_tables').DataTable({
-                            dom: 'B<"#filtering_input"lf>rt<"#botton_options"ip>',
+                            dom: 'B<"#filtering_input"lf>rt<"#bottom_options"ip>',
                             buttons: [{
                                 text: 'JSON { }',
                                 className: 'ui inverted yellow button transition hidden json_btn',

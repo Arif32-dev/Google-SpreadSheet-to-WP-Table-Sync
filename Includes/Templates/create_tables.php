@@ -37,7 +37,7 @@ $gswpts->download_datatables();
                 <div class="ui action input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition hidden' : '' ?>">
                     <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="ui button edit_table_name ">
-                        Edit &nbsp;
+                        Edit Title &nbsp;
                         <span><i class=" edit icon"></i></span>
                     </button>
                 </div>
@@ -213,13 +213,13 @@ $gswpts->download_datatables();
                                             <div class="content">
                                                 <div class="header">Show info block</div>
                                                 <div class="description">
-                                                    Show <i>Showing 1 to 10 of 15 entries
+                                                    Show <i>Showing X to Y of Z entries
                                                     </i>
                                                     block below the table
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="info_block" id="info_block">
+                                                <input type="checkbox" checked name="info_block" id="info_block">
                                                 <label for="info_block"></label>
                                             </div>
                                         </div>
@@ -253,13 +253,48 @@ $gswpts->download_datatables();
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="show_entries" id="show_entries">
+                                                <input type="checkbox" checked name="show_entries" id="show_entries">
                                                 <label for="show_entries"></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Swap Filters</div>
+                                                <div class="description">
+                                                    Swap the places of <i> X entries</i> dropdown & search filter input
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="swap_filter_inputs" id="swap_filter_inputs">
+                                                <label for="swap_filter_inputs"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 mt-3 mb-3">
+                                    <div class="ui cards">
+                                        <div class="card">
+                                            <div class="content">
+                                                <div class="header">Swap Bottom Elements</div>
+                                                <div class="description">
+                                                    Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter
+                                                </div>
+                                            </div>
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" name="swap_bottom_options" id="swap_bottom_options">
+                                                <label for="swap_bottom_options"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 

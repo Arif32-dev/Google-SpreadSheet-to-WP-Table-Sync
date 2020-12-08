@@ -48,19 +48,25 @@
         .row {
             width: 105% !important;
         }
-        #manage_tables th,
-        #manage_tables td {
+        #create_tables th,
+        #create_tables td {
             vertical-align: middle;
-        }
-        table {
-            th,
-            td {
-                max-width: 180px;
-                overflow-wrap: break-word;
-            }
         }
     }
     #spreadsheet_container {
+        #create_tables_wrapper{
+            width: 100% !important;
+        }
+         table {
+            th,
+            td {
+                max-width: 150px;
+                overflow-wrap: break-word;
+            }
+            th:focus{
+                outline: none;
+            }
+        }
         #create_tables_paginate>div {
             padding-top: 0 !important;
         }
@@ -78,14 +84,24 @@
             justify-content: space-between;
             align-items: center;
             margin: 15px 0 5px 0;
+            #create_tables_length{
+                margin-right: auto;
+            }
+            #create_tables_filter{
+                margin-left: auto;
+            }
         }
-        #botton_options {
+        #bottom_options {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
             .dataTables_info {
                 padding-top: 0 !important;
+                margin-right: auto;
+            }
+            #create_tables_paginate{
+                margin-left: auto;
             }
         }
     }

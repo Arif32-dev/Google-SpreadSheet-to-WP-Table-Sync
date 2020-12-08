@@ -1,9 +1,9 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     class Manage_Tables extends Base_Class {
         constructor() {
-            super();
+            super($);
             this.table_container = $('#gswpts_tables_container');
             this.checkbox_switcher = false;
             this.events();
@@ -90,7 +90,7 @@ jQuery(document).ready(function($) {
             }
             if ($(e.currentTarget).attr('data-show') == 'true') {
                 $('#delete_button').transition('scale');
-                setTimeout(() => {}, 300);
+                setTimeout(() => { }, 300);
                 this.uncheck_all_checkbox();
                 this.checkbox_switcher = false
             }

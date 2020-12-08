@@ -3,7 +3,7 @@ import Base_Class from '../Base/base_class';
 jQuery(document).ready(function ($) {
     class UD_tables extends Base_Class {
         constructor() {
-            super();
+            super($);
             this.updateCheck = false;
             this.deleteBtn = $('#delete_button');
             this.events();

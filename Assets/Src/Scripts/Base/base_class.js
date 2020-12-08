@@ -1,5 +1,5 @@
 export default class Base_Class {
-    constructor() {
+    constructor($) {
         this.sheet_form = $('#gswpts_create_table');
         this.sheet_details = $('#sheet_details');
         this.sheet_container = $('#spreadsheet_container');
@@ -101,17 +101,94 @@ export default class Base_Class {
         target.tableHTMLExport({ type: 'pdf', filename: 'sample.pdf' });
     }
 
-    table_settings() {
+    table_settings_obj() {
         let settings = {
             table_title: $('#show_title').prop('checked'),
-            defaultRowsPerPage: $('#rows_per_page').val(),
+            defaultRowsPerPage: $('#rows_per_page').val() == 'all' ? -1 : $('#rows_per_page').val(),
             showInfoBlock: $('#info_block').prop('checked'),
             responsiveTable: $('#responsive').prop('checked'),
             showXEntries: $('#show_entries').prop('checked'),
+            swapFilterInputs: $('#swap_filter_inputs').prop('checked'),
+            swapBottomOptions: $('#swap_bottom_options').prop('checked'),
             allowSorting: $('#sorting').prop('checked'),
             searchBar: $('#search_table').prop('checked'),
-            tableExport: $('#table_exporting').val(),
+            tableExport: $('#table_exporting').val()
         }
         return settings;
+    }
+
+    default_settings() {
+        let default_settings = {
+            table_title: false,
+            defaultRowsPerPage: 10,
+            showInfoBlock: true,
+            responsiveTable: false,
+            showXEntries: true,
+            swapFilterInputs: false,
+            swapBottomOptions: false,
+            allowSorting: true,
+            searchBar: true,
+            tableExport: null
+        }
+        return default_settings;
+    }
+
+    table_object(table_name, pageLength, ordering) {
+        let obj = {
+            dom: 'B<"#filtering_input"lf>rt<"#bottom_options"ip>',
+            buttons: [{
+                text: 'JSON { }',
+                className: 'ui inverted yellow button transition hidden json_btn',
+                action: function (e, dt, button, config) {
+                    var data = dt.buttons.exportData();
+
+                    $.fn.dataTable.fileSave(
+                        new Blob([JSON.stringify(data)]),
+                        `${table_name}.json`
+                    );
+                }
+            },
+            {
+                text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
+                extend: 'pdf',
+                className: 'ui inverted red button transition hidden pdf_btn',
+                title: `${table_name}`
+            },
+            {
+                text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
+                extend: 'csv',
+                className: 'ui inverted green button transition hidden csv_btn',
+                title: `${table_name}`
+            },
+            {
+                text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
+                extend: 'excel',
+                className: 'ui inverted green button transition hidden excel_btn',
+                title: `${table_name}`
+            },
+            {
+                text: 'Print &nbsp; <i class="fas fa-print"></i>',
+                extend: 'print',
+                className: 'ui inverted secondary button transition hidden print_btn',
+                title: `${table_name}`
+            },
+            {
+                text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
+                extend: 'copy',
+                className: 'ui inverted violet button transition hidden copy_btn',
+                title: `${table_name}`
+            }
+
+            ],
+            "order": [],
+            "responsive": true,
+            "lengthMenu": [
+                [1, 5, 10, 15, 25, 50, 100, -1],
+                [1, 5, 10, 15, 25, 50, 100, "All"]
+            ],
+            "pageLength": pageLength,
+            "ordering": ordering
+        }
+        return obj;
     }
 }
