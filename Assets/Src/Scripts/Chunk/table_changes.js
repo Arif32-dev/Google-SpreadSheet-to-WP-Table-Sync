@@ -36,43 +36,18 @@ jQuery(document).ready(function ($) {
         update_table_by_changes(e) {
 
             let table_name = $('.edit_table_name').siblings('input[name=table_name]').val();
+            let table_settings = this.table_settings_obj();
 
             if ($(e.currentTarget).attr('id') == 'table_exporting') {
                 let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
-
                 export_btn.forEach(btn => {
                     this.button_reavealer(e, btn)
                 });
             }
 
-            if ($(e.currentTarget).attr('id') == 'search_table') {
-                $('#create_tables_filter').transition('scale');
-            }
-
-            if ($(e.currentTarget).attr('id') == 'sorting') {
-
-                let table_settings = this.table_settings_obj();
-                table_settings.tableExport.forEach(btn => {
-                    setTimeout(() => {
-                        this.export_button_revealer_by_other_input(btn)
-                    }, 200);
-                });
-
-                if ($(e.currentTarget).prop('checked') == false) {
-                    $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable(this.table_object(table_name, table_settings.defaultRowsPerPage, false));
-                } else {
-                    $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable(this.table_object(table_name, table_settings.defaultRowsPerPage, true));
-                }
-            }
-
-            if ($(e.currentTarget).attr('id') == 'show_entries') {
-                $('#create_tables_length').transition('scale');
-            }
-
-            if ($(e.currentTarget).attr('id') == 'info_block') {
-                $('#create_tables_info').transition('scale');
+            if ($(e.currentTarget).attr('id') == 'search_table' || 'sorting' || 'show_entries' || 'info_block') {
+                let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
+                this.table_changer(table_name, table_settings, dom)
             }
 
             /* Swaping Filter Inputs */
@@ -128,23 +103,19 @@ jQuery(document).ready(function ($) {
                 }
             }
 
-            if ($(e.currentTarget).attr('id') == 'rows_per_page') {
+        }
+        table_changer(table_name, table_settings, dom) {
+            this.export_buttons_row_revealer(table_settings);
 
-                let table_settings = this.table_settings_obj()
-                table_settings.tableExport.forEach(btn => {
-                    setTimeout(() => {
-                        this.export_button_revealer_by_other_input(btn)
-                    }, 200);
-                });
-
-                if ($(e.currentTarget).val() == 'all') {
-                    $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable(this.table_object(table_name, -1, table_settings.allowSorting));
-                } else {
-                    $('#create_tables').DataTable().destroy();
-                    $('#create_tables').DataTable(this.table_object(table_name, $(e.currentTarget).val(), table_settings.allowSorting));
-                }
-            }
+            $('#create_tables').DataTable().destroy();
+            $('#create_tables').DataTable(
+                this.table_object(
+                    table_name,
+                    table_settings.defaultRowsPerPage,
+                    table_settings.allowSorting,
+                    dom
+                )
+            );
         }
 
         button_reavealer(e, target) {
@@ -160,6 +131,14 @@ jQuery(document).ready(function ($) {
                     return;
                 }
             }
+        }
+
+        export_buttons_row_revealer(table_settings) {
+            table_settings.tableExport.forEach(btn => {
+                setTimeout(() => {
+                    this.export_button_revealer_by_other_input(btn)
+                }, 300);
+            });
         }
 
         export_button_revealer_by_other_input(btn) {

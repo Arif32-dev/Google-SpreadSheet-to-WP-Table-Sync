@@ -133,9 +133,9 @@ export default class Base_Class {
         return default_settings;
     }
 
-    table_object(table_name, pageLength, ordering) {
+    table_object(table_name, pageLength, ordering, dom) {
         let obj = {
-            dom: 'B<"#filtering_input"lf>rt<"#bottom_options"ip>',
+            dom: dom,
             buttons: [{
                 text: 'JSON { }',
                 className: 'ui inverted yellow button transition hidden json_btn',
