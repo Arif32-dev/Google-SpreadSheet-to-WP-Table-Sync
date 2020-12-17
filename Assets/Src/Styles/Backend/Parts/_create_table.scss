@@ -331,4 +331,7 @@
             }
         }
     }
+     .disabled_checkbox *, .disabled_checkbox > label{
+        cursor: not-allowed !important;
+    }
 }

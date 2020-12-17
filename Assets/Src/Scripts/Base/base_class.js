@@ -3,6 +3,7 @@ export default class Base_Class {
         this.sheet_form = $('#gswpts_create_table');
         this.sheet_details = $('#sheet_details');
         this.sheet_container = $('#spreadsheet_container');
+        this.settings_field = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table, #table_exporting');
     }
 
     call_alert(title, description, type, time, pos = 'bottom-right') {
@@ -112,7 +113,7 @@ export default class Base_Class {
             swapBottomOptions: $('#swap_bottom_options').prop('checked'),
             allowSorting: $('#sorting').prop('checked'),
             searchBar: $('#search_table').prop('checked'),
-            tableExport: $('#table_exporting').val()
+            tableExport: $('#table_exporting').val() || null
         }
         return settings;
     }
@@ -190,5 +191,19 @@ export default class Base_Class {
             "ordering": ordering
         }
         return obj;
+    }
+
+    reconfigure_input_fields(settings) {
+        $('#show_title').prop('checked', settings.table_title == 'true' ? true : false);
+        $("#rows_per_page").dropdown('set selected', settings.default_rows_per_page);
+        $('#info_block').prop('checked', settings.show_info_block == 'true' ? true : false);
+        $('#responsive').prop('checked', settings.responsive_table == 'true' ? true : false);
+        $('#show_entries').prop('checked', settings.show_x_entries == 'true' ? true : false);
+        $('#swap_filter_inputs').prop('checked', settings.swap_filter_inputs == 'true' ? true : false);
+        $('#swap_bottom_options').prop('checked', settings.swap_bottom_options == 'true' ? true : false);
+        $('#sorting').prop('checked', settings.allow_sorting == 'true' ? true : false);
+        $('#search_table').prop('checked', settings.search_bar == 'true' ? true : false);
+        // tableExport: $('#table_exporting').val() || null
+
     }
 }

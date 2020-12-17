@@ -92,6 +92,8 @@ jQuery(document).ready(function ($) {
                     action: 'gswpts_sheet_create',
                     form_data: form_data,
                     table_name: table_name,
+                    table_settings: this.table_settings_obj(),
+                    id: this.get_slug_parameter('id'),
                     type: submit_button.attr('req-type')
                 },
 
@@ -113,6 +115,14 @@ jQuery(document).ready(function ($) {
                                 Saving Table &nbsp;
                                 <div class="ui active mini inline loader"></div>
                             `
+
+                        if (submit_button.attr('req-type') == 'save_changes') {
+                            html = `
+                                Saving Changes &nbsp;
+                                <div class="ui active mini inline loader"></div>
+                            `
+                        }
+
                         this.btn_changer(submit_button, html, 'save')
 
                     }
@@ -134,6 +144,16 @@ jQuery(document).ready(function ($) {
                     }
 
                     if (JSON.parse(res).response_type == 'success') {
+                        /* Chnage the tabs li attribute text that will effect fetch/save button text */
+                        $('.tables_settings').attr('data-btn-text', 'Save Table');
+
+                        /* Chnage the tabs li attribute text that will effect fetch/save button attribute value to save/fetch*/
+                        $('.tables_settings').attr('data-attr-text', 'save');
+
+                        /* Remove the disable button atrributes and class */
+                        $('.disabled_checkbox').removeClass('disabled_checkbox');
+                        $('.secondary_inputs').attr('disabled', false);
+
                         this.sheet_details.addClass('mt-4 p-0');
                         this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                         this.sheet_details.transition('scale');
@@ -151,6 +171,14 @@ jQuery(document).ready(function ($) {
                         this.push_parameter(id);
                     }
 
+                    if (JSON.parse(res).response_type == 'updated') {
+                        let html = `
+                                Save Changes
+                            `
+                        this.btn_changer(submit_button, html, 'save_changes')
+                        this.call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
+                    }
+
                     if (JSON.parse(res).response_type == 'sheet_exists') {
                         this.call_alert('Warning &#9888;&#65039;', JSON.parse(res).output, 'warning', 3)
                         this.btn_changer(submit_button, 'Save Table', 'save');
@@ -160,61 +188,21 @@ jQuery(document).ready(function ($) {
                 complete: (res) => {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
+
+                        let default_settings = this.default_settings();
                         let table_name = $('#table_name').val();
-                        $('#create_tables').DataTable({
-                            dom: 'B<"#filtering_input"lf>rt<"#bottom_options"ip>',
-                            buttons: [{
-                                text: 'JSON { }',
-                                className: 'ui inverted yellow button',
-                                action: function (e, dt, button, config) {
-                                    var data = dt.buttons.exportData();
+                        let defaultRowsPerPage = default_settings.defaultRowsPerPage;
+                        let allowSorting = default_settings.allowSorting;
+                        let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
-                                    $.fn.dataTable.fileSave(
-                                        new Blob([JSON.stringify(data)]),
-                                        `${table_name}.json`
-                                    );
-                                }
-                            },
-                            {
-                                text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
-                                extend: 'pdf',
-                                className: 'ui inverted red button',
-                                title: `${table_name}`
-                            },
-                            {
-                                text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
-                                extend: 'csv',
-                                className: 'ui inverted green button',
-                                title: `${table_name}`
-                            },
-                            {
-                                text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
-                                extend: 'excel',
-                                className: 'ui inverted green button',
-                                title: `${table_name}`
-                            },
-                            {
-                                text: 'Print &nbsp; <i class="fas fa-print"></i>',
-                                extend: 'print',
-                                className: 'ui inverted secondary button',
-                                title: `${table_name}`
-                            },
-                            {
-                                text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
-                                extend: 'copy',
-                                className: 'ui inverted violet button',
-                                title: `${table_name}`
-                            }
-
-                            ],
-                            "order": [],
-                            "responsive": true,
-                            "lengthMenu": [
-                                [1, 5, 10, 15, 25, 50, 100, -1],
-                                [1, 5, 10, 15, 25, 50, 100, "All"]
-                            ],
-                            "pageLength": 10,
-                        });
+                        $('#create_tables').DataTable(
+                            this.table_object(
+                                table_name,
+                                defaultRowsPerPage,
+                                allowSorting,
+                                dom
+                            )
+                        );
 
                         this.btn_changer(submit_button, 'Save Table', 'save')
 
@@ -254,7 +242,13 @@ jQuery(document).ready(function ($) {
             $('.edit_table_name').attr('disabled', false);
             $('#table_name').val('');
             $('#table_name').attr('disabled', false);
-            $('#tab1').prop('checked', true)
+            $('#tab1').prop('checked', true);
+
+            /* add the disable button atrributes and class */
+            $('.tables_settings').addClass('disabled_checkbox');
+            $('.tables_settings').unbind('click');
+            $('.secondary_inputs').attr('disabled', true);
+
             $('#sheet_ui_card').transition('scale');
             $('#create_tables_wrapper').transition('scale');
             this.btn_changer(this.fetch_and_save_button, 'Fetch Data', 'fetch');
@@ -270,7 +264,6 @@ jQuery(document).ready(function ($) {
             url.searchParams.set('id', id);
             window.history.pushState({}, '', url);
         }
-
 
     }
     new Google_Sheets_Creation;

@@ -2,8 +2,6 @@
 global $gswpts;
 $gswpts->bootstrap_files();
 $gswpts->semantic_files();
-// $gswpts->data_table_styles();
-// $gswpts->data_table_scripts();
 $gswpts->download_datatables();
 ?>
 
@@ -60,9 +58,9 @@ $gswpts->download_datatables();
                 <div class="tabs">
 
                     <input type="radio" id="tab1" name="tab-control" checked>
-                    <input type="radio" id="tab2" name="tab-control">
-                    <input type="radio" id="tab3" name="tab-control">
-                    <input type="radio" id="tab4" name="tab-control">
+                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab2" name="tab-control" class="secondary_inputs">
+                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab3" name="tab-control" class="secondary_inputs">
+                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab4" name="tab-control" class="secondary_inputs">
                     <ul>
                         <li title="Data Source" class="tables_settings" data-btn-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>" data-attr-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
                             <label for="tab1" role="button">
@@ -71,21 +69,21 @@ $gswpts->download_datatables();
                             </label>
                         </li>
 
-                        <li title="Display Settings" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="Display Settings" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab2" role="button">
                                 <span><i class="fas fa-cogs"></i></span>
                                 <span>Display Settings</span>
                             </label>
                         </li>
 
-                        <li title="Delivery Contents" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="Delivery Contents" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab3" role="button">
                                 <span><i class="fas fa-sort-numeric-up"></i></span>
                                 <span>Sort & Filter</span>
                             </label>
                         </li>
 
-                        <li title="Table Tools" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : '' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="Table Tools" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab4" role="button">
                                 <span><i class="fas fa-tools"></i></span>
                                 <span>Table Tools</span>

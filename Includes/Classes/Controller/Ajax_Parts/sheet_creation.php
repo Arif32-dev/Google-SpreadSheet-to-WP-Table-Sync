@@ -37,7 +37,12 @@ class Sheet_Creation {
             }
 
             if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
-                echo json_encode(self::save_table($parsed_data, $_POST['table_name']));
+                echo json_encode(self::save_table($parsed_data, $_POST['table_name'], $_POST['table_settings']));
+                wp_die();
+            }
+
+            if ($_POST['type'] == 'save_changes') {
+                echo json_encode(self::update_changes($_POST['id'], $_POST['table_settings']));
                 wp_die();
             }
         }
@@ -73,7 +78,7 @@ class Sheet_Creation {
         return self::$output;
     }
 
-    public static function save_table(array $parsed_data, $table_name) {
+    public static function save_table(array $parsed_data, $table_name, array $table_settings) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -82,19 +87,20 @@ class Sheet_Creation {
             self::$output['output'] = "<b>This SpreadSheet already exists. Try new one</b>";
             return self::$output;
         }
+        $settings = self::get_table_settings($table_settings);
 
         $data = [
             'table_name' => sanitize_text_field($table_name),
             'source_url' => esc_url($parsed_data['file_input']),
             'source_type' => sanitize_text_field($parsed_data['source_type']),
-            'table_settings' => false
+            'table_settings' => serialize($settings)
         ];
 
         $db_respond = $wpdb->insert($table, $data, [
             '%s',
             '%s',
             '%s',
-            '%d',
+            '%s',
         ]);
 
         if (is_int($db_respond)) {
@@ -129,5 +135,53 @@ class Sheet_Creation {
             $return_value = true;
         }
         return $return_value;
+    }
+
+    public static function update_changes(int $table_id, array $settings) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'gswpts_tables';
+
+        $settings = self::get_table_settings($settings);
+
+        $update_response = $wpdb->update(
+            $table,
+            [
+                'table_settings' => serialize($settings)
+            ],
+            [
+                'id' => $table_id
+            ],
+            [
+                '%s'
+            ],
+            [
+                '%d'
+            ]
+        );
+        if (is_int($update_response)) {
+            self::$output['response_type'] = 'updated';
+            self::$output['output'] = '<b>Table changes updated successfully</b>';
+            return self::$output;
+        } else {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = '<b>Table changes could not be updated</b>';
+            return self::$output;
+        }
+    }
+
+    public static  function get_table_settings($table_settings) {
+        $settings = [
+            'table_title' => $table_settings['table_title'],
+            'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
+            'show_info_block' => $table_settings['showInfoBlock'],
+            'responsive_table' => $table_settings['responsiveTable'],
+            'show_x_entries' => $table_settings['showXEntries'],
+            'swap_filter_inputs' => $table_settings['swapFilterInputs'],
+            'swap_bottom_options' => $table_settings['swapBottomOptions'],
+            'allow_sorting' => $table_settings['allowSorting'],
+            'search_bar' => $table_settings['searchBar'],
+            'table_export' => isset($table_settings['tableExport']) ? $table_settings['tableExport'] : null,
+        ];
+        return $settings;
     }
 }

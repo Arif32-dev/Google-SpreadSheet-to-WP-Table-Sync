@@ -6,7 +6,6 @@ jQuery(document).ready(function ($) {
         constructor() {
             super($);
             this.table_settings = $('.tables_settings');
-            this.settings = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table, #table_exporting')
             this.events();
         }
 
@@ -16,7 +15,7 @@ jQuery(document).ready(function ($) {
             })
             this.add_select_box_style()
 
-            this.settings.on('change', (e) => {
+            this.settings_field.on('change', (e) => {
                 this.update_table_by_changes(e)
             })
         }
@@ -48,59 +47,19 @@ jQuery(document).ready(function ($) {
             if ($(e.currentTarget).attr('id') == 'search_table' || 'sorting' || 'show_entries' || 'info_block') {
                 let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
                 this.table_changer(table_name, table_settings, dom)
+                this.swap_filter_inputs(table_settings.swapFilterInputs);
+                this.swap_bottom_options(table_settings.swapBottomOptions);
             }
 
             /* Swaping Filter Inputs */
             if ($(e.currentTarget).attr('id') == 'swap_filter_inputs') {
-
-                if ($(e.currentTarget).prop('checked')) {
-                    $('#filtering_input').css('flex-direction', 'row-reverse');
-                    $('#create_tables_length').css({
-                        'margin-right': '0',
-                        'margin-left': 'auto'
-                    });
-                    $('#create_tables_filter').css({
-                        'margin-left': '0',
-                        'margin-right': 'auto',
-                    });
-                } else {
-                    $('#filtering_input').css('flex-direction', 'row');
-                    $('#create_tables_length').css({
-                        'margin-right': 'auto',
-                        'margin-left': '0'
-                    });
-                    $('#create_tables_filter').css({
-                        'margin-left': 'auto',
-                        'margin-right': '0',
-                    });
-                }
+                this.swap_filter_inputs($(e.currentTarget).prop('checked'));
             }
 
             /* Swaping bottom elemts */
 
             if ($(e.currentTarget).attr('id') == 'swap_bottom_options') {
-
-                if ($(e.currentTarget).prop('checked')) {
-                    $('#bottom_options').css('flex-direction', 'row-reverse');
-                    $('#create_tables_info').css({
-                        'margin-right': '0',
-                        'margin-left': 'auto'
-                    });
-                    $('#create_tables_paginate').css({
-                        'margin-left': '0',
-                        'margin-right': 'auto',
-                    });
-                } else {
-                    $('#bottom_options').css('flex-direction', 'row');
-                    $('#create_tables_info').css({
-                        'margin-right': 'auto',
-                        'margin-left': '0'
-                    });
-                    $('#create_tables_paginate').css({
-                        'margin-left': 'auto',
-                        'margin-right': '0',
-                    });
-                }
+                this.swap_bottom_options($(e.currentTarget).prop('checked'));
             }
 
         }
@@ -118,6 +77,7 @@ jQuery(document).ready(function ($) {
             );
         }
 
+        /* Show the export buttons based on user selection */
         button_reavealer(e, target) {
 
             if ($(e.currentTarget).val().includes(target)) {
@@ -173,7 +133,55 @@ jQuery(document).ready(function ($) {
                 }
             });
         }
+        swap_filter_inputs(state) {
+            /* If checkbox is checked then swap filter */
+            if (state) {
+                $('#filtering_input').css('flex-direction', 'row-reverse');
+                $('#create_tables_length').css({
+                    'margin-right': '0',
+                    'margin-left': 'auto'
+                });
+                $('#create_tables_filter').css({
+                    'margin-left': '0',
+                    'margin-right': 'auto',
+                });
+            } else {
+                /* Set back to default position */
+                $('#filtering_input').css('flex-direction', 'row');
+                $('#create_tables_length').css({
+                    'margin-right': 'auto',
+                    'margin-left': '0'
+                });
+                $('#create_tables_filter').css({
+                    'margin-left': 'auto',
+                    'margin-right': '0',
+                });
+            }
+        }
 
+        swap_bottom_options(state) {
+            if (state) {
+                $('#bottom_options').css('flex-direction', 'row-reverse');
+                $('#create_tables_info').css({
+                    'margin-right': '0',
+                    'margin-left': 'auto'
+                });
+                $('#create_tables_paginate').css({
+                    'margin-left': '0',
+                    'margin-right': 'auto',
+                });
+            } else {
+                $('#bottom_options').css('flex-direction', 'row');
+                $('#create_tables_info').css({
+                    'margin-right': 'auto',
+                    'margin-left': '0'
+                });
+                $('#create_tables_paginate').css({
+                    'margin-left': 'auto',
+                    'margin-right': '0',
+                });
+            }
+        }
     }
     new Table_Changes;
 })
