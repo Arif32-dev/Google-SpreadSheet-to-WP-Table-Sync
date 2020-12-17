@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
                 });
             }
 
-            if ($(e.currentTarget).attr('id') == 'search_table' || 'sorting' || 'show_entries' || 'info_block') {
+            if ($(e.currentTarget).attr('id') == 'show_title' || 'responsive' || 'search_table' || 'rows_per_page' || 'sorting' || 'show_entries' || 'info_block') {
                 let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
                 this.table_changer(table_name, table_settings, dom)
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
@@ -66,7 +66,6 @@ jQuery(document).ready(function ($) {
         table_changer(table_name, table_settings, dom) {
             this.export_buttons_row_revealer(table_settings);
 
-            $('#create_tables').DataTable().destroy();
             $('#create_tables').DataTable(
                 this.table_object(
                     table_name,

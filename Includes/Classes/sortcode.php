@@ -16,6 +16,7 @@ class Sortcode {
         $respond = $gswpts->get_table(false, null, $atts['id']);
         $output = '<h3>' . $gswpts->input_values($atts['id'])['table_name'] . '</h3>';
         $output .= $respond['table']['table'];
+
         return $output;
     }
 }

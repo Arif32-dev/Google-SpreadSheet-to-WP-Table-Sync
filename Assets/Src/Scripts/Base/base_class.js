@@ -187,15 +187,19 @@ export default class Base_Class {
                 [1, 5, 10, 15, 25, 50, 100, -1],
                 [1, 5, 10, 15, 25, 50, 100, "All"]
             ],
-            "pageLength": pageLength,
-            "ordering": ordering
+            "pageLength": parseInt(pageLength),
+            "lengthChange": true,
+            "ordering": ordering,
+            "destroy": true,
+
         }
         return obj;
     }
 
+    /* This function will reconfigure tables fields based on data */
     reconfigure_input_fields(settings) {
         $('#show_title').prop('checked', settings.table_title == 'true' ? true : false);
-        $("#rows_per_page").dropdown('set selected', settings.default_rows_per_page);
+        $("#rows_per_page").dropdown('set selected', settings.default_rows_per_page == '-1' ? 'all' : settings.default_rows_per_page);
         $('#info_block').prop('checked', settings.show_info_block == 'true' ? true : false);
         $('#responsive').prop('checked', settings.responsive_table == 'true' ? true : false);
         $('#show_entries').prop('checked', settings.show_x_entries == 'true' ? true : false);
@@ -203,7 +207,12 @@ export default class Base_Class {
         $('#swap_bottom_options').prop('checked', settings.swap_bottom_options == 'true' ? true : false);
         $('#sorting').prop('checked', settings.allow_sorting == 'true' ? true : false);
         $('#search_table').prop('checked', settings.search_bar == 'true' ? true : false);
-        // tableExport: $('#table_exporting').val() || null
+
+        if (settings.table_export != null) {
+            settings.table_export.forEach(export_type => {
+                $('#table_exporting').dropdown('set selected', export_type)
+            });
+        }
 
     }
 }

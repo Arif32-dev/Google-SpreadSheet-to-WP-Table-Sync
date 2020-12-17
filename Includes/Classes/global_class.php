@@ -102,11 +102,11 @@ class Global_Class {
         if ($ajax_req && $sheet_response) {
             return $this->the_table($sheet_response);
         }
-        if (isset($table_id) && $table_id != null) {
+        if (isset($table_id) && $table_id !== '') {
             $db_result = $this->fetch_db_by_id($table_id);
             if ($db_result) {
-                $sheet_response = $this->get_csv_data($db_result[0]->sheet_url);
-                $json_response = $this->get_json_data($db_result[0]->sheet_url);
+                $sheet_response = $this->get_csv_data($db_result[0]->source_url);
+                $json_response = $this->get_json_data($db_result[0]->source_url);
                 $table = $this->the_table($sheet_response);
                 $output = [
                     'id' => $table_id,
@@ -157,39 +157,6 @@ class Global_Class {
             'count' => $i
         ];
         return $response;
-    }
-
-    public function the_hidden_table($sheet_response) {
-        $table = '<table id="hidden" class="ui celled table">';
-        $i = 0;
-        while (!feof($sheet_response)) {
-            if ($i == 0) {
-                $table .= '<thead><tr>';
-                foreach (fgetcsv($sheet_response) as $cell_value) {
-                    if ($cell_value) {
-                        $table .= '<th>' . $cell_value . '</th>';
-                    } else {
-                        $table .= '<th>&nbsp;</th>';
-                    }
-                }
-                $table .= '</tr></thead>';
-            } else {
-                $table .= '<tr>';
-                foreach (fgetcsv($sheet_response) as $cell_value) {
-                    if ($cell_value) {
-                        $table .= '<td>' . $cell_value . '</td>';
-                    } else {
-                        $table .= '<td>&nbsp;</td>';
-                    }
-                }
-                $table .= '</tr>';
-            }
-            $i++;
-        }
-        fclose($sheet_response);
-
-        $table .= '</table>';
-        return $table;
     }
 
     public function fetch_db_by_id($id) {

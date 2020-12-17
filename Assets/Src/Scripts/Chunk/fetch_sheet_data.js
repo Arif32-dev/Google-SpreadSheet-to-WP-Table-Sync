@@ -44,8 +44,7 @@ jQuery(document).ready(function ($) {
                         }, 400);
 
                         this.sheet_container.html(JSON.parse(res).output);
-                        this.settings_field.unbind('change');
-                        this.reconfigure_input_fields(JSON.parse(JSON.parse(res).table_data.table_settings));
+
                     }
                 },
 
@@ -58,22 +57,8 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
 
-                        console.log(JSON.parse(res.responseText).table_data);
-                        /* default settings */
-                        let default_settings = this.default_settings();
-                        let table_name = JSON.parse(res.responseText).table_data.table_name;
-                        let defaultRowsPerPage = default_settings.defaultRowsPerPage;
-                        let allowSorting = default_settings.allowSorting;
-                        let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
-
-                        $('#create_tables').DataTable(
-                            this.table_object(
-                                table_name,
-                                defaultRowsPerPage,
-                                allowSorting,
-                                dom
-                            )
-                        );
+                        /* This will trigger the change event and its related functionality in table_changes.js  */
+                        this.reconfigure_input_fields(JSON.parse(JSON.parse(res.responseText).table_data.table_settings));
 
                         setTimeout(() => {
 
