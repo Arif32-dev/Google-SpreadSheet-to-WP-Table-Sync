@@ -93,6 +93,7 @@ jQuery(document).ready(function ($) {
                     form_data: form_data,
                     table_name: table_name,
                     table_settings: this.table_settings_obj(),
+                    table_dom: this.table_dom(),
                     id: this.get_slug_parameter('id'),
                     type: submit_button.attr('req-type')
                 },

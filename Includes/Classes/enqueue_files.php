@@ -20,7 +20,7 @@ class Enqueue_Files {
 
         /* Javascript Files */
         wp_enqueue_script('jquery');
-        wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], time() , true);
+        wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], time(), true);
         wp_localize_script('GSWPTS-admin-js', 'file_url', [
             'admin_ajax' => admin_url('admin-ajax.php'),
         ]);
@@ -31,7 +31,11 @@ class Enqueue_Files {
     public function frontend_files() {
 
         global $gswpts;
+        wp_enqueue_script('jquery');
         $gswpts->frontend_tables_assets();
+        $gswpts->semantic_files();
+
+        wp_enqueue_style('GSWPTS-frontend-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/frontend.min.css', [], GSWPTS_VERSION, 'all');
 
         wp_enqueue_script(
             'GSWPTS-frontend-js',
@@ -40,5 +44,9 @@ class Enqueue_Files {
             GSWPTS_VERSION,
             true
         );
+
+        wp_localize_script('GSWPTS-frontend-js', 'file_url', [
+            'admin_ajax' => admin_url('admin-ajax.php'),
+        ]);
     }
 }

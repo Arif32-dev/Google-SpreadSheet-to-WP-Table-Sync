@@ -13,9 +13,25 @@ class Sortcode {
             return $output;
         }
 
-        $respond = $gswpts->get_table(false, null, $atts['id']);
-        $output = '<h3>' . $gswpts->input_values($atts['id'])['table_name'] . '</h3>';
-        $output .= $respond['table']['table'];
+        $output = '<div class="gswpts_tables_container" id="' . $atts['id'] . '">';
+        $output .= '<h3></h3>';
+
+        $output .= '<div class="gswpts_tables">';
+
+        $output .= '
+             <div class="ui segment gswpts_table_loader">
+                        <div class="ui active inverted dimmer">
+                            <div class="ui large text loader"></div>
+                        </div>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                </div>
+        ';
+
+        $output .= '</div>';
+        $output .= '</div>';
+
 
         return $output;
     }

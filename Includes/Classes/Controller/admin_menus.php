@@ -2,8 +2,6 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-use GSWPTS\Includes\Templates\Mange_Tables;
-
 class Admin_Menus {
     public function __construct() {
         add_action('admin_menu', [$this, 'admin_menus']);
@@ -43,6 +41,14 @@ class Admin_Menus {
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
         );
+        add_submenu_page(
+            'gswpts-dashboard',
+            'General Settings',
+            'General Settings',
+            'manage_options',
+            'gswpts-general-settings',
+            [get_called_class(), 'general_settings']
+        );
     }
     public function add_logo() {
         global $menu;
@@ -56,5 +62,8 @@ class Admin_Menus {
     }
     public static function gswpts_create_tables() {
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/create_tables.php', true);
+    }
+    public static function general_settings() {
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/general_settings.php', true);
     }
 }

@@ -37,12 +37,21 @@ class Sheet_Creation {
             }
 
             if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
-                echo json_encode(self::save_table($parsed_data, $_POST['table_name'], $_POST['table_settings']));
+                echo json_encode(self::save_table(
+                    $parsed_data,
+                    $_POST['table_name'],
+                    $_POST['table_settings'],
+                    $_POST['table_dom']
+                ));
                 wp_die();
             }
 
             if ($_POST['type'] == 'save_changes') {
-                echo json_encode(self::update_changes($_POST['id'], $_POST['table_settings']));
+                echo json_encode(self::update_changes(
+                    $_POST['id'],
+                    $_POST['table_settings'],
+                    $_POST['table_dom']
+                ));
                 wp_die();
             }
         }
@@ -78,7 +87,7 @@ class Sheet_Creation {
         return self::$output;
     }
 
-    public static function save_table(array $parsed_data, $table_name, array $table_settings) {
+    public static function save_table(array $parsed_data, $table_name, array $table_settings, string $table_dom) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -93,10 +102,12 @@ class Sheet_Creation {
             'table_name' => sanitize_text_field($table_name),
             'source_url' => esc_url($parsed_data['file_input']),
             'source_type' => sanitize_text_field($parsed_data['source_type']),
-            'table_settings' => serialize($settings)
+            'table_settings' => serialize($settings),
+            'table_dom' => $table_dom
         ];
 
         $db_respond = $wpdb->insert($table, $data, [
+            '%s',
             '%s',
             '%s',
             '%s',
@@ -137,7 +148,7 @@ class Sheet_Creation {
         return $return_value;
     }
 
-    public static function update_changes(int $table_id, array $settings) {
+    public static function update_changes(int $table_id, array $settings, string $table_dom) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -146,12 +157,14 @@ class Sheet_Creation {
         $update_response = $wpdb->update(
             $table,
             [
-                'table_settings' => serialize($settings)
+                'table_settings' => serialize($settings),
+                'table_dom' => $table_dom
             ],
             [
                 'id' => $table_id
             ],
             [
+                '%s',
                 '%s'
             ],
             [

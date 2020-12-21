@@ -16,6 +16,7 @@ final class DB_Tables {
                                     `table_name` VARCHAR(255) DEFAULT NULL,
                                     `source_url` LONGTEXT,
                                     `source_type` VARCHAR(255),
+                                    `table_dom` VARCHAR(255),
                                     `table_settings` LONGTEXT,
                                     PRIMARY KEY (`id`)
                                 ) ENGINE=InnoDB " . $collate . "";

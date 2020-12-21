@@ -16,8 +16,6 @@ class Global_Class {
         wp_nonce_field($nonce_action, $nonce_name);
     }
     public function bootstrap_files() {
-        // wp_enqueue_style('GSWPTS-bootstap-css', '//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-        // wp_enqueue_script('GSWPTS-bootstap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js');
         wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_script('GSWPTS-bootstap-js', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap/js/bootstrap.min.js', [], GSWPTS_VERSION, false);
     }
@@ -48,7 +46,6 @@ class Global_Class {
 
     public function download_datatables() { ?>
         <!-- styles -->
-        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"> -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.semanticui.min.css">
 
         <!-- scritps -->
@@ -111,6 +108,9 @@ class Global_Class {
                 $output = [
                     'id' => $table_id,
                     'table' => $table,
+                    'table_settings' => unserialize($db_result[0]->table_settings),
+                    'table_name' => $db_result[0]->table_name,
+                    'table_dom' => $db_result[0]->table_dom,
                     'sheet_name' => $json_response['title']['$t'],
                     'author_info' => $json_response['author'],
                     'sheet_total_result' => $json_response['openSearch$totalResults']['$t'],
@@ -122,7 +122,7 @@ class Global_Class {
         return false;
     }
     public function the_table($sheet_response) {
-        $table = '<table id="create_tables" class="ui celled table">';
+        $table = '<table id="create_tables" class="ui celled table gswpts_tables">';
         $i = 0;
         while (!feof($sheet_response)) {
             if ($i == 0) {
@@ -228,12 +228,20 @@ class Global_Class {
         if ($db_result) {
             $input_values = [
                 'source_url' => $db_result[0]->source_url,
-                'table_name' => $db_result[0]->table_name
+                'table_name' => $this->ouput_table_by_condition($db_result)
             ];
             return $input_values;
         } else {
             return false;
         }
         return false;
+    }
+    public function ouput_table_by_condition($db_result) {
+        $table_settings = unserialize($db_result[0]->table_settings);
+        if ($table_settings['table_title'] == 'true') {
+            return '<h3>' . $db_result[0]->table_name . '</h3>';
+        } else {
+            return null;
+        }
     }
 }

@@ -12,6 +12,10 @@
         }
     }
 }
+.dash_boxes{
+    background-color: $bg-color;
+    border-radius: $border-radious;
+}
 .heading_row{
     button{
         span{
@@ -20,10 +24,7 @@
         }
     }
 }
-.dash_boxes{
-    background-color: $bg-color;
-    border-radius: $border-radious;
-}
+
 .latest_table{
     .details{
        .ui.label{

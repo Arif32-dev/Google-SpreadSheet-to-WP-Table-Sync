@@ -4,7 +4,8 @@
   "description": "This is a WordPress plugin to synchronize google spreadsheet data into wordpress table",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "guten": "wp-scripts build --config webpack.guten.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@wordpress/scripts": "^12.6.0",
     "babel-loader": "^8.2.1",
     "browser-sync": "^2.26.13",
     "browser-sync-webpack-plugin": "^2.2.2",
