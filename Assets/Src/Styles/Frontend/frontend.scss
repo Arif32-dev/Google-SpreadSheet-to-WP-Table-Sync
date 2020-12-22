@@ -1,93 +1,121 @@
-.gswpts_tables_container{
-    margin: 30px 0;
-    .gswpts_table_loader{
-        width: 100%;
-        min-height: 400px;
-    }
-    .export_btns{
-        display: none;
-    }
-    table {
-        th,
-        td {
-            max-width: 150px;
-            overflow-wrap: break-word;
-        }
-        th:focus{
-            outline: none;
-        }
-    }
-    .dt-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 5px;
-            button {
-                font-size: 13px;
-                margin: 0 5px;
-            }
-        }
+@use './Parts/mixin';
 
-        .gswpts_tables_content{
+/* End of mixin */
 
-            table{
-                width: 100% !important;
-            }
+.gswpts_tables_container {
+	@include mixin.button_style;
+	@include mixin.input_style;
+	@include mixin.pagination_style;
+	@include mixin.datatable_semantic;
+	margin: 30px 0;
 
-            .filtering_input {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin: 15px 0 5px 0;
-                  #create_tables_length{
-                      margin-right: auto;
-                  }
-                  #create_tables_filter{
-                      margin-left: auto;
-                  }
-              }
-              .bottom_options {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin-top: 10px;
-                  .dataTables_info {
-                      padding-top: 0 !important;
-                      margin-right: auto;
-                  }
-                  #create_tables_paginate{
-                      margin-left: auto;
-                  }
-              }
-        }
+	.gswpts_table_loader {
+		width: 100%;
+		min-height: 400px;
+	}
 
-        @media screen and (max-width: 540px){
-             .dt-buttons {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                 button {
-                    font-size: 15px;
-                    margin: 10px 0;
-                }
-            }
-              .filtering_input {
-                       flex-direction: column !important;
-                        align-items: center !important;
-                        justify-content: center !important;
+	table {
 
-                        div{
-                            margin: 10px  0 !important;
-                            padding: 0 !important;
-                        }
-                }
-                  .bottom_options {
-                         flex-direction: column !important;
-                        align-items: center !important;
-                        justify-content: center !important;
+		th,
+		td {
+			max-width: 150px;
+			overflow-wrap: break-word;
+		}
 
-                        div{
-                            margin: 10px  0 !important;
-                        }
-                }
-        }
+		th:focus {
+			outline: none;
+		}
+	}
+
+	.dt-buttons {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 5px;
+
+		button {
+			font-size: 13px;
+			margin: 0 6px !important;
+		}
+
+		.export_btns {
+			display: none;
+		}
+	}
+
+	.gswpts_tables_content {
+		table {
+			width: 100% !important;
+		}
+
+		.filtering_input {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 15px 0 5px 0;
+
+			#create_tables_length {
+				margin-right: auto;
+			}
+
+			#create_tables_filter {
+				margin-left: auto;
+			}
+		}
+
+		.bottom_options {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 10px;
+
+			.dataTables_info {
+				padding-top: 0 !important;
+				margin-right: auto;
+			}
+
+			#create_tables_paginate {
+				margin-left: auto;
+			}
+		}
+	}
+
+	@media screen and (max-width: 540px) {
+		.dt-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			button {
+				font-size: 15px;
+				margin: 10px 0;
+			}
+		}
+
+		.filtering_input {
+			flex-direction: column !important;
+			align-items: center !important;
+			justify-content: center !important;
+
+			div {
+				margin: 10px 0 !important;
+				padding: 0 !important;
+			}
+		}
+
+		.bottom_options {
+			flex-direction: column !important;
+			align-items: center !important;
+			justify-content: center !important;
+
+			div {
+				margin: 10px 0 !important;
+			}
+		}
+	}
+
+
+}
+
+.gswpts_tables_container.gswpts_resposive {
+	@include mixin.table_style;
 }

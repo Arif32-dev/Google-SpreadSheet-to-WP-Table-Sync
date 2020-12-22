@@ -47,15 +47,18 @@ class Sortcode {
             return $output;
         }
 
+
         $respond = $gswpts->get_table(false, null, $atts['id']);
         $table_name = $gswpts->input_values($atts['id'])['table_name'];
         $table = $respond['table']['table'];
-
+        $table_settings = $respond['table_settings'];
+        $responsive = $table_settings['responsive_table'] == 'true' ? 'gswpts_resposive' : null;
 
         $output = '<div 
-                                    class="gswpts_tables_container" id="' . $atts['id'] . '"
+                                    class="gswpts_tables_container ' . $responsive . '" id="' . $atts['id'] . '"
                                     data-table_name="' . $respond['table_name'] . '"
-                                    data-table_settings=' . json_encode($respond['table_settings']) . '>';
+                                    data-table_settings=' . json_encode($table_settings) . '>';
+
         $output .= $table_name;
 
         $output .= '<div class="gswpts_tables_content">';

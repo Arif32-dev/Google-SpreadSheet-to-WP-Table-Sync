@@ -27,41 +27,40 @@ module.exports = {
                         options: {
                             presets: ['@babel/preset-env']
                         }
-                    },
+                    }
                 ],
             },
             {
                 test: /.s?css$/,
-                use:
-                    [
-                        {
-                            loader: MiniCssExtractPlugin.loader
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true,
                         },
-                        {
-                            loader: "css-loader",
-                            options: {
-                                sourceMap: true,
-                            },
-                        },
-                        {
-                            loader: "postcss-loader",
-                            options: {
-                                postcssOptions: {
-                                    plugins: [
-                                        [
-                                            "postcss-preset-env",
-                                        ],
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env",
                                     ],
-                                }
+                                ],
                             }
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
                         },
-                        {
-                            loader: "sass-loader",
-                            options: {
-                                sourceMap: true,
-                            },
-                        },
-                    ],
+                    },
+                ],
             },
         ],
     },

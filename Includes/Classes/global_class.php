@@ -26,9 +26,6 @@ class Global_Class {
 
 
     public function frontend_tables_assets() { ?>
-        <!-- styles -->
-        <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/css/dataTables.semanticui.min.css' ?>">
-        <!-- <link rel="stylesheet" type="text/css" href="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/css/jquery.dataTables.min.css' ?>"> -->
 
         <!-- scritps -->
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
