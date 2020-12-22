@@ -35,12 +35,12 @@ class Sheet_Fetching {
         $table_name = $db_result[0]->table_name;
         $source_type = $db_result[0]->source_type;
         $table_settings = unserialize($db_result[0]->table_settings);
-        $table_dom = $db_result[0]->table_dom;
+        $table_id = $db_result[0]->id;
 
-        return self::sheet_html($source_url, $table_name, $source_type, $table_settings, $table_dom);
+        return self::sheet_html($source_url, $table_name, $source_type, $table_settings, $table_id);
     }
 
-    public static function sheet_html($url, $table_name, $source_type, $table_settings, $table_dom) {
+    public static function sheet_html($url, $table_name, $source_type, $table_settings, $table_id) {
         global $gswpts;
 
         $sheet_response = $gswpts->get_csv_data($url);
@@ -61,11 +61,11 @@ class Sheet_Fetching {
             'total_rows' => $response['count'],
         ];
         self::$output['table_data'] = [
+            'table_id' => $table_id,
             'source_url' => $url,
             'table_name' => $table_name,
             'source_type' => $source_type,
             'table_settings' => json_encode($table_settings),
-            'table_dom' => $table_dom
         ];
         self::$output['output'] = "" . $response['table'] . "";
         return self::$output;

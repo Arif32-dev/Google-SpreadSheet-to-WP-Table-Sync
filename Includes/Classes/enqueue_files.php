@@ -45,8 +45,9 @@ class Enqueue_Files {
             true
         );
 
-        wp_localize_script('GSWPTS-frontend-js', 'file_url', [
+        wp_localize_script('GSWPTS-frontend-js', 'front_end_data', [
             'admin_ajax' => admin_url('admin-ajax.php'),
+            'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off'
         ]);
     }
 }

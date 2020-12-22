@@ -40,8 +40,7 @@ class Sheet_Creation {
                 echo json_encode(self::save_table(
                     $parsed_data,
                     $_POST['table_name'],
-                    $_POST['table_settings'],
-                    $_POST['table_dom']
+                    $_POST['table_settings']
                 ));
                 wp_die();
             }
@@ -49,8 +48,7 @@ class Sheet_Creation {
             if ($_POST['type'] == 'save_changes') {
                 echo json_encode(self::update_changes(
                     $_POST['id'],
-                    $_POST['table_settings'],
-                    $_POST['table_dom']
+                    $_POST['table_settings']
                 ));
                 wp_die();
             }
@@ -87,7 +85,7 @@ class Sheet_Creation {
         return self::$output;
     }
 
-    public static function save_table(array $parsed_data, $table_name, array $table_settings, string $table_dom) {
+    public static function save_table(array $parsed_data, $table_name, array $table_settings) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -103,7 +101,6 @@ class Sheet_Creation {
             'source_url' => esc_url($parsed_data['file_input']),
             'source_type' => sanitize_text_field($parsed_data['source_type']),
             'table_settings' => serialize($settings),
-            'table_dom' => $table_dom
         ];
 
         $db_respond = $wpdb->insert($table, $data, [
@@ -148,7 +145,7 @@ class Sheet_Creation {
         return $return_value;
     }
 
-    public static function update_changes(int $table_id, array $settings, string $table_dom) {
+    public static function update_changes(int $table_id, array $settings) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -158,14 +155,12 @@ class Sheet_Creation {
             $table,
             [
                 'table_settings' => serialize($settings),
-                'table_dom' => $table_dom
             ],
             [
                 'id' => $table_id
             ],
             [
                 '%s',
-                '%s'
             ],
             [
                 '%d'

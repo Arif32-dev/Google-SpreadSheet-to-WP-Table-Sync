@@ -26,30 +26,38 @@
                 margin: 0 5px;
             }
         }
-      #filtering_input {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 15px 0 5px 0;
-            #create_tables_length{
-                margin-right: auto;
+
+        .gswpts_tables_content{
+
+            table{
+                width: 100% !important;
             }
-            #create_tables_filter{
-                margin-left: auto;
-            }
-        }
-        #bottom_options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            .dataTables_info {
-                padding-top: 0 !important;
-                margin-right: auto;
-            }
-            #create_tables_paginate{
-                margin-left: auto;
-            }
+
+            .filtering_input {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin: 15px 0 5px 0;
+                  #create_tables_length{
+                      margin-right: auto;
+                  }
+                  #create_tables_filter{
+                      margin-left: auto;
+                  }
+              }
+              .bottom_options {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-top: 10px;
+                  .dataTables_info {
+                      padding-top: 0 !important;
+                      margin-right: auto;
+                  }
+                  #create_tables_paginate{
+                      margin-left: auto;
+                  }
+              }
         }
 
         @media screen and (max-width: 540px){
@@ -62,7 +70,7 @@
                     margin: 10px 0;
                 }
             }
-              #filtering_input {
+              .filtering_input {
                        flex-direction: column !important;
                         align-items: center !important;
                         justify-content: center !important;
@@ -72,7 +80,7 @@
                             padding: 0 !important;
                         }
                 }
-                  #bottom_options {
+                  .bottom_options {
                          flex-direction: column !important;
                         align-items: center !important;
                         justify-content: center !important;

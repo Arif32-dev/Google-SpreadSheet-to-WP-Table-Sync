@@ -135,11 +135,7 @@ export default class Base_Class {
         }
         return default_settings;
     }
-    table_dom() {
-        let table_settings = this.table_settings_obj();
-        let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
-        return dom;
-    }
+
     table_object(table_name, pageLength, ordering, dom) {
         let obj = {
             dom: dom,

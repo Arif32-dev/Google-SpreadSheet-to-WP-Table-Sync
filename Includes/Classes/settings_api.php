@@ -11,11 +11,11 @@ class Settings_API {
     }
     public function add_settings() {
         $settings_options = [
+            'asynchronous_loading',
             'gutenberg_support',
             'gutenberg_rich_editing',
             'elementor_support',
             'elementor_rich_editing',
-            'wordpress_widget_support',
         ];
 
         foreach ($settings_options as $setting) {
@@ -45,6 +45,36 @@ class Settings_API {
 
         <?php $option_values = self::get_option_values() ?>
 
+
+        <div class="ui cards settings_row">
+
+
+            <div class="card">
+                <div class="content">
+                    <div class="description d-flex justify-content-between align-items-center">
+                        <h3 class="m-0">
+                            Asynchronous Loading
+                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for gutenberg sortcode support" data-position="right center" data-inverted="">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
+                        </h3>
+                        <div class="ui toggle checkbox m-0">
+                            <input type="checkbox" <?php echo $option_values['asynchronous_loading'] ?> name="asynchronous_loading" id="asynchronous_loading">
+                            <label class="m-0" for="asynchronous_loading"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings_desc <?php echo $option_values['asynchronous_loading'] == 'checked' ? '' : 'transition hidden' ?>">
+                    <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                    </p>
+                </div>
+            </div>
+
+        </div>
 
         <div class="ui cards settings_row">
 
@@ -164,47 +194,17 @@ class Settings_API {
 
         </div>
 
-        <div class="ui cards settings_row">
-
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            WordPress Widget Support
-                            <span class="ui icon button p-0 m-0" data-tooltip="Allow this feature to have wordpress widget support in widget area" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['wordpress_widget_support'] ?> name="wordpress_widget_support" id="wordpress_widget_support">
-                            <label class="m-0" for="wordpress_widget_support"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['wordpress_widget_support'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-
 
 <?php
     }
 
     public static function get_option_values() {
         $options_values = [
+            'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
             'gutenberg_support' => get_option('gutenberg_support') ? 'checked' : '',
             'gutenberg_rich_editing' => get_option('gutenberg_rich_editing') ? 'checked' : '',
             'elementor_support' => get_option('elementor_support') ? 'checked' : '',
             'elementor_rich_editing' => get_option('elementor_rich_editing') ? 'checked' : '',
-            'wordpress_widget_support' => get_option('wordpress_widget_support') ? 'checked' : '',
         ];
         return $options_values;
     }

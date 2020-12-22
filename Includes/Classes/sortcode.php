@@ -4,10 +4,14 @@ namespace GSWPTS\Includes\Classes;
 
 class Sortcode {
     public function __construct() {
-        add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes']);
+        if (get_option('asynchronous_loading') == 'on') {
+            add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes_asynchronous']);
+        } else {
+            add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes']);
+        }
     }
-    public function gswpts_sortcodes($atts) {
-        $output = "<b>No table data found</b>";
+    public function gswpts_sortcodes_asynchronous($atts) {
+        $output = "<h5><b>No table data found</b></h5> <br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;
@@ -16,7 +20,7 @@ class Sortcode {
         $output = '<div class="gswpts_tables_container" id="' . $atts['id'] . '">';
         $output .= '<h3></h3>';
 
-        $output .= '<div class="gswpts_tables">';
+        $output .= '<div class="gswpts_tables_content">';
 
         $output .= '
              <div class="ui segment gswpts_table_loader">
@@ -31,7 +35,36 @@ class Sortcode {
 
         $output .= '</div>';
         $output .= '</div>';
+        $output .= '<br><br>';
 
+        return $output;
+    }
+
+    public function gswpts_sortcodes($atts) {
+        $output = "<h5><b>No table data found</b></h5> <br>";
+        global $gswpts;
+        if (!is_int(intval($atts['id']))) {
+            return $output;
+        }
+
+        $respond = $gswpts->get_table(false, null, $atts['id']);
+        $table_name = $gswpts->input_values($atts['id'])['table_name'];
+        $table = $respond['table']['table'];
+
+
+        $output = '<div 
+                                    class="gswpts_tables_container" id="' . $atts['id'] . '"
+                                    data-table_name="' . $respond['table_name'] . '"
+                                    data-table_settings=' . json_encode($respond['table_settings']) . '>';
+        $output .= $table_name;
+
+        $output .= '<div class="gswpts_tables_content">';
+
+        $output .= $table;
+
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<br><br>';
 
         return $output;
     }
