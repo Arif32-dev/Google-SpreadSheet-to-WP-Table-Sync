@@ -1,49 +1,61 @@
-.gswpts_general_settings_container{
-    margin-right: 20px;
-    *{
-        font-family: $font-family;
-    }
-    a {
-        cursor: pointer;
-        color: $link-color;
-        transition: color 0.1s ease-in-out;
-        &:hover{
-            color: $link-hover-color;
-        }
-    }
-    .settings_row{
-        .card{
-            width: 100% !important;
-        }
-        .checkbox{
-            transform: scale(1.3);
-        }
-          .ui.toggle.checkbox {
-            input {
-                visibility: hidden;
-            }
-            label {
-                cursor: pointer;
-            }
-            input:checked~.box:before,
-            input:checked~label:before {
-                background-color: $link-color !important;
-            }
-        }
-        .settings_desc{
-            padding: 10px 15px 15px 15px;
-        }
-        i{
-            color: $link-hover-color;
-        }
-      
-    }
-    .dash_boxes > div {
-        width: 50%;
-    }
-    .gswpts_settings_container{
-        th {
-            display: none !important;
-        }
-    }
+.gswpts_general_settings_container {
+	margin-right: 20px;
+
+	* {
+		font-family: $font-family;
+	}
+
+	a {
+		cursor: pointer;
+		color: $link-color;
+		transition: color 0.1s ease-in-out;
+
+		&:hover {
+			color: $link-hover-color;
+		}
+	}
+
+	.settings_row {
+		.card {
+			width: 100% !important;
+		}
+
+		.checkbox {
+			transform: scale(1.3);
+		}
+
+		.ui.toggle.checkbox {
+			input {
+				visibility: hidden;
+			}
+
+			label {
+				cursor: pointer;
+			}
+
+			input:checked~.box:before,
+			input:checked~label:before {
+				background-color: $link-color !important;
+			}
+		}
+
+		.settings_desc {
+			padding: 10px 15px 15px 15px;
+		}
+
+		i {
+			color: $link-hover-color;
+		}
+
+	}
+
+	.dash_boxes>div {
+		width: 50%;
+	}
+
+	.gswpts_settings_container {
+		th {
+			display: none !important;
+		}
+	}
 }

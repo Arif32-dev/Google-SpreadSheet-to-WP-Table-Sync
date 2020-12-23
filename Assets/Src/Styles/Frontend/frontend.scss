@@ -7,18 +7,21 @@
 	@include mixin.input_style;
 	@include mixin.pagination_style;
 	@include mixin.datatable_semantic;
+	@include mixin.loader_style;
+
 	margin: 30px 0;
+	position: relative;
 
 	.gswpts_table_loader {
 		width: 100%;
-		min-height: 400px;
+		min-height: 200px;
 	}
 
 	table {
 
 		th,
 		td {
-			max-width: 150px;
+			max-width: 200px;
 			overflow-wrap: break-word;
 		}
 
@@ -31,10 +34,11 @@
 		display: flex;
 		justify-content: flex-end;
 		margin-top: 5px;
+		gap: 10px;
 
 		button {
 			font-size: 13px;
-			margin: 0 6px !important;
+			margin: 0 6px;
 		}
 
 		.export_btns {

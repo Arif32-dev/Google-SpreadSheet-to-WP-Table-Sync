@@ -193,6 +193,7 @@ export default class Base_Class {
             "lengthChange": true,
             "ordering": ordering,
             "destroy": true,
+            "scrollX": true
 
         }
         return obj;

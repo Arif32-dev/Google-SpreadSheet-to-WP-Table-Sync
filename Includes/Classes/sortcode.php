@@ -12,7 +12,6 @@ class Sortcode {
     }
     public function gswpts_sortcodes_asynchronous($atts) {
         $output = "<h5><b>No table data found</b></h5> <br>";
-        global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;
         }
@@ -25,7 +24,7 @@ class Sortcode {
         $output .= '
              <div class="ui segment gswpts_table_loader">
                         <div class="ui active inverted dimmer">
-                            <div class="ui large text loader"></div>
+                            <div class="ui large text loader">Loading</div>
                         </div>
                         <p></p>
                         <p></p>

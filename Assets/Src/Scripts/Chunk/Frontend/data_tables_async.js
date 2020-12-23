@@ -26,11 +26,16 @@ $(document).ready(function () {
                         id: id
                     },
                     type: 'post',
+
                     success: res => {
 
                         if (JSON.parse(res).response_type == 'success') {
 
                             let table_settings = JSON.parse(JSON.parse(res).table_data.table_settings);
+
+                            if (table_settings.responsive_table == 'true') {
+                                $(elem).addClass('gswpts_resposive');
+                            }
 
                             if (table_settings.table_title == 'true') {
                                 $(elem).find('h3').html(JSON.parse(res).table_data.table_name);

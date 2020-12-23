@@ -138,4 +138,17 @@ export default class Global_Table_Config {
             });
         }
     }
+    html_loader() {
+        let loader = `
+               <div class="ui segment gswpts_table_loader">
+                        <div class="ui active inverted dimmer">
+                            <div class="ui large text loader">Loading</div>
+                        </div>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                </div>
+            `
+        return loader;
+    }
 }
