@@ -170,7 +170,7 @@ class Global_Class {
     public function fetch_gswpts_tables() {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
-        $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . ""));
+        $result = $wpdb->get_results("SELECT * FROM " . $table . "");
         if (!empty($result)) {
             return $result;
         } else {
@@ -240,5 +240,28 @@ class Global_Class {
         } else {
             return null;
         }
+    }
+
+    public function latest_table_details() {
+        $db_result = $this->fetch_gswpts_tables();
+        $last_table_id =  $this->get_last_table_id($db_result);
+        $latest_table_info = [
+            'total_table_count' => $db_result != false ? count($db_result) : 0,
+            'last_table_name' => $db_result[$last_table_id - 1]->table_name,
+            'last_table_id' => $last_table_id
+        ];
+        return $latest_table_info;
+    }
+    public function get_last_table_id($db_result) {
+        $last_table = null;
+        if ($db_result != false) {
+            $last_table = $db_result[0]->id;
+            foreach ($db_result as $result) {
+                if ($result->id > $last_table) {
+                    return $result->id;
+                }
+            }
+        }
+        return $last_table;
     }
 }

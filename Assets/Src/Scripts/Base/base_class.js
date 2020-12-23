@@ -74,6 +74,16 @@ export default class Base_Class {
         $('#sortcode_value').val(`[gswpts_table id=${shortcode_id}]`)
     }
 
+    copy_shorcode(e) {
+        let input = $(e.currentTarget).siblings('input');
+        input.attr('type', 'text')
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        input.attr('type', 'hidden')
+        this.call_alert('Copied &#128077;', '<b>Sortcode copied successfully</b>', 'info', 2)
+    }
+
     btn_changer(submit_button, text, reqType = false) {
         submit_button.html(`
                             ${text}

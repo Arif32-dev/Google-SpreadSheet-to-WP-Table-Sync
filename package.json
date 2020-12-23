@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "guten": "wp-scripts build --config webpack.guten.js"
+    "guten": "wp-scripts build --config webpack.gutenberg.js"
   },
   "repository": {
     "type": "git",

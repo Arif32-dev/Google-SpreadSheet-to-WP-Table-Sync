@@ -10,6 +10,7 @@ class Enqueue_Files {
     public function __construct() {
         add_action('admin_enqueue_scripts', [$this, 'backend_files']);
         add_action('wp_enqueue_scripts', [$this, 'frontend_files']);
+        add_action('enqueue_block_editor_assets', [$this, 'gutenberg_files']);
     }
 
     public function backend_files() {
@@ -47,5 +48,15 @@ class Enqueue_Files {
             'admin_ajax' => admin_url('admin-ajax.php'),
             'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off'
         ]);
+    }
+
+    public function gutenberg_files() {
+        wp_enqueue_script(
+            'myguten-script',
+            GSWPTS_BASE_URL . 'public/gutenberg.min.js',
+            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components'],
+            time(),
+            true
+        );
     }
 }

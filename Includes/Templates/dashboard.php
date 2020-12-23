@@ -3,15 +3,16 @@ global $gswpts;
 $gswpts->bootstrap_files();
 $gswpts->semantic_files();
 ?>
+
 <div class="gswpts_dashboard_container">
 
     <div class="ui segment gswpts_loader">
-            <div class="ui active inverted dimmer">
-                <div class="ui massive text loader"></div>
-            </div>
-            <p></p>
-            <p></p>
-            <p></p>
+        <div class="ui active inverted dimmer">
+            <div class="ui massive text loader"></div>
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
     </div>
 
 
@@ -71,20 +72,20 @@ $gswpts->semantic_files();
                         </div>
                         <div class="card-body d-flex">
                             <div class="col-3 d-flex justify-content-center align-items-center flex-column total_created">
-                                <span>2</span>
+                                <span><?php echo $gswpts->latest_table_details()['total_table_count'] ?></span>
                                 <span>Created</span>
                             </div>
                             <div class="col-9 details">
                                 <div class="col-12">
-                                    <a href="">Table Name</a>
+                                    <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables&id=' . $gswpts->latest_table_details()['last_table_id'] . '') ?>"><?php echo $gswpts->latest_table_details()['last_table_name'] ?></a>
                                     <div class="ui tag label ml-3">Spreadsheet</div>
                                 </div>
                                 <div class="col-12 mt-2">Latest table created</div>
                                 <div class="col-12 mt-2">
                                     <div class="ui label">
-                                        <i class="clone icon"></i>
-                                        <input type="hidden" name="sortcode" value="">
-                                        [gswpts_table id=1]
+                                        <i class="clone icon dashboard_sortcode_copy_btn"></i>
+                                        <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]">
+                                        [gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]
                                     </div>
                                 </div>
                             </div>
@@ -186,8 +187,8 @@ $gswpts->semantic_files();
                                                 <div class="description">
 
                                                     <p>
-                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter! Join 3000+ subscribers. 
-                                                        We send about 1 message per month and never spam! 
+                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter! Join 3000+ subscribers.
+                                                        We send about 1 message per month and never spam!
                                                     </p>
 
                                                     <div class="ui right labeled left icon input mt-3">

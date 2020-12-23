@@ -71,15 +71,6 @@ jQuery(document).ready(function ($) {
                 },
             })
         }
-        copy_shorcode(e) {
-            let input = $(e.currentTarget).siblings('input');
-            input.attr('type', 'text')
-            input.focus();
-            input.select();
-            document.execCommand("copy");
-            input.attr('type', 'hidden')
-            this.call_alert('Copied &#128077;', 'Sortcode copied successfully', 'info', 2)
-        }
 
         toggle_content(e) {
             console.log($(e.currentTarget).attr('data-show'));

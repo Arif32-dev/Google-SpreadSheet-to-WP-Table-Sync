@@ -4,7 +4,6 @@ jQuery(document).ready(function ($) {
     class UD_tables extends Base_Class {
         constructor() {
             super($);
-            this.updateCheck = false;
             this.deleteBtn = $('#delete_button');
             this.events();
         }
@@ -12,7 +11,7 @@ jQuery(document).ready(function ($) {
             $(document).on('click', '.gswpts_edit_table', (e) => {
                 this.edit_table_name(e)
             })
-            $(document).on('click', '.gswpts_popup_edit', (e) => {
+            $(document).on('click', '.table_name_save', (e) => {
                 this.edit_tag_value(e)
             })
             $(document).on('click', '.gswpts_table_update_btn', (e) => {
@@ -27,10 +26,7 @@ jQuery(document).ready(function ($) {
         }
         update_table_name(e) {
             let table_name = $(e.currentTarget).parent().parent().find('.table_name').text();
-            if (this.updateCheck == false) {
-                this.call_alert('Warning &#9888;&#65039;', "<b>Table name haven't changed to update</b>", 'warning', 3)
-                return;
-            }
+
             let data = {
                 reqType: 'update',
                 table_id: $(e.currentTarget).attr('id'),
@@ -133,6 +129,7 @@ jQuery(document).ready(function ($) {
 
             })
         }
+
         remove_seleted_tables() {
             let allCheckBox = $("input[name='manage_tables_checkbox']:checked");
             $.each(allCheckBox, function (indexInArray, valueOfElement) {
@@ -144,39 +141,46 @@ jQuery(document).ready(function ($) {
                 });
             }, 300);
         }
+
         edit_table_name(e) {
-            if ($('.gswpts_modal').hasClass('hidden')) {
-                $('.gswpts_input_table_name').val(this.get_table_name(e));
-                $('.gswpts_modal').transition('fade up');
-                this.set_target_class(e)
-            } else {
-                $('.gswpts_input_table_name').val(this.get_table_name(e));
-                this.set_target_class(e)
-            }
-        }
 
-        get_table_name(e) {
-            let table_name = $(e.currentTarget).siblings('a').text();
-            return table_name;
-        }
+            let currentTarget = $(e.currentTarget);
+            currentTarget.css({
+                "padding-left": "15px",
+                "padding-right": "15px"
+            })
 
-        set_target_class(e) {
-            $('.table_name').removeClass('edit_tag')
-            $(e.currentTarget).siblings('a').addClass('edit_tag');
+            currentTarget.addClass('table_name_save');
+            currentTarget.html(`
+                <i class="fas fa-file-alt"></i>
+            `)
+            let link_tag = currentTarget.siblings('a');
+            link_tag.css({
+                "cursor": "auto",
+            })
+            link_tag.attr('contentEditable', true);
+            link_tag.focus();
+            link_tag.unbind('click');
+
         }
 
         edit_tag_value(e) {
-            let input_value = $(e.currentTarget).siblings('input').val();
-            let anchor_tag = $('.edit_tag');
-            if (input_value != anchor_tag.html()) {
-                this.updateCheck = true;
-            } else {
-                this.updateCheck = false;
-            }
-            $('.edit_tag').html(input_value);
-            $('.edit_tag').attr('data-updated', "" + this.updateCheck + "");
-            $(e.currentTarget).parent().parent().transition('fade up');
-            console.log(this.updateCheck);
+
+            let currentTarget = $(e.currentTarget);
+            currentTarget.html(`
+                 <i class="edit icon"></i>
+            `)
+            currentTarget.removeClass('table_name_save');
+
+            let link_tag = currentTarget.siblings('a');
+            link_tag.css({
+                "cursor": "pointer",
+            })
+            link_tag.attr('contentEditable', false);
+            link_tag.focusout();
+            link_tag.blur();
+            link_tag.bind('click');
+
         }
     }
     new UD_tables;
