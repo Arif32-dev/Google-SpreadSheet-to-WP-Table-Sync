@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://google-spreadsheet-to-wp-table-sync/./Assets/Src/Styles/Backend/gutenberg.scss"],"names":[],"mappings":"AAAA,KACC,Y","file":"Styles/gutenberg.min.css","sourcesContent":["body {\r\n\tcolor: green;\r\n}"],"sourceRoot":""}

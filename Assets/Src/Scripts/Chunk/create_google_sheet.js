@@ -9,7 +9,9 @@ jQuery(document).ready(function ($) {
             this.sheet_url = '';
             this.dropdown_select = $('#table_type')
             this.events();
-            $('#table_type').dropdown();
+            if ($('#table_type').length) {
+                $('#table_type').dropdown();
+            }
         }
 
         events() {

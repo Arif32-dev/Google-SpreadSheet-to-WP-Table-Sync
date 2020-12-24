@@ -51,12 +51,24 @@ class Enqueue_Files {
     }
 
     public function gutenberg_files() {
+
+        wp_enqueue_style('GSWPTS-gutenberg-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/gutenberg.min.css', [], time(), 'all');
+
         wp_enqueue_script(
-            'myguten-script',
-            GSWPTS_BASE_URL . 'public/gutenberg.min.js',
-            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components'],
+            'gswpts-gutenberg',
+            GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/Gutenberg/gutenberg.min.js',
+            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components', 'GSWPTS-jquery-js'],
             time(),
             true
         );
+        global $gswpts;
+        $gswpts->semantic_files();
+        $gswpts->data_table_styles();
+        $gswpts->data_table_scripts();
+
+        wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
+            'admin_ajax' => admin_url('admin-ajax.php'),
+            'table_details' => $gswpts->fetch_gswpts_tables()
+        ]);
     }
 }

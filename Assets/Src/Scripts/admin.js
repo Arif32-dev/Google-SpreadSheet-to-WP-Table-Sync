@@ -10,7 +10,11 @@ import './Chunk/table_changes'
 import './Chunk/general_settings'
 
 jQuery(document).ready(function () {
-  $('.gswpts_loader').transition('fade');
+  if ($('.gswpts_loader').length) {
+    $('.gswpts_loader').transition('fade');
+  } else {
+    return;
+  }
   setTimeout(() => {
     $('.dashboard_content, .manage_table_content, .create_table_content, .settings_content').transition('fade');
   }, 300);

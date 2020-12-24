@@ -6,11 +6,11 @@ module.exports = {
     entry: {
         gutenberg: {
             import: path.resolve(__dirname, 'Assets/Src/Scripts/gutenberg.js'),
-            filename: 'Scripts/Backend/[name].min.js'
+            filename: '[name].min.js'
         },
     },
     output: {
-        path: path.resolve(__dirname, 'Assets/Public/'),
+        path: path.resolve(__dirname, 'Assets/Public/Scripts/Backend/Gutenberg/'),
     },
     module: {
         ...defaultConfig.module,

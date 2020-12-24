@@ -264,4 +264,18 @@ class Global_Class {
         }
         return $last_table;
     }
+    public function get_first_table_details() {
+        $table_details = null;
+        $db_result = $this->fetch_gswpts_tables();
+        if ($db_result) {
+            $table_details = [
+                'id' => $db_result[0]->id,
+                'table_name' => $db_result[0]->table_name,
+                'source_url' => $db_result[0]->source_url,
+                'source_type' => $db_result[0]->source_type,
+                'table_settings' => $db_result[0]->table_settings,
+            ];
+        }
+        return $table_details;
+    }
 }

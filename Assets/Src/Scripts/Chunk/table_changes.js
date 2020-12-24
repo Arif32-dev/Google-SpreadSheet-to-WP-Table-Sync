@@ -28,8 +28,12 @@ jQuery(document).ready(function ($) {
         }
 
         add_select_box_style() {
-            $('#rows_per_page').dropdown();
-            $('#table_exporting').dropdown();
+            if ($('#rows_per_page').length) {
+                $('#rows_per_page').dropdown();
+            }
+            if ($('#table_exporting').length) {
+                $('#table_exporting').dropdown();
+            }
         }
 
         update_table_by_changes(e) {
