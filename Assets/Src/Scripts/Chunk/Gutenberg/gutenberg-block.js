@@ -1,3 +1,5 @@
+import MultiSelect from "./Components/dropdown";
+
 const { registerBlockType } = wp.blocks;
 const { InspectorControls } = wp.blockEditor;
 
@@ -162,8 +164,7 @@ $(document).ready(function () {
                                             setAttributes({ sortcode_id: typeof val == 'string' ? parseInt(val) : null })
                                             setAttributes({ innerHTML: loader })
                                             setAttributes({ show_settings: !show_settings })
-                                            add_select_box_style()
-                                            fetch_data_by_id(val)
+                                            // fetch_data_by_id(val)
                                         }
                                         }
                                         options={
@@ -194,16 +195,21 @@ $(document).ready(function () {
                                             label="Default rows per page"
                                             value='10'
                                             onChange={(val) => { }}
+
+                                        />
+                                        <MultiSelect
+                                            placeholder="Default rows per page"
+                                            multiple={false}
                                             options={
                                                 [
-                                                    { value: 1, label: '1' },
-                                                    { value: 5, label: '5' },
-                                                    { value: 10, label: '10' },
-                                                    { value: 15, label: '15' },
-                                                    { value: 25, label: '25' },
-                                                    { value: 50, label: '50' },
-                                                    { value: 100, label: '100' },
-                                                    { value: 'all', label: 'All' },
+                                                    { key: 1, value: 1, text: '1' },
+                                                    { key: 5, value: 5, text: '5' },
+                                                    { key: 10, value: 10, text: '10' },
+                                                    { key: 15, value: 15, text: '15' },
+                                                    { key: 25, value: 25, text: '25' },
+                                                    { key: 50, value: 50, text: '50' },
+                                                    { key: 100, value: 100, text: '100' },
+                                                    { key: 'all', value: 'all', text: 'All' },
                                                 ]
                                             }
                                         />
@@ -295,18 +301,24 @@ $(document).ready(function () {
                                 <PanelBody
                                     title="Table Tools"
                                     icon="admin-tools"
-                                    initialOpen={false}
+                                    initialOpen={true}
+                                    onToggle={(e) => { console.log(e) }}
                                 >
                                     <PanelRow class="gswpts_panal">
-                                        <select name="skills" multiple="" class="ui fluid dropdown" id="table_exporting">
-                                            <option value="">Select Type</option>
-                                            <option value="json">JSON</option>
-                                            <option value="pdf">PDF</option>
-                                            <option value="csv">CSV</option>
-                                            <option value="excel">Excel</option>
-                                            <option value="print">Print</option>
-                                            <option value="copy">Copy</option>
-                                        </select>
+                                        <MultiSelect
+                                            placeholder="Select Type"
+                                            multiple={true}
+                                            options={
+                                                [
+                                                    { key: 'json', value: 'json', text: 'JSON' },
+                                                    { key: 'pdf', value: 'pdf', text: 'PDF' },
+                                                    { key: 'csv', value: 'csv', text: 'CSV' },
+                                                    { key: 'excel', value: 'excel', text: 'Excel' },
+                                                    { key: 'print', value: 'print', text: 'Print' },
+                                                    { key: 'copy', value: 'copy', text: 'Copy' },
+                                                ]
+                                            }
+                                        />
                                         <br />
                                     </PanelRow>
                                 </PanelBody>
@@ -315,7 +327,8 @@ $(document).ready(function () {
 
                         </InspectorControls>,
                         <div
-                            class="gswpts_table_container" id={sortcode_id}
+                            class="gswpts_create_table_container" id={sortcode_id}
+                            style={{ marginRight: '0' }}
                             dangerouslySetInnerHTML={{ __html: innerHTML }}>
                         </div>
                     ]
