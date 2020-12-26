@@ -66,6 +66,7 @@ class Enqueue_Files {
         $gswpts->data_table_styles();
         $gswpts->data_table_scripts();
 
+
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
             'admin_ajax' => admin_url('admin-ajax.php'),
             'table_details' => $gswpts->fetch_gswpts_tables()
