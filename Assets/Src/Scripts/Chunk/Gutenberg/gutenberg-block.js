@@ -1,4 +1,4 @@
-import MultiSelect from "./Components/dropdown";
+import { Dropdown } from 'semantic-ui-react'
 
 const { registerBlockType } = wp.blocks;
 const { InspectorControls } = wp.blockEditor;
@@ -42,11 +42,27 @@ $(document).ready(function () {
                 show_settings: {
                     type: 'boolean',
                     default: false
+                },
+
+                table_settings: {
+                    type: 'object',
+                    default: {
+                        table_title: false,
+                        defaultRowsPerPage: '10',
+                        showInfoBlock: true,
+                        responsiveTable: false,
+                        showXEntries: true,
+                        swapFilterInputs: false,
+                        swapBottomOptions: false,
+                        allowSorting: true,
+                        searchBar: true,
+                        tableExport: null
+                    }
                 }
 
             },
             edit: ({ attributes, setAttributes }) => {
-                const { sortcode_id, innerHTML, saved_tables, show_settings } = attributes;
+                const { sortcode_id, innerHTML, saved_tables, show_settings, table_settings } = attributes;
 
                 function get_table_name_and_data() {
                     let select_options = [
@@ -129,11 +145,6 @@ $(document).ready(function () {
                     });
                 }
 
-                function add_select_box_style() {
-                    $('#table_exporting').dropdown();
-                }
-
-
                 let loader = `
                                     <div class="ui segment gswpts_table_loader">
                                                 <div class="ui active inverted dimmer">
@@ -184,34 +195,41 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Show Title"
                                             help='Enable this to show the table title in h3 tag above the table'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.table_title}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.table_title = !prevSettingObj.table_title;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
 
                                     <PanelRow class="gswpts_panal">
-                                        <SelectControl
-                                            label="Default rows per page"
-                                            value='10'
-                                            onChange={(val) => { }}
-
-                                        />
-                                        <MultiSelect
+                                        <h4 class="header">Default rows per page</h4>
+                                        <br />
+                                        <Dropdown
                                             placeholder="Default rows per page"
-                                            multiple={false}
+                                            defaultValue={table_settings.defaultRowsPerPage}
+                                            fluid
+                                            selection
                                             options={
                                                 [
-                                                    { key: 1, value: 1, text: '1' },
-                                                    { key: 5, value: 5, text: '5' },
-                                                    { key: 10, value: 10, text: '10' },
-                                                    { key: 15, value: 15, text: '15' },
-                                                    { key: 25, value: 25, text: '25' },
-                                                    { key: 50, value: 50, text: '50' },
-                                                    { key: 100, value: 100, text: '100' },
+                                                    { key: '1', value: '1', text: '1' },
+                                                    { key: '5', value: '5', text: '5' },
+                                                    { key: '10', value: '10', text: '10' },
+                                                    { key: '15', value: '15', text: '15' },
+                                                    { key: '25', value: '25', text: '25' },
+                                                    { key: '50', value: '50', text: '50' },
+                                                    { key: '100', value: '100', text: '100' },
                                                     { key: 'all', value: 'all', text: 'All' },
                                                 ]
                                             }
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.defaultRowsPerPage = value;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -221,8 +239,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Show info block"
                                             help='Show Showing X to Y of Z entries block below the table'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.showInfoBlock}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.showInfoBlock = !prevSettingObj.showInfoBlock;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -232,8 +254,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Resposive table"
                                             help='Allow collapsing on mobile and tablet screen'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.responsiveTable}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.responsiveTable = !prevSettingObj.responsiveTable;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -242,8 +268,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Show X entries"
                                             help='Show X entries per page dropdown'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.showXEntries}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.showXEntries = !prevSettingObj.showXEntries;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -252,8 +282,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Swap Filters"
                                             help='Swap the places of X entries dropdown and search filter input'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.swapFilterInputs}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.swapFilterInputs = !prevSettingObj.swapFilterInputs;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -262,8 +296,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Swap Bottom Elements"
                                             help='Swap the places of Showing X to Y of Z entries with table pagination filter'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.swapBottomOptions}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.swapBottomOptions = !prevSettingObj.swapBottomOptions;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -280,8 +318,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Allow Sorting"
                                             help='Enable this feature to sort table data for frontend.'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.allowSorting}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.allowSorting = !prevSettingObj.allowSorting;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -290,8 +332,12 @@ $(document).ready(function () {
                                         <ToggleControl
                                             label="Search Bar"
                                             help='Enable this feature to show a search bar in for the table. It will help user to search data in the table'
-                                            checked={true}
-                                            onChange={() => { alert('hello') }}
+                                            checked={table_settings.searchBar}
+                                            onChange={() => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.searchBar = !prevSettingObj.searchBar;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
@@ -301,13 +347,16 @@ $(document).ready(function () {
                                 <PanelBody
                                     title="Table Tools"
                                     icon="admin-tools"
-                                    initialOpen={true}
-                                    onToggle={(e) => { console.log(e) }}
+                                    initialOpen={false}
                                 >
                                     <PanelRow class="gswpts_panal">
-                                        <MultiSelect
+                                        <Dropdown
                                             placeholder="Select Type"
-                                            multiple={true}
+                                            defaultValue={table_settings.tableExport}
+                                            fluid
+                                            multiple
+                                            clearable
+                                            selection
                                             options={
                                                 [
                                                     { key: 'json', value: 'json', text: 'JSON' },
@@ -318,6 +367,11 @@ $(document).ready(function () {
                                                     { key: 'copy', value: 'copy', text: 'Copy' },
                                                 ]
                                             }
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = { ...table_settings };
+                                                prevSettingObj.tableExport = value;
+                                                setAttributes({ table_settings: prevSettingObj });
+                                            }}
                                         />
                                         <br />
                                     </PanelRow>
