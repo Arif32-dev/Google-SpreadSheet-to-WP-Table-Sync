@@ -61,6 +61,13 @@ class Enqueue_Files {
             time(),
             true
         );
+
+        register_block_type(
+            'gswpts/spreadsheet-to-wp-table-sync',
+            array(
+                'editor_script' => 'gswpts-gutenberg',
+            )
+        );
         global $gswpts;
         $gswpts->semantic_files();
         $gswpts->data_table_styles();

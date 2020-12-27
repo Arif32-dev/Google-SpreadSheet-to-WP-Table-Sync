@@ -2,7 +2,6 @@ import { Dropdown } from 'semantic-ui-react'
 
 const { registerBlockType } = wp.blocks;
 const { InspectorControls } = wp.blockEditor;
-const { useRef } = wp.element;
 
 const {
     Panel,
@@ -27,6 +26,11 @@ $(document).ready(function () {
                 sortcode_id: {
                     type: 'integer',
                     default: null
+                },
+
+                table_selection: {
+                    type: 'string',
+                    default: 'no_selection'
                 },
 
                 innerHTML: {
@@ -68,23 +72,15 @@ $(document).ready(function () {
 
             },
             edit: ({ attributes, setAttributes }) => {
-                const {
-                    sortcode_id,
-                    innerHTML,
-                    saved_tables,
-                    table_name,
-                    show_settings,
-                    table_settings,
-                } = attributes;
-                const table_container = useRef()
+
 
 
                 function get_table_name_and_data() {
                     let select_options = [
                         { value: 'no_selection', label: 'Select a table' },
                     ];
-                    if (saved_tables) {
-                        saved_tables.forEach(table => {
+                    if (attributes.saved_tables) {
+                        attributes.saved_tables.forEach(table => {
                             select_options.push(
                                 {
                                     value: parseInt(table.id),
@@ -143,6 +139,8 @@ $(document).ready(function () {
 
                                 setAttributes({ table_name: table_name });
 
+                                update_default_attibutes(table_settings)
+
                                 $('#' + id + ' table').DataTable(
                                     table_object(defaultRowsPerPage, allowSorting, dom)
                                 );
@@ -170,6 +168,84 @@ $(document).ready(function () {
                         },
                     })
                 }
+
+                function update_default_attibutes(ajax_table_settings) {
+                    const prevSettingObj = { ...attributes.table_settings };
+                    prevSettingObj.table_title = ajax_table_settings.table_title == 'true' ? true : false;
+                    prevSettingObj.defaultRowsPerPage = ajax_table_settings.default_rows_per_page;
+                    prevSettingObj.showInfoBlock = ajax_table_settings.show_info_block == 'true' ? true : false;
+                    prevSettingObj.responsiveTable = ajax_table_settings.responsive_table == 'true' ? true : false;
+                    prevSettingObj.showXEntries = ajax_table_settings.show_x_entries == 'true' ? true : false;
+                    prevSettingObj.swapFilterInputs = ajax_table_settings.swap_filter_inputs == 'true' ? true : false;
+                    prevSettingObj.swapBottomOptions = ajax_table_settings.swap_bottom_options == 'true' ? true : false;
+                    prevSettingObj.allowSorting = ajax_table_settings.allow_sorting == 'true' ? true : false;
+                    prevSettingObj.searchBar = ajax_table_settings.search_bar == 'true' ? true : false;
+                    setAttributes({ table_settings: prevSettingObj });
+                }
+
+                function table_changer(id, prevSettingObj) {
+                    let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
+                    $('#' + id + ' table').DataTable(
+                        table_object(
+                            prevSettingObj.defaultRowsPerPage,
+                            prevSettingObj.allowSorting,
+                            dom
+                        )
+                    );
+                }
+
+                function swap_input_filter(table_id, filter_state) {
+                    /* If checkbox is checked then swap filter */
+                    if (filter_state) {
+                        $('#' + table_id + ' #filtering_input').css('flex-direction', 'row-reverse');
+                        console.log($('#' + table_id + ' #create_tables_length'))
+                        $('#' + table_id + ' #create_tables_length').css({
+                            'margin-right': '0',
+                            'margin-left': 'auto'
+                        });
+                        console.log($('#' + table_id + ' #create_tables_filter'))
+                        $('#' + table_id + ' #create_tables_filter').css({
+                            'margin-left': '0',
+                            'margin-right': 'auto',
+                        });
+                    } else {
+                        /* Set back to default position */
+                        $('#' + table_id + ' #filtering_input').css('flex-direction', 'row');
+                        $('#' + table_id + ' #create_tables_length').css({
+                            'margin-right': 'auto',
+                            'margin-left': '0'
+                        });
+                        $('#' + table_id + ' #create_tables_filter').css({
+                            'margin-left': 'auto',
+                            'margin-right': '0',
+                        });
+                    }
+                }
+
+                function swap_bottom_options(table_id, bottom_state) {
+                    if (bottom_state) {
+                        $('#' + table_id + ' #bottom_options').css('flex-direction', 'row-reverse');
+                        $('#' + table_id + ' #create_tables_info').css({
+                            'margin-right': '0',
+                            'margin-left': 'auto'
+                        });
+                        $('#' + table_id + ' #create_tables_paginate').css({
+                            'margin-left': '0',
+                            'margin-right': 'auto',
+                        });
+                    } else {
+                        $('#' + table_id + ' #bottom_options').css('flex-direction', 'row');
+                        $('#' + table_id + ' #create_tables_info').css({
+                            'margin-right': 'auto',
+                            'margin-left': '0'
+                        });
+                        $('#' + table_id + ' #create_tables_paginate').css({
+                            'margin-left': 'auto',
+                            'margin-right': '0',
+                        });
+                    }
+                }
+
 
                 function call_alert(title, description, type, time, pos = 'bottom-right') {
                     $.suiAlert({
@@ -224,8 +300,9 @@ $(document).ready(function () {
                                 >
                                     <SelectControl
                                         label="Select Table"
-                                        value='no_selection'
+                                        value={attributes.table_selection}
                                         onChange={(val) => {
+                                            setAttributes({ table_selection: val })
                                             setAttributes({ sortcode_id: typeof val == 'string' ? parseInt(val) : null })
                                             setAttributes({ innerHTML: loader })
                                             fetch_data_by_id(val)
@@ -239,7 +316,7 @@ $(document).ready(function () {
                                 </PanelBody>
 
                                 {
-                                    show_settings ? (
+                                    attributes.show_settings ? (
                                         <>
                                             <PanelBody
                                                 title="Display Settings"
@@ -250,9 +327,9 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Show Title"
                                                         help='Enable this to show the table title in h3 tag above the table'
-                                                        checked={table_settings.table_title}
+                                                        checked={attributes.table_settings.table_title}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.table_title = !prevSettingObj.table_title;
                                                             setAttributes({ table_settings: prevSettingObj });
                                                         }}
@@ -265,7 +342,7 @@ $(document).ready(function () {
                                                     <br />
                                                     <Dropdown
                                                         placeholder="Default rows per page"
-                                                        defaultValue={table_settings.defaultRowsPerPage}
+                                                        defaultValue={attributes.table_settings.defaultRowsPerPage}
                                                         fluid
                                                         selection
                                                         options={
@@ -277,13 +354,14 @@ $(document).ready(function () {
                                                                 { key: '25', value: '25', text: '25' },
                                                                 { key: '50', value: '50', text: '50' },
                                                                 { key: '100', value: '100', text: '100' },
-                                                                { key: 'all', value: 'all', text: 'All' },
+                                                                { key: '-1', value: '-1', text: 'All' },
                                                             ]
                                                         }
                                                         onChange={(e, { value }) => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.defaultRowsPerPage = value;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
                                                         }}
                                                     />
                                                     <br />
@@ -294,11 +372,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Show info block"
                                                         help='Show Showing X to Y of Z entries block below the table'
-                                                        checked={table_settings.showInfoBlock}
+                                                        checked={attributes.table_settings.showInfoBlock}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.showInfoBlock = !prevSettingObj.showInfoBlock;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
                                                         }}
                                                     />
                                                     <br />
@@ -309,9 +388,9 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Resposive table"
                                                         help='Allow collapsing on mobile and tablet screen'
-                                                        checked={table_settings.responsiveTable}
+                                                        checked={attributes.table_settings.responsiveTable}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.responsiveTable = !prevSettingObj.responsiveTable;
                                                             setAttributes({ table_settings: prevSettingObj });
                                                         }}
@@ -323,11 +402,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Show X entries"
                                                         help='Show X entries per page dropdown'
-                                                        checked={table_settings.showXEntries}
+                                                        checked={attributes.table_settings.showXEntries}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.showXEntries = !prevSettingObj.showXEntries;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
                                                         }}
                                                     />
                                                     <br />
@@ -337,11 +417,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Swap Filters"
                                                         help='Swap the places of X entries dropdown and search filter input'
-                                                        checked={table_settings.swapFilterInputs}
+                                                        checked={attributes.table_settings.swapFilterInputs}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.swapFilterInputs = !prevSettingObj.swapFilterInputs;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
                                                         }}
                                                     />
                                                     <br />
@@ -351,11 +432,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Swap Bottom Elements"
                                                         help='Swap the places of Showing X to Y of Z entries with table pagination filter'
-                                                        checked={table_settings.swapBottomOptions}
+                                                        checked={attributes.table_settings.swapBottomOptions}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.swapBottomOptions = !prevSettingObj.swapBottomOptions;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
                                                         }}
                                                     />
                                                     <br />
@@ -373,11 +455,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Allow Sorting"
                                                         help='Enable this feature to sort table data for frontend.'
-                                                        checked={table_settings.allowSorting}
+                                                        checked={attributes.table_settings.allowSorting}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.allowSorting = !prevSettingObj.allowSorting;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
                                                         }}
                                                     />
                                                     <br />
@@ -387,11 +470,12 @@ $(document).ready(function () {
                                                     <ToggleControl
                                                         label="Search Bar"
                                                         help='Enable this feature to show a search bar in for the table. It will help user to search data in the table'
-                                                        checked={table_settings.searchBar}
+                                                        checked={attributes.table_settings.searchBar}
                                                         onChange={() => {
-                                                            const prevSettingObj = { ...table_settings };
+                                                            const prevSettingObj = { ...attributes.table_settings };
                                                             prevSettingObj.searchBar = !prevSettingObj.searchBar;
                                                             setAttributes({ table_settings: prevSettingObj });
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
                                                         }}
                                                     />
                                                     <br />
@@ -410,17 +494,16 @@ $(document).ready(function () {
 
                         </InspectorControls >,
                         <div
-                            class="gswpts_create_table_container" id={sortcode_id}
+                            class="gswpts_create_table_container" id={attributes.sortcode_id}
                             style={{ marginRight: '0' }}>
                             {
-                                table_name != '' ?
-                                    (<h3>{table_name}</h3>) :
+                                attributes.table_name != '' && attributes.table_settings.table_title ?
+                                    (<h3>{attributes.table_name}</h3>) :
                                     (<></>)
                             }
                             <div
                                 id="spreadsheet_container"
-                                ref={table_container}
-                                dangerouslySetInnerHTML={{ __html: innerHTML }}
+                                dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
                             >
 
                             </div>
