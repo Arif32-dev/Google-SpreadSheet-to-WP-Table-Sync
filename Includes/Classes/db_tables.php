@@ -10,6 +10,7 @@ final class DB_Tables {
         global $wpdb;
         $collate = $wpdb->get_charset_collate();
 
+        /* This will create this pluign main table */
         $table = $wpdb->prefix . 'gswpts_tables';
         $this->sql = "CREATE TABLE " . $table . " (
                                     `id` INT(255) NOT NULL AUTO_INCREMENT,
