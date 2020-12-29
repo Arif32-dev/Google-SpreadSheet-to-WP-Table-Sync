@@ -37,6 +37,11 @@ registerBlockType(
 
             initializer_button_action: {
                 type: 'string',
+                default: ''
+            },
+
+            show_choose_table: {
+                type: 'boolean',
                 default: false
             },
 
@@ -58,6 +63,11 @@ registerBlockType(
             sheet_url: {
                 type: 'string',
                 default: ''
+            },
+
+            is_table_saved_to_db: {
+                type: 'boolean',
+                default: false
             },
 
             table_selection: {
@@ -108,6 +118,8 @@ registerBlockType(
             useEffect(() => {
                 if (attributes.sortcode_id) {
                     fetch_data_by_id(attributes.sortcode_id)
+                    setAttributes({ table_selection: attributes.sortcode_id })
+                    setAttributes({ show_choose_table: true });
                 }
             }, [])
 
@@ -163,7 +175,9 @@ registerBlockType(
 
                     beforeSend: () => {
                         setAttributes({ show_settings: false });
-                        setAttributes({ innerHTML: loader })
+                        if (attributes.req_type != 'save') {
+                            setAttributes({ innerHTML: loader })
+                        }
                         setAttributes({ req_type: 'fetch' });
                         setAttributes({ btn_text: 'Fetch Data' });
 
@@ -193,7 +207,9 @@ registerBlockType(
                         }
 
                         if (JSON.parse(res).response_type == 'saved') {
-                            // setAttributes({ sortcode_id: 'save' });
+                            let id = (Object.values(JSON.parse(res).id)[0]);
+                            setAttributes({ sortcode_id: parseInt(id) });
+                            setAttributes({ is_table_saved_to_db: true });
                             call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
                         }
 
@@ -277,7 +293,7 @@ registerBlockType(
                     success: res => {
 
                         if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
-                            setAttributes({ innerHTML: '' });
+                            setAttributes({ innerHTML: JSON.parse(res).output });
                             setAttributes({ show_settings: false });
                             setAttributes({ table_name: '' });
 
@@ -346,39 +362,58 @@ registerBlockType(
                 setAttributes({ table_settings: prevSettingObj });
             }
 
-            function table_changer(id, prevSettingObj) {
+            function table_changer(id = null, prevSettingObj) {
                 let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
-                $('#' + id + ' table').DataTable(
-                    table_object(
-                        prevSettingObj.defaultRowsPerPage,
-                        prevSettingObj.allowSorting,
-                        dom
-                    )
-                );
+                if (id == null) {
+                    $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
+                        table_object(
+                            prevSettingObj.defaultRowsPerPage,
+                            prevSettingObj.allowSorting,
+                            dom
+                        )
+                    );
+                } else {
+
+                    $('#' + id + ' table').DataTable(
+                        table_object(
+                            prevSettingObj.defaultRowsPerPage,
+                            prevSettingObj.allowSorting,
+                            dom
+                        )
+                    );
+                }
             }
 
             function swap_input_filter(table_id, filter_state) {
+
+                let selector = null;
+
+                if (table_id == null) {
+                    selector = spreadsheet_container.current.id;
+                } else {
+                    selector = table_id;
+                }
+
                 /* If checkbox is checked then swap filter */
+
                 if (filter_state) {
-                    $('#' + table_id + ' #filtering_input').css('flex-direction', 'row-reverse');
-                    console.log($('#' + table_id + ' #create_tables_length'))
-                    $('#' + table_id + ' #create_tables_length').css({
+                    $('#' + selector + ' #filtering_input').css('flex-direction', 'row-reverse');
+                    $('#' + selector + ' #create_tables_length').css({
                         'margin-right': '0',
                         'margin-left': 'auto'
                     });
-                    console.log($('#' + table_id + ' #create_tables_filter'))
-                    $('#' + table_id + ' #create_tables_filter').css({
+                    $('#' + selector + ' #create_tables_filter').css({
                         'margin-left': '0',
                         'margin-right': 'auto',
                     });
                 } else {
                     /* Set back to default position */
-                    $('#' + table_id + ' #filtering_input').css('flex-direction', 'row');
-                    $('#' + table_id + ' #create_tables_length').css({
+                    $('#' + selector + ' #filtering_input').css('flex-direction', 'row');
+                    $('#' + selector + ' #create_tables_length').css({
                         'margin-right': 'auto',
                         'margin-left': '0'
                     });
-                    $('#' + table_id + ' #create_tables_filter').css({
+                    $('#' + selector + ' #create_tables_filter').css({
                         'margin-left': 'auto',
                         'margin-right': '0',
                     });
@@ -386,23 +421,32 @@ registerBlockType(
             }
 
             function swap_bottom_options(table_id, bottom_state) {
+
+                let selector = null;
+
+                if (table_id == null) {
+                    selector = spreadsheet_container.current.id
+                } else {
+                    selector = table_id;
+                }
+
                 if (bottom_state) {
-                    $('#' + table_id + ' #bottom_options').css('flex-direction', 'row-reverse');
-                    $('#' + table_id + ' #create_tables_info').css({
+                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row-reverse');
+                    $('#' + selector + ' #create_tables_info').css({
                         'margin-right': '0',
                         'margin-left': 'auto'
                     });
-                    $('#' + table_id + ' #create_tables_paginate').css({
+                    $('#' + selector + ' #create_tables_paginate').css({
                         'margin-left': '0',
                         'margin-right': 'auto',
                     });
                 } else {
-                    $('#' + table_id + ' #bottom_options').css('flex-direction', 'row');
-                    $('#' + table_id + ' #create_tables_info').css({
+                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row');
+                    $('#' + selector + ' #create_tables_info').css({
                         'margin-right': 'auto',
                         'margin-left': '0'
                     });
-                    $('#' + table_id + ' #create_tables_paginate').css({
+                    $('#' + selector + ' #create_tables_paginate').css({
                         'margin-left': 'auto',
                         'margin-right': '0',
                     });
@@ -448,7 +492,7 @@ registerBlockType(
                         <Panel header="Spreadsheet to WP Table Sync">
 
                             {
-                                attributes.initializer_button_action == 'choose_table' ? (
+                                attributes.show_choose_table ? (
                                     <PanelBody
                                         title="Choose Table"
                                         icon="media-text"
@@ -470,8 +514,7 @@ registerBlockType(
 
                                     </PanelBody>
                                 ) : (
-                                        <>
-                                        </>
+                                        <></>
                                     )
                             }
 
@@ -672,38 +715,48 @@ registerBlockType(
                                     </div>
                                 ) : (
                                         <>
-                                            <div>
-                                                <div class="ui icon input">
-                                                    <input
-                                                        required type="text"
-                                                        name="table_name"
-                                                        placeholder="Table Name"
-                                                        value={attributes.init_table_name}
-                                                        onChange={(e) => {
-                                                            setAttributes({ init_table_name: e.target.value })
-                                                        }}
-                                                    />
-                                                </div>
-                                                <div class="ui icon input">
-                                                    <input
-                                                        required type="text"
-                                                        name="file_input"
-                                                        placeholder="Enter the google spreadsheet public url."
-                                                        value={attributes.sheet_url}
-                                                        onChange={(e) => {
-                                                            setAttributes({ sheet_url: e.target.value })
-                                                        }}
-                                                    />
-                                                    <i class="file icon"></i>
-                                                </div>
-                                                <button class="ui violet button" type="button" id="fetch_save_btn"
-                                                    onClick={(e) => {
-                                                        fetch_data_by_url(attributes.sheet_url)
-                                                    }}
-                                                >
-                                                    {attributes.btn_text}
-                                                </button>
-                                            </div>
+                                            {
+                                                attributes.is_table_saved_to_db == false ? (
+                                                    <div>
+                                                        <div class="ui icon input">
+                                                            <input
+                                                                required type="text"
+                                                                name="table_name"
+                                                                placeholder="Table Name"
+                                                                value={attributes.init_table_name}
+                                                                onChange={(e) => {
+                                                                    setAttributes({ init_table_name: e.target.value })
+                                                                }}
+                                                            />
+                                                        </div>
+
+                                                        <div class="ui icon input">
+                                                            <input
+                                                                required type="text"
+                                                                name="file_input"
+                                                                placeholder="Enter the google spreadsheet public url."
+                                                                value={attributes.sheet_url}
+                                                                onChange={(e) => {
+                                                                    setAttributes({ sheet_url: e.target.value })
+                                                                }}
+                                                            />
+                                                            <i class="file icon"></i>
+                                                        </div>
+
+                                                        <button class="ui violet button" type="button" id="fetch_save_btn"
+                                                            onClick={(e) => {
+                                                                fetch_data_by_url(attributes.sheet_url)
+                                                            }}
+                                                        >
+                                                            {attributes.btn_text}
+                                                        </button>
+
+                                                    </div>
+                                                ) : (
+                                                        <></>
+                                                    )
+                                            }
+
                                             <div
                                                 ref={spreadsheet_container}
                                                 id="spreadsheet_container"
@@ -729,6 +782,7 @@ registerBlockType(
                                             onClick={(e) => {
                                                 setAttributes({ block_init: true })
                                                 setAttributes({ initializer_button_action: 'choose_table' })
+                                                setAttributes({ show_choose_table: true })
                                             }}
                                         >
                                             Choose Table
@@ -745,18 +799,9 @@ registerBlockType(
         save: ({ attributes }) => {
             const { sortcode_id, table_settings } = attributes;
             // save_changes_to_db(sortcode_id, table_settings)
-
             return (
                 <>
-                    {
-                        sortcode_id == null ? (
-                            <div></div>
-                        ) : (
-                                <>
-                                    [gswpts_table id ={sortcode_id}]
-                                </>
-                            )
-                    }
+                    [gswpts_table id ={sortcode_id}]
                 </>
             )
         }
