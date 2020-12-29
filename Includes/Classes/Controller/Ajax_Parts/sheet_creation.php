@@ -13,18 +13,12 @@ class Sheet_Creation {
             wp_die();
         }
 
-        parse_str($_POST['form_data'], $parsed_data);
 
-        if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>Request is invalid</b>';
-            echo json_encode(self::$output);
-            wp_die();
-        }
+        if (isset($_POST['gutenberg_req']) && $_POST['gutenberg_req']) {
 
-        if ($parsed_data['source_type'] === 'spreadsheet') {
 
-            if (!$parsed_data['file_input'] && $parsed_data['file_input'] == "") {
+
+            if (!$_POST['file_input'] || $_POST['file_input'] == "") {
                 self::$output['response_type'] = 'empty_field';
                 self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
                 echo json_encode(self::$output);
@@ -32,28 +26,65 @@ class Sheet_Creation {
             }
 
             if ($_POST['type'] == 'fetch') {
-                echo json_encode(self::sheet_html($parsed_data['file_input']));
+                echo json_encode(self::sheet_html($_POST['file_input']));
                 wp_die();
             }
 
             if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
+                $data = [
+                    'file_input' => $_POST['file_input'],
+                    'source_type' => $_POST['source_type']
+                ];
                 echo json_encode(self::save_table(
-                    $parsed_data,
+                    $data,
                     $_POST['table_name'],
                     $_POST['table_settings']
                 ));
                 wp_die();
             }
+        } else {
 
-            if ($_POST['type'] == 'save_changes') {
-                echo json_encode(self::update_changes(
-                    $_POST['id'],
-                    $_POST['table_settings']
-                ));
+            parse_str($_POST['form_data'], $parsed_data);
+
+            if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
+                self::$output['response_type'] = 'invalid_request';
+                self::$output['output'] = '<b>Request is invalid</b>';
+                echo json_encode(self::$output);
                 wp_die();
             }
-        }
 
+            if ($parsed_data['source_type'] === 'spreadsheet') {
+
+                if (!$parsed_data['file_input'] || $parsed_data['file_input'] == "") {
+                    self::$output['response_type'] = 'empty_field';
+                    self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
+                    echo json_encode(self::$output);
+                    wp_die();
+                }
+
+                if ($_POST['type'] == 'fetch') {
+                    echo json_encode(self::sheet_html($parsed_data['file_input']));
+                    wp_die();
+                }
+
+                if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
+                    echo json_encode(self::save_table(
+                        $parsed_data,
+                        $_POST['table_name'],
+                        $_POST['table_settings']
+                    ));
+                    wp_die();
+                }
+
+                if ($_POST['type'] == 'save_changes') {
+                    echo json_encode(self::update_changes(
+                        $_POST['id'],
+                        $_POST['table_settings']
+                    ));
+                    wp_die();
+                }
+            }
+        }
 
         self::$output['response_type'] = 'invalid_request';
         self::$output['output'] = '<b>Request is invalid</b>';

@@ -1,8 +1,10 @@
 import { Dropdown } from 'semantic-ui-react'
 
 const { registerBlockType } = wp.blocks;
-const { InspectorControls } = wp.blockEditor;
-const { useEffect } = wp.element;
+const { InspectorControls, URLInput } = wp.blockEditor;
+const { useEffect, useRef } = wp.element;
+const { subscribe, select } = wp.data;
+const { isSavingPost } = select('core/editor');
 
 const {
     Panel,
@@ -26,6 +28,36 @@ registerBlockType(
             sortcode_id: {
                 type: 'integer',
                 default: null
+            },
+
+            block_init: {
+                type: 'boolean',
+                default: false
+            },
+
+            initializer_button_action: {
+                type: 'string',
+                default: false
+            },
+
+            btn_text: {
+                type: 'string',
+                default: 'Fetch Data'
+            },
+
+            req_type: {
+                type: 'string',
+                default: 'fetch'
+            },
+
+            init_table_name: {
+                type: 'string',
+                default: 'GSWPTS Table'
+            },
+
+            sheet_url: {
+                type: 'string',
+                default: ''
             },
 
             table_selection: {
@@ -79,6 +111,21 @@ registerBlockType(
                 }
             }, [])
 
+            const spreadsheet_container = useRef(null)
+
+            // var saved = true;
+
+            // subscribe(() => {
+            //     if (isSavingPost()) {
+            //         saved = false;
+            //     } else {
+            //         if (!saved) {
+            //             console.log("Tasty burritos")
+            //             saved = true;
+            //         }
+            //     }
+            // });
+
             function get_table_name_and_data() {
                 let select_options = [
                     { value: 'no_selection', label: 'Select a table' },
@@ -96,7 +143,114 @@ registerBlockType(
                 return select_options;
             }
 
+            function fetch_data_by_url(url) {
 
+                $.ajax({
+
+                    url: gswpts_gutenberg_block.admin_ajax,
+
+                    data: {
+                        action: 'gswpts_sheet_create',
+                        type: attributes.req_type,
+                        table_name: attributes.init_table_name,
+                        table_settings: attributes.table_settings,
+                        file_input: url,
+                        source_type: 'spreadsheet',
+                        gutenberg_req: true
+                    },
+
+                    type: 'POST',
+
+                    beforeSend: () => {
+                        setAttributes({ show_settings: false });
+                        setAttributes({ innerHTML: loader })
+                        setAttributes({ req_type: 'fetch' });
+                        setAttributes({ btn_text: 'Fetch Data' });
+
+                    },
+
+                    success: res => {
+                        console.log(res);
+                        if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
+                            call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
+                            setAttributes({ req_type: 'fetch' });
+                            setAttributes({ btn_text: 'Fetch Data' });
+                            setAttributes({ show_settings: false });
+                            setAttributes({ innerHTML: JSON.parse(res).output })
+                        }
+
+                        if (JSON.parse(res).response_type == 'empty_field') {
+                            call_alert('Warning &#9888;&#65039;', JSON.parse(res).output, 'warning', 3)
+                        }
+
+                        if (JSON.parse(res).response_type == 'success') {
+
+                            setAttributes({ req_type: 'save' });
+                            setAttributes({ btn_text: 'Save Table' });
+                            setAttributes({ innerHTML: JSON.parse(res).output });
+                            setAttributes({ show_settings: true });
+
+                        }
+
+                        if (JSON.parse(res).response_type == 'saved') {
+                            // setAttributes({ sortcode_id: 'save' });
+                            call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
+                        }
+
+                        if (JSON.parse(res).response_type == 'sheet_exists') {
+                            call_alert('Warning &#9888;&#65039;', JSON.parse(res).output, 'warning', 3)
+                        }
+                    },
+
+                    complete: (res) => {
+
+                        if (JSON.parse(res.responseText).response_type == 'success') {
+
+                            let default_settings = table_default_settings();
+                            let defaultRowsPerPage = default_settings.defaultRowsPerPage;
+                            let allowSorting = default_settings.allowSorting;
+                            let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+
+                            $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
+                                table_object(
+                                    defaultRowsPerPage,
+                                    allowSorting,
+                                    dom
+                                )
+                            );
+
+                            setTimeout(() => {
+
+                                call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
+
+                            }, 700);
+                        }
+
+                    },
+
+                    error: err => {
+                        call_alert('Error &#128683;', '<b>Something went wrong</b>', 'error', 3)
+                        setAttributes({ show_settings: false });
+                        setAttributes({ innerHTML: '<b>Something went wrong</b>' })
+                    }
+                })
+            }
+
+            function table_default_settings() {
+                let default_settings = {
+                    table_title: false,
+                    defaultRowsPerPage: 10,
+                    showInfoBlock: true,
+                    responsiveTable: false,
+                    showXEntries: true,
+                    swapFilterInputs: false,
+                    swapBottomOptions: false,
+                    allowSorting: true,
+                    searchBar: true,
+                    tableExport: null
+                }
+                return default_settings;
+            }
 
             function fetch_data_by_id(id) {
 
@@ -117,12 +271,13 @@ registerBlockType(
                         setAttributes({ show_settings: false });
                         setAttributes({ table_name: '' });
                         setAttributes({ innerHTML: loader })
+
                     },
 
                     success: res => {
 
                         if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
-                            setAttributes({ innerHTML: JSON.parse(res).output });
+                            setAttributes({ innerHTML: '' });
                             setAttributes({ show_settings: false });
                             setAttributes({ table_name: '' });
 
@@ -134,20 +289,7 @@ registerBlockType(
                             setAttributes({ innerHTML: JSON.parse(res).output });
                             setAttributes({ show_settings: true });
 
-                            let table_settings = JSON.parse(JSON.parse(res).table_data.table_settings)
-
-                            let table_name = JSON.parse(res).table_data.table_name;
-                            let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
-                            let defaultRowsPerPage = table_settings.default_rows_per_page;
-                            let allowSorting = table_settings.allow_sorting;
-
-                            setAttributes({ table_name: table_name });
-
-                            update_default_attibutes(table_settings)
-
-                            $('#' + id + ' table').DataTable(
-                                table_object(defaultRowsPerPage, allowSorting, dom)
-                            );
+                            call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
 
                         }
 
@@ -156,18 +298,32 @@ registerBlockType(
 
                     error: err => {
                         call_alert('Error &#128683;', '<b>Something went wrong</b>', 'error', 3)
+                        setAttributes({ innerHTML: '' });
+                        setAttributes({ btn_text: 'Fetch Data' });
                     },
 
                     complete: (res) => {
 
                         if (JSON.parse(res.responseText).response_type == 'success') {
 
-                            console.log($('#' + id + ' > #spreadsheet_container'));
-
 
                             setTimeout(() => {
 
-                                call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
+                                let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
+
+                                let table_name = JSON.parse(res.responseText).table_data.table_name;
+                                let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                                let defaultRowsPerPage = table_settings.default_rows_per_page;
+                                let allowSorting = table_settings.allow_sorting;
+
+                                setAttributes({ table_name: table_name });
+
+
+                                $('#' + id + ' #create_tables').DataTable(
+                                    table_object(defaultRowsPerPage, allowSorting, dom)
+                                );
+
+                                update_default_attibutes(table_settings)
 
                             }, 700);
                         }
@@ -284,31 +440,41 @@ registerBlockType(
             }
 
 
+
             return (
                 [
                     <InspectorControls style="margin-top: 40px">
 
                         <Panel header="Spreadsheet to WP Table Sync">
-                            <PanelBody
-                                title="Choose Table"
-                                icon="media-text"
-                                initialOpen={true}
-                            >
-                                <SelectControl
-                                    label="Select Table"
-                                    value={attributes.table_selection}
-                                    onChange={(val) => {
-                                        setAttributes({ table_selection: val })
-                                        setAttributes({ sortcode_id: typeof val == 'string' ? parseInt(val) : null })
-                                        fetch_data_by_id(val)
-                                    }
-                                    }
-                                    options={
-                                        get_table_name_and_data()
-                                    }
-                                />
 
-                            </PanelBody>
+                            {
+                                attributes.initializer_button_action == 'choose_table' ? (
+                                    <PanelBody
+                                        title="Choose Table"
+                                        icon="media-text"
+                                        initialOpen={true}
+                                    >
+                                        <SelectControl
+                                            label="Select Table"
+                                            value={attributes.table_selection}
+                                            onChange={(val) => {
+                                                setAttributes({ table_selection: val })
+                                                setAttributes({ sortcode_id: typeof val == 'string' ? parseInt(val) : null })
+                                                fetch_data_by_id(val)
+                                            }
+                                            }
+                                            options={
+                                                get_table_name_and_data()
+                                            }
+                                        />
+
+                                    </PanelBody>
+                                ) : (
+                                        <>
+                                        </>
+                                    )
+                            }
+
 
                             {
                                 attributes.show_settings ? (
@@ -496,11 +662,82 @@ registerBlockType(
                                 (<h3>{attributes.table_name}</h3>) :
                                 (<></>)
                         }
-                        <div
-                            id="spreadsheet_container"
-                            dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
-                        >
-                        </div>
+                        {
+                            attributes.block_init ? (
+                                attributes.initializer_button_action == 'choose_table' ? (
+                                    <div
+                                        id="spreadsheet_container"
+                                        dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
+                                    >
+                                    </div>
+                                ) : (
+                                        <>
+                                            <div>
+                                                <div class="ui icon input">
+                                                    <input
+                                                        required type="text"
+                                                        name="table_name"
+                                                        placeholder="Table Name"
+                                                        value={attributes.init_table_name}
+                                                        onChange={(e) => {
+                                                            setAttributes({ init_table_name: e.target.value })
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div class="ui icon input">
+                                                    <input
+                                                        required type="text"
+                                                        name="file_input"
+                                                        placeholder="Enter the google spreadsheet public url."
+                                                        value={attributes.sheet_url}
+                                                        onChange={(e) => {
+                                                            setAttributes({ sheet_url: e.target.value })
+                                                        }}
+                                                    />
+                                                    <i class="file icon"></i>
+                                                </div>
+                                                <button class="ui violet button" type="button" id="fetch_save_btn"
+                                                    onClick={(e) => {
+                                                        fetch_data_by_url(attributes.sheet_url)
+                                                    }}
+                                                >
+                                                    {attributes.btn_text}
+                                                </button>
+                                            </div>
+                                            <div
+                                                ref={spreadsheet_container}
+                                                id="spreadsheet_container"
+                                                dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
+                                            >
+                                            </div>
+                                        </>
+                                    )
+                            ) : (
+                                    <div class="block_initializer">
+
+                                        <button id="create_button" class="positive ui button"
+                                            onClick={(e) => {
+                                                setAttributes({ block_init: true })
+                                                setAttributes({ initializer_button_action: 'create_new' })
+                                                setAttributes({ innerHTML: '' });
+                                            }}
+                                        >
+                                            Create New &nbsp; <i class="plus icon"></i>
+                                        </button>
+
+                                        <button class="ui violet button" type="button"
+                                            onClick={(e) => {
+                                                setAttributes({ block_init: true })
+                                                setAttributes({ initializer_button_action: 'choose_table' })
+                                            }}
+                                        >
+                                            Choose Table
+                                        </button>
+
+                                    </div>
+                                )
+                        }
+
                     </div>
                 ]
             )
@@ -508,6 +745,7 @@ registerBlockType(
         save: ({ attributes }) => {
             const { sortcode_id, table_settings } = attributes;
             // save_changes_to_db(sortcode_id, table_settings)
+
             return (
                 <>
                     {

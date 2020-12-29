@@ -12,7 +12,7 @@ class Sheet_Fetching {
             echo json_encode(self::$output);
             wp_die();
         }
-        if (empty($_POST['id']) && $_POST['id'] == null && $_POST['id'] == "") {
+        if (empty($_POST['id']) || $_POST['id'] == null || $_POST['id'] == "") {
             self::$output['response_type'] = 'invalid_request';
             self::$output['output'] = '<b>Request is invalid</b>';
             echo json_encode(self::$output);
