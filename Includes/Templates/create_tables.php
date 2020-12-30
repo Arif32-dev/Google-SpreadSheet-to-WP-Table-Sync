@@ -139,7 +139,7 @@ $gswpts->download_datatables();
 
                                         </div>
 
-                                        <div class="col-12 col-md-6 transition hidden file_input">
+                                        <div class="col-12 col-md-8 transition hidden file_input">
                                             <div class="ui icon input">
                                                 <input required type="text" name="file_input" placeholder="Enter URL or path, or click Browse to choose.">
                                                 <i class="file icon"></i>

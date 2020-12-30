@@ -146,6 +146,82 @@ export default class Base_Class {
         return default_settings;
     }
 
+    table_changer(table_name, table_settings, dom) {
+        $('#create_tables').DataTable(
+            this.table_object(
+                table_name,
+                table_settings.defaultRowsPerPage,
+                table_settings.allowSorting,
+                dom
+            )
+        );
+    }
+
+    swap_filter_inputs(state) {
+        /* If checkbox is checked then swap filter */
+        if (state) {
+            $('#filtering_input').css('flex-direction', 'row-reverse');
+            $('#create_tables_length').css({
+                'margin-right': '0',
+                'margin-left': 'auto'
+            });
+            $('#create_tables_filter').css({
+                'margin-left': '0',
+                'margin-right': 'auto',
+            });
+        } else {
+            /* Set back to default position */
+            $('#filtering_input').css('flex-direction', 'row');
+            $('#create_tables_length').css({
+                'margin-right': 'auto',
+                'margin-left': '0'
+            });
+            $('#create_tables_filter').css({
+                'margin-left': 'auto',
+                'margin-right': '0',
+            });
+        }
+    }
+
+    swap_bottom_options(state) {
+
+        if (state) {
+            $('#bottom_options').css('flex-direction', 'row-reverse');
+            $('#create_tables_info').css({
+                'margin-right': '0',
+                'margin-left': 'auto'
+            });
+            $('#create_tables_paginate').css({
+                'margin-left': '0',
+                'margin-right': 'auto',
+            });
+        } else {
+            $('#bottom_options').css('flex-direction', 'row');
+            $('#create_tables_info').css({
+                'margin-right': 'auto',
+                'margin-left': '0'
+            });
+            $('#create_tables_paginate').css({
+                'margin-left': 'auto',
+                'margin-right': '0',
+            });
+        }
+    }
+
+    export_buttons_row_revealer(export_btns) {
+        export_btns.forEach(btn => {
+            setTimeout(() => {
+                this.export_button_revealer_by_other_input(btn)
+            }, 300);
+        });
+    }
+
+    export_button_revealer_by_other_input(btn) {
+        if ($('.' + btn + '_btn').hasClass('hidden')) {
+            $('.' + btn + '_btn').transition('scale');
+        }
+    }
+
     table_object(table_name, pageLength, ordering, dom) {
         let obj = {
             dom: dom,
@@ -221,7 +297,7 @@ export default class Base_Class {
         $('#sorting').prop('checked', settings.allow_sorting == 'true' ? true : false);
         $('#search_table').prop('checked', settings.search_bar == 'true' ? true : false);
 
-        if (settings.table_export != null) {
+        if (settings.table_export != 'empty') {
             settings.table_export.forEach(export_type => {
                 $('#table_exporting').dropdown('set selected', export_type)
             });

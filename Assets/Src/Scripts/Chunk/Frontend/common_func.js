@@ -82,7 +82,7 @@ export default class Global_Table_Config {
 
     reveal_export_btns(elem, table_settings) {
         let export_btns = table_settings.table_export;
-        if (export_btns) {
+        if (export_btns != 'empty') {
             export_btns.forEach(btn => {
                 $(elem).find('.' + btn + '_btn').removeClass('export_btns');
             });

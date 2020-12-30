@@ -3,8 +3,6 @@ import { Dropdown } from 'semantic-ui-react'
 const { registerBlockType } = wp.blocks;
 const { InspectorControls, URLInput } = wp.blockEditor;
 const { useEffect, useRef } = wp.element;
-const { subscribe, select } = wp.data;
-const { isSavingPost } = select('core/editor');
 
 const {
     Panel,
@@ -77,7 +75,7 @@ registerBlockType(
 
             innerHTML: {
                 type: 'string',
-                default: '<h4>Choose saved table from block settings</h4>'
+                default: '<h4>Choose table from block settings</h4>'
             },
 
             saved_tables: {
@@ -125,19 +123,6 @@ registerBlockType(
 
             const spreadsheet_container = useRef(null)
 
-            // var saved = true;
-
-            // subscribe(() => {
-            //     if (isSavingPost()) {
-            //         saved = false;
-            //     } else {
-            //         if (!saved) {
-            //             console.log("Tasty burritos")
-            //             saved = true;
-            //         }
-            //     }
-            // });
-
             function get_table_name_and_data() {
                 let select_options = [
                     { value: 'no_selection', label: 'Select a table' },
@@ -177,9 +162,9 @@ registerBlockType(
                         setAttributes({ show_settings: false });
                         if (attributes.req_type != 'save') {
                             setAttributes({ innerHTML: loader })
+                            setAttributes({ btn_text: 'Fetch Data' });
                         }
                         setAttributes({ req_type: 'fetch' });
-                        setAttributes({ btn_text: 'Fetch Data' });
 
                     },
 
@@ -322,18 +307,16 @@ registerBlockType(
 
                         if (JSON.parse(res.responseText).response_type == 'success') {
 
+                            let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
+
+                            let table_name = JSON.parse(res.responseText).table_data.table_name;
+                            let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                            let defaultRowsPerPage = table_settings.default_rows_per_page;
+                            let allowSorting = table_settings.allow_sorting;
+
+                            setAttributes({ table_name: table_name });
 
                             setTimeout(() => {
-
-                                let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
-
-                                let table_name = JSON.parse(res.responseText).table_data.table_name;
-                                let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
-                                let defaultRowsPerPage = table_settings.default_rows_per_page;
-                                let allowSorting = table_settings.allow_sorting;
-
-                                setAttributes({ table_name: table_name });
-
 
                                 $('#' + id + ' #create_tables').DataTable(
                                     table_object(defaultRowsPerPage, allowSorting, dom)
@@ -341,7 +324,14 @@ registerBlockType(
 
                                 update_default_attibutes(table_settings)
 
+                                let swap_filter_state = table_settings.swap_filter_inputs == 'true' ? true : false;
+                                let swap_bottom_state = table_settings.swap_bottom_options == 'true' ? true : false;
+
+                                swap_input_filter(id, swap_filter_state);
+                                swap_bottom_options(id, swap_bottom_state);
+
                             }, 700);
+
                         }
 
                     },
@@ -374,7 +364,7 @@ registerBlockType(
                     );
                 } else {
 
-                    $('#' + id + ' table').DataTable(
+                    $('#' + id + ' #create_tables').DataTable(
                         table_object(
                             prevSettingObj.defaultRowsPerPage,
                             prevSettingObj.allowSorting,
@@ -484,7 +474,6 @@ registerBlockType(
             }
 
 
-
             return (
                 [
                     <InspectorControls style="margin-top: 40px">
@@ -527,7 +516,7 @@ registerBlockType(
                                             icon="admin-settings"
                                             initialOpen={false}
                                         >
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Show Title"
                                                     help='Enable this to show the table title in h3 tag above the table'
@@ -536,43 +525,50 @@ registerBlockType(
                                                         const prevSettingObj = { ...attributes.table_settings };
                                                         prevSettingObj.table_title = !prevSettingObj.table_title;
                                                         setAttributes({ table_settings: prevSettingObj });
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                     }}
                                                 />
                                                 <br />
                                             </PanelRow>
 
-                                            <PanelRow class="gswpts_panal">
-                                                <h4 class="header">Default rows per page</h4>
-                                                <br />
-                                                <Dropdown
-                                                    placeholder="Default rows per page"
-                                                    defaultValue={attributes.table_settings.defaultRowsPerPage}
-                                                    fluid
-                                                    selection
-                                                    options={
-                                                        [
-                                                            { key: '1', value: '1', text: '1' },
-                                                            { key: '5', value: '5', text: '5' },
-                                                            { key: '10', value: '10', text: '10' },
-                                                            { key: '15', value: '15', text: '15' },
-                                                            { key: '25', value: '25', text: '25' },
-                                                            { key: '50', value: '50', text: '50' },
-                                                            { key: '100', value: '100', text: '100' },
-                                                            { key: '-1', value: '-1', text: 'All' },
-                                                        ]
-                                                    }
-                                                    onChange={(e, { value }) => {
-                                                        const prevSettingObj = { ...attributes.table_settings };
-                                                        prevSettingObj.defaultRowsPerPage = value;
-                                                        setAttributes({ table_settings: prevSettingObj });
-                                                        table_changer(attributes.sortcode_id, prevSettingObj)
-                                                    }}
-                                                />
+                                            <PanelRow>
+                                                <div class="default_rows">
+                                                    <h4 class="header">Default rows per page</h4>
+                                                    <Dropdown
+                                                        placeholder="Default rows per page"
+                                                        defaultValue={attributes.table_settings.defaultRowsPerPage}
+                                                        fluid
+                                                        selection
+                                                        options={
+                                                            [
+                                                                { key: '1', value: '1', text: '1' },
+                                                                { key: '5', value: '5', text: '5' },
+                                                                { key: '10', value: '10', text: '10' },
+                                                                { key: '15', value: '15', text: '15' },
+                                                                { key: '25', value: '25', text: '25' },
+                                                                { key: '50', value: '50', text: '50' },
+                                                                { key: '100', value: '100', text: '100' },
+                                                                { key: '-1', value: '-1', text: 'All' },
+                                                            ]
+                                                        }
+                                                        onChange={(e, { value }) => {
+                                                            const prevSettingObj = { ...attributes.table_settings };
+                                                            prevSettingObj.defaultRowsPerPage = value;
+                                                            setAttributes({ table_settings: prevSettingObj });
+                                                            if (attributes.initializer_button_action == 'choose_table') {
+                                                                save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                            }
+                                                            table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        }}
+                                                    />
+                                                </div>
                                                 <br />
                                             </PanelRow>
 
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Show info block"
                                                     help='Show Showing X to Y of Z entries block below the table'
@@ -581,6 +577,9 @@ registerBlockType(
                                                         const prevSettingObj = { ...attributes.table_settings };
                                                         prevSettingObj.showInfoBlock = !prevSettingObj.showInfoBlock;
                                                         setAttributes({ table_settings: prevSettingObj });
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
                                                     }}
                                                 />
@@ -588,7 +587,7 @@ registerBlockType(
                                             </PanelRow>
 
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Resposive table"
                                                     help='Allow collapsing on mobile and tablet screen'
@@ -596,13 +595,16 @@ registerBlockType(
                                                     onChange={() => {
                                                         const prevSettingObj = { ...attributes.table_settings };
                                                         prevSettingObj.responsiveTable = !prevSettingObj.responsiveTable;
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                         setAttributes({ table_settings: prevSettingObj });
                                                     }}
                                                 />
                                                 <br />
                                             </PanelRow>
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Show X entries"
                                                     help='Show X entries per page dropdown'
@@ -611,13 +613,16 @@ registerBlockType(
                                                         const prevSettingObj = { ...attributes.table_settings };
                                                         prevSettingObj.showXEntries = !prevSettingObj.showXEntries;
                                                         setAttributes({ table_settings: prevSettingObj });
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
                                                     }}
                                                 />
                                                 <br />
                                             </PanelRow>
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Swap Filters"
                                                     help='Swap the places of X entries dropdown and search filter input'
@@ -627,12 +632,15 @@ registerBlockType(
                                                         prevSettingObj.swapFilterInputs = !prevSettingObj.swapFilterInputs;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                     }}
                                                 />
                                                 <br />
                                             </PanelRow>
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Swap Bottom Elements"
                                                     help='Swap the places of Showing X to Y of Z entries with table pagination filter'
@@ -642,6 +650,9 @@ registerBlockType(
                                                         prevSettingObj.swapBottomOptions = !prevSettingObj.swapBottomOptions;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                     }}
                                                 />
                                                 <br />
@@ -655,7 +666,7 @@ registerBlockType(
                                             icon="filter"
                                             initialOpen={false}
                                         >
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Allow Sorting"
                                                     help='Enable this feature to sort table data for frontend.'
@@ -665,12 +676,15 @@ registerBlockType(
                                                         prevSettingObj.allowSorting = !prevSettingObj.allowSorting;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                     }}
                                                 />
                                                 <br />
                                             </PanelRow>
 
-                                            <PanelRow class="gswpts_panal">
+                                            <PanelRow>
                                                 <ToggleControl
                                                     label="Search Bar"
                                                     help='Enable this feature to show a search bar in for the table. It will help user to search data in the table'
@@ -680,6 +694,9 @@ registerBlockType(
                                                         prevSettingObj.searchBar = !prevSettingObj.searchBar;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        if (attributes.initializer_button_action == 'choose_table') {
+                                                            save_changes_to_db(attributes.sortcode_id, prevSettingObj)
+                                                        }
                                                     }}
                                                 />
                                                 <br />
@@ -717,7 +734,7 @@ registerBlockType(
                                         <>
                                             {
                                                 attributes.is_table_saved_to_db == false ? (
-                                                    <div>
+                                                    <div class="create_table_input">
                                                         <div class="ui icon input">
                                                             <input
                                                                 required type="text"
@@ -783,6 +800,7 @@ registerBlockType(
                                                 setAttributes({ block_init: true })
                                                 setAttributes({ initializer_button_action: 'choose_table' })
                                                 setAttributes({ show_choose_table: true })
+                                                document.querySelector('.interface-pinned-items > button').click()
                                             }}
                                         >
                                             Choose Table
@@ -797,8 +815,7 @@ registerBlockType(
             )
         },
         save: ({ attributes }) => {
-            const { sortcode_id, table_settings } = attributes;
-            // save_changes_to_db(sortcode_id, table_settings)
+            const { sortcode_id } = attributes;
             return (
                 <>
                     [gswpts_table id ={sortcode_id}]
@@ -807,6 +824,7 @@ registerBlockType(
         }
     },
 )
+
 
 function save_changes_to_db(id, table_settings) {
 
@@ -818,7 +836,8 @@ function save_changes_to_db(id, table_settings) {
             action: 'gswpts_sheet_create',
             table_settings: table_settings,
             id: parseInt(id),
-            type: 'save_changes'
+            type: 'save_changes',
+            gutenberg_req: true,
         },
 
         type: 'POST',
@@ -829,16 +848,15 @@ function save_changes_to_db(id, table_settings) {
                 call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
             }
 
-            if (JSON.parse(res).response_type == 'updated') {
-                call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
-            }
+            // if (JSON.parse(res).response_type == 'updated') {
+            //     call_alert('Successfull &#128077;', JSON.parse(res).output, 'success', 3)
+            // }
         },
         error: err => {
             call_alert('Error &#128683;', '<b>Something went wrong</b>', 'error', 3)
         }
     })
 }
-
 
 function call_alert(title, description, type, time, pos = 'bottom-right') {
     $.suiAlert({
@@ -849,3 +867,4 @@ function call_alert(title, description, type, time, pos = 'bottom-right') {
         position: pos,
     });
 }
+

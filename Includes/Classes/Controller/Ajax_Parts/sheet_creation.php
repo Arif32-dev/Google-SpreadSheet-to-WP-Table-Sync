@@ -16,21 +16,28 @@ class Sheet_Creation {
 
         if (isset($_POST['gutenberg_req']) && $_POST['gutenberg_req']) {
 
-
-
-            if (!$_POST['file_input'] || $_POST['file_input'] == "") {
-                self::$output['response_type'] = 'empty_field';
-                self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
-                echo json_encode(self::$output);
-                wp_die();
-            }
-
             if ($_POST['type'] == 'fetch') {
+
+                if (!$_POST['file_input'] || $_POST['file_input'] == "") {
+                    self::$output['response_type'] = 'empty_field';
+                    self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
+                    echo json_encode(self::$output);
+                    wp_die();
+                }
+
                 echo json_encode(self::sheet_html($_POST['file_input']));
                 wp_die();
             }
 
             if ($_POST['type'] == 'save' || $_POST['type'] == 'saved') {
+
+                if (!$_POST['file_input'] || $_POST['file_input'] == "") {
+                    self::$output['response_type'] = 'empty_field';
+                    self::$output['output'] = '<b>Form field is empty. Please fill out the field</b>';
+                    echo json_encode(self::$output);
+                    wp_die();
+                }
+
                 $data = [
                     'file_input' => $_POST['file_input'],
                     'source_type' => $_POST['source_type']
@@ -38,6 +45,14 @@ class Sheet_Creation {
                 echo json_encode(self::save_table(
                     $data,
                     $_POST['table_name'],
+                    $_POST['table_settings']
+                ));
+                wp_die();
+            }
+
+            if ($_POST['type'] == 'save_changes') {
+                echo json_encode(self::update_changes(
+                    $_POST['id'],
                     $_POST['table_settings']
                 ));
                 wp_die();
@@ -219,7 +234,7 @@ class Sheet_Creation {
             'swap_bottom_options' => $table_settings['swapBottomOptions'],
             'allow_sorting' => $table_settings['allowSorting'],
             'search_bar' => $table_settings['searchBar'],
-            'table_export' => isset($table_settings['tableExport']) ? $table_settings['tableExport'] : null,
+            'table_export' => isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false || "" ? $table_settings['tableExport'] : 'empty',
         ];
         return $settings;
     }

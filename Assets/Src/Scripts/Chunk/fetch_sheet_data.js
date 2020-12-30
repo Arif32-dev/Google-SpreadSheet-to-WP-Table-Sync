@@ -57,10 +57,35 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res.responseText).response_type == 'success') {
 
+                        let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
+
+                        let table_name = JSON.parse(res.responseText).table_data.table_name;
+                        let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+
+                        let swap_filter_inputs = table_settings.swap_filter_inputs == 'true' ? true : false;
+                        let swap_bottom_options = table_settings.swap_bottom_options == 'true' ? true : false;
+
                         /* This will trigger the change event and its related functionality in table_changes.js  */
                         this.reconfigure_input_fields(JSON.parse(JSON.parse(res.responseText).table_data.table_settings));
 
                         setTimeout(() => {
+
+                            $('#create_tables').DataTable(
+                                this.table_object(
+                                    table_name,
+                                    table_settings.default_rows_per_page,
+                                    table_settings.allow_sorting,
+                                    dom
+                                )
+                            );
+
+                            this.swap_filter_inputs(swap_filter_inputs);
+
+                            this.swap_bottom_options(swap_bottom_options);
+
+                            if (table_settings.table_export != 'empty') {
+                                this.export_buttons_row_revealer(table_settings.table_export);
+                            }
 
                             this.call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
 
@@ -70,6 +95,7 @@ jQuery(document).ready(function ($) {
                 },
             })
         }
+
     }
     new Fetch_Sheet_Data;
 })

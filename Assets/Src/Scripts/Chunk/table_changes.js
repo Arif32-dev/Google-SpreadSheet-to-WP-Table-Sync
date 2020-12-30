@@ -50,6 +50,7 @@ jQuery(document).ready(function ($) {
 
             if ($(e.currentTarget).attr('id') == 'show_title' || 'responsive' || 'search_table' || 'rows_per_page' || 'sorting' || 'show_entries' || 'info_block') {
                 let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
+                this.export_buttons_row_revealer(table_settings.tableExport);
                 this.table_changer(table_name, table_settings, dom)
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
                 this.swap_bottom_options(table_settings.swapBottomOptions);
@@ -66,18 +67,6 @@ jQuery(document).ready(function ($) {
                 this.swap_bottom_options($(e.currentTarget).prop('checked'));
             }
 
-        }
-        table_changer(table_name, table_settings, dom) {
-            this.export_buttons_row_revealer(table_settings);
-
-            $('#create_tables').DataTable(
-                this.table_object(
-                    table_name,
-                    table_settings.defaultRowsPerPage,
-                    table_settings.allowSorting,
-                    dom
-                )
-            );
         }
 
         /* Show the export buttons based on user selection */
@@ -96,19 +85,6 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        export_buttons_row_revealer(table_settings) {
-            table_settings.tableExport.forEach(btn => {
-                setTimeout(() => {
-                    this.export_button_revealer_by_other_input(btn)
-                }, 300);
-            });
-        }
-
-        export_button_revealer_by_other_input(btn) {
-            if ($('.' + btn + '_btn').hasClass('hidden')) {
-                $('.' + btn + '_btn').transition('scale');
-            }
-        }
 
         set_default() {
             let default_settings = this.default_settings();
@@ -136,55 +112,8 @@ jQuery(document).ready(function ($) {
                 }
             });
         }
-        swap_filter_inputs(state) {
-            /* If checkbox is checked then swap filter */
-            if (state) {
-                $('#filtering_input').css('flex-direction', 'row-reverse');
-                $('#create_tables_length').css({
-                    'margin-right': '0',
-                    'margin-left': 'auto'
-                });
-                $('#create_tables_filter').css({
-                    'margin-left': '0',
-                    'margin-right': 'auto',
-                });
-            } else {
-                /* Set back to default position */
-                $('#filtering_input').css('flex-direction', 'row');
-                $('#create_tables_length').css({
-                    'margin-right': 'auto',
-                    'margin-left': '0'
-                });
-                $('#create_tables_filter').css({
-                    'margin-left': 'auto',
-                    'margin-right': '0',
-                });
-            }
-        }
 
-        swap_bottom_options(state) {
-            if (state) {
-                $('#bottom_options').css('flex-direction', 'row-reverse');
-                $('#create_tables_info').css({
-                    'margin-right': '0',
-                    'margin-left': 'auto'
-                });
-                $('#create_tables_paginate').css({
-                    'margin-left': '0',
-                    'margin-right': 'auto',
-                });
-            } else {
-                $('#bottom_options').css('flex-direction', 'row');
-                $('#create_tables_info').css({
-                    'margin-right': 'auto',
-                    'margin-left': '0'
-                });
-                $('#create_tables_paginate').css({
-                    'margin-left': 'auto',
-                    'margin-right': '0',
-                });
-            }
-        }
     }
+
     new Table_Changes;
 })

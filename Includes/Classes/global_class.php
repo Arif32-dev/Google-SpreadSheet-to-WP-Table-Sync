@@ -119,7 +119,7 @@ class Global_Class {
         return false;
     }
     public function the_table($sheet_response) {
-        $table = '<table id="create_tables" class="ui celled table gswpts_tables" style="width: 100%!important;">';
+        $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
         while (!feof($sheet_response)) {
             if ($i == 0) {
