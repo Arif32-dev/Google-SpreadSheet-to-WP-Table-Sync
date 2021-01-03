@@ -247,7 +247,7 @@ class Global_Class {
         $last_table_id =  $this->get_last_table_id($db_result);
         $latest_table_info = [
             'total_table_count' => $db_result != false ? count($db_result) : 0,
-            'last_table_name' => $db_result[$last_table_id - 1]->table_name,
+            'last_table_name' => $db_result[(count($db_result) - 1)]->table_name,
             'last_table_id' => $last_table_id
         ];
         return $latest_table_info;
@@ -255,12 +255,7 @@ class Global_Class {
     public function get_last_table_id($db_result) {
         $last_table = null;
         if ($db_result != false) {
-            $last_table = $db_result[0]->id;
-            foreach ($db_result as $result) {
-                if ($result->id > $last_table) {
-                    return $result->id;
-                }
-            }
+            $last_table = $db_result[(count($db_result) - 1)]->id;
         }
         return $last_table;
     }

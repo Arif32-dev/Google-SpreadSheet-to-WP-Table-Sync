@@ -4,6 +4,7 @@ namespace GSWPTS\Includes;
 
 use GSWPTS\Includes\Classes\Controller\Admin_Menus;
 use GSWPTS\Includes\Classes\Controller\Ajax_Handler;
+use GSWPTS\Includes\Classes\Elementor\Elementor_Init;
 use GSWPTS\Includes\Classes\Enqueue_Files;
 use GSWPTS\Includes\Classes\Global_Class;
 use GSWPTS\Includes\Classes\Settings_API;
@@ -25,6 +26,7 @@ class Plugin {
         new Ajax_Handler;
         new Sortcode;
         new Settings_API;
+        new Elementor_Init;
     }
     public function global_functions() {
         global $gswpts;

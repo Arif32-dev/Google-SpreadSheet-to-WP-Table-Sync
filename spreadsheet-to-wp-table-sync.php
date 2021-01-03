@@ -49,8 +49,7 @@ final class GSWPTS_Plugin {
 
     public function __construct() {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
-        if ($this->version_check() == 'version_low')
-            return;
+        if ($this->version_check() == 'version_low') return;
         $this->register_active_deactive_hooks();
         $this->plugins_check();
     }
@@ -72,7 +71,7 @@ final class GSWPTS_Plugin {
 
     public function plugins_check() {
         if (is_plugin_active(plugin_basename(__FILE__))) {
-            $this->include_file();
+            add_action('plugins_loaded', [$this, 'include_file']);
             add_filter('plugin_action_links_' . plugin_basename(__FILE__), [__CLASS__, 'add_action_links']);
         }
     }

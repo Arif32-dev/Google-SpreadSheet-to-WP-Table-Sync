@@ -561,6 +561,10 @@ registerBlockType(
                                                                 save_changes_to_db(attributes.sortcode_id, prevSettingObj)
                                                             }
                                                             table_changer(attributes.sortcode_id, prevSettingObj)
+
+                                                            swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                            swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
+
                                                         }}
                                                     />
                                                 </div>
@@ -581,6 +585,9 @@ registerBlockType(
                                                             save_changes_to_db(attributes.sortcode_id, prevSettingObj)
                                                         }
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+
+                                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
                                                     }}
                                                 />
                                                 <br />
@@ -617,6 +624,8 @@ registerBlockType(
                                                             save_changes_to_db(attributes.sortcode_id, prevSettingObj)
                                                         }
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
                                                     }}
                                                 />
                                                 <br />
@@ -676,6 +685,8 @@ registerBlockType(
                                                         prevSettingObj.allowSorting = !prevSettingObj.allowSorting;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
                                                         if (attributes.initializer_button_action == 'choose_table') {
                                                             save_changes_to_db(attributes.sortcode_id, prevSettingObj)
                                                         }
@@ -694,6 +705,8 @@ registerBlockType(
                                                         prevSettingObj.searchBar = !prevSettingObj.searchBar;
                                                         setAttributes({ table_settings: prevSettingObj });
                                                         table_changer(attributes.sortcode_id, prevSettingObj)
+                                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs)
+                                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions)
                                                         if (attributes.initializer_button_action == 'choose_table') {
                                                             save_changes_to_db(attributes.sortcode_id, prevSettingObj)
                                                         }
