@@ -2,6 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Elementor;
 
+use GSWPTS\Includes\Classes\Elementor\Plugins_Widget;
 
 if (!defined('ABSPATH')) die("Can't access directly");
 
@@ -102,7 +103,7 @@ class Elementor_Init {
     public function init_widgets() {
 
         // Register widget
-        // \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \Elementor_Test_Widget());
+        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Plugins_Widget());
     }
 
 

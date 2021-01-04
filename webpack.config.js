@@ -12,6 +12,10 @@ module.exports = {
             import: path.resolve(__dirname, 'Assets/Src/Scripts/frontend.js'),
             filename: 'Scripts/Frontend/[name].min.js'
         },
+        elementor: {
+            import: path.resolve(__dirname, 'Assets/Src/Scripts/elementor.js'),
+            filename: 'Scripts/Backend/[name].min.js'
+        },
     },
     output: {
         path: path.resolve(__dirname, 'Assets/Public/'),
