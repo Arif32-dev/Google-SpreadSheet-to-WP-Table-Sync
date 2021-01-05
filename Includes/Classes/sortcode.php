@@ -11,32 +11,38 @@ class Sortcode {
         }
     }
     public function gswpts_sortcodes_asynchronous($atts) {
-        $output = "<h5><b>No table data found</b></h5> <br>";
-        if (!is_int(intval($atts['id']))) {
+
+        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+            return $this->gswpts_sortcodes($atts);
+        } else {
+            $output = "<h5><b>No table data found</b></h5> <br>";
+            if (!is_int(intval($atts['id']))) {
+                return $output;
+            }
+
+
+            $output = '<div class="gswpts_tables_container" id="' . $atts['id'] . '">';
+            $output .= '<h3></h3>';
+
+            $output .= '<div class="gswpts_tables_content">';
+
+            $output .= '
+                 <div class="ui segment gswpts_table_loader">
+                            <div class="ui active inverted dimmer">
+                                <div class="ui large text loader">Loading</div>
+                            </div>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                    </div>
+            ';
+
+            $output .= '</div>';
+            $output .= '</div>';
+            $output .= '<br><br>';
+
             return $output;
         }
-
-        $output = '<div class="gswpts_tables_container" id="' . $atts['id'] . '">';
-        $output .= '<h3></h3>';
-
-        $output .= '<div class="gswpts_tables_content">';
-
-        $output .= '
-             <div class="ui segment gswpts_table_loader">
-                        <div class="ui active inverted dimmer">
-                            <div class="ui large text loader">Loading</div>
-                        </div>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                </div>
-        ';
-
-        $output .= '</div>';
-        $output .= '</div>';
-        $output .= '<br><br>';
-
-        return $output;
     }
 
     public function gswpts_sortcodes($atts) {

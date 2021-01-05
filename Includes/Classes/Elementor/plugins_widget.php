@@ -12,11 +12,17 @@ class Plugins_Widget extends \Elementor\Widget_Base {
 
         wp_register_style('GSWPTS-elementor-semantic-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css');
 
-        wp_register_style('GSWPTS-elementor-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/gutenberg.min.css');
+        wp_register_style('GSWPTS-elementor-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/elementor.min.css');
+
+        wp_register_style('GSWPTS-elementor-table-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/gutenberg.min.css');
 
         wp_register_script('GSWPTS-elementor-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor.min.js', ['jquery'], GSWPTS_VERSION, true);
 
+        wp_register_script('GSWPTS-elementor-table', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor.min.js', ['jquery'], GSWPTS_VERSION, true);
+
         global $gswpts;
+
+        $gswpts->data_table_scripts();
 
         wp_localize_script('GSWPTS-elementor-js', 'gswpts_elementor', [
             'admin_ajax' => admin_url('admin-ajax.php'),
@@ -25,7 +31,7 @@ class Plugins_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-        return ['GSWPTS-elementor-semantic-css', 'GSWPTS-elementor-css'];
+        return ['GSWPTS-elementor-css', 'GSWPTS-elementor-semantic-css', 'GSWPTS-elementor-table-css'];
     }
 
     public function get_script_depends() {
@@ -57,6 +63,7 @@ class Plugins_Widget extends \Elementor\Widget_Base {
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
+
 
         $this->add_control(
             'choose_table',
@@ -232,36 +239,31 @@ class Plugins_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        if (do_shortcode('[gswpts_table id=12]')) {
-            echo do_shortcode('[gswpts_table id=12]');
-        }
+        // if (do_shortcode('[gswpts_table id=12]')) {
+        // echo do_shortcode('[gswpts_table id=12]'); 
 ?>
+        <!-- <script>
+                gswpts_elementor_global.set_elementor_table()
+            </script> -->
 
-        <!-- <div class="gswpts_create_table_container">
+        <?php // } 
+        ?>
 
-        <div class="create_table_input">
-                <div class="ui icon input">
-                    <input required type="text" name="table_name" placeholder="Table Name" />
-                </div>
-                <div class="ui icon input">
-                    <input required type="text" name="file_input" placeholder="Enter the google spreadsheet public url." />
-                    <i class="file icon"></i>
-                </div>
-                <button class="ui violet button" type="button" id="fetch_save_btn">Fetch Data</button>
-            </div>
+    <?php
+    }
+    protected function _content_template() {
 
-        <div class="block_initializer">
+    ?>
+        <div class="gswpts_create_table_container">
+            <div class="block_initializer">
                 <button id="create_button" class="positive ui button">
                     Create New
                 </button>
-                <button class="ui violet button" type="button">
+                <button id="choose_table" class="ui violet button" type="button">
                     Choose Table
                 </button>
             </div>
-
-        </div> -->
-
-
+        </div>
 <?php
     }
 }

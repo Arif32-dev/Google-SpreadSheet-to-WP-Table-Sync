@@ -16,6 +16,10 @@ module.exports = {
             import: path.resolve(__dirname, 'Assets/Src/Scripts/elementor.js'),
             filename: 'Scripts/Backend/[name].min.js'
         },
+        elementor_control: {
+            import: path.resolve(__dirname, 'Assets/Src/Scripts/elementor-control.js'),
+            filename: 'Scripts/Backend/[name].min.js'
+        },
     },
     output: {
         path: path.resolve(__dirname, 'Assets/Public/'),

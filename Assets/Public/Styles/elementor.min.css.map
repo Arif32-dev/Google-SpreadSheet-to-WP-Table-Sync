@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://google-spreadsheet-to-wp-table-sync/./Assets/Src/Styles/Backend/elementor.scss"],"names":[],"mappings":"AAAA,qGAEC,a","file":"Styles/elementor.min.css","sourcesContent":[".elementor-control.elementor-control-table_section,\r\n.elementor-control.elementor-control-choose_table {\r\n\tdisplay: none;\r\n}"],"sourceRoot":""}
