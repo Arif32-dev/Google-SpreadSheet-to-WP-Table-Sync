@@ -18,7 +18,6 @@ class Plugins_Widget extends \Elementor\Widget_Base {
 
         wp_register_script('GSWPTS-elementor-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor.min.js', ['jquery'], GSWPTS_VERSION, true);
 
-        wp_register_script('GSWPTS-elementor-table', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor.min.js', ['jquery'], GSWPTS_VERSION, true);
 
         global $gswpts;
 
@@ -76,136 +75,6 @@ class Plugins_Widget extends \Elementor\Widget_Base {
         );
 
         $this->end_controls_section();
-
-
-
-        $this->start_controls_section(
-            'display_settings',
-            [
-                'label' => 'Display Settings',
-                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-        );
-
-        $this->add_control(
-            'show_title',
-            [
-                'label' => __('Show Title', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'default_rows_per_page',
-            [
-                'label' => __('Default rows per page', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'default' => '',
-                'options' => $this->default_rows_per_page_selector()
-            ]
-        );
-
-        $this->add_control(
-            'show_info_block',
-            [
-                'label' => __('Show info block', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'responsive_table',
-            [
-                'label' => __('Resposive table', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'show_x_entries',
-            [
-                'label' => __('Show X entries', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'swap_filter_inputs',
-            [
-                'label' => __('Swap Filters', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'swap_bottom_options',
-            [
-                'label' => __('Swap Bottom Elements', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'sort_and_filter',
-            [
-                'label' => 'Sort & Filter',
-                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-        );
-
-
-        $this->add_control(
-            'allow_sorting',
-            [
-                'label' => __('Allow Sorting', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'search_bar',
-            [
-                'label' => __('Search Bar', 'gswpts'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'gswpts'),
-                'label_off' => __('Hide', 'gswpts'),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->end_controls_section();
     }
 
     protected function tables_info() {
@@ -222,48 +91,34 @@ class Plugins_Widget extends \Elementor\Widget_Base {
         return $options;
     }
 
-    protected function default_rows_per_page_selector() {
-        $options = [
-            '1' => '1',
-            '5' => '5',
-            '10' => '10',
-            '15' => '15',
-            '25' => '25',
-            '50' => '50',
-            '100' => '100',
-            'all' => 'All'
-        ];
-
-        return $options;
-    }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        // if (do_shortcode('[gswpts_table id=12]')) {
-        // echo do_shortcode('[gswpts_table id=12]'); 
+        if ($settings['choose_table'] == 'select') {
+            return;
+        }
+        $table_id = intval($settings['choose_table']);
+        if (do_shortcode('[gswpts_table id=' . $table_id . ']')) {
+            echo do_shortcode('[gswpts_table id=' . $table_id . ']');
 ?>
-        <!-- <script>
-                gswpts_elementor_global.set_elementor_table()
-            </script> -->
+            <script>
+                let main_table_container = $('#<?php echo $table_id ?>');
+                let table_settings = JSON.parse($(main_table_container).attr('data-table_settings'));
 
-        <?php // } 
+                let table_name = $(main_table_container).attr('data-table_name')
+                let dom = `<"filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                gswpts_elementor_global.set_elementor_table($('#<?php echo $table_id ?> #create_tables'), table_settings, dom);
+
+                let swap_filter = table_settings.swap_filter_inputs == 'true' ? true : false;
+                let swap_bottom = table_settings.swap_bottom_options == 'true' ? true : false;
+
+                gswpts_elementor_global.swap_input_filter(<?php echo $table_id ?>, swap_filter)
+                gswpts_elementor_global.swap_bottom_options(<?php echo $table_id ?>, swap_bottom)
+            </script>
+
+        <?php }
         ?>
 
-    <?php
-    }
-    protected function _content_template() {
-
-    ?>
-        <div class="gswpts_create_table_container">
-            <div class="block_initializer">
-                <button id="create_button" class="positive ui button">
-                    Create New
-                </button>
-                <button id="choose_table" class="ui violet button" type="button">
-                    Choose Table
-                </button>
-            </div>
-        </div>
 <?php
     }
 }

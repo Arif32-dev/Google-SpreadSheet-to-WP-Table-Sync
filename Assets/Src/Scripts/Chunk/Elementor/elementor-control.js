@@ -1,5 +1,7 @@
+
+
 jQuery(document).ready(function ($) {
-    class Elementor_Table_Settings {
+    class Elementor_Scripts {
         constructor() {
             this.events()
         }
@@ -9,10 +11,10 @@ jQuery(document).ready(function ($) {
             })
             $(document).on('click', '.block_initializer #choose_table', (e) => {
                 this.choose_table_event_func()
+                window.parent.document.querySelector(".elementor-control.elementor-control-table_section").style.display = 'block'
+                window.parent.document.querySelector(".elementor-control.elementor-control-choose_table").style.display = 'block'
             })
-            $(document).on('click', (e) => {
-                console.log('hello from elementor edit page')
-            })
+
         }
 
         choose_table_event_func() {
@@ -21,7 +23,6 @@ jQuery(document).ready(function ($) {
                             <h4>Choose table from widget settings</h4>
                         </div>
                     `)
-            console.log(document.querySelector("#elementor-panel-page-editor"))
         }
 
         show_create_new_table_elem() {
@@ -41,6 +42,5 @@ jQuery(document).ready(function ($) {
 
 
     }
-    new Elementor_Table_Settings;
-
+    new Elementor_Scripts;
 });

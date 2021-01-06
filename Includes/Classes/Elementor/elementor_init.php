@@ -90,11 +90,12 @@ class Elementor_Init {
         // Add Plugin actions
         add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets']);
 
-        add_action('elementor/editor/after_enqueue_scripts', [$this, 'inlcude_elementor_assets']);
+        add_action('elementor/editor/before_enqueue_scripts', [$this, 'include_elementor_assets']);
     }
 
-    public function inlcude_elementor_assets() {
-        wp_enqueue_script('GSWPTS-elementor-editor-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor_control.min.js', ['jquery'], GSWPTS_VERSION, true);
+    public function include_elementor_assets() {
+        wp_enqueue_style('GSWPTS-elementor-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/elementor.min.css');
+        wp_enqueue_script('GSWPTS-elementor-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/elementor.min.js', ['elementor-editor', 'jquery'], GSWPTS_VERSION, true);
     }
 
     /**
