@@ -26,7 +26,9 @@ class Plugin {
         new Ajax_Handler;
         new Sortcode;
         new Settings_API;
-        new Elementor_Init;
+        if (get_option('elementor_support') == 'on') {
+            new Elementor_Init;
+        }
     }
     public function global_functions() {
         global $gswpts;

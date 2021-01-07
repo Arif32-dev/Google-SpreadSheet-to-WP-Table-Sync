@@ -50,7 +50,8 @@ $(document).ready(function () {
                             table_obj.table_configuration(i, elem, table_name, table_settings)
 
                         } else {
-                            alert('Table could not be loaded. Try again')
+                            alert('Table could not be loaded. Try again');
+                            $(elem).find('.gswpts_tables_content').html("<strong>'Table could not be loaded. Try again'</strong>");
                         }
                     },
 

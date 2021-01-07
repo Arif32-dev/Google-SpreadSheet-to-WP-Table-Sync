@@ -54,7 +54,7 @@ class Settings_API {
                     <div class="description d-flex justify-content-between align-items-center">
                         <h3 class="m-0">
                             Asynchronous Loading
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for gutenberg sortcode support" data-position="right center" data-inverted="">
+                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for loading table asynchronously" data-position="right center" data-inverted="">
                                 <i class="fas fa-info-circle"></i>
                             </span>
                         </h3>
@@ -66,10 +66,9 @@ class Settings_API {
                 </div>
                 <div class="settings_desc <?php echo $option_values['asynchronous_loading'] == 'checked' ? '' : 'transition hidden' ?>">
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Enable this feauture to load the table in the frontend after loading all content with a pre-loader.
+                        This will help your website load fast.
+                        If you don't want to enable this feature than the table will load with the reloading of browser every time.
                     </p>
                 </div>
             </div>
@@ -83,8 +82,8 @@ class Settings_API {
                 <div class="content">
                     <div class="description d-flex justify-content-between align-items-center">
                         <h3 class="m-0">
-                            Gutenberg Support
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for gutenberg sortcode support" data-position="right center" data-inverted="">
+                            Gutenberg Block Support
+                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for gutenberg block" data-position="right center" data-inverted="">
                                 <i class="fas fa-info-circle"></i>
                             </span>
                         </h3>
@@ -96,40 +95,9 @@ class Settings_API {
                 </div>
                 <div class="settings_desc <?php echo $option_values['gutenberg_support'] == 'checked' ? '' : 'transition hidden' ?>">
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="ui cards settings_row">
-
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            Gutenberg Rich Table Editing
-                            <span class="ui icon button p-0 m-0" data-tooltip="This feature will enable rich table editing in gutenberg" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['gutenberg_rich_editing'] ?> name="gutenberg_rich_editing" id="gutenberg_rich_editing">
-                            <label class="m-0" for="gutenberg_rich_editing"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['gutenberg_rich_editing'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Enabling this feature will enable a custom block in gutenberg. The Google spreadsheet to WP Table Sync block will allow you
+                        to create and choose table previously created from plugins <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables') ?>">Create Table</a> page.
+                        The changes or new new table created from gutenberg will effect everywhere in this plugin.
                     </p>
                 </div>
             </div>
@@ -142,8 +110,8 @@ class Settings_API {
                 <div class="content">
                     <div class="description d-flex justify-content-between align-items-center">
                         <h3 class="m-0">
-                            Elementor Support
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for elemetor sortcode type support" data-position="right center" data-inverted="">
+                            Elementor Widget Support
+                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for elemetor widget support" data-position="right center" data-inverted="">
                                 <i class="fas fa-info-circle"></i>
                             </span>
                         </h3>
@@ -155,39 +123,8 @@ class Settings_API {
                 </div>
                 <div class="settings_desc <?php echo $option_values['elementor_support'] == 'checked' ? '' : 'transition hidden' ?>">
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="ui cards settings_row">
-
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            Elementor Rich Table Editing
-                            <span class="ui icon button p-0 m-0" data-tooltip="This feature will enable rich table editing in elementor" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['elementor_rich_editing'] ?> name="elementor_rich_editing" id="elementor_rich_editing">
-                            <label class="m-0" for="elementor_rich_editing"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['elementor_rich_editing'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti omnis vitae aperiam ex.
+                        Enabling this feature will enable a custom elementor widget in elementor basic area.
+                        By doing this you will be able to choose previously created table in elementor widget.
                     </p>
                 </div>
             </div>
@@ -202,9 +139,7 @@ class Settings_API {
         $options_values = [
             'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
             'gutenberg_support' => get_option('gutenberg_support') ? 'checked' : '',
-            'gutenberg_rich_editing' => get_option('gutenberg_rich_editing') ? 'checked' : '',
             'elementor_support' => get_option('elementor_support') ? 'checked' : '',
-            'elementor_rich_editing' => get_option('elementor_rich_editing') ? 'checked' : '',
         ];
         return $options_values;
     }

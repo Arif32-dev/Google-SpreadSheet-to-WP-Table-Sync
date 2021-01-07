@@ -108,10 +108,10 @@ $gswpts->semantic_files();
                         </div>
                         <div class="card-body">
                             <div class="col-12 mb-2">
-                                You are currently using Version 2.1.3
+                                You are currently using Version <?php echo GSWPTS_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
-                                A major update with new table type, and a couple of bug fixes and stability improvements:
+                                The first realease of this plugin with compatibility checking:
                             </div>
                             <div class="col-12 mt-4 d-flex">
 
@@ -121,11 +121,7 @@ $gswpts->semantic_files();
 
                                 <div class="col-11 p-0">
                                     <ul>
-                                        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.</li>
-                                        <li>Feature: Added Slovenian translation</li>
-                                        <li>Improvement: Update French translation</li>
-                                        <li>Lorem Ipsum is simply dummy text of the printing</li>
-
+                                        <li>Plugins version <?php echo GSWPTS_VERSION ?> released</li>
                                     </ul>
                                 </div>
 
@@ -142,40 +138,23 @@ $gswpts->semantic_files();
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span><i class="fas fa-blog"></i></span>
-                                <span class="ml-2">Plugin Blogs</span>
+                                <span class="ml-2">Our Blogs</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
+                            <a href="https://wppool.dev/" target="blank" class="ui inverted green button">
                                 Read Blogs
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <p>Checkout useful articles from wpdatatables.com</p>
+                                <p>Checkout useful articles from <a class="ml-1" href="https://wppool.dev/" target="blank">WPPOOL</a></p>
                                 <div class="col-12 p-0 mt-3 useful_links">
 
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
+                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center" href="" target="blank">
                                         <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
                                         <span><i class="fas fa-link"></i></span>
                                     </a>
                                     <div class="ui fitted divider mt-2 mb-2"></div>
 
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
-                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce</p>
-                                        <span><i class="fas fa-link"></i></span>
-                                    </a>
-                                    <div class="ui fitted divider mt-2 mb-2"></div>
-
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
-                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
-                                        <span><i class="fas fa-link"></i></span>
-                                    </a>
-                                    <div class="ui fitted divider mt-2 mb-2"></div>
-
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center">
-                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
-                                        <span><i class="fas fa-link"></i></span>
-                                    </a>
-                                    <div class="ui fitted divider mt-2 mb-2"></div>
                                 </div>
 
                                 <div class="col-12 p-0 mt-4 subscribe_sec">
@@ -187,7 +166,7 @@ $gswpts->semantic_files();
                                                 <div class="description">
 
                                                     <p>
-                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter! Join 3000+ subscribers.
+                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
                                                         We send about 1 message per month and never spam!
                                                     </p>
 
@@ -263,40 +242,12 @@ $gswpts->semantic_files();
                         <div class="card-body">
                             <div class="col-12">
                                 <p>
-                                    Get the most out of wpDataTables by upgrading to Premium and unlocking all of the powerful features.
+                                    Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
                                 </p>
                                 <ul>
                                     <li class="d-flex align-items-center mb-3">
                                         <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dummy text
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dummy text of the print
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dustry
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dummy text of the printi
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dustry
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dummy text
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Lorem Ipsum is simply dummy text of the printing
-                                    </li>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Create a table manually
+                                        Product is in under development.
                                     </li>
                                 </ul>
                             </div>
@@ -311,6 +262,118 @@ $gswpts->semantic_files();
 
             </div>
 
+
+        </div>
+
+        <div class="row mt-3 dash_boxes pb-3 pt-3" style="background: transparent;">
+
+            <div class="col-sm-12 p-0 m-0">
+                <h2 class="text-center text-capitalize">
+                    Our Other Products
+                </h2>
+                <p class="text-center">
+                    Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
+                    Think you know WordPress products? Think Deeper!
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-3 dash_boxes  d-flex justify-content-start">
+
+            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products wp-dark-mode">
+                <div class="card mt-0 pt-4 pb-4">
+                    <div class="gswpts_thumbnail">
+                        <div class="text-center">
+                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Dark Mode.svg' ?>" alt="">
+                        </div>
+                        <h4 class="text-center">
+                            WP Dark Mode
+                        </h4>
+                        <div class="mt-3 mb-3">
+                            <p class="text-center">
+                                Help your website visitors spend more time and an eye-pleasing reading experience.
+                                Personal preference rules always king. WP Dark Mode can be a game-changer for your website.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <a class="ui violet button m-0" href="https://wppool.dev/wp-dark-mode/" target="blank">
+                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products flash-icon">
+                <div class="card mt-0 pt-4 pb-4">
+                    <div class="gswpts_thumbnail">
+                        <div class="text-center">
+                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/flash-icon.svg' ?>" alt="">
+                        </div>
+                        <h4 class="text-center">
+                            Flash Social Share
+                        </h4>
+                        <div class="mt-3 mb-3">
+                            <p class="text-center">
+                                Barry Allen might be the fastest man alive but when it comes to WordPress – there’s no competition which is the fastest, most optimized, and performance-friendly social sharing plugin on the planet.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <a class="ui violet button m-0" href="https://wordpress.org/plugins/flash-social-share/" target="blank">
+                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products flexi-addons">
+                <div class="card mt-0 pt-4 pb-4">
+                    <div class="gswpts_thumbnail">
+                        <div class="text-center">
+                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Flexiaddons.svg' ?>" alt="">
+                        </div>
+                        <h4 class="text-center">
+                            Flexi Addons
+                        </h4>
+                        <div class="mt-3 mb-3">
+                            <p class="text-center">
+                                The Most Flexible Widgets For Elementor
+                                Flexi Addons Helps you Save Time and Build Better Sites
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <a class="ui violet button m-0" href="https://wordpress.org/plugins/flexiaddons/" target="blank">
+                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products markdown">
+                <div class="card mt-0 pt-4 pb-4">
+                    <div class="gswpts_thumbnail">
+                        <div class="text-center">
+                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Markdown.svg' ?>" alt="">
+                        </div>
+                        <h4 class="text-center">
+                            WP Markdown Editor
+                        </h4>
+                        <div class="mt-3 mb-3">
+                            <p class="text-center">
+                                Effectively insulate your mind from distractions and set up a direct line between your thoughts and your words.
+                                Hear your inner voice clearer than ever and delve deeper into your creative process.
+                            </p>
+                        </div>
+                        <div class="text-center" href="https://wppool.dev/wp-markdown-editor/" target="blank">
+                            <a class="ui violet button m-0">
+                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
