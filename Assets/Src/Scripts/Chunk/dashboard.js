@@ -14,6 +14,7 @@ jQuery(document).ready(function ($) {
             if (this.get_slug_parameter('page') == 'gswpts-dashboard') {
                 this.retrieve_wppool_post()
             }
+            this.send_subscriber()
         }
         retrieve_wppool_post() {
             $.ajax({
@@ -52,6 +53,50 @@ jQuery(document).ready(function ($) {
                     this.call_alert('Error &#128683;', '<b>Plugins Blog could not be loaded. Try again</b>', 'error', 3)
                     $('.useful_links').html('');
                 },
+            })
+        }
+
+        send_subscriber() {
+
+            var form = document.getElementById('wemail-embedded-subscriber-form');
+            var button = form.querySelector('#subscribe_btn');
+            var buttonText = button.innerText;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const xhr = new XMLHttpRequest();
+                xhr.addEventListener('loadstart', function () {
+                    button.setAttribute('disabled', true);
+                    button.innerText = 'Submitting';
+                });
+                xhr.addEventListener('load', function () {
+                    var data = JSON.parse(xhr.response);
+
+                    $.suiAlert({
+                        title: 'Successfull &#128077;',
+                        description: `<b>${data.message}</b>`,
+                        type: 'success',
+                        time: 3,
+                        position: 'bottom-right',
+                    });
+
+                });
+                xhr.addEventListener('error', function () {
+
+                    $.suiAlert({
+                        title: 'Error &#128683;',
+                        description: '<b>Something went wrong. Subscription could not be made</b>',
+                        type: 'error',
+                        time: 4,
+                        position: 'bottom-right',
+                    });
+                });
+                xhr.addEventListener('loadend', function () {
+                    button.removeAttribute('disabled');
+                    button.innerHTML = buttonText;
+                });
+                xhr.open(form.method, form.action);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.send(new FormData(form));
             })
         }
     }

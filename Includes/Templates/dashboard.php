@@ -170,13 +170,13 @@ $gswpts->semantic_files();
                                                         We send about 1 message per month and never spam!
                                                     </p>
 
-                                                    <div class="ui right labeled left icon input mt-3">
+                                                    <form id="wemail-embedded-subscriber-form" method="post" action="https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471" class="ui right labeled left icon input mt-3">
                                                         <i class="bell icon"></i>
-                                                        <input type="text" placeholder="You email">
-                                                        <a class="ui violet tag label">
+                                                        <input style="width: 250px;" id="wemail-email" type="email" name="email" required placeholder="You email" />
+                                                        <button type="submit" class="ui violet tag label" id="subscribe_btn">
                                                             Get Subscribed
-                                                        </a>
-                                                    </div>
+                                                        </button>
+                                                    </form>
 
                                                 </div>
                                             </div>

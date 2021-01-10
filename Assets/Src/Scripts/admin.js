@@ -18,4 +18,7 @@ jQuery(document).ready(function () {
   setTimeout(() => {
     $('.dashboard_content, .manage_table_content, .create_table_content, .settings_content').transition('fade');
   }, 300);
+
 })
+
+
