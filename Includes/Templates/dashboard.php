@@ -366,8 +366,8 @@ $gswpts->semantic_files();
                                 Hear your inner voice clearer than ever and delve deeper into your creative process.
                             </p>
                         </div>
-                        <div class="text-center" href="https://wppool.dev/wp-markdown-editor/" target="blank">
-                            <a class="ui violet button m-0">
+                        <div class="text-center">
+                            <a class="ui violet button m-0" href="https://wppool.dev/wp-markdown-editor/" target="blank">
                                 Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
                             </a>
                         </div>
