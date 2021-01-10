@@ -118,6 +118,7 @@ registerBlockType(
                     fetch_data_by_id(attributes.sortcode_id)
                     setAttributes({ table_selection: attributes.sortcode_id })
                     setAttributes({ show_choose_table: true });
+                    setAttributes({ initializer_button_action: 'choose_table' })
                 }
             }, [])
 
