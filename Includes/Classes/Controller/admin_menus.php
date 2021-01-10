@@ -15,7 +15,7 @@ class Admin_Menus {
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
             'dashicons-media-spreadsheet',
-            101
+            119
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -52,7 +52,7 @@ class Admin_Menus {
     }
     public function add_logo() {
         global $menu;
-        $menu[101][6] = GSWPTS_BASE_URL . 'Assets/Public/Images/Google_Sheets_logo.svg';
+        $menu[119][6] = GSWPTS_BASE_URL . 'Assets/Public/Images/Google_Sheets_logo.svg';
     }
     public static function gswpts_dashboard() {
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/dashboard.php', true);

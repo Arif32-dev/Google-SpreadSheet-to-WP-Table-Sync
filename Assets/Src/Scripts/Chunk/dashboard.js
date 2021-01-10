@@ -59,7 +59,13 @@ jQuery(document).ready(function ($) {
         send_subscriber() {
 
             var form = document.getElementById('wemail-embedded-subscriber-form');
+            if (form == null) {
+                return;
+            }
             var button = form.querySelector('#subscribe_btn');
+            if (button == null) {
+                return;
+            }
             var buttonText = button.innerText;
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
