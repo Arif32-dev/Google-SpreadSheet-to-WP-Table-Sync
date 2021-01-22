@@ -12,7 +12,7 @@ class Sortcode {
     }
     public function gswpts_sortcodes_asynchronous($atts) {
 
-        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+        if (defined('ELEMENTOR_VERSION') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
             return $this->gswpts_sortcodes($atts);
         } else {
             $output = "<h5><b>No table data found</b></h5> <br>";
