@@ -66,8 +66,8 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-table"></i></span>
                                 <span class="ml-2">Tables</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
-                                Browse Tables
+                            <a href="<?php echo admin_url('admin.php?page=gswpts-dashboard') ?>" class="ui inverted green button">
+                                Create Tables
                             </a>
                         </div>
                         <div class="card-body d-flex">
@@ -88,6 +88,7 @@ $gswpts->semantic_files();
                                         [gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -278,104 +279,13 @@ $gswpts->semantic_files();
             </div>
         </div>
 
-        <div class="row mt-3 dash_boxes  d-flex justify-content-start">
 
-            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products wp-dark-mode">
-                <div class="card mt-0 pt-4 pb-4">
-                    <div class="gswpts_thumbnail">
-                        <div class="text-center">
-                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Dark Mode.svg' ?>" alt="">
-                        </div>
-                        <h4 class="text-center">
-                            WP Dark Mode
-                        </h4>
-                        <div class="mt-3 mb-3">
-                            <p class="text-center">
-                                Help your website visitors spend more time and an eye-pleasing reading experience.
-                                Personal preference rules always king. WP Dark Mode can be a game-changer for your website.
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <a class="ui violet button m-0" href="https://wppool.dev/wp-dark-mode/" target="blank">
-                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Our other product section -->
 
-            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products flash-icon">
-                <div class="card mt-0 pt-4 pb-4">
-                    <div class="gswpts_thumbnail">
-                        <div class="text-center">
-                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/flash-icon.svg' ?>" alt="">
-                        </div>
-                        <h4 class="text-center">
-                            Flash Social Share
-                        </h4>
-                        <div class="mt-3 mb-3">
-                            <p class="text-center">
-                                Barry Allen might be the fastest man alive but when it comes to WordPress – there’s no competition which is the fastest, most optimized, and performance-friendly social sharing plugin on the planet.
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <a class="ui violet button m-0" href="https://wordpress.org/plugins/flash-social-share/" target="blank">
-                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products flexi-addons">
-                <div class="card mt-0 pt-4 pb-4">
-                    <div class="gswpts_thumbnail">
-                        <div class="text-center">
-                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Flexiaddons.svg' ?>" alt="">
-                        </div>
-                        <h4 class="text-center">
-                            Flexi Addons
-                        </h4>
-                        <div class="mt-3 mb-3">
-                            <p class="text-center">
-                                The Most Flexible Widgets For Elementor
-                                Flexi Addons Helps you Save Time and Build Better Sites
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <a class="ui violet button m-0" href="https://wordpress.org/plugins/flexiaddons/" target="blank">
-                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-4 p-4 gswpts_other_products markdown">
-                <div class="card mt-0 pt-4 pb-4">
-                    <div class="gswpts_thumbnail">
-                        <div class="text-center">
-                            <img class="img-responsive" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/Other_Products/Markdown.svg' ?>" alt="">
-                        </div>
-                        <h4 class="text-center">
-                            WP Markdown Editor
-                        </h4>
-                        <div class="mt-3 mb-3">
-                            <p class="text-center">
-                                Effectively insulate your mind from distractions and set up a direct line between your thoughts and your words.
-                                Hear your inner voice clearer than ever and delve deeper into your creative process.
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <a class="ui violet button m-0" href="https://wppool.dev/wp-markdown-editor/" target="blank">
-                                Learn More <span class="ml-2"><i class="fas fa-external-link-alt"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="row mt-3 other_products_section">
         </div>
+
+        <!-- End of our other product section -->
 
     </div>
 </div>

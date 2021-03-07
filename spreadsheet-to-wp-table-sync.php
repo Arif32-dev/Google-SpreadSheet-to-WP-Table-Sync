@@ -83,6 +83,7 @@ final class GSWPTS_Plugin {
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
             new GSWPTS\Includes\Classes\DB_Tables;
+            add_option('gswpts_activation_redirect', true);
             flush_rewrite_rules();
         });
         register_activation_hook(__FILE__, function () {
@@ -96,6 +97,11 @@ final class GSWPTS_Plugin {
      */
     public function include_file() {
         new GSWPTS\Includes\Plugin;
+
+        if (get_option('gswpts_activation_redirect', false)) {
+            delete_option('gswpts_activation_redirect');
+            wp_redirect(admin_url('admin.php?page=gswpts-dashboard'));
+        }
     }
     public static function add_action_links($links) {
         $mylinks = array(

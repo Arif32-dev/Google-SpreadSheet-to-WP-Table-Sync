@@ -2,6 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Fetch_Products;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Creation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Fetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Table_Fetch;
@@ -29,6 +30,9 @@ class Ajax_Handler {
         /* Table Fetching */
         add_action('wp_ajax_gswpts_ud_table', [$this, 'ud_tables']);
         add_action('wp_ajax_nopriv_gswpts_ud_table', [$this, 'ud_tables']);
+        /* Other product fetching */
+        add_action('wp_ajax_gswpts_product_fetch', [$this, 'fetch_products']);
+        add_action('wp_ajax_nopriv_gswpts_product_fetch', [$this, 'fetch_products']);
     }
     public function sheet_creation() {
         $sheet_creation = new Sheet_Creation;
@@ -48,5 +52,10 @@ class Ajax_Handler {
     public function ud_tables() {
         $ud_tables = new UD_Tables;
         $ud_tables->ud_tables();
+    }
+
+    public function fetch_products() {
+        $ud_tables = new Fetch_Products;
+        $ud_tables->fetch_products();
     }
 }
