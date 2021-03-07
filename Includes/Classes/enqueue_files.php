@@ -16,18 +16,24 @@ class Enqueue_Files {
     }
 
     public function backend_files() {
-        /* CSS Files */
-        wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/admin.min.css', [], time(), 'all');
-        wp_enqueue_style('GSWPTS-fontawesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+        if ((isset($_GET['page']) && $_GET['page'] == 'gswpts-dashboard') ||
+            (isset($_GET['page']) && $_GET['page'] == 'gswpts-tables') ||
+            (isset($_GET['page']) && $_GET['page'] == 'gswpts-create-tables') ||
+            (isset($_GET['page']) && $_GET['page'] == 'gswpts-general-settings')
+        ) {
 
+            /* CSS Files */
+            wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
+            wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/admin.min.css', [], time(), 'all');
+            wp_enqueue_style('GSWPTS-fontawesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
 
-        /* Javascript Files */
-        wp_enqueue_script('jquery');
-        wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php'),]);
-        wp_enqueue_script('GSWPTS-jquery-js', '//code.jquery.com/jquery-3.5.1.min.js');
-        wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['GSWPTS-jquery-js'], GSWPTS_VERSION, true);
+            /* Javascript Files */
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
+            wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php'),]);
+            wp_enqueue_script('GSWPTS-jquery-js', '//code.jquery.com/jquery-3.5.1.min.js');
+            wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['GSWPTS-jquery-js'], GSWPTS_VERSION, true);
+        }
     }
 
     public function frontend_files() {

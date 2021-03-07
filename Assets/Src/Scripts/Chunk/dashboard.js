@@ -75,15 +75,36 @@ jQuery(document).ready(function ($) {
                     button.innerText = 'Submitting';
                 });
                 xhr.addEventListener('load', function () {
-                    var data = JSON.parse(xhr.response);
+                    let data = JSON.parse(xhr.response);
 
-                    $.suiAlert({
-                        title: 'Successfull &#128077;',
-                        description: `<b>${data.message}</b>`,
-                        type: 'success',
-                        time: 3,
-                        position: 'bottom-right',
-                    });
+                    console.log(data)
+                    if (data.mode == 'already-subscribe') {
+                        $.suiAlert({
+                            title: 'Warning &#9888;&#65039;',
+                            description: `<b>${data.message}</b>`,
+                            type: 'warning',
+                            time: 3,
+                            position: 'bottom-right',
+                        });
+                    }
+                    if (data.mode == 'new-subscribe') {
+                        $.suiAlert({
+                            title: 'Successfull &#128077;',
+                            description: `<b>${data.message}</b>`,
+                            type: 'success',
+                            time: 3,
+                            position: 'bottom-right',
+                        });
+                    }
+                    if (data.errors) {
+                        $.suiAlert({
+                            title: 'Error &#128683;',
+                            description: `<b>${data.message}</b>`,
+                            type: 'error',
+                            time: 4,
+                            position: 'bottom-right',
+                        });
+                    }
 
                 });
                 xhr.addEventListener('error', function () {
