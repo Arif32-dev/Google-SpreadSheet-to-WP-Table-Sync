@@ -28,7 +28,7 @@ $(document).ready(function () {
                     type: 'post',
 
                     success: res => {
-
+                        console.log(JSON.parse(res))
                         if (JSON.parse(res).response_type == 'success') {
 
                             let table_settings = JSON.parse(JSON.parse(res).table_data.table_settings);
@@ -51,7 +51,7 @@ $(document).ready(function () {
 
                         } else {
                             alert('Table could not be loaded. Try again');
-                            $(elem).find('.gswpts_tables_content').html("<strong>'Table could not be loaded. Try again'</strong>");
+                            $(elem).find('.gswpts_tables_content').html("<strong>Table could not be loaded. Try again</strong>");
                         }
                     },
 

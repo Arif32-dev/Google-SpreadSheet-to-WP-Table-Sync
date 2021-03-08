@@ -504,8 +504,8 @@ registerBlockType(
 
                                     </PanelBody>
                                 ) : (
-                                        <></>
-                                    )
+                                    <></>
+                                )
                             }
 
 
@@ -720,9 +720,9 @@ registerBlockType(
 
                                     </>
                                 ) : (
-                                        <>
-                                        </>
-                                    )
+                                    <>
+                                    </>
+                                )
                             }
 
                         </Panel>
@@ -745,83 +745,83 @@ registerBlockType(
                                     >
                                     </div>
                                 ) : (
-                                        <>
-                                            {
-                                                attributes.is_table_saved_to_db == false ? (
-                                                    <div class="create_table_input">
-                                                        <div class="ui icon input">
-                                                            <input
-                                                                required type="text"
-                                                                name="table_name"
-                                                                placeholder="Table Name"
-                                                                value={attributes.init_table_name}
-                                                                onChange={(e) => {
-                                                                    setAttributes({ init_table_name: e.target.value })
-                                                                }}
-                                                            />
-                                                        </div>
-
-                                                        <div class="ui icon input">
-                                                            <input
-                                                                required type="text"
-                                                                name="file_input"
-                                                                placeholder="Enter the google spreadsheet public url."
-                                                                value={attributes.sheet_url}
-                                                                onChange={(e) => {
-                                                                    setAttributes({ sheet_url: e.target.value })
-                                                                }}
-                                                            />
-                                                            <i class="file icon"></i>
-                                                        </div>
-
-                                                        <button class="ui violet button" type="button" id="fetch_save_btn"
-                                                            onClick={(e) => {
-                                                                fetch_data_by_url(attributes.sheet_url)
+                                    <>
+                                        {
+                                            attributes.is_table_saved_to_db == false ? (
+                                                <div class="create_table_input">
+                                                    <div class="ui icon input">
+                                                        <input
+                                                            required type="text"
+                                                            name="table_name"
+                                                            placeholder="Table Name"
+                                                            value={attributes.init_table_name}
+                                                            onChange={(e) => {
+                                                                setAttributes({ init_table_name: e.target.value })
                                                             }}
-                                                        >
-                                                            {attributes.btn_text}
-                                                        </button>
-
+                                                        />
                                                     </div>
-                                                ) : (
-                                                        <></>
-                                                    )
-                                            }
 
-                                            <div
-                                                ref={spreadsheet_container}
-                                                id="spreadsheet_container"
-                                                dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
-                                            >
-                                            </div>
-                                        </>
-                                    )
-                            ) : (
-                                    <div class="block_initializer">
+                                                    <div class="ui icon input">
+                                                        <input
+                                                            required type="text"
+                                                            name="file_input"
+                                                            placeholder="Enter the google spreadsheet public url."
+                                                            value={attributes.sheet_url}
+                                                            onChange={(e) => {
+                                                                setAttributes({ sheet_url: e.target.value })
+                                                            }}
+                                                        />
+                                                        <i class="file icon"></i>
+                                                    </div>
 
-                                        <button id="create_button" class="positive ui button"
-                                            onClick={(e) => {
-                                                setAttributes({ block_init: true })
-                                                setAttributes({ initializer_button_action: 'create_new' })
-                                                setAttributes({ innerHTML: '' });
-                                            }}
+                                                    <button class="ui violet button" type="button" id="fetch_save_btn"
+                                                        onClick={(e) => {
+                                                            fetch_data_by_url(attributes.sheet_url)
+                                                        }}
+                                                    >
+                                                        {attributes.btn_text}
+                                                    </button>
+
+                                                </div>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        <div
+                                            ref={spreadsheet_container}
+                                            id="spreadsheet_container"
+                                            dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
                                         >
-                                            Create New &nbsp; <i class="plus icon"></i>
-                                        </button>
-
-                                        <button class="ui violet button" type="button"
-                                            onClick={(e) => {
-                                                setAttributes({ block_init: true })
-                                                setAttributes({ initializer_button_action: 'choose_table' })
-                                                setAttributes({ show_choose_table: true })
-                                                document.querySelector('.interface-pinned-items > button').click()
-                                            }}
-                                        >
-                                            Choose Table
-                                        </button>
-
-                                    </div>
+                                        </div>
+                                    </>
                                 )
+                            ) : (
+                                <div class="block_initializer">
+
+                                    <button id="create_button" class="positive ui button"
+                                        onClick={(e) => {
+                                            setAttributes({ block_init: true })
+                                            setAttributes({ initializer_button_action: 'create_new' })
+                                            setAttributes({ innerHTML: '' });
+                                        }}
+                                    >
+                                        Create New &nbsp; <i class="plus icon"></i>
+                                    </button>
+
+                                    <button class="ui violet button" type="button"
+                                        onClick={(e) => {
+                                            setAttributes({ block_init: true })
+                                            setAttributes({ initializer_button_action: 'choose_table' })
+                                            setAttributes({ show_choose_table: true })
+                                            document.querySelector('.interface-pinned-items > button').click()
+                                        }}
+                                    >
+                                        Choose Table
+                                        </button>
+
+                                </div>
+                            )
                         }
 
                     </div>

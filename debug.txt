@@ -1,18 +1,25 @@
-=>	Array
-(
-    [0] => 8-Feb-2021
-    [1] => 
-    [2] => 
-)
-
-	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\Controller\Ajax_Parts\sheet_creation.php
-	on line 123
-	at 08-Mar-2021 | 03:02:11 PM 
+=>	true
+	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\enqueue_files.php
+	on line 21
+	at 08-Mar-2021 | 09:39:55 PM 
 
 
-=>	3
-	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\Controller\Ajax_Parts\sheet_creation.php
-	on line 122
-	at 08-Mar-2021 | 03:02:11 PM 
+=>	false
+	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\enqueue_files.php
+	on line 21
+	at 08-Mar-2021 | 09:38:55 PM 
+
+
+=>	hello
+	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\enqueue_files.php
+	on line 21
+	at 08-Mar-2021 | 09:38:32 PM 
+
+
+=>	false
+	Occured in H:\laragon\www\wordpress\wp-content\plugins\Spreadsheet-to-WP-Table-Sync\Includes\Classes\enqueue_files.php
+	on line 21
+	at 08-Mar-2021 | 09:38:01 PM 
+
 
 

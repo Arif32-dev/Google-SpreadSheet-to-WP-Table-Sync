@@ -100,8 +100,21 @@ class Global_Class {
         if (isset($table_id) && $table_id !== '') {
             $db_result = $this->fetch_db_by_id($table_id);
             if ($db_result) {
-                $sheet_response = $this->get_csv_data($db_result[0]->source_url);
+
                 $json_response = $this->get_json_data($db_result[0]->source_url);
+
+                if (!$json_response) {
+                    return false;
+                }
+
+                $sheet_response = $this->get_csv_data($db_result[0]->source_url);
+
+                if (count(fgetcsv($sheet_response)) < 2) {
+                    return false;
+                }
+
+                $sheet_response = $this->get_csv_data($db_result[0]->source_url);
+
                 $table = $this->the_table($sheet_response);
                 $output = [
                     'id' => $table_id,
@@ -119,6 +132,7 @@ class Global_Class {
         return false;
     }
     public function the_table($sheet_response) {
+
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
         while (!feof($sheet_response)) {
@@ -283,10 +297,20 @@ class Global_Class {
             return;
         }
         date_default_timezone_set('Asia/Dhaka');
-        $content = '=>' . "\t" . print_r($content, true) . "\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+        if (is_bool($content)) {
+            if ($content) {
+                $content = '=>' . "\ttrue\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+            } else {
+                $content = '=>' . "\tfalse\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+            }
+        } else {
+            $content = '=>' . "\t" . print_r($content, true) . "\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+        }
         try {
-            $content .= file_get_contents($log_file_path);
-            file_put_contents($log_file_path, $content, FILE_USE_INCLUDE_PATH);
+            if (file_exists($log_file_path)) {
+                $content .= file_get_contents($log_file_path);
+            }
+            file_put_contents($log_file_path, $content);
         } catch (\Throwable $e) {
             throw new \Exception("Couldn't write error log file " . $e . "");
         }

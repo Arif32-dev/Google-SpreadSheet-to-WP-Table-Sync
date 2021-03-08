@@ -46,7 +46,7 @@ class Sortcode {
     }
 
     public function gswpts_sortcodes($atts) {
-        $output = "<h5><b>No table data found</b></h5> <br>";
+        $output = "<h5><b>No table data found</b></h5><br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;
@@ -54,8 +54,14 @@ class Sortcode {
 
 
         $respond = $gswpts->get_table(false, null, $atts['id']);
+
+        if ($respond === false) {
+            return $output;
+        }
+
         $table_name = $gswpts->input_values($atts['id'])['table_name'];
         $table = $respond['table']['table'];
+
         $table_settings = $respond['table_settings'];
         $responsive = $table_settings['responsive_table'] == 'true' ? 'gswpts_resposive' : null;
 
