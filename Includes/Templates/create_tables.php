@@ -141,8 +141,10 @@ $gswpts->download_datatables();
 
                                         <div class="col-12 col-md-8 transition hidden file_input">
                                             <div class="ui icon input">
-                                                <input required type="text" name="file_input" placeholder="Enter URL or path, or click Browse to choose.">
-                                                <i class="file icon"></i>
+                                                <input required type="text" name="file_input" placeholder="Enter URL of spreadsheet to load data">
+                                                <span class="ui icon button p-0 m-0 helper_text" data-tooltip="Share your sheet publically. Publish the sheet to web & click the share button at the top of your spreadsheet" data-position="left center" data-inverted="">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </span>
                                             </div>
                                         </div>
 

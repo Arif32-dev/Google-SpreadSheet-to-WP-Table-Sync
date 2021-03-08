@@ -122,9 +122,11 @@ class Global_Class {
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
         while (!feof($sheet_response)) {
+
             if ($i == 0) {
                 $table .= '<thead><tr>';
                 foreach (fgetcsv($sheet_response) as $cell_value) {
+
                     if ($cell_value) {
                         $table .= '<th>' . $cell_value . '</th>';
                     } else {
@@ -272,5 +274,29 @@ class Global_Class {
             ];
         }
         return $table_details;
+    }
+
+    public function write_log($content) {
+        $log_file_name = 'debug.txt';
+        $log_file_path = GSWPTS_BASE_PATH . $log_file_name;
+        if (extract($this->expand_debug_array(debug_backtrace())) < 1) {
+            return;
+        }
+        date_default_timezone_set('Asia/Dhaka');
+        $content = '=>' . "\t" . print_r($content, true) . "\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+        try {
+            $content .= file_get_contents($log_file_path);
+            file_put_contents($log_file_path, $content, FILE_USE_INCLUDE_PATH);
+        } catch (\Throwable $e) {
+            throw new \Exception("Couldn't write error log file " . $e . "");
+        }
+    }
+    public function expand_debug_array(array $debug_array) {
+        $return_info = [];
+        if ($debug_array) {
+            $return_info['file_path'] =  $debug_array[0]['file'];
+            $return_info['line'] =  $debug_array[0]['line'];
+        }
+        return $return_info;
     }
 }

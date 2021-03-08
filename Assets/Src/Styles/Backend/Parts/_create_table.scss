@@ -20,6 +20,15 @@
 		width: 100% !important;
 	}
 
+	.helper_text {
+		height: 0;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translate(-70%, -50%);
+		z-index: 20;
+	}
+
 	#gswpts_tables_container .ui.stackable.grid {
 		margin: 0;
 

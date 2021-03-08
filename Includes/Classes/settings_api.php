@@ -13,15 +13,16 @@ class Settings_API {
         $settings_options = [
             'asynchronous_loading',
             'gutenberg_support',
-            'gutenberg_rich_editing',
             'elementor_support',
-            'elementor_rich_editing',
         ];
 
         foreach ($settings_options as $setting) {
             register_setting(
                 'gswpts_general_setting',
-                $setting
+                $setting,
+                [
+                    'default' => $setting == 'gutenberg_support' || $setting == 'elementor_support'  ? 'on' : false
+                ]
             );
         }
         self::add_section_and_fields();

@@ -110,7 +110,24 @@ class Sheet_Creation {
     public static function sheet_html($url) {
         global $gswpts;
 
+        $json_res = $gswpts->get_json_data($url);
+
+        if (!$json_res) {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = '<b>The spreadsheet is not publicly available. Publish it to the web</b>';
+            return self::$output;
+        }
+
         $sheet_response = $gswpts->get_csv_data($url);
+
+        if (count(fgetcsv($sheet_response)) < 2) {
+            self::$output['response_type'] = 'invalid_request';
+            self::$output['output'] = '<b>The spreadsheet is restricted.<br/>Please make it public by clicking on share button at the top of spreadsheet</b>';
+            return self::$output;
+        }
+
+        $sheet_response = $gswpts->get_csv_data($url);
+
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = 'invalid_request';
             self::$output['output'] = '<b>The SpreadSheet url is invalid. Please enter a valid public sheet url</b>';
@@ -118,7 +135,6 @@ class Sheet_Creation {
         }
 
         $response = $gswpts->get_table(true, $sheet_response);
-        $json_res = $gswpts->get_json_data($url);
 
         self::$output['response_type'] = 'success';
         self::$output['sheet_data'] = [
