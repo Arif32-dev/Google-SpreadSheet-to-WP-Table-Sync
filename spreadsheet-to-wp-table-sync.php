@@ -39,6 +39,7 @@ if (!defined('GSWPTS_BASE_URL')) {
     define('GSWPTS_BASE_URL', plugin_dir_url(__FILE__));
 }
 
+
 if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
     return;
 }

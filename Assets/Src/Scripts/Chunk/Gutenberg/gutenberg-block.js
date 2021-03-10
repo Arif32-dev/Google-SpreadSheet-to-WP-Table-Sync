@@ -99,13 +99,13 @@ registerBlockType(
                     table_title: false,
                     defaultRowsPerPage: '10',
                     showInfoBlock: true,
-                    responsiveTable: false,
+                    // responsiveTable: false,
                     showXEntries: true,
                     swapFilterInputs: false,
                     swapBottomOptions: false,
                     allowSorting: true,
                     searchBar: true,
-                    tableExport: null
+                    // tableExport: null
                 }
             },
 
@@ -211,7 +211,8 @@ registerBlockType(
                             let default_settings = table_default_settings();
                             let defaultRowsPerPage = default_settings.defaultRowsPerPage;
                             let allowSorting = default_settings.allowSorting;
-                            let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                            // let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                            let dom = '<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
                             $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
                                 table_object(
@@ -243,13 +244,13 @@ registerBlockType(
                     table_title: false,
                     defaultRowsPerPage: 10,
                     showInfoBlock: true,
-                    responsiveTable: false,
+                    // responsiveTable: false,
                     showXEntries: true,
                     swapFilterInputs: false,
                     swapBottomOptions: false,
                     allowSorting: true,
                     searchBar: true,
-                    tableExport: null
+                    // tableExport: null
                 }
                 return default_settings;
             }
@@ -311,9 +312,10 @@ registerBlockType(
                             let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
 
                             let table_name = JSON.parse(res.responseText).table_data.table_name;
-                            let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                            // let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                            let dom = `<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
                             let defaultRowsPerPage = table_settings.default_rows_per_page;
-                            let allowSorting = table_settings.allow_sorting;
+                            let allowSorting = table_settings.allow_sorting == 'true' ? true : false;
 
                             setAttributes({ table_name: table_name });
 
@@ -344,7 +346,7 @@ registerBlockType(
                 prevSettingObj.table_title = ajax_table_settings.table_title == 'true' ? true : false;
                 prevSettingObj.defaultRowsPerPage = ajax_table_settings.default_rows_per_page;
                 prevSettingObj.showInfoBlock = ajax_table_settings.show_info_block == 'true' ? true : false;
-                prevSettingObj.responsiveTable = ajax_table_settings.responsive_table == 'true' ? true : false;
+                // prevSettingObj.responsiveTable = ajax_table_settings.responsive_table == 'true' ? true : false;
                 prevSettingObj.showXEntries = ajax_table_settings.show_x_entries == 'true' ? true : false;
                 prevSettingObj.swapFilterInputs = ajax_table_settings.swap_filter_inputs == 'true' ? true : false;
                 prevSettingObj.swapBottomOptions = ajax_table_settings.swap_bottom_options == 'true' ? true : false;
@@ -354,7 +356,8 @@ registerBlockType(
             }
 
             function table_changer(id = null, prevSettingObj) {
-                let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
+                // let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
+                let dom = `<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
                 if (id == null) {
                     $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
                         table_object(
@@ -595,7 +598,7 @@ registerBlockType(
                                             </PanelRow>
 
 
-                                            <PanelRow>
+                                            {/* <PanelRow>
                                                 <ToggleControl
                                                     label="Resposive table"
                                                     help='Allow collapsing on mobile and tablet screen'
@@ -610,7 +613,7 @@ registerBlockType(
                                                     }}
                                                 />
                                                 <br />
-                                            </PanelRow>
+                                            </PanelRow> */}
 
                                             <PanelRow>
                                                 <ToggleControl

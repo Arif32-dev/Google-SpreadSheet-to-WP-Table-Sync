@@ -195,7 +195,8 @@ jQuery(document).ready(function ($) {
                         let table_name = $('#table_name').val();
                         let defaultRowsPerPage = default_settings.defaultRowsPerPage;
                         let allowSorting = default_settings.allowSorting;
-                        let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                        // let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                        let dom = '<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
                         $('#create_tables').DataTable(
                             this.table_object(

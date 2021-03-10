@@ -2,12 +2,13 @@
 export default class Global_Table_Config {
     table_configuration(i, elem, table_name, table_settings) {
 
-        let dom = `B<"filtering_input filtering_input_${i}"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options bottom_options_${i}"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+        // let dom = `B<"filtering_input filtering_input_${i}"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options bottom_options_${i}"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+        let dom = `<"filtering_input filtering_input_${i}"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options bottom_options_${i}"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
         $(elem).find('#create_tables').DataTable(
             this.table_obj(table_name, table_settings, dom)
         );
 
-        this.reveal_export_btns(elem, table_settings);
+        // this.reveal_export_btns(elem, table_settings);
 
         this.swap_input_filter(i, table_settings);
 
@@ -19,50 +20,50 @@ export default class Global_Table_Config {
 
         let table_object = {
             dom: dom,
-            buttons: [{
-                text: 'JSON { }',
-                className: 'ui inverted yellow button export_btns json_btn',
-                action: function (e, dt, button, config) {
-                    var data = dt.buttons.exportData();
+            // buttons: [{
+            //     text: 'JSON { }',
+            //     className: 'ui inverted yellow button export_btns json_btn',
+            //     action: function (e, dt, button, config) {
+            //         var data = dt.buttons.exportData();
 
-                    $.fn.dataTable.fileSave(
-                        new Blob([JSON.stringify(data)]),
-                        `${table_name}.json`
-                    );
-                }
-            },
-            {
-                text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
-                extend: 'pdf',
-                className: 'ui inverted red button export_btns pdf_btn',
-                title: `${table_name}`
-            },
-            {
-                text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
-                extend: 'csv',
-                className: 'ui inverted green button export_btns csv_btn',
-                title: `${table_name}`
-            },
-            {
-                text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
-                extend: 'excel',
-                className: 'ui inverted green button export_btns excel_btn',
-                title: `${table_name}`
-            },
-            {
-                text: 'Print &nbsp; <i class="fas fa-print"></i>',
-                extend: 'print',
-                className: 'ui inverted secondary button export_btns print_btn',
-                title: `${table_name}`
-            },
-            {
-                text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
-                extend: 'copy',
-                className: 'ui inverted violet button export_btns copy_btn',
-                title: `${table_name}`
-            }
+            //         $.fn.dataTable.fileSave(
+            //             new Blob([JSON.stringify(data)]),
+            //             `${table_name}.json`
+            //         );
+            //     }
+            // },
+            // {
+            //     text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
+            //     extend: 'pdf',
+            //     className: 'ui inverted red button export_btns pdf_btn',
+            //     title: `${table_name}`
+            // },
+            // {
+            //     text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
+            //     extend: 'csv',
+            //     className: 'ui inverted green button export_btns csv_btn',
+            //     title: `${table_name}`
+            // },
+            // {
+            //     text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
+            //     extend: 'excel',
+            //     className: 'ui inverted green button export_btns excel_btn',
+            //     title: `${table_name}`
+            // },
+            // {
+            //     text: 'Print &nbsp; <i class="fas fa-print"></i>',
+            //     extend: 'print',
+            //     className: 'ui inverted secondary button export_btns print_btn',
+            //     title: `${table_name}`
+            // },
+            // {
+            //     text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
+            //     extend: 'copy',
+            //     className: 'ui inverted violet button export_btns copy_btn',
+            //     title: `${table_name}`
+            // }
 
-            ],
+            // ],
 
             "order": [],
             "responsive": true,

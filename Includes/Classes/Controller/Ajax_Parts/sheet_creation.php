@@ -244,13 +244,11 @@ class Sheet_Creation {
             'table_title' => $table_settings['table_title'],
             'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
             'show_info_block' => $table_settings['showInfoBlock'],
-            'responsive_table' => $table_settings['responsiveTable'],
             'show_x_entries' => $table_settings['showXEntries'],
             'swap_filter_inputs' => $table_settings['swapFilterInputs'],
             'swap_bottom_options' => $table_settings['swapBottomOptions'],
             'allow_sorting' => $table_settings['allowSorting'],
             'search_bar' => $table_settings['searchBar'],
-            'table_export' => isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false || "" ? $table_settings['tableExport'] : 'empty',
         ];
         return $settings;
     }

@@ -201,6 +201,7 @@ $gswpts->download_datatables();
                                                     <option value="100">100</option>
                                                     <option value="all">All</option>
                                                 </select>
+
                                             </div>
                                         </div>
                                     </div>
@@ -230,15 +231,17 @@ $gswpts->download_datatables();
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
+                                                <span class="pro_feature"><i class="fas fa-medal"></i></span>
                                                 <div class="header">Resposive table</div>
                                                 <div class="description">
                                                     Allow collapsing on mobile and tablet screen
                                                 </div>
                                             </div>
                                             <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="responsive" id="responsive">
+                                                <input type="checkbox" class="pro_feature_input" name="responsive" id="responsive">
                                                 <label for="responsive"></label>
                                             </div>
+                                            <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo.php', false); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -363,11 +366,12 @@ $gswpts->download_datatables();
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
+                                                <span class="pro_feature"><i class="fas fa-medal"></i></span>
                                                 <div class="header">Table Exporting</div>
                                                 <div class="description">
                                                     Enable this feature in order to allow your user to download your table content as various format.
                                                 </div>
-                                                <select name="skills" multiple="" class="ui fluid dropdown mt-2" id="table_exporting">
+                                                <select name="skills" multiple="" class="ui fluid dropdown mt-2 pro_feature_input" id="table_exporting">
                                                     <option value="">Select Type</option>
                                                     <option value="json">JSON</option>
                                                     <option value="pdf">PDF</option>
@@ -376,7 +380,12 @@ $gswpts->download_datatables();
                                                     <option value="print">Print</option>
                                                     <option value="copy">Copy</option>
                                                 </select>
+                                                <div class="pro_feature_input selectbox_overlay">
+
+                                                </div>
                                             </div>
+                                            <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo.php', false); ?>
+
                                         </div>
                                     </div>
                                 </div>
