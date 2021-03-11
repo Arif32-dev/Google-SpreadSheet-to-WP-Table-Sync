@@ -24,6 +24,9 @@ class Settings_API {
                     'default' => $setting == 'gutenberg_support' || $setting == 'elementor_support'  ? 'on' : false
                 ]
             );
+            if ($setting == 'gutenberg_support' || $setting == 'elementor_support') {
+                add_option($setting, 'on');
+            }
         }
         self::add_section_and_fields();
     }

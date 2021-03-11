@@ -117,7 +117,7 @@ export default class Base_Class {
     table_settings_obj() {
         let settings = {
             table_title: $('#show_title').prop('checked'),
-            defaultRowsPerPage: $('#rows_per_page').val() == 'all' ? -1 : $('#rows_per_page').val(),
+            defaultRowsPerPage: $('#rows_per_page').find('input[name=rows_per_page]').val() == 'all' ? -1 : $('#rows_per_page').find('input[name=rows_per_page]').val(),
             showInfoBlock: $('#info_block').prop('checked'),
             // responsiveTable: $('#responsive').prop('checked'),
             showXEntries: $('#show_entries').prop('checked'),
@@ -271,9 +271,13 @@ export default class Base_Class {
             // ],
             "order": [],
             "responsive": true,
+            // "lengthMenu": [
+            //     [1, 5, 10, 15, 25, 50, 100, -1],
+            //     [1, 5, 10, 15, 25, 50, 100, "All"]
+            // ],
             "lengthMenu": [
-                [1, 5, 10, 15, 25, 50, 100, -1],
-                [1, 5, 10, 15, 25, 50, 100, "All"]
+                [1, 5, 10, 15],
+                [1, 5, 10, 15]
             ],
             "pageLength": parseInt(pageLength),
             "lengthChange": true,

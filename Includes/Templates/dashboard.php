@@ -141,7 +141,7 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-blog"></i></span>
                                 <span class="ml-2">Our Blogs</span>
                             </div>
-                            <a href="https://wppool.dev/" target="blank" class="ui inverted green button">
+                            <a href="https://wppool.dev/blog/" target="blank" class="ui inverted green button">
                                 Read Blogs
                             </a>
                         </div>

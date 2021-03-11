@@ -8,10 +8,13 @@ jQuery(document).ready(function ($) {
             this.fetch_and_save_button = $('#fetch_save_btn')
             this.sheet_url = '';
             this.dropdown_select = $('#table_type')
-            this.events();
             if ($('#table_type').length) {
                 $('#table_type').dropdown();
             }
+            if ($('#rows_per_page').length) {
+                $('#rows_per_page').dropdown('set selected', '10');
+            }
+            this.events();
         }
 
         events() {

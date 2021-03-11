@@ -191,16 +191,44 @@ $gswpts->download_datatables();
                                                 <div class="description">
                                                     This will show rows per page in the frontend
                                                 </div>
-                                                <select class="ui dropdown" id="rows_per_page">
-                                                    <option value="1">1</option>
-                                                    <option value="5">5</option>
-                                                    <option value="10" selected>10</option>
-                                                    <option value="15">15</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                    <option value="all">All</option>
-                                                </select>
+
+                                                <div class="ui fluid selection dropdown" id="rows_per_page">
+                                                    <input type="hidden" name="rows_per_page">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Rows Per Page</div>
+
+                                                    <div class="menu">
+                                                        <div class="item" data-value="1">
+                                                            1
+                                                        </div>
+                                                        <div class="item" data-value="5">
+                                                            5
+                                                        </div>
+                                                        <div class="item" data-value="10">
+                                                            10
+                                                        </div>
+                                                        <div class="item" data-value="15">
+                                                            15
+                                                        </div>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="25">
+                                                            <span>25</span>
+                                                            <i class="fas fa-medal"></i>
+                                                        </div>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="50">
+                                                            <span>50</span>
+                                                            <i class="fas fa-medal"></i>
+                                                        </div>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="100">
+                                                            <span>100</span>
+                                                            <i class="fas fa-medal"></i>
+                                                        </div>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="all">
+                                                            <span>All</span>
+                                                            <i class="fas fa-medal"></i>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
 
                                             </div>
                                         </div>

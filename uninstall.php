@@ -11,6 +11,7 @@ class Plugin_Uninstall {
                 $this->delete_tables($sql);
             }
         }
+        $this->unregister_options();
     }
     public function db_connection() {
         $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -38,6 +39,17 @@ class Plugin_Uninstall {
                 array_push($sql, $single_sql);
             }
             return $sql;
+        }
+    }
+    public function unregister_options() {
+        $settings_options = [
+            'asynchronous_loading',
+            'gutenberg_support',
+            'elementor_support',
+        ];
+        foreach ($settings_options as  $option) {
+            unregister_setting('gswpts_general_setting', $option);
+            delete_option($option);
         }
     }
 }

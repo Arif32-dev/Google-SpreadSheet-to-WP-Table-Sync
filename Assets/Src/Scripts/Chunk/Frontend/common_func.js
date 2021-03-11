@@ -68,8 +68,8 @@ export default class Global_Table_Config {
             "order": [],
             "responsive": true,
             "lengthMenu": [
-                [1, 5, 10, 15, 25, 50, 100, -1],
-                [1, 5, 10, 15, 25, 50, 100, "All"]
+                [1, 5, 10, 15],
+                [1, 5, 10, 15]
             ],
             "pageLength": parseInt(table_settings.default_rows_per_page),
             "lengthChange": true,
