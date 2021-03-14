@@ -184,28 +184,70 @@ export default class Base_Class {
     }
 
     swap_bottom_options(state) {
-
-        if (state) {
-            $('#bottom_options').css('flex-direction', 'row-reverse');
-            $('#create_tables_info').css({
-                'margin-right': '0',
-                'margin-left': 'auto'
-            });
-            $('#create_tables_paginate').css({
-                'margin-left': '0',
-                'margin-right': 'auto',
-            });
-        } else {
-            $('#bottom_options').css('flex-direction', 'row');
-            $('#create_tables_info').css({
-                'margin-right': 'auto',
-                'margin-left': '0'
-            });
-            $('#create_tables_paginate').css({
-                'margin-left': 'auto',
-                'margin-right': '0',
-            });
+        let pagination_menu = $('#bottom_options .pagination.menu')
+        let style = {
+            flex_direction: 'row-reverse',
+            table_info_style: {
+                margin_right: 0,
+                margin_left: 'auto'
+            },
+            table_paginate_style: {
+                margin_right: 'auto',
+                margin_left: 0
+            }
         }
+        if (state) {
+
+            this.bottom_option_style(style)
+
+            if (pagination_menu.children().length > 5) {
+                this.overflow_menu_style()
+            }
+            else {
+                this.bottom_option_style(style)
+            }
+
+        } else {
+
+            if (pagination_menu.children().length > 5) {
+                this.overflow_menu_style()
+            }
+            else {
+
+                style['flex_direction'] = 'row'
+
+                style.table_info_style['margin_left'] = 0
+                style.table_info_style['margin_right'] = 'auto'
+
+                style.table_paginate_style['margin_left'] = 'auto'
+                style.table_paginate_style['margin_right'] = 0
+
+                this.bottom_option_style(style)
+
+            }
+        }
+    }
+
+    overflow_menu_style() {
+        $('#bottom_options').css('flex-direction', 'column');
+        $('#create_tables_info').css({
+            'margin': '5px auto',
+        });
+        $('#create_tables_paginate').css({
+            'margin': '5px auto',
+        });
+    }
+
+    bottom_option_style($arg) {
+        $('#bottom_options').css('flex-direction', $arg['flex_direction']);
+        $('#create_tables_info').css({
+            'margin-left': $arg['table_info_style']['margin_left'],
+            'margin-right': $arg['table_info_style']['margin_right']
+        });
+        $('#create_tables_paginate').css({
+            'margin-left': $arg['table_paginate_style']['margin_left'],
+            'margin-right': $arg['table_paginate_style']['margin_right'],
+        });
     }
 
     export_buttons_row_revealer(export_btns) {

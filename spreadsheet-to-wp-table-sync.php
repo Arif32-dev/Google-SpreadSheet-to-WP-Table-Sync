@@ -28,7 +28,8 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '1.0.0');
+    // define('GSWPTS_VERSION', '1.0.0');
+    define('GSWPTS_VERSION', time());
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {

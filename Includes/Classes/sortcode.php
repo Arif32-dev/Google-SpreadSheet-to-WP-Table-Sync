@@ -66,7 +66,7 @@ class Sortcode {
         $responsive = $table_settings['responsive_table'] == 'true' ? 'gswpts_resposive' : null;
 
         $output = '<div 
-                                    class="gswpts_tables_container ' . $responsive . '" id="' . $atts['id'] . '"
+                                    class="gswpts_tables_container' . $responsive . '" id="' . $atts['id'] . '"
                                     data-table_name="' . $respond['table_name'] . '"
                                     data-table_settings=' . json_encode($table_settings) . '>';
 

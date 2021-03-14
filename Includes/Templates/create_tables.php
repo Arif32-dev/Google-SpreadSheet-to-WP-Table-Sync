@@ -230,7 +230,7 @@ $gswpts->download_datatables();
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => 'Resposive table',
+                                    'feature_title' => 'Resposive Table',
                                     'feature_desc' => 'Allow collapsing on mobile and tablet screen',
                                     'input_name' => 'responsive',
                                     'is_pro' => true

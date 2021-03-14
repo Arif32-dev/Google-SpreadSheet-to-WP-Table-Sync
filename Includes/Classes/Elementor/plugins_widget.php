@@ -42,11 +42,11 @@ class Plugins_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_title() {
-        return __('Spreadsheet to WP Table Sync', 'gswpts');
+        return __('Spreadsheet Sync', 'gswpts');
     }
 
     public function get_icon() {
-        return 'fa fa-code';
+        return 'fas fa-sync';
     }
 
     public function get_categories() {

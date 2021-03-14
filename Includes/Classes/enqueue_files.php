@@ -10,9 +10,7 @@ class Enqueue_Files {
     public function __construct() {
         add_action('admin_enqueue_scripts', [$this, 'backend_files']);
         add_action('wp_enqueue_scripts', [$this, 'frontend_files']);
-        if (get_option('gutenberg_support') == 'on') {
-            add_action('enqueue_block_editor_assets', [$this, 'gutenberg_files']);
-        }
+        add_action('enqueue_block_editor_assets', [$this, 'gutenberg_files']);
     }
 
     public function backend_files() {

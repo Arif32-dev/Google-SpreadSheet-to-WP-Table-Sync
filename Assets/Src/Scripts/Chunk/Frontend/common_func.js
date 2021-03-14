@@ -117,28 +117,74 @@ export default class Global_Table_Config {
     }
 
     swap_bottom_options(i, table_settings) {
+
+        let pagination_menu = $('.bottom_options_' + i + ' .pagination.menu')
+
+
+        let style = {
+            flex_direction: 'row-reverse',
+            table_info_style: {
+                margin_left: 'auto',
+                margin_right: 0
+            },
+            table_paginate_style: {
+                margin_left: 0,
+                margin_right: 'auto'
+            }
+        }
+
         if (table_settings.swap_bottom_options == 'true') {
-            $('.bottom_options_' + i + '').css('flex-direction', 'row-reverse');
-            $('.bottom_options_' + i + ' > #create_tables_info').css({
-                'margin-right': '0',
-                'margin-left': 'auto'
-            });
-            $('.bottom_options_' + i + ' > #create_tables_paginate').css({
-                'margin-left': '0',
-                'margin-right': 'auto',
-            });
+
+            if (pagination_menu.children().length > 5) {
+                this.overflow_menu_style()
+            } else {
+                this.bottom_option_style(style, i)
+            }
+
         } else {
-            $('.bottom_options_' + i + '').css('flex-direction', 'row');
-            $('.bottom_options_' + i + ' > #create_tables_info').css({
-                'margin-right': 'auto',
-                'margin-left': '0'
-            });
-            $('.bottom_options_' + i + ' > #create_tables_paginate').css({
-                'margin-left': 'auto',
-                'margin-right': '0',
-            });
+
+            if (pagination_menu.children().length > 5) {
+                this.overflow_menu_style(i)
+            } else {
+
+                style['flex_direction'] = 'row'
+
+                style.table_info_style['margin_left'] = 0
+                style.table_info_style['margin_right'] = 'auto'
+
+                style.table_paginate_style['margin_left'] = 'auto'
+                style.table_paginate_style['margin_right'] = 0
+
+                this.bottom_option_style(style, i)
+
+            }
         }
     }
+
+    overflow_menu_style(i) {
+        $('.bottom_options_' + i + '').css('flex-direction', 'column');
+        $('.bottom_options_' + i + ' > #create_tables_info').css({
+            'margin': '5px auto',
+        });
+        $('.bottom_options_' + i + ' > #create_tables_paginate').css({
+            'margin': '5px auto',
+        });
+    }
+
+    bottom_option_style($arg, i) {
+
+        $('.bottom_options_' + i + '').css('flex-direction', $arg['flex_direction']);
+        $('.bottom_options_' + i + ' > #create_tables_info').css({
+            'margin-left': $arg['table_info_style']['margin_left'],
+            'margin-right': $arg['table_info_style']['margin_right']
+        });
+        $('.bottom_options_' + i + ' > #create_tables_paginate').css({
+            'margin-left': $arg['table_paginate_style']['margin_left'],
+            'margin-right': $arg['table_paginate_style']['margin_right'],
+        });
+
+    }
+
     html_loader() {
         let loader = `
                <div class="ui segment gswpts_table_loader">

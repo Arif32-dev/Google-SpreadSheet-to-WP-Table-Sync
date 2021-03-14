@@ -424,27 +424,66 @@ registerBlockType(
                     selector = table_id;
                 }
 
-                if (bottom_state) {
-                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row-reverse');
-                    $('#' + selector + ' #create_tables_info').css({
-                        'margin-right': '0',
-                        'margin-left': 'auto'
-                    });
-                    $('#' + selector + ' #create_tables_paginate').css({
-                        'margin-left': '0',
-                        'margin-right': 'auto',
-                    });
-                } else {
-                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row');
-                    $('#' + selector + ' #create_tables_info').css({
-                        'margin-right': 'auto',
-                        'margin-left': '0'
-                    });
-                    $('#' + selector + ' #create_tables_paginate').css({
-                        'margin-left': 'auto',
-                        'margin-right': '0',
-                    });
+                let pagination_menu = $('#' + selector + ' #bottom_options .pagination.menu')
+
+                let style = {
+                    flex_direction: 'row-reverse',
+                    table_info_style: {
+                        margin_right: 0,
+                        margin_left: 'auto'
+                    },
+                    table_paginate_style: {
+                        margin_right: 'auto',
+                        margin_left: 0
+                    }
                 }
+
+                if (bottom_state) {
+
+                    if (pagination_menu.children().length > 5) {
+                        overflow_menu_style(selector)
+                    } else {
+                        bottom_option_style(style, selector)
+                    }
+
+                } else {
+                    if (pagination_menu.children().length > 5) {
+                        overflow_menu_style(selector)
+                    } else {
+
+                        style['flex_direction'] = 'row'
+
+                        style.table_info_style['margin_left'] = 0
+                        style.table_info_style['margin_right'] = 'auto'
+
+                        style.table_paginate_style['margin_left'] = 'auto'
+                        style.table_paginate_style['margin_right'] = 0
+
+                        bottom_option_style(style, selector)
+                    }
+                }
+            }
+
+            function overflow_menu_style(selector) {
+                $('#' + selector + ' #bottom_options').css('flex-direction', 'column');
+                $('#' + selector + ' #create_tables_info').css({
+                    'margin': '5px auto',
+                });
+                $('#' + selector + ' #create_tables_paginate').css({
+                    'margin': '5px auto',
+                });
+            }
+
+            function bottom_option_style($arg, selector) {
+                $('#' + selector + ' #bottom_options').css('flex-direction', $arg['flex_direction']);
+                $('#' + selector + ' #create_tables_info').css({
+                    'margin-left': $arg['table_info_style']['margin_left'],
+                    'margin-right': $arg['table_info_style']['margin_right']
+                });
+                $('#' + selector + ' #create_tables_paginate').css({
+                    'margin-left': $arg['table_paginate_style']['margin_left'],
+                    'margin-right': $arg['table_paginate_style']['margin_right'],
+                });
             }
 
             let loader = `
@@ -884,4 +923,10 @@ function call_alert(title, description, type, time, pos = 'bottom-right') {
         position: pos,
     });
 }
+
+// $(document).ready(function () {
+//     $('body').on('DOMSubtreeModified', '.dataTables_length .text', function () {
+//         console.log('changed');
+//     });
+// });
 

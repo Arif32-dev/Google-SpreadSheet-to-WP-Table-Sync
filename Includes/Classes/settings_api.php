@@ -12,8 +12,6 @@ class Settings_API {
     public function add_settings() {
         $settings_options = [
             'asynchronous_loading',
-            'gutenberg_support',
-            'elementor_support',
             'multiple_sheet_tab',
             'sheet_tab_connection'
         ];
@@ -60,26 +58,6 @@ class Settings_API {
                                             This will help your website load fast.
                                             If you don't want to enable this feature than the table will load with the reloading of browser every time."
         ]); ?>
-
-        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
-            'setting_title' => 'Gutenberg Block Support',
-            'setting_tooltip' => 'Enable this feature for gutenberg block',
-            'is_checked' => $option_values['gutenberg_support'],
-            'input_name' => 'gutenberg_support',
-            'setting_desc' => "Enabling this feature will enable a custom block in gutenberg. The Google spreadsheet to WP Table Sync block will allow you
-                        to create and choose table previously created from plugins <a href=" . admin_url('admin.php?page=gswpts-create-tables') . ">Create Table</a> page.
-                        The changes or new new table created from gutenberg will effect everywhere in this plugin."
-        ]); ?>
-
-        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
-            'setting_title' => 'Elementor Widget Support',
-            'setting_tooltip' => 'Enable this feature for elemetor widget support',
-            'is_checked' => $option_values['elementor_support'],
-            'input_name' => 'elementor_support',
-            'setting_desc' => "Enabling this feature will enable a custom elementor widget in elementor basic area.
-                        By doing this you will be able to choose previously created table in elementor widget."
-        ]); ?>
-
 
         <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
             'setting_title' => 'Multiple Spreadsheet Tab',
