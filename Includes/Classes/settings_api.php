@@ -14,6 +14,8 @@ class Settings_API {
             'asynchronous_loading',
             'gutenberg_support',
             'elementor_support',
+            'multiple_sheet_tab',
+            'sheet_tab_connection'
         ];
 
         foreach ($settings_options as $setting) {
@@ -49,92 +51,58 @@ class Settings_API {
 
         <?php $option_values = self::get_option_values() ?>
 
+        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
+            'setting_title' => 'Asynchronous Loading',
+            'setting_tooltip' => 'Enable this feature for loading table asynchronously',
+            'is_checked' => $option_values['asynchronous_loading'],
+            'input_name' => 'asynchronous_loading',
+            'setting_desc' => "Enable this feauture to load the table in the frontend after loading all content with a pre-loader.
+                                            This will help your website load fast.
+                                            If you don't want to enable this feature than the table will load with the reloading of browser every time."
+        ]); ?>
 
-        <div class="ui cards settings_row">
+        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
+            'setting_title' => 'Gutenberg Block Support',
+            'setting_tooltip' => 'Enable this feature for gutenberg block',
+            'is_checked' => $option_values['gutenberg_support'],
+            'input_name' => 'gutenberg_support',
+            'setting_desc' => "Enabling this feature will enable a custom block in gutenberg. The Google spreadsheet to WP Table Sync block will allow you
+                        to create and choose table previously created from plugins <a href=" . admin_url('admin.php?page=gswpts-create-tables') . ">Create Table</a> page.
+                        The changes or new new table created from gutenberg will effect everywhere in this plugin."
+        ]); ?>
 
-
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            Asynchronous Loading
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for loading table asynchronously" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['asynchronous_loading'] ?> name="asynchronous_loading" id="asynchronous_loading">
-                            <label class="m-0" for="asynchronous_loading"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['asynchronous_loading'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Enable this feauture to load the table in the frontend after loading all content with a pre-loader.
-                        This will help your website load fast.
-                        If you don't want to enable this feature than the table will load with the reloading of browser every time.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="ui cards settings_row">
+        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
+            'setting_title' => 'Elementor Widget Support',
+            'setting_tooltip' => 'Enable this feature for elemetor widget support',
+            'is_checked' => $option_values['elementor_support'],
+            'input_name' => 'elementor_support',
+            'setting_desc' => "Enabling this feature will enable a custom elementor widget in elementor basic area.
+                        By doing this you will be able to choose previously created table in elementor widget."
+        ]); ?>
 
 
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            Gutenberg Block Support
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for gutenberg block" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['gutenberg_support'] ?> name="gutenberg_support" id="gutenberg_support">
-                            <label class="m-0" for="gutenberg_support"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['gutenberg_support'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Enabling this feature will enable a custom block in gutenberg. The Google spreadsheet to WP Table Sync block will allow you
-                        to create and choose table previously created from plugins <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables') ?>">Create Table</a> page.
-                        The changes or new new table created from gutenberg will effect everywhere in this plugin.
-                    </p>
-                </div>
-            </div>
+        <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
+            'setting_title' => 'Multiple Spreadsheet Tab',
+            'setting_tooltip' => 'This feature will let you to choose & save multiple spreadsheet tab',
+            'is_checked' => $option_values['multiple_sheet_tab'],
+            'input_name' => 'multiple_sheet_tab',
+            'setting_desc' => "Enabling this feature will allow user/admin to choose & save multiple spreadsheet tab from a Google spreadsheet.
+                                            In this free plugin user/admin can select 1 spreadsheet tab from a single Google spreadsheet.
+                                            To know more about this feature <a href=''>Click Here</a>",
+            'is_pro' => true
+        ]); ?>
 
-        </div>
 
-        <div class="ui cards settings_row">
-
-            <div class="card">
-                <div class="content">
-                    <div class="description d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">
-                            Elementor Widget Support
-                            <span class="ui icon button p-0 m-0" data-tooltip="Enable this feature for elemetor widget support" data-position="right center" data-inverted="">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </h3>
-                        <div class="ui toggle checkbox m-0">
-                            <input type="checkbox" <?php echo $option_values['elementor_support'] ?> name="elementor_support" id="elementor_support">
-                            <label class="m-0" for="elementor_support"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="settings_desc <?php echo $option_values['elementor_support'] == 'checked' ? '' : 'transition hidden' ?>">
-                    <p>
-                        Enabling this feature will enable a custom elementor widget in elementor basic area.
-                        By doing this you will be able to choose previously created table in elementor widget.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
+     <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php', false, [
+            'setting_title' => 'Table Connection',
+            'setting_tooltip' => 'This feature will let you connect multiple table in a single page with Tabs/Acordian',
+            'is_checked' => $option_values['sheet_tab_connection'],
+            'input_name' => 'sheet_tab_connection',
+            'setting_desc' => "Enabling this feature will allow user/admin to connect multiple created table in a single page.
+                                            Each individual table will be shown as like bootstrap tab or accordian design
+                                            To know more about this feature <a href=''>Click Here</a>",
+            'is_pro' => true
+        ]); ?>
 
 <?php
     }
@@ -144,6 +112,8 @@ class Settings_API {
             'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
             'gutenberg_support' => get_option('gutenberg_support') ? 'checked' : '',
             'elementor_support' => get_option('elementor_support') ? 'checked' : '',
+            'multiple_sheet_tab' => get_option('multiple_sheet_tab') ? 'checked' : '',
+            'sheet_tab_connection' => get_option('sheet_tab_connection') ? 'checked' : '',
         ];
         return $options_values;
     }

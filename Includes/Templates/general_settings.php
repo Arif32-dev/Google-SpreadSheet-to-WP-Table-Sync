@@ -49,18 +49,19 @@ settings_errors();
             </div>
 
 
-            <div class="row mt-3 dash_boxes pt-3 pb-3">
+            <div class="row mt-3 dash_boxes pt-3 pb-3 position-relative overflow-hidden">
 
                 <div class="col-md-12 pt-2 pb-2 pl-4 pr-4">
 
                     <div class="gswpts_settings_container">
-
                         <?php settings_fields('gswpts_general_setting') ?>
                         <?php do_settings_sections('gswpts-general-settings');  ?>
-
                     </div>
 
+
                 </div>
+
+                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo_large.php', true) ?>
 
             </div>
         </form>

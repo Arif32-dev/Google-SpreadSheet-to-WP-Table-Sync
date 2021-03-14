@@ -165,23 +165,11 @@ $gswpts->download_datatables();
                         <section id="display_settings">
                             <div class="row">
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Table Title</div>
-                                                <div class="description">
-                                                    Enable this to show the table title in <i>h3</i> tag above the table
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="show_title" id="show_title">
-                                                <label for="show_title"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Table Title',
+                                    'feature_desc' => 'Enable this to show the table title in <i>h3</i> tag above the table',
+                                    'input_name' => 'show_title'
+                                ]); ?>
 
                                 <div class="col-md-4 mt-3 mb-3">
                                     <div class="ui cards">
@@ -235,97 +223,43 @@ $gswpts->download_datatables();
                                     </div>
                                 </div>
 
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Show info block',
+                                    'feature_desc' => 'Show <i>Showing X to Y of Z entries</i>block below the table',
+                                    'input_name' => 'info_block'
+                                ]); ?>
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Show info block</div>
-                                                <div class="description">
-                                                    Show <i>Showing X to Y of Z entries
-                                                    </i>
-                                                    block below the table
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" checked name="info_block" id="info_block">
-                                                <label for="info_block"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Resposive table',
+                                    'feature_desc' => 'Allow collapsing on mobile and tablet screen',
+                                    'input_name' => 'responsive',
+                                    'is_pro' => true
+                                ]); ?>
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <span class="pro_feature"><i class="fas fa-medal"></i></span>
-                                                <div class="header">Resposive table</div>
-                                                <div class="description">
-                                                    Allow collapsing on mobile and tablet screen
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" class="pro_feature_input" name="responsive" id="responsive">
-                                                <label for="responsive"></label>
-                                            </div>
-                                            <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo.php', false); ?>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Show X entries',
+                                    'feature_desc' => '<i>Show X entries</i> per page dropdown',
+                                    'input_name' => 'show_entries'
+                                ]); ?>
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Show X entries</div>
-                                                <div class="description">
-                                                    <i>Show X entries</i> per page dropdown
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" checked name="show_entries" id="show_entries">
-                                                <label for="show_entries"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Swap Filters',
+                                    'feature_desc' => 'Swap the places of <i> X entries</i> dropdown & search filter input',
+                                    'input_name' => 'swap_filter_inputs'
+                                ]); ?>
 
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Swap Bottom Elements',
+                                    'feature_desc' => 'Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter',
+                                    'input_name' => 'swap_bottom_options'
+                                ]); ?>
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Swap Filters</div>
-                                                <div class="description">
-                                                    Swap the places of <i> X entries</i> dropdown & search filter input
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="swap_filter_inputs" id="swap_filter_inputs">
-                                                <label for="swap_filter_inputs"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Swap Bottom Elements</div>
-                                                <div class="description">
-                                                    Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" name="swap_bottom_options" id="swap_bottom_options">
-                                                <label for="swap_bottom_options"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Vertical Scrolling',
+                                    'feature_desc' => 'Turning ON this feature will enable the table to scroll vertically',
+                                    'input_name' => 'vertical_scrolling',
+                                    'is_pro' => true
+                                ]); ?>
 
                             </div>
 
@@ -341,39 +275,31 @@ $gswpts->download_datatables();
                         <section id="sort_filter">
                             <div class="row">
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Allow Sorting</div>
-                                                <div class="description">
-                                                    Enable this feature to sort table data for frontend.
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" checked name="sorting" id="sorting">
-                                                <label for="sorting"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Allow Sorting',
+                                    'feature_desc' => 'Enable this feature to sort table data for frontend.',
+                                    'input_name' => 'sorting'
+                                ]); ?>
 
-                                <div class="col-md-4 mt-3 mb-3">
-                                    <div class="ui cards">
-                                        <div class="card">
-                                            <div class="content">
-                                                <div class="header">Search Bar</div>
-                                                <div class="description">
-                                                    Enable this feature to show a search bar in for the table. It will help user to search data in the table
-                                                </div>
-                                            </div>
-                                            <div class="ui toggle checkbox">
-                                                <input type="checkbox" checked name="search_table" id="search_table">
-                                                <label for="search_table"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Search Bar',
+                                    'feature_desc' => 'Enable this feature to show a search bar in for the table. It will help user to search data in the table',
+                                    'input_name' => 'search_table'
+                                ]); ?>
+
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Rows Highlight',
+                                    'feature_desc' => 'Enable this feature to show highlighted rows of the table in the frontend selected by admin/user',
+                                    'input_name' => 'rows_highlight',
+                                    'is_pro' => true
+                                ]); ?>
+
+                                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                    'feature_title' => 'Chart Integration',
+                                    'feature_desc' => 'Enable this feature to filter data by various terms in the sheet & is going to show all the filtered data in the table as well as in a chart',
+                                    'input_name' => 'chart_integration',
+                                    'is_pro' => true
+                                ]); ?>
 
                             </div>
 
