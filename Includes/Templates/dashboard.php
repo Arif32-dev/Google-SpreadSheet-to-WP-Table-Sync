@@ -66,7 +66,7 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-table"></i></span>
                                 <span class="ml-2">Tables</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-dashboard') ?>" class="ui inverted green button">
+                            <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables') ?>" class="ui inverted green button">
                                 Create Tables
                             </a>
                         </div>
@@ -76,18 +76,19 @@ $gswpts->semantic_files();
                                 <span>Created</span>
                             </div>
                             <div class="col-9 details">
-                                <div class="col-12">
+                                <div class="col-12 pl-0">
                                     <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables&id=' . $gswpts->latest_table_details()['last_table_id'] . '') ?>"><?php echo $gswpts->latest_table_details()['last_table_name'] ?></a>
-                                    <div class="ui tag label ml-3">Spreadsheet</div>
                                 </div>
-                                <div class="col-12 mt-2">Latest table created</div>
-                                <div class="col-12 mt-2">
-                                    <div class="ui label">
+                                <div class="col-12 mt-2 pl-0">Latest table created</div>
+                                <?php if ($gswpts->latest_table_details()['last_table_id']) { ?>
+                                    <div class="ui label mt-2">
                                         <i class="clone icon dashboard_sortcode_copy_btn"></i>
                                         <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]">
                                         [gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]
                                     </div>
-                                </div>
+                                <?php } else { ?>
+                                    <div class="ui label mt-2">Empty</div>
+                                <?php } ?>
 
                             </div>
                         </div>
@@ -103,7 +104,7 @@ $gswpts->semantic_files();
                                 <i class="fas fa-file-alt"></i>
                                 <span class="ml-2">Change Logs</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
+                            <a href="" class="ui inverted green button">
                                 View Logs
                             </a>
                         </div>
@@ -147,7 +148,7 @@ $gswpts->semantic_files();
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <p>Checkout useful articles from <a class="ml-1" href="https://wppool.dev/" target="blank">WPPOOL</a></p>
+                                <p>Checkout useful articles from <a class="ml-1" href="https://wppool.dev/blog/" target="blank">WPPOOL</a></p>
                                 <div class="col-12 p-0 mt-3 useful_links">
 
                                     <a class="col-12 p-0 d-flex justify-content-between align-items-center" href="" target="blank">
@@ -203,7 +204,7 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-people-carry"></i></span>
                                 <span class="ml-2">Help Center</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
+                            <a href="" class="ui inverted green button">
                                 Get Help
                             </a>
                         </div>
@@ -216,7 +217,7 @@ $gswpts->semantic_files();
                                     <p>
                                         We provide professional support to all our users via our ticketing system.
                                     </p>
-                                    <a href="http://localhost/wordpress/wp-admin/admin.php?page=wpdatatables-support">
+                                    <a href="">
                                         Visit Support Center
                                     </a>
                                 </div>

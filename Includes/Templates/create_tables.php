@@ -167,8 +167,9 @@ $gswpts->download_datatables();
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Table Title',
-                                    'feature_desc' => 'Enable this to show the table title in <i>h3</i> tag above the table',
-                                    'input_name' => 'show_title'
+                                    'feature_desc' => 'Enable this to show the table title in <i>h3</i> tag above the table in your website front-end',
+                                    'input_name' => 'show_title',
+                                    'checked' => false,
                                 ]); ?>
 
                                 <div class="col-md-4 mt-3 mb-3">
@@ -226,38 +227,44 @@ $gswpts->download_datatables();
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Show info block',
                                     'feature_desc' => 'Show <i>Showing X to Y of Z entries</i>block below the table',
-                                    'input_name' => 'info_block'
+                                    'input_name' => 'info_block',
+                                    'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Resposive Table',
                                     'feature_desc' => 'Allow collapsing on mobile and tablet screen',
                                     'input_name' => 'responsive',
+                                    'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Show X entries',
                                     'feature_desc' => '<i>Show X entries</i> per page dropdown',
-                                    'input_name' => 'show_entries'
+                                    'input_name' => 'show_entries',
+                                    'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Swap Filters',
                                     'feature_desc' => 'Swap the places of <i> X entries</i> dropdown & search filter input',
-                                    'input_name' => 'swap_filter_inputs'
+                                    'input_name' => 'swap_filter_inputs',
+                                    'checked' => false,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Swap Bottom Elements',
                                     'feature_desc' => 'Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter',
-                                    'input_name' => 'swap_bottom_options'
+                                    'input_name' => 'swap_bottom_options',
+                                    'checked' => false,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Vertical Scrolling',
                                     'feature_desc' => 'Turning ON this feature will enable the table to scroll vertically',
                                     'input_name' => 'vertical_scrolling',
+                                    'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 
@@ -278,19 +285,22 @@ $gswpts->download_datatables();
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Allow Sorting',
                                     'feature_desc' => 'Enable this feature to sort table data for frontend.',
-                                    'input_name' => 'sorting'
+                                    'input_name' => 'sorting',
+                                    'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Search Bar',
                                     'feature_desc' => 'Enable this feature to show a search bar in for the table. It will help user to search data in the table',
-                                    'input_name' => 'search_table'
+                                    'input_name' => 'search_table',
+                                    'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
                                     'feature_title' => 'Rows Highlight',
                                     'feature_desc' => 'Enable this feature to show highlighted rows of the table in the frontend selected by admin/user',
                                     'input_name' => 'rows_highlight',
+                                    'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 
@@ -298,6 +308,7 @@ $gswpts->download_datatables();
                                     'feature_title' => 'Chart Integration',
                                     'feature_desc' => 'Enable this feature to filter data by various terms in the sheet & is going to show all the filtered data in the table as well as in a chart',
                                     'input_name' => 'chart_integration',
+                                    'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 

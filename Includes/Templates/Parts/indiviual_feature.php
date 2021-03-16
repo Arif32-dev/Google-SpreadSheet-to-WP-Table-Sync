@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="ui toggle checkbox">
-                <input type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo $input_name ?>" id="<?php echo $input_name ?>">
+                <input <?php echo $checked ? 'checked' : '' ?> type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo $input_name ?>" id="<?php echo $input_name ?>">
                 <label for="<?php echo $input_name ?>"></label>
             </div>
             <?php
