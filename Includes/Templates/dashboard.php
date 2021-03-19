@@ -43,7 +43,7 @@ $gswpts->semantic_files();
                 <h1 class="p-0 m-t-0 m-b-4">
                     Welcome to <?php echo PlUGIN_NAME ?>
                 </h1>
-                <p> Congratulations! You are about to use the most powerful Google spreadsheet data syncronization</p>
+                <p> Congratulations! You are about to use the most powerful Google spreadsheet data synchronization</p>
                 <a href="#">
                     <button class="ui inverted green button">
                         Learn how to sync Google spreadsheet

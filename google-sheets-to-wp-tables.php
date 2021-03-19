@@ -5,7 +5,6 @@
  *
  * @package           google-sheets-to-wp-tables
  * @author            WPPOOL
- * @copyright         2019 Your Name or Company Name
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
@@ -29,7 +28,6 @@ if (!defined('ABSPATH')) {
 
 if (!defined('GSWPTS_VERSION')) {
     define('GSWPTS_VERSION', '1.0.0');
-    // define('GSWPTS_VERSION', time());
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
