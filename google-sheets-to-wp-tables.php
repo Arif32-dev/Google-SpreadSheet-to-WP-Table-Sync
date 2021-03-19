@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Google SpreadSheet to WP table Sync
+ * Live Google Sheets to WordPress Tables
  *
- * @package           spreadsheet-to-wp-table-sync
- * @author            Arifur Rahman Arif
+ * @package           google-sheets-to-wp-tables
+ * @author            WPPOOL
  * @copyright         2019 Your Name or Company Name
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Live Google Sheets to WordPress Tables
- * Plugin URI:        https://example.com/plugin-name
+ * Plugin URI:       https://wordpress.org/plugins/google-sheets-to-wp-tables/
  * Description:      This is a WordPress plugin to synchronize google spreadsheet data into wordpress table.
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.0.0
- * Author:             Arifur Rahman Arif
- * Author URI:        https://example.com
+ * Author:             WPPOOL
+ * Author URI:        https://wppool.dev/
  * Text Domain:       gswpts
- * License:           GPL v2 or later
- * License URI:       
+ * License:     GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 /* if accessed directly exit from plugin */
@@ -38,6 +38,10 @@ if (!defined('GSWPTS_BASE_PATH')) {
 
 if (!defined('GSWPTS_BASE_URL')) {
     define('GSWPTS_BASE_URL', plugin_dir_url(__FILE__));
+}
+
+if (!defined('PlUGIN_NAME')) {
+    define('PlUGIN_NAME', 'Live Google Sheets to WordPress Tables');
 }
 
 

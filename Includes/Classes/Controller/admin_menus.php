@@ -13,7 +13,7 @@ class Admin_Menus {
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
-            GSWPTS_BASE_URL . 'Assets/Public/Images/Google_Sheets_logo.svg',
+            GSWPTS_BASE_URL . 'Assets/Public/Images/logo_20_20.svg',
             10
         );
         add_submenu_page(

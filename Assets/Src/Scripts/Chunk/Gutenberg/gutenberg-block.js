@@ -1,4 +1,5 @@
 import { Dropdown } from 'semantic-ui-react'
+import Block_Logo from './logo';
 
 const { registerBlockType } = wp.blocks;
 const { InspectorControls, URLInput } = wp.blockEditor;
@@ -14,12 +15,12 @@ const {
 
 
 registerBlockType(
-    'gswpts/spreadsheet-to-wp-table-sync',
+    'gswpts/google-sheets-to-wp-tables',
     {
-        title: ('Spreadsheet to WP Table Sync'),
-        description: ('Syncronization Google spreadsheet data to WP table'),
+        title: ('Live Google Sheets to WordPress Tables'),
+        description: ('Syncronization of Google spreadsheet data into WP table'),
         category: 'common',
-        icon: 'media-text',
+        icon: Block_Logo,
         keywords: [('spreadsheet'), ('google'), ('table')],
         attributes: {
 
@@ -923,10 +924,4 @@ function call_alert(title, description, type, time, pos = 'bottom-right') {
         position: pos,
     });
 }
-
-// $(document).ready(function () {
-//     $('body').on('DOMSubtreeModified', '.dataTables_length .text', function () {
-//         console.log('changed');
-//     });
-// });
 

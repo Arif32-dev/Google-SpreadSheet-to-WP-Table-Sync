@@ -71,7 +71,7 @@ class Enqueue_Files {
         );
 
         register_block_type(
-            'gswpts/spreadsheet-to-wp-table-sync',
+            'gswpts/google-sheets-to-wp-tables',
             array(
                 'editor_script' => 'gswpts-gutenberg',
             )

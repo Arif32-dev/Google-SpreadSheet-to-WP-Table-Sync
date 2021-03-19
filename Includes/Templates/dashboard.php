@@ -20,9 +20,9 @@ $gswpts->semantic_files();
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo GSWPTS_BASE_URL . '/Assets/Public/Images/Google_Sheets_logo.svg' ?>" alt="">
+                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg' ?>" alt="">
                 <span class="ml-2">
-                    <strong>Google Spredsheet to WP Table Sync</strong>
+                    <strong><?php echo PlUGIN_NAME ?></strong>
                 </span>
             </div>
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@ $gswpts->semantic_files();
 
             <div class="col-md-7">
                 <h1 class="p-0 m-t-0 m-b-4">
-                    Welcome to Google Spreadsheet to WP Table Sync
+                    Welcome to <?php echo PlUGIN_NAME ?>
                 </h1>
                 <p> Congratulations! You are about to use the most powerful Google spreadsheet data syncronization</p>
                 <a href="#">
@@ -231,7 +231,7 @@ $gswpts->semantic_files();
 
 
                 <div class="col-md-12 p-0 pl-2 mt-3 pro_box">
-                    <div class="card p-0 m-0" style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg' ?>);">
+                    <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span><i class="fas fa-medal"></i></span>
@@ -242,16 +242,21 @@ $gswpts->semantic_files();
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="col-12">
-                                <p>
-                                    Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
-                                </p>
-                                <ul>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Product is in under development.
-                                    </li>
-                                </ul>
+                            <div class="col-12 p-0 m-0 d-flex">
+                                <div class="col-6 p-0">
+                                    <p>
+                                        Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
+                                    </p>
+                                    <ul>
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                            Product is in under development.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 p-0 m-0">
+                                    <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg' ?>" alt="" class="img-fluid">
+                                </div>
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
