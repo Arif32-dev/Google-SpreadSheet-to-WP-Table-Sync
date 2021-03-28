@@ -30,7 +30,7 @@ $gswpts->semantic_files();
                     Dashboard
                 </h3>
                 <span>
-                    <a class="ui violet button m-0">
+                    <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
                         View Documention <span class="ml-2"><i class="fas fa-file-alt"></i></span>
                     </a>
                 </span>
@@ -44,7 +44,7 @@ $gswpts->semantic_files();
                     Welcome to <?php echo PlUGIN_NAME ?>
                 </h1>
                 <p> Congratulations! You are about to use the most powerful Google spreadsheet data synchronization</p>
-                <a href="#">
+                <a href="https://vimeo.com/526189502" target="blank">
                     <button class="ui inverted green button">
                         Learn how to sync Google spreadsheet
                     </button>
@@ -204,7 +204,7 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-people-carry"></i></span>
                                 <span class="ml-2">Help Center</span>
                             </div>
-                            <a href="" class="ui inverted green button">
+                            <a target="blank" href="https://wppool.dev/contact/" class="ui inverted green button">
                                 Get Help
                             </a>
                         </div>
