@@ -1,11 +1,6 @@
 <?php
 global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->semantic_files();
-$gswpts->download_datatables();
 ?>
-
-
 <div class="gswpts_create_table_container">
 
     <div class="ui segment gswpts_loader">

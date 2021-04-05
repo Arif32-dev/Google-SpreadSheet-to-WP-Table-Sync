@@ -1,9 +1,6 @@
 <?php
 global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->semantic_files();
 ?>
-
 <div class="gswpts_dashboard_container">
 
     <div class="ui segment gswpts_loader">

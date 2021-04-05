@@ -24,25 +24,10 @@ class Global_Class {
         wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', [], GSWPTS_VERSION, false);
     }
 
-
-    public function frontend_tables_assets() { ?>
-
-        <!-- scritps -->
-        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script type="text/javascript" language="javascript" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js' ?>"></script>
-        <script type="text/javascript" language="javascript" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/dataTables.semanticui.min.js' ?>"></script>
-
-    <?php
-    }
-
-    public function download_datatables() { ?>
-        <!-- styles -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.semanticui.min.css">
-
-        <!-- scripts -->
-        <script type="text/javascript" language="javascript" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js' ?>"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.semanticui.min.js"></script>
-<?php
+    public function frontend_tables_assets() {
+        wp_enqueue_script('GSWPTS-alert-dependency', GSWPTS_BASE_URL . 'Assets/Public/Package/alert_dependency.js');
+        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js', ['GSWPTS-alert-dependency'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/dataTables.semanticui.min.js', ['GSWPTS-alert-dependency'], GSWPTS_VERSION, false);
     }
 
     public function get_sheet_id(string $string) {
@@ -278,38 +263,38 @@ class Global_Class {
         return $table_details;
     }
 
-    /* this funciton is only for debug purpose only */
-    public function write_log($content) {
-        $log_file_name = 'debug.txt';
-        $log_file_path = GSWPTS_BASE_PATH . $log_file_name;
-        if (extract($this->expand_debug_array(debug_backtrace())) < 1) {
-            return;
-        }
-        date_default_timezone_set('Asia/Dhaka');
-        if (is_bool($content)) {
-            if ($content) {
-                $content = '=>' . "\ttrue\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
-            } else {
-                $content = '=>' . "\tfalse\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
-            }
-        } else {
-            $content = '=>' . "\t" . print_r($content, true) . "\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
-        }
-        try {
-            if (file_exists($log_file_path)) {
-                $content .= file_get_contents($log_file_path);
-            }
-            file_put_contents($log_file_path, $content);
-        } catch (\Throwable $e) {
-            throw new \Exception("Couldn't write error log file " . $e . "");
-        }
-    }
-    public function expand_debug_array(array $debug_array) {
-        $return_info = [];
-        if ($debug_array) {
-            $return_info['file_path'] =  $debug_array[0]['file'];
-            $return_info['line'] =  $debug_array[0]['line'];
-        }
-        return $return_info;
-    }
+    /* this funciton is only for debug purpose only. do not remove comment */
+    // public function write_log($content) {
+    //     $log_file_name = 'debug.txt';
+    //     $log_file_path = GSWPTS_BASE_PATH . $log_file_name;
+    //     if (extract($this->expand_debug_array(debug_backtrace())) < 1) {
+    //         return;
+    //     }
+    //     date_default_timezone_set('Asia/Dhaka');
+    //     if (is_bool($content)) {
+    //         if ($content) {
+    //             $content = '=>' . "\ttrue\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+    //         } else {
+    //             $content = '=>' . "\tfalse\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+    //         }
+    //     } else {
+    //         $content = '=>' . "\t" . print_r($content, true) . "\n\tOccured in " . $file_path . "\n\ton line " . $line . "\n\tat " . date("d-M-Y | h:i:s A", mktime()) . " " . "\n\n\n";
+    //     }
+    //     try {
+    //         if (file_exists($log_file_path)) {
+    //             $content .= file_get_contents($log_file_path);
+    //         }
+    //         file_put_contents($log_file_path, $content);
+    //     } catch (\Throwable $e) {
+    //         throw new \Exception("Couldn't write error log file " . $e . "");
+    //     }
+    // }
+    // public function expand_debug_array(array $debug_array) {
+    //     $return_info = [];
+    //     if ($debug_array) {
+    //         $return_info['file_path'] =  $debug_array[0]['file'];
+    //         $return_info['line'] =  $debug_array[0]['line'];
+    //     }
+    //     return $return_info;
+    // }
 }

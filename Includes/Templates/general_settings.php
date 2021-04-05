@@ -1,7 +1,4 @@
 <?php
-global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->semantic_files();
 settings_errors();
 ?>
 <style>

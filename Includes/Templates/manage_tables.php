@@ -1,9 +1,3 @@
-<?php
-global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->data_table_styles();
-$gswpts->data_table_scripts();
-?>
 <div class="gswpts_manage_table_container">
 
 

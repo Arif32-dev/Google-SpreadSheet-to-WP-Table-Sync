@@ -244,12 +244,12 @@ class Sheet_Creation {
         $settings = [
             'table_title' => sanitize_text_field($table_settings['table_title']),
             'default_rows_per_page' => intval(sanitize_text_field($table_settings['defaultRowsPerPage'])),
-            'show_info_block' => (bool) $table_settings['showInfoBlock'],
-            'show_x_entries' => (bool) $table_settings['showXEntries'],
-            'swap_filter_inputs' => (bool) $table_settings['swapFilterInputs'],
-            'swap_bottom_options' => (bool) $table_settings['swapBottomOptions'],
-            'allow_sorting' => (bool) $table_settings['allowSorting'],
-            'search_bar' => (bool) $table_settings['searchBar'],
+            'show_info_block' => $table_settings['showInfoBlock'],
+            'show_x_entries' => $table_settings['showXEntries'],
+            'swap_filter_inputs' => $table_settings['swapFilterInputs'],
+            'swap_bottom_options' => $table_settings['swapBottomOptions'],
+            'allow_sorting' => $table_settings['allowSorting'],
+            'search_bar' => $table_settings['searchBar'],
         ];
         return $settings;
     }
