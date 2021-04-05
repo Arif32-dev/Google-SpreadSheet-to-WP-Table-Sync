@@ -22,9 +22,9 @@ $gswpts->download_datatables();
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg' ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
                 <span class="ml-2">
-                    <strong><?php echo PlUGIN_NAME ?></strong>
+                    <strong><?php echo esc_html(PlUGIN_NAME) ?></strong>
                 </span>
             </div>
         </div>
@@ -36,7 +36,7 @@ $gswpts->download_datatables();
                     <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="ui button edit_table_name ">
                         Edit Title &nbsp;
-                        <span><i class=" edit icon"></i></span>
+                        <span><i class="edit icon"></i></span>
                     </button>
                 </div>
 

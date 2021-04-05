@@ -6,15 +6,16 @@ class Sheet_Fetching {
     private static $output = [];
 
     public function sheet_fetch() {
-        if ($_POST['action'] != 'gswpts_sheet_fetch') {
-            self::$output['response_type'] = 'invalid_action';
-            self::$output['output'] = '<b>Action is invalid</b>';
+        if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_fetch') {
+            self::$output['response_type'] = esc_html('invalid_action');
+            self::$output['output'] = '<b>' . esc_html('Action is invalid') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
-        if (empty($_POST['id']) || $_POST['id'] == null || $_POST['id'] == "") {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>Request is invalid</b>';
+        $ID = sanitize_text_field($_POST['id']);
+        if (empty($ID) || $ID == null || $ID == "") {
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
@@ -27,8 +28,8 @@ class Sheet_Fetching {
 
         $db_result = $gswpts->fetch_db_by_id($id);
         if (!$db_result) {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>Request is invalid</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
             return self::$output;
         }
         $source_url = $db_result[0]->source_url;
@@ -46,37 +47,39 @@ class Sheet_Fetching {
         $json_res = $gswpts->get_json_data($url);
 
         if (!$json_res) {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>The spreadsheet is not publicly available. Publish it to the web.</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('The spreadsheet is not publicly available. Publish it to the web.') . '</b>';
             return self::$output;
         }
 
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (count(fgetcsv($sheet_response)) < 2) {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>The spreadsheet is restricted.<br/>Please make it public by clicking on share button at the top of spreadsheet</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('The spreadsheet is restricted.<br/>Please make it public by clicking on share button at the top of spreadsheet') . '</b>';
             return self::$output;
         }
 
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>Request is invalid</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
             return self::$output;
         }
 
 
         $response = $gswpts->get_table(true, $sheet_response);
 
-        self::$output['response_type'] = 'success';
+        self::$output['response_type'] = esc_html('success');
         self::$output['sheet_data'] = [
             'sheet_name' => $json_res['title']['$t'],
-            'author_info' => $json_res['author'],
-            'sheet_total_result' => $json_res['openSearch$totalResults']['$t'],
-            'total_rows' => $response['count'],
+            'author_info' => (array) $json_res['author'],
+            'sheet_total_result' => esc_html($json_res['openSearch$totalResults']['$t']),
+            'total_rows' => esc_html($response['count']),
         ];
+
+        // All data escaped and sanitize in global functions
         self::$output['table_data'] = [
             'table_id' => $table_id,
             'source_url' => $url,

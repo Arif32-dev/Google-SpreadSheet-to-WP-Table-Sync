@@ -192,25 +192,25 @@ class Global_Class {
                                 <div class="row">
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h4 class="m-0">Sheet Name: </h4>
-                                        <h5 class="m-0 ml-2">' . $data['sheet_name'] . '</h5>
+                                        <h5 class="m-0 ml-2">' . esc_html($data['sheet_name']) . '</h5>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h4 class="m-0">Total Rows: </h4>
-                                        <h5 class="m-0 ml-2">' . $data['total_rows'] . '</h5>
+                                        <h5 class="m-0 ml-2">' . esc_html($data['total_rows']) . '</h5>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h4 class="m-0">Total Result: </h4>
-                                        <h5 class="m-0 ml-2">' . $data['sheet_total_result'] . '</h5>
+                                        <h5 class="m-0 ml-2">' . esc_html($data['sheet_total_result']) . '</h5>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start">
                                         <h4 class="m-0">Author Mail: </h4>
-                                        <h5 class="m-0 ml-2">' . $data['author_info'][0]['email']['$t'] . '</h5>
+                                        <h5 class="m-0 ml-2">' . esc_html($data['author_info'][0]['email']['$t']) . '</h5>
                                     </div>
                                     <div id="shortcode_container" class="col-12 d-flex mt-3 align-items-center justify-content-start">
                                         <h4 class="m-0">Table Shortcode: </h4>
                                         <h5 class="m-0 ml-2">
                                             <div class="ui action input">
-                                                <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id=' . $data['id'] . ']">
+                                                <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id=' . esc_html(esc_attr($data['id'])) . ']">
                                                 <button id="sortcode_copy" type="button" name="copyToken" value="copy" class="copyToken ui right icon button">
                                                     <i class="clone icon"></i>
                                                 </button>
@@ -278,6 +278,7 @@ class Global_Class {
         return $table_details;
     }
 
+    /* this funciton is only for debug purpose only */
     public function write_log($content) {
         $log_file_name = 'debug.txt';
         $log_file_path = GSWPTS_BASE_PATH . $log_file_name;

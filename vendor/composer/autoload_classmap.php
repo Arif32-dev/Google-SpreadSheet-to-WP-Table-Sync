@@ -6,19 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'GSWPTS\\Includes\\Classes\\Controller\\Admin_Menus' => $baseDir . '/Includes/Classes/Controller/admin_menus.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Handler' => $baseDir . '/Includes/Classes/Controller/ajax_handler.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Fetch_Products' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/fetch_products.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Sheet_Creation' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/sheet_creation.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Sheet_Fetching' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/sheet_fetching.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\Table_Fetch' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/table_fetch.php',
-    'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\UD_Tables' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/ud_tables.php',
-    'GSWPTS\\Includes\\Classes\\DB_Tables' => $baseDir . '/Includes/Classes/db_tables.php',
-    'GSWPTS\\Includes\\Classes\\Enqueue_Files' => $baseDir . '/Includes/Classes/enqueue_files.php',
-    'GSWPTS\\Includes\\Classes\\Global_Class' => $baseDir . '/Includes/Classes/global_class.php',
-    'GSWPTS\\Includes\\Classes\\Settings_API' => $baseDir . '/Includes/Classes/settings_api.php',
-    'GSWPTS\\Includes\\Classes\\Sortcode' => $baseDir . '/Includes/Classes/sortcode.php',
-    'GSWPTS\\Includes\\Plugin' => $baseDir . '/Includes/plugin.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'GuzzleHttp\\BodySummarizer' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizer.php',
     'GuzzleHttp\\BodySummarizerInterface' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
     'GuzzleHttp\\Client' => $vendorDir . '/guzzlehttp/guzzle/src/Client.php',

@@ -6,13 +6,13 @@ class UD_Tables {
     private static $output = [];
 
     public function ud_tables() {
-        if ($_POST['action'] != 'gswpts_ud_table') {
-            self::$output['response_type'] = 'invalid_action';
-            self::$output['output'] = '<b>Action is invalid</b>';
+        if (sanitize_text_field($_POST['action']) != 'gswpts_ud_table') {
+            self::$output['response_type'] = esc_html('invalid_action');
+            self::$output['output'] = '<b>' . esc_html('Action is invalid') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
-        if ($_POST['data']['reqType'] == 'update') {
+        if (sanitize_text_field($_POST['data']['reqType']) == 'update') {
             $sanitized_data = [
                 'id' => sanitize_text_field($_POST['data']['table_id']),
                 'table_name' => sanitize_text_field($_POST['data']['table_name'])
@@ -21,7 +21,7 @@ class UD_Tables {
             wp_die();
         }
 
-        if ($_POST['data']['reqType'] == 'delete') {
+        if (sanitize_text_field($_POST['data']['reqType']) == 'delete') {
             $sanitized_data = [
                 'id' => sanitize_text_field($_POST['data']['table_id']),
             ];
@@ -29,7 +29,7 @@ class UD_Tables {
             wp_die();
         }
 
-        if ($_POST['data']['reqType'] == 'deleteAll') {
+        if (sanitize_text_field($_POST['data']['reqType']) == 'deleteAll') {
             $delete_respose = false;
             $sanitized_data = [
                 'ids' => $_POST['data']['table_ids'],
@@ -37,8 +37,8 @@ class UD_Tables {
             foreach ($sanitized_data['ids'] as $key =>  $value) {
                 $return = self::delete_table(['id' => sanitize_text_field($value)]);
                 if ($return['response_type'] != 'deleted') {
-                    self::$output['response_type'] = 'invalid_request';
-                    self::$output['output'] = '<b>Request is invalid</b>';
+                    self::$output['response_type'] = esc_html('invalid_request');
+                    self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 } else {
@@ -46,20 +46,20 @@ class UD_Tables {
                 }
             }
             if ($delete_respose) {
-                self::$output['response_type'] = 'deleted_All';
-                self::$output['output'] = '<b>Selected tables deleted successfully</b>';
+                self::$output['response_type'] = esc_html('deleted_All');
+                self::$output['output'] = '<b>' . esc_html('Selected tables deleted successfully') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             } else {
-                self::$output['response_type'] = 'invalid_request';
-                self::$output['output'] = '<b>Request is invalid</b>';
+                self::$output['response_type'] = esc_html('invalid_request');
+                self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             }
         }
 
-        self::$output['response_type'] = 'invalid_request';
-        self::$output['output'] = '<b>Request is invalid</b>';
+        self::$output['response_type'] = esc_html('invalid_request');
+        self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
         echo json_encode(self::$output);
         wp_die();
     }
@@ -70,10 +70,10 @@ class UD_Tables {
         $update_response = $wpdb->update(
             $table,
             [
-                'table_name' => $sanitized_data['table_name']
+                'table_name' => sanitize_text_field($sanitized_data['table_name'])
             ],
             [
-                'id' => $sanitized_data['id']
+                'id' => intval(sanitize_text_field($sanitized_data['id']))
             ],
             [
                 '%s'
@@ -83,8 +83,8 @@ class UD_Tables {
             ]
         );
         if (is_int($update_response)) {
-            self::$output['response_type'] = 'updated';
-            self::$output['output'] = '<b>Table name updated successfully</b>';
+            self::$output['response_type'] = esc_html('updated');
+            self::$output['output'] = '<b>' . esc_html('Table name updated successfully') . '</b>';
             return self::$output;
         }
     }
@@ -102,12 +102,12 @@ class UD_Tables {
             ]
         );
         if (is_int($update_response)) {
-            self::$output['response_type'] = 'deleted';
-            self::$output['output'] = '<b>Table deleted successfully</b>';
+            self::$output['response_type'] = esc_html('deleted');
+            self::$output['output'] = '<b>' . esc_html('Table deleted successfully') . '</b>';
             return self::$output;
         } else {
-            self::$output['response_type'] = 'invalid_request';
-            self::$output['output'] = '<b>Request is invalid</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html('Request is invalid') . '</b>';
             return self::$output;
         }
     }

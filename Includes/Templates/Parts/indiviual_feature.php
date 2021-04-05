@@ -7,14 +7,14 @@
                 if (isset($is_pro) && $is_pro) { ?>
                     <span class="pro_feature"><i class="fas fa-medal"></i></span>
                 <?php } ?>
-                <div class="header"><?php echo $feature_title ?></div>
+                <div class="header"><?php echo esc_html($feature_title) ?></div>
                 <div class="description">
-                    <?php echo $feature_desc ?>
+                    <?php echo esc_html($feature_desc) ?>
                 </div>
             </div>
             <div class="ui toggle checkbox">
-                <input <?php echo $checked ? 'checked' : '' ?> type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo $input_name ?>" id="<?php echo $input_name ?>">
-                <label for="<?php echo $input_name ?>"></label>
+                <input <?php echo $checked ? 'checked' : '' ?> type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo esc_attr($input_name) ?>" id="<?php echo esc_attr($input_name) ?>">
+                <label for="<?php echo esc_attr($input_name) ?>"></label>
             </div>
             <?php
             if (isset($is_pro) && $is_pro) {

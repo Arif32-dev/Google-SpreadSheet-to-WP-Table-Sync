@@ -20,9 +20,9 @@ $gswpts->semantic_files();
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg' ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
                 <span class="ml-2">
-                    <strong><?php echo PlUGIN_NAME ?></strong>
+                    <strong><?php echo esc_html(PlUGIN_NAME) ?></strong>
                 </span>
             </div>
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@ $gswpts->semantic_files();
 
             <div class="col-md-7">
                 <h1 class="p-0 m-t-0 m-b-4">
-                    Welcome to <?php echo PlUGIN_NAME ?>
+                    Welcome to <?php echo esc_html(PlUGIN_NAME) ?>
                 </h1>
                 <p> Congratulations! You are about to use the most powerful Google spreadsheet data synchronization</p>
                 <a href="https://vimeo.com/526189502" target="blank">
@@ -51,7 +51,7 @@ $gswpts->semantic_files();
                 </a>
             </div>
             <div class="col-md-5">
-                <img class="img-responsive wdt-welcome-img" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg' ?>" alt="Welcome message">
+                <img class="img-responsive wdt-welcome-img" src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg') ?>" alt="Welcome message">
             </div>
 
         </div>
@@ -66,25 +66,25 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-table"></i></span>
                                 <span class="ml-2">Tables</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables') ?>" class="ui inverted green button">
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')) ?>" class="ui inverted green button">
                                 Create Tables
                             </a>
                         </div>
                         <div class="card-body d-flex">
                             <div class="col-3 d-flex justify-content-center align-items-center flex-column total_created">
-                                <span><?php echo $gswpts->latest_table_details()['total_table_count'] ?></span>
+                                <span><?php echo esc_html($gswpts->latest_table_details()['total_table_count']) ?></span>
                                 <span>Created</span>
                             </div>
                             <div class="col-9 details">
                                 <div class="col-12 pl-0">
-                                    <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables&id=' . $gswpts->latest_table_details()['last_table_id'] . '') ?>"><?php echo $gswpts->latest_table_details()['last_table_name'] ?></a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($gswpts->latest_table_details()['last_table_id']) . '')) ?>"><?php echo esc_html($gswpts->latest_table_details()['last_table_name']) ?></a>
                                 </div>
                                 <div class="col-12 mt-2 pl-0">Latest table created</div>
                                 <?php if ($gswpts->latest_table_details()['last_table_id']) { ?>
                                     <div class="ui label mt-2">
                                         <i class="clone icon dashboard_sortcode_copy_btn"></i>
-                                        <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]">
-                                        [gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]
+                                        <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]">
+                                        [gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]
                                     </div>
                                 <?php } else { ?>
                                     <div class="ui label mt-2">Empty</div>
@@ -222,7 +222,7 @@ $gswpts->semantic_files();
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg' ?>" alt="" class="img-fluid">
+                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg') ?>" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -237,7 +237,7 @@ $gswpts->semantic_files();
                                 <span><i class="fas fa-medal"></i></span>
                                 <span class="ml-2">Go Pro!</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-tables')) ?>" class="ui inverted green button">
                                 Compare
                             </a>
                         </div>
@@ -255,7 +255,7 @@ $gswpts->semantic_files();
                                     </ul>
                                 </div>
                                 <div class="col-6 p-0 m-0">
-                                    <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg' ?>" alt="" class="img-fluid">
+                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg') ?>" alt="" class="img-fluid">
                                 </div>
                             </div>
                             <div class="col-12">
