@@ -17,7 +17,7 @@ const {
 registerBlockType(
     'gswpts/google-sheets-to-wp-tables',
     {
-        title: ('Live Google Sheets to WordPress Tables'),
+        title: ('Sheets To WP Table Live Sync'),
         description: ('Syncronization of Google spreadsheet data into WP table'),
         category: 'common',
         icon: Block_Logo,

@@ -71,7 +71,7 @@ class Enqueue_Files {
         wp_enqueue_script(
             'gswpts-gutenberg',
             GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/Gutenberg/gutenberg.min.js',
-            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components', 'GSWPTS-alert-dependency-js'],
+            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components', 'GSWPTS-alert-loader'],
             GSWPTS_VERSION,
             true
         );
