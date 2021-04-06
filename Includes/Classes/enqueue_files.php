@@ -32,14 +32,13 @@ class Enqueue_Files {
             /* CSS Files */
             wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
             wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL . 'Assets/Public/Styles/admin.min.css', [], GSWPTS_VERSION, 'all');
-            wp_enqueue_style('GSWPTS-fontawesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
 
             /* Javascript Files */
             wp_enqueue_script('jquery');
             wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
             wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php'),]);
-            wp_enqueue_script('GSWPTS-alert-dependency-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert_dependency.js');
-            wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['GSWPTS-alert-dependency-js'], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-alert-loader', GSWPTS_BASE_URL . 'Assets/Public/Package/alert_dependency.js');
+            wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['GSWPTS-alert-loader'], GSWPTS_VERSION, true);
         }
     }
 

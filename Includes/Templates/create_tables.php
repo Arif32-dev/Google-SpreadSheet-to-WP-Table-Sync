@@ -59,28 +59,36 @@ global $gswpts;
                     <ul>
                         <li title="Data Source" class="tables_settings" data-btn-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>" data-attr-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
                             <label for="tab1" role="button">
-                                <span><i class="fas fa-archive"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg' ?>
+                                </span>
                                 <span>Data Source</span>
                             </label>
                         </li>
 
                         <li title="Display Settings" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab2" role="button">
-                                <span><i class="fas fa-cogs"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
+                                </span>
                                 <span>Display Settings</span>
                             </label>
                         </li>
 
                         <li title="Delivery Contents" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab3" role="button">
-                                <span><i class="fas fa-sort-numeric-up"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
+                                </span>
                                 <span>Sort & Filter</span>
                             </label>
                         </li>
 
                         <li title="Table Tools" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
                             <label for="tab4" role="button">
-                                <span><i class="fas fa-tools"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
+                                </span>
                                 <span>Table Tools</span>
                             </label>
                         </li>
@@ -111,23 +119,23 @@ global $gswpts;
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="csv">
                                                         <span>CSV File</span>
-                                                        <i class="fas fa-medal"></i>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="excel">
                                                         <span>Excel File</span>
-                                                        <i class="fas fa-medal"></i>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="xml">
                                                         <span>XML File</span>
-                                                        <i class="fas fa-medal"></i>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="json">
                                                         <span>JSON File</span>
-                                                        <i class="fas fa-medal"></i>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="php_array">
                                                         <span>PHP Array</span>
-                                                        <i class="fas fa-medal"></i>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,7 +146,7 @@ global $gswpts;
                                             <div class="ui icon input">
                                                 <input required type="text" name="file_input" placeholder="Enter URL of spreadsheet to load data">
                                                 <span class="ui icon button p-0 m-0 helper_text" data-tooltip="Share your sheet publicly. Publish the sheet to web & click the share button at the top of your spreadsheet" data-position="left center" data-inverted="">
-                                                    <i class="fas fa-info-circle"></i>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg' ?>
                                                 </span>
                                             </div>
                                         </div>
@@ -196,19 +204,19 @@ global $gswpts;
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="25">
                                                             <span>25</span>
-                                                            <i class="fas fa-medal"></i>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="50">
                                                             <span>50</span>
-                                                            <i class="fas fa-medal"></i>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="100">
                                                             <span>100</span>
-                                                            <i class="fas fa-medal"></i>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="all">
                                                             <span>All</span>
-                                                            <i class="fas fa-medal"></i>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
                                                     </div>
 
@@ -268,7 +276,9 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Display Documention <span class="ml-2"><i class="fas fa-cogs"></i></span>
+                                        Display Documention <span class="ml-2">
+                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -312,7 +322,9 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Sorting Documention <span class="ml-2"><i class="fas fa-sort-numeric-up"></i></span>
+                                        Sorting Documention <span class="ml-2">
+                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -355,7 +367,9 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Table Tools Doc<span class="ml-2"><i class="fas fa-tools"></i></span>
+                                        Table Tools Doc<span class="ml-2">
+                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
+                                        </span>
                                     </button>
                                 </div>
                             </div>

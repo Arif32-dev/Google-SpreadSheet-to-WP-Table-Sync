@@ -5,7 +5,9 @@
             <div class="content">
                 <?php
                 if (isset($is_pro) && $is_pro) { ?>
-                    <span class="pro_feature"><i class="fas fa-medal"></i></span>
+                    <span class="pro_feature">
+                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                    </span>
                 <?php } ?>
                 <div class="header"><?php echo esc_html($feature_title) ?></div>
                 <div class="description">

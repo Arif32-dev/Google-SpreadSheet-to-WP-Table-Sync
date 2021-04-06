@@ -9,6 +9,8 @@ import './Chunk/ud_tables'
 import './Chunk/table_changes'
 import './Chunk/general_settings'
 
+
+
 jQuery(document).ready(function ($) {
   if ($('.gswpts_loader').length) {
     $('.gswpts_loader').transition('fade');

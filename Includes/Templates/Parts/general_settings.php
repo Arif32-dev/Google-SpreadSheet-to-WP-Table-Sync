@@ -7,10 +7,10 @@
                 <h3 class="m-0">
                     <?php echo  $setting_title ?>
                     <span class="ui icon button p-0 m-0" data-tooltip="<?php echo esc_attr($setting_tooltip) ?>" data-position="right center" data-inverted="">
-                        <i class="fas fa-info-circle"></i>
+                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg' ?>
                     </span>
                     <span class="p-0 m-0 reveal_btn <?php echo $is_checked ? 'reveal_btn_rotate' : '' ?>">
-                        <i class="fas fa-arrow-up"></i>
+                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/arrow-up-solid.svg' ?>
                     </span>
                 </h3>
                 <div class="ui toggle checkbox m-0">

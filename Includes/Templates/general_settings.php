@@ -39,7 +39,9 @@ settings_errors();
                     <span>
                         <button type="submit" name="submit" id="submit" class="button ui violet m-0" value="Save Changes">
                             Save Changes
-                            <span class="ml-2"><i class="fas fa-file-alt"></i></span>
+                            <span class="ml-2">
+                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?>
+                            </span>
                         </button>
                     </span>
                 </div>

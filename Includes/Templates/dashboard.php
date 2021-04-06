@@ -28,7 +28,7 @@ global $gswpts;
                 </h3>
                 <span>
                     <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
-                        View Documention <span class="ml-2"><i class="fas fa-file-alt"></i></span>
+                        View Documention <span class="ml-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?></span>
                     </a>
                 </span>
             </div>
@@ -60,7 +60,7 @@ global $gswpts;
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-table"></i></span>
+                                <span><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/table-solid.svg' ?></span>
                                 <span class="ml-2">Tables</span>
                             </div>
                             <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')) ?>" class="ui inverted green button">
@@ -98,7 +98,7 @@ global $gswpts;
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <i class="fas fa-file-alt"></i>
+                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?>
                                 <span class="ml-2">Change Logs</span>
                             </div>
                             <a href="" class="ui inverted green button">
@@ -115,7 +115,7 @@ global $gswpts;
                             <div class="col-12 mt-4 d-flex">
 
                                 <div class="col-1 p-0 info_circle">
-                                    <i class="fas fa-info-circle"></i>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg' ?>
                                 </div>
 
                                 <div class="col-11 p-0">
@@ -136,7 +136,9 @@ global $gswpts;
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-blog"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/blog-solid.svg' ?>
+                                </span>
                                 <span class="ml-2">Our Blogs</span>
                             </div>
                             <a href="https://wppool.dev/blog/" target="blank" class="ui inverted green button">
@@ -146,14 +148,9 @@ global $gswpts;
                         <div class="card-body">
                             <div class="col-12">
                                 <p>Checkout useful articles from <a class="ml-1" href="https://wppool.dev/blog/" target="blank">WPPOOL</a></p>
+
                                 <div class="col-12 p-0 mt-3 useful_links">
-
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center" href="" target="blank">
-                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
-                                        <span><i class="fas fa-link"></i></span>
-                                    </a>
                                     <div class="ui fitted divider mt-2 mb-2"></div>
-
                                 </div>
 
                                 <div class="col-12 p-0 mt-4 subscribe_sec">
@@ -198,7 +195,9 @@ global $gswpts;
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-people-carry"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/people-carry-solid.svg' ?>
+                                </span>
                                 <span class="ml-2">Help Center</span>
                             </div>
                             <a target="blank" href="https://wppool.dev/contact/" class="ui inverted green button">
@@ -231,7 +230,9 @@ global $gswpts;
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-medal"></i></span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                </span>
                                 <span class="ml-2">Go Pro!</span>
                             </div>
                             <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-tables')) ?>" class="ui inverted green button">
@@ -246,7 +247,9 @@ global $gswpts;
                                     </p>
                                     <ul>
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="mr-2"><i class="fas fa-check-circle"></i></span>
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
                                             Product is in under development.
                                         </li>
                                     </ul>
@@ -257,7 +260,9 @@ global $gswpts;
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
-                                    Get Pro Today <span class="ml-2"><i class="fas fa-medal"></i></span>
+                                    Get Pro Today <span class="ml-2">
+                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                    </span>
                                 </a>
                             </div>
                         </div>
