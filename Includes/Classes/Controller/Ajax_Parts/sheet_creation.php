@@ -14,24 +14,26 @@ class Sheet_Creation {
         }
 
 
-        if (isset($_POST['gutenberg_req']) && $_POST['gutenberg_req']) {
+        if (isset($_POST['gutenberg_req']) && sanitize_text_field($_POST['gutenberg_req'])) {
+
+            $file_input = sanitize_text_field($_POST['file_input']);
 
             if (sanitize_text_field($_POST['type']) == 'fetch') {
 
-                if (!$_POST['file_input'] || $_POST['file_input'] == "") {
+                if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
                     self::$output['output'] = '<b>' . esc_html('Form field is empty. Please fill out the field') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
 
-                echo json_encode(self::sheet_html($_POST['file_input']));
+                echo json_encode(self::sheet_html($file_input));
                 wp_die();
             }
 
             if (sanitize_text_field($_POST['type']) == 'save' || sanitize_text_field($_POST['type']) == 'saved') {
 
-                if (!$_POST['file_input'] || $_POST['file_input'] == "") {
+                if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
                     self::$output['output'] = '<b>' . esc_html('Form field is empty. Please fill out the field') . '</b>';
                     echo json_encode(self::$output);
@@ -39,14 +41,18 @@ class Sheet_Creation {
                 }
 
                 $data = [
-                    'file_input' => sanitize_text_field($_POST['file_input']),
+                    'file_input' => $file_input,
                     'source_type' => sanitize_text_field($_POST['source_type'])
                 ];
+
+                $table_settings = array_map(function ($setting) {
+                    return sanitize_text_field($setting);
+                }, $_POST['table_settings']);
+
                 echo json_encode(self::save_table(
                     $data,
                     sanitize_text_field($_POST['table_name']),
-                    /* Sanitizing done on later functions */
-                    $_POST['table_settings']
+                    $table_settings
                 ));
                 wp_die();
             }
@@ -54,14 +60,23 @@ class Sheet_Creation {
             if (sanitize_text_field($_POST['type']) == 'save_changes') {
                 echo json_encode(self::update_changes(
                     sanitize_text_field($_POST['id']),
-                    /* Sanitizing done on later functions */
-                    $_POST['table_settings']
+                    $table_settings
                 ));
                 wp_die();
             }
         } else {
 
             parse_str($_POST['form_data'], $parsed_data);
+
+            $parsed_data = array_map(function ($data) {
+                return sanitize_text_field($data);
+            }, $parsed_data);
+
+            $file_input = sanitize_text_field($parsed_data['file_input']);
+
+            $table_settings = array_map(function ($setting) {
+                return sanitize_text_field($setting);
+            }, $_POST['table_settings']);
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
                 self::$output['response_type'] = esc_html('invalid_request');
@@ -72,7 +87,7 @@ class Sheet_Creation {
 
             if ($parsed_data['source_type'] === 'spreadsheet') {
 
-                if (!$parsed_data['file_input'] || $parsed_data['file_input'] == "") {
+                if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
                     self::$output['output'] = '<b>' . esc_html('Form field is empty. Please fill out the field') . '</b>';
                     echo json_encode(self::$output);
@@ -80,23 +95,23 @@ class Sheet_Creation {
                 }
 
                 if (sanitize_text_field($_POST['type']) == 'fetch') {
-                    echo json_encode(self::sheet_html($parsed_data['file_input']));
+                    echo json_encode(self::sheet_html($file_input));
                     wp_die();
                 }
 
                 if (sanitize_text_field($_POST['type']) == 'save' || sanitize_text_field($_POST['type']) == 'saved') {
                     echo json_encode(self::save_table(
                         $parsed_data,
-                        $_POST['table_name'],
-                        $_POST['table_settings']
+                        sanitize_text_field($_POST['table_name']),
+                        $table_settings
                     ));
                     wp_die();
                 }
 
                 if (sanitize_text_field($_POST['type']) == 'save_changes') {
                     echo json_encode(self::update_changes(
-                        $_POST['id'],
-                        $_POST['table_settings']
+                        sanitize_text_field($_POST['id']),
+                        $table_settings
                     ));
                     wp_die();
                 }

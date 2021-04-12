@@ -7,7 +7,7 @@ class Fetch_Products {
     private static $output = [];
 
     public function fetch_products() {
-        if ($_POST['action'] != 'gswpts_product_fetch') {
+        if (sanitize_text_field($_POST['action']) != 'gswpts_product_fetch') {
             self::$output['response_type'] = 'invalid_action';
             self::$output['output'] = '<b>Action is invalid</b>';
             echo json_encode(self::$output);

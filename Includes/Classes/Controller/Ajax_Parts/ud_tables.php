@@ -32,7 +32,9 @@ class UD_Tables {
         if (sanitize_text_field($_POST['data']['reqType']) == 'deleteAll') {
             $delete_respose = false;
             $sanitized_data = [
-                'ids' => $_POST['data']['table_ids'],
+                'ids' => array_map(function ($id) {
+                    return sanitize_text_field($id);
+                }, $_POST['data']['table_ids']),
             ];
             foreach ($sanitized_data['ids'] as $key =>  $value) {
                 $return = self::delete_table(['id' => sanitize_text_field($value)]);
