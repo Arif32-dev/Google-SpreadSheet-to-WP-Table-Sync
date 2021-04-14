@@ -85,7 +85,7 @@ final class GSWPTS_Plugin {
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
 
-            new GSWPTS\Includes\Classes\DB_Tables;
+            new GSWPTS\Includes\Classes\DbTables;
             add_option('gswpts_activation_redirect', true);
             flush_rewrite_rules();
         });
