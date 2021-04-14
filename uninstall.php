@@ -1,9 +1,8 @@
 <?php
-if (!defined('ABSPATH')) {
-    die('you cant access this plugin directly');
-}
 
-class Plugin_Uninstall {
+defined('WP_UNINSTALL_PLUGIN') || die;
+
+class GswptsUninstall {
     public function __construct() {
         $all_sql = $this->all_delete_sql();
         if (!empty($all_sql)) {
@@ -53,4 +52,4 @@ class Plugin_Uninstall {
         }
     }
 }
-new Plugin_Uninstall;
+new GswptsUninstall;

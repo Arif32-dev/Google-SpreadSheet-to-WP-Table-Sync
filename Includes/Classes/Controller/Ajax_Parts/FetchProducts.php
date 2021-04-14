@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-class Fetch_Products {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class FetchProducts {
 
     private static $output = [];
 

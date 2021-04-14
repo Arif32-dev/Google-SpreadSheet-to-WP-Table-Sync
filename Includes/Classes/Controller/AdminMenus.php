@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-class Admin_Menus {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class AdminMenus {
     public function __construct() {
         add_action('admin_menu', [$this, 'admin_menus']);
     }

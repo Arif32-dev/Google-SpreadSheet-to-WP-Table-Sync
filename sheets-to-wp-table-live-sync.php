@@ -22,9 +22,7 @@
  */
 
 /* if accessed directly exit from plugin */
-if (!defined('ABSPATH')) {
-    die('you cant access this plugin directly');
-}
+defined('ABSPATH') || die('you cant access this plugin directly');
 
 if (!defined('GSWPTS_VERSION')) {
     define('GSWPTS_VERSION', '1.0.0');

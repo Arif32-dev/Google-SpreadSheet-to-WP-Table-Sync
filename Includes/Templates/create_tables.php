@@ -18,7 +18,7 @@ global $gswpts;
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
                 <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
-                <span class="ml-2">
+                <span class="ms-2">
                     <strong><?php echo esc_html(PlUGIN_NAME) ?></strong>
                 </span>
             </div>
@@ -36,7 +36,7 @@ global $gswpts;
                 </div>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
-                    <button id="create_button" class="positive ui button m-0 mr-2 <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
+                    <button id="create_button" class="positive ui button m-0 me-2 <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
                         Create New &nbsp; <i class="plus icon"></i>
                     </button>
                     <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
@@ -151,7 +151,7 @@ global $gswpts;
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-2 pl-2 transition hidden browse_input">
+                                        <div class="col-12 col-md-2 ps-2 transition hidden browse_input">
                                             <button id="browse_input" class="positive ui button m-0">
                                                 Browse File&nbsp;
                                                 <i class="fas fa-hand-pointer"></i>
@@ -276,7 +276,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Display Documention <span class="ml-2">
+                                        Display Documention <span class="ms-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
                                         </span>
                                     </button>
@@ -322,7 +322,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Sorting Documention <span class="ml-2">
+                                        Sorting Documention <span class="ms-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
                                         </span>
                                     </button>
@@ -367,7 +367,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Table Tools Doc<span class="ml-2">
+                                        Table Tools Doc<span class="ms-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
                                         </span>
                                     </button>

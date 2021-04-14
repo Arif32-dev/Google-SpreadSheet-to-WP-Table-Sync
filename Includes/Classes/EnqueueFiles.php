@@ -2,11 +2,13 @@
 
 namespace GSWPTS\Includes\Classes;
 
+defined('ABSPATH') || die('you cant access this plugin directly');
+
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
 }
 
-class Enqueue_Files {
+class EnqueueFiles {
     public function __construct() {
         add_action('admin_enqueue_scripts', [$this, 'backend_files']);
         add_action('wp_enqueue_scripts', [$this, 'frontend_files']);

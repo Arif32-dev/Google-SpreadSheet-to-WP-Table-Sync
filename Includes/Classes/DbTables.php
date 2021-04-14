@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes;
 
-final class DB_Tables {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+final class DbTables {
     private $connection;
     private $sql;
     public function __construct() {

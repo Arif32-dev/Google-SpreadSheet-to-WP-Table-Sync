@@ -28,7 +28,7 @@ settings_errors();
             <div class="row heading_row">
                 <div class="col-12 d-flex justify-content-start p-0 align-items-center">
                     <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
-                    <span class="ml-2">
+                    <span class="ms-2">
                         <strong><?php echo PlUGIN_NAME ?></strong>
                     </span>
                 </div>
@@ -39,7 +39,7 @@ settings_errors();
                     <span>
                         <button type="submit" name="submit" id="submit" class="button ui violet m-0" value="Save Changes">
                             Save Changes
-                            <span class="ml-2">
+                            <span class="ms-2">
                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?>
                             </span>
                         </button>
@@ -50,7 +50,7 @@ settings_errors();
 
             <div class="row mt-3 dash_boxes pt-3 pb-3 position-relative overflow-hidden">
 
-                <div class="col-md-12 pt-2 pb-2 pl-4 pr-4">
+                <div class="col-md-12 pt-2 pb-2 ps-4 pe-4">
 
                     <div class="gswpts_settings_container">
                         <?php settings_fields('gswpts_general_setting') ?>

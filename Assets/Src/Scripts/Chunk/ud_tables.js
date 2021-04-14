@@ -152,7 +152,7 @@ jQuery(document).ready(function ($) {
 
             currentTarget.addClass('table_name_save');
             currentTarget.html(`
-                <i class="fas fa-file-alt"></i>
+                <i class="save icon"></i>
             `)
             let link_tag = currentTarget.siblings('a');
             link_tag.css({

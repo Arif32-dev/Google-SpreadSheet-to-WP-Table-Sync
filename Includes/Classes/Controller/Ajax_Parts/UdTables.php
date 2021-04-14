@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-class UD_Tables {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class UdTables {
     private static $output = [];
 
     public function ud_tables() {

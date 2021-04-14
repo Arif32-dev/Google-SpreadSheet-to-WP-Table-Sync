@@ -2,17 +2,19 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Fetch_Products;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Creation;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Sheet_Fetching;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\Table_Fetch;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UD_Tables;
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
 
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
 }
 
-class Ajax_Handler {
+class AjaxHandler {
 
     public function __construct() {
         $this->events();
@@ -35,27 +37,27 @@ class Ajax_Handler {
         add_action('wp_ajax_nopriv_gswpts_product_fetch', [$this, 'fetch_products']);
     }
     public function sheet_creation() {
-        $sheet_creation = new Sheet_Creation;
+        $sheet_creation = new SheetCreation;
         $sheet_creation->sheet_creation();
     }
 
     public function sheet_fetch() {
-        $sheet_fetching = new Sheet_Fetching;
+        $sheet_fetching = new SheetFetching;
         $sheet_fetching->sheet_fetch();
     }
 
     public function table_fetch() {
-        $table_fetching = new Table_Fetch;
+        $table_fetching = new TableFetch;
         $table_fetching->table_fetch();
     }
 
     public function ud_tables() {
-        $ud_tables = new UD_Tables;
+        $ud_tables = new UdTables;
         $ud_tables->ud_tables();
     }
 
     public function fetch_products() {
-        $ud_tables = new Fetch_Products;
+        $ud_tables = new FetchProducts;
         $ud_tables->fetch_products();
     }
 }

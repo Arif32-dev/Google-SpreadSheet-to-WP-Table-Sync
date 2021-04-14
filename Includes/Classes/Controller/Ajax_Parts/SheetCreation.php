@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-class Sheet_Creation {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class SheetCreation {
     private static $output = [];
 
     public function sheet_creation() {

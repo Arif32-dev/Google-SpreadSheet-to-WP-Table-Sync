@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-class Sheet_Fetching {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class SheetFetching {
     private static $output = [];
 
     public function sheet_fetch() {

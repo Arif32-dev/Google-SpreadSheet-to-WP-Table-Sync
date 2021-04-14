@@ -2,7 +2,9 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-class Table_Fetch {
+defined('ABSPATH') || die('you cant access this plugin directly');
+
+class TableFetch {
 
     private static $output = [];
 
@@ -55,13 +57,12 @@ class Table_Fetch {
                                     <td class="text-center">' . esc_attr($table_data->id) . '</td>
                                     <td class="text-center d-flex justify-content-around align-items-center">
                                         <a
-    
                                             style="width: 100%; height: 35px; padding-top: 15px; margin-right: 5px;" 
                                             class="table_name" 
                                             href="' . esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($table_data->id) . '')) . '">
                                             ' . esc_html($table_data->table_name) . '
                                         </a>
-                                        <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1">
+                                        <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ms-1">
                                             <i class="edit icon"></i>
                                         </button>
                                     </td>

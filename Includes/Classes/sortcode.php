@@ -2,6 +2,8 @@
 
 namespace GSWPTS\Includes\Classes;
 
+defined('ABSPATH') || die('you cant access this plugin directly');
+
 class Sortcode {
     public function __construct() {
         if (get_option('asynchronous_loading') == 'on') {

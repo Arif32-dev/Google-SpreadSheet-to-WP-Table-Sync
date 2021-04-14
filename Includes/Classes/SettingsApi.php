@@ -4,7 +4,7 @@ namespace GSWPTS\Includes\Classes;
 
 defined('ABSPATH') || die('you cant access this plugin directly');
 
-class Settings_API {
+class SettingsApi {
 
     public function __construct() {
         add_action('admin_init', [$this, 'add_settings']);

@@ -14,6 +14,10 @@
 			color: $link-hover-color;
 		}
 	}
+
+	.card {
+		max-width: unset !important;
+	}
 }
 
 .dash_boxes {
