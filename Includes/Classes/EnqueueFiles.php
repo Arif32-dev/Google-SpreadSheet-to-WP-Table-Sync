@@ -37,9 +37,8 @@ class EnqueueFiles {
 
             /* Javascript Files */
             wp_enqueue_script('jquery');
-            wp_enqueue_script('GSWPTS-alert-loader', GSWPTS_BASE_URL . 'Assets/Public/Package/alert_dependency.js');
-            wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['GSWPTS-alert-loader'], GSWPTS_VERSION, true);
-            wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['GSWPTS-alert-loader'], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL . 'Assets/Public/Package/alert.min.js', ['jquery'], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
             wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php'),]);
         }
     }
@@ -48,7 +47,6 @@ class EnqueueFiles {
 
         global $gswpts;
         wp_enqueue_script('jquery');
-        wp_enqueue_script('GSWPTS-alert-loader', GSWPTS_BASE_URL . 'Assets/Public/Package/alert_dependency.js');
 
         $gswpts->frontend_tables_assets();
 
@@ -57,7 +55,7 @@ class EnqueueFiles {
         wp_enqueue_script(
             'GSWPTS-frontend-js',
             GSWPTS_BASE_URL . 'Assets/Public/Scripts/Frontend/frontend.min.js',
-            ['jquery', 'GSWPTS-alert-loader'],
+            ['jquery'],
             GSWPTS_VERSION,
             true
         );
@@ -75,7 +73,7 @@ class EnqueueFiles {
         wp_enqueue_script(
             'gswpts-gutenberg',
             GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/Gutenberg/gutenberg.min.js',
-            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components', 'GSWPTS-alert-loader'],
+            ['wp-blocks', 'wp-i18n', 'wp-editor', 'wp-element', 'wp-components', 'jquery'],
             GSWPTS_VERSION,
             true
         );

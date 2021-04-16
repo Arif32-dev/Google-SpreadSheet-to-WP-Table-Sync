@@ -4,7 +4,7 @@ namespace GSWPTS\Includes\Classes;
 
 defined('ABSPATH') || die('you cant access this plugin directly');
 
-class Sortcode {
+class ClassSortcode {
     public function __construct() {
         if (get_option('asynchronous_loading') == 'on') {
             add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes_asynchronous']);

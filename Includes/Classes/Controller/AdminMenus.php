@@ -10,8 +10,8 @@ class AdminMenus {
     }
     public function admin_menus() {
         add_menu_page(
-            'Spreadsheet Sync',
-            'Spreadsheet Sync',
+            'Sheets To Table',
+            'Sheets To Table',
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],

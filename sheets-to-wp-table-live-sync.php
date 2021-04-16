@@ -100,7 +100,7 @@ final class GSWPTS_Plugin {
      */
     public function include_file() {
 
-        new GSWPTS\Includes\Plugin;
+        new GSWPTS\Includes\PluginBase;
 
         if (get_option('gswpts_activation_redirect', false)) {
             delete_option('gswpts_activation_redirect');

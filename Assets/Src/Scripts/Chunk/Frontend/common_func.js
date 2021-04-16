@@ -1,22 +1,21 @@
-
 export default class Global_Table_Config {
-    table_configuration(i, elem, table_name, table_settings) {
+    table_configuration($, i, elem, table_name, table_settings) {
 
         // let dom = `B<"filtering_input filtering_input_${i}"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options bottom_options_${i}"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
         let dom = `<"filtering_input filtering_input_${i}"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"bottom_options bottom_options_${i}"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
         $(elem).find('#create_tables').DataTable(
-            this.table_obj(table_name, table_settings, dom)
+            this.table_obj($, table_name, table_settings, dom)
         );
 
         // this.reveal_export_btns(elem, table_settings);
 
-        this.swap_input_filter(i, table_settings);
+        this.swap_input_filter($, i, table_settings);
 
-        this.swap_bottom_options(i, table_settings);
+        this.swap_bottom_options($, i, table_settings);
 
     }
 
-    table_obj(table_name, table_settings, dom) {
+    table_obj($, table_name, table_settings, dom) {
 
         let table_object = {
             dom: dom,
@@ -81,7 +80,7 @@ export default class Global_Table_Config {
         return table_object;
     }
 
-    reveal_export_btns(elem, table_settings) {
+    reveal_export_btns($, elem, table_settings) {
         let export_btns = table_settings.table_export;
         if (export_btns != 'empty') {
             export_btns.forEach(btn => {
@@ -90,7 +89,7 @@ export default class Global_Table_Config {
         }
     }
 
-    swap_input_filter(i, table_settings) {
+    swap_input_filter($, i, table_settings) {
         /* If checkbox is checked then swap filter */
         if (table_settings.swap_filter_inputs == 'true') {
             $('.filtering_input_' + i + '').css('flex-direction', 'row-reverse');
@@ -116,7 +115,7 @@ export default class Global_Table_Config {
         }
     }
 
-    swap_bottom_options(i, table_settings) {
+    swap_bottom_options($, i, table_settings) {
 
         let pagination_menu = $('.bottom_options_' + i + ' .pagination.menu')
 
@@ -136,15 +135,15 @@ export default class Global_Table_Config {
         if (table_settings.swap_bottom_options == 'true') {
 
             if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style()
+                this.overflow_menu_style($)
             } else {
-                this.bottom_option_style(style, i)
+                this.bottom_option_style($, style, i)
             }
 
         } else {
 
             if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style(i)
+                this.overflow_menu_style($, i)
             } else {
 
                 style['flex_direction'] = 'row'
@@ -155,13 +154,13 @@ export default class Global_Table_Config {
                 style.table_paginate_style['margin_left'] = 'auto'
                 style.table_paginate_style['margin_right'] = 0
 
-                this.bottom_option_style(style, i)
+                this.bottom_option_style($, style, i)
 
             }
         }
     }
 
-    overflow_menu_style(i) {
+    overflow_menu_style($, i) {
         $('.bottom_options_' + i + '').css('flex-direction', 'column');
         $('.bottom_options_' + i + ' > #create_tables_info').css({
             'margin': '5px auto',
@@ -171,7 +170,7 @@ export default class Global_Table_Config {
         });
     }
 
-    bottom_option_style($arg, i) {
+    bottom_option_style($, $arg, i) {
 
         $('.bottom_options_' + i + '').css('flex-direction', $arg['flex_direction']);
         $('.bottom_options_' + i + ' > #create_tables_info').css({
