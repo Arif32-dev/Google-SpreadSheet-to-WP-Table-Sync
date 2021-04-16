@@ -119,7 +119,7 @@ global $gswpts;
                                 </div>
 
                                 <div class="col-11 p-0">
-                                    <ul>
+                                    <ul class="p-0 m-0">
                                         <li>Plugins version <?php echo GSWPTS_VERSION ?> released</li>
                                     </ul>
                                 </div>
@@ -245,7 +245,7 @@ global $gswpts;
                                     <p>
                                         Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
                                     </p>
-                                    <ul>
+                                    <ul class="p-0 m-0">
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="me-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
