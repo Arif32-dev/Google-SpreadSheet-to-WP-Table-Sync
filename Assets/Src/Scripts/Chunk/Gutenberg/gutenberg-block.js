@@ -526,7 +526,7 @@ registerBlockType(
                 [
                     <InspectorControls style="margin-top: 40px">
 
-                        <Panel header="Spreadsheet to WP Table Sync">
+                        <Panel header="Sheets To WP Table Live Sync">
 
                             {
                                 attributes.show_choose_table ? (

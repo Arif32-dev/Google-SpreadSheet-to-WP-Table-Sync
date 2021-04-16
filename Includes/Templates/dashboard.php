@@ -213,7 +213,7 @@ global $gswpts;
                                     <p>
                                         We provide professional support to all our users via our ticketing system.
                                     </p>
-                                    <a href="">
+                                    <a href="https://wppool.dev/contact/">
                                         Visit Support Center
                                     </a>
                                 </div>
@@ -235,7 +235,7 @@ global $gswpts;
                                 </span>
                                 <span class="ms-2">Go Pro!</span>
                             </div>
-                            <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-tables')) ?>" class="ui inverted green button">
+                            <a href="" class="ui inverted green button">
                                 Compare
                             </a>
                         </div>
@@ -250,8 +250,37 @@ global $gswpts;
                                             <span class="me-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            Product is in under development.
+                                            Responsive Table: <?php echo esc_html(PlUGIN_NAME) ?> plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
                                         </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="me-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
+                                            Export table: Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="me-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
+                                            50 rows fetching from the sheet: Fetch up to 50 row data on this feature.
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="me-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
+                                            Elementor Widget Support: <?php echo esc_html(PlUGIN_NAME) ?> supports elementor widget. Organize your table data effortlessly than ever.
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="me-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
+                                            And much more.
+                                        </li>
+
                                     </ul>
                                 </div>
                                 <div class="col-6 p-0 m-0">

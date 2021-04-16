@@ -17,10 +17,11 @@ class EnqueueFiles {
 
     public function backend_files() {
         $current_screen = get_current_screen();
-        if ((isset($_GET['page']) && $_GET['page'] == 'gswpts-dashboard') ||
-            (isset($_GET['page']) && $_GET['page'] == 'gswpts-tables') ||
-            (isset($_GET['page']) && $_GET['page'] == 'gswpts-create-tables') ||
-            (isset($_GET['page']) && $_GET['page'] == 'gswpts-general-settings') ||
+        $get_page = sanitize_text_field($_GET['page']);
+        if ((isset($_GET['page']) && $get_page == 'gswpts-dashboard') ||
+            (isset($_GET['page']) && $get_page == 'gswpts-tables') ||
+            (isset($_GET['page']) && $get_page == 'gswpts-create-tables') ||
+            (isset($_GET['page']) && $get_page == 'gswpts-general-settings') ||
             ($current_screen->is_block_editor())
         ) {
 
