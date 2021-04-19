@@ -11,7 +11,7 @@ class FetchProducts {
     public function fetch_products() {
         if (sanitize_text_field($_POST['action']) != 'gswpts_product_fetch') {
             self::$output['response_type'] = 'invalid_action';
-            self::$output['output'] = '<b>Action is invalid</b>';
+            self::$output['output'] = '<b>' . esc_html('Action is invalid') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }

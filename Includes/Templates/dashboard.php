@@ -18,7 +18,7 @@ global $gswpts;
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
                 <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
-                <span class="ms-2">
+                <span class="ml-2">
                     <strong><?php echo esc_html(PlUGIN_NAME) ?></strong>
                 </span>
             </div>
@@ -28,27 +28,27 @@ global $gswpts;
                 </h3>
                 <span>
                     <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
-                        View Documention <span class="ms-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?></span>
+                        View Documention <span class="ml-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?></span>
                     </a>
                 </span>
             </div>
         </div>
 
-        <div class="row mt-3 dash_boxes pt-3 pb-3 ps-2 pe-2">
+        <div class="row mt-3 dash_boxes pt-3 pb-3 pl-2 pr-2">
 
             <div class="col-md-7">
-                <h1 class="p-0 m-t-0 m-b-4">
+                <h2 class="p-0 m-t-0 m-b-4">
                     Welcome to <?php echo esc_html(PlUGIN_NAME) ?>
-                </h1>
-                <p> Congratulations! You are about to use the most powerful Google spreadsheet data synchronization</p>
-                <a href="https://vimeo.com/526189502" target="blank">
+                </h2>
+                <p><?php echo esc_html('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization') ?></p>
+                <a href="<?php echo esc_url('https://vimeo.com/526189502') ?>" target="blank">
                     <button class="ui inverted green button">
-                        Learn how to sync Google spreadsheet
+                        <?php echo esc_html('Learn how to sync Google spreadsheet') ?>
                     </button>
                 </a>
             </div>
             <div class="col-md-5">
-                <img class="img-responsive wdt-welcome-img" src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg') ?>" alt="Welcome message">
+                <img class="img-responsive wdt-welcomr-img" src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg') ?>" alt="Welcome message">
             </div>
 
         </div>
@@ -56,27 +56,27 @@ global $gswpts;
         <div class="row mt-3  pt-3 pb-3">
             <div class="col-6 p-0 m-0">
                 <!-- Latest table start -->
-                <div class="col-md-12 p-0 pe-2 latest_table">
+                <div class="col-md-12 p-0 pr-2 latest_table">
                     <div class="card p-0 m-0">
-                        <div class="card-header d-flex align-items-center justify-content-between">
+                        <div class="card-header d-flex align-iteml-center justify-content-between">
                             <div class="title">
                                 <span><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/table-solid.svg' ?></span>
-                                <span class="ms-2">Tables</span>
+                                <span class="ml-2"><?php echo esc_html('Tables') ?></span>
                             </div>
                             <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')) ?>" class="ui inverted green button">
-                                Create Tables
+                                <?php echo esc_html('Create Tables') ?>
                             </a>
                         </div>
                         <div class="card-body d-flex">
-                            <div class="col-3 d-flex justify-content-center align-items-center flex-column total_created">
+                            <div class="col-3 d-flex justify-content-center align-iteml-center flex-column total_created">
                                 <span><?php echo esc_html($gswpts->latest_table_details()['total_table_count']) ?></span>
-                                <span>Created</span>
+                                <span><?php echo esc_html('Created') ?></span>
                             </div>
                             <div class="col-9 details">
-                                <div class="col-12 ps-0">
+                                <div class="col-12 pl-0">
                                     <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($gswpts->latest_table_details()['last_table_id']) . '')) ?>"><?php echo esc_html($gswpts->latest_table_details()['last_table_name']) ?></a>
                                 </div>
-                                <div class="col-12 mt-2 ps-0">Latest table created</div>
+                                <div class="col-12 mt-2 pl-0">Latest table created</div>
                                 <?php if ($gswpts->latest_table_details()['last_table_id']) { ?>
                                     <div class="ui label mt-2">
                                         <i class="clone icon dashboard_sortcode_copy_btn"></i>
@@ -84,7 +84,7 @@ global $gswpts;
                                         [gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]
                                     </div>
                                 <?php } else { ?>
-                                    <div class="ui label mt-2">Empty</div>
+                                    <div class="ui label mt-2"><?php echo esc_html('Empty') ?></div>
                                 <?php } ?>
 
                             </div>
@@ -94,15 +94,15 @@ global $gswpts;
                 <!-- Latest end start -->
 
                 <!-- Change Logs start -->
-                <div class="col-md-12 p-0 pe-2 mt-3 change_logs">
+                <div class="col-md-12 p-0 pr-2 mt-3 change_logs">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?>
-                                <span class="ms-2">Change Logs</span>
+                                <span class="ml-2">Change Logs</span>
                             </div>
                             <a href="" class="ui inverted green button">
-                                View Logs
+                                <?php echo esc_html('View Logs') ?>
                             </a>
                         </div>
                         <div class="card-body">
@@ -110,7 +110,7 @@ global $gswpts;
                                 You are currently using Version <?php echo GSWPTS_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
-                                The first realease of this plugin with compatibility checking:
+                                <?php echo esc_html('The first realease of this plugin with compatibility checking') ?>:
                             </div>
                             <div class="col-12 mt-4 d-flex">
 
@@ -120,7 +120,7 @@ global $gswpts;
 
                                 <div class="col-11 p-0">
                                     <ul class="p-0 m-0">
-                                        <li>Plugins version <?php echo GSWPTS_VERSION ?> released</li>
+                                        <li><?php echo esc_html('Plugins version') ?> <?php echo GSWPTS_VERSION ?> released</li>
                                     </ul>
                                 </div>
 
@@ -132,22 +132,22 @@ global $gswpts;
                 <!-- Change Logs end -->
 
                 <!-- News Blogs start -->
-                <div class="col-md-12 p-0 pe-2 mt-3 news_blogs">
+                <div class="col-md-12 p-0 pr-2 mt-3 news_blogs">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/blog-solid.svg' ?>
                                 </span>
-                                <span class="ms-2">Our Blogs</span>
+                                <span class="ml-2"><?php echo esc_html('Our Blogs') ?></span>
                             </div>
-                            <a href="https://wppool.dev/blog/" target="blank" class="ui inverted green button">
-                                Read Blogs
+                            <a href="<?php echo esc_url('https://wppool.dev/blog/') ?>" target="blank" class="ui inverted green button">
+                                <?php echo esc_html('Read Blogs') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <p>Checkout useful articles from <a class="ms-1" href="https://wppool.dev/blog/" target="blank">WPPOOL</a></p>
+                                <p><?php echo esc_html('Checkout useful articles from') ?> <a class="ml-1" href="<?php echo esc_url('https://wppool.dev/blog/') ?>" target="blank">WPPOOL</a></p>
 
                                 <div class="col-12 p-0 mt-3 useful_links">
                                     <div class="ui fitted divider mt-2 mb-2"></div>
@@ -158,19 +158,19 @@ global $gswpts;
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header">Get Subscribed</div>
+                                                <div class="header"><?php echo esc_html('Get Subscribed') ?></div>
                                                 <div class="description">
 
                                                     <p>
-                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
-                                                        We send about 1 message per month and never spam!
+                                                        <?php echo esc_html('Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
+                                                        We send about 1 message per month and never spam') ?>!
                                                     </p>
 
-                                                    <form id="wemail-embedded-subscriber-form" method="post" action="https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471" class="ui right labeled left icon input mt-3">
+                                                    <form id="wemail-embedded-subscriber-form" method="post" action="<?php esc_url('https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471') ?>" class="ui right labeled left icon input mt-3">
                                                         <i class="bell icon"></i>
                                                         <input style="width: 250px;" id="wemail-email" type="email" name="email" required placeholder="You email" />
                                                         <button type="submit" class="ui violet tag label" id="subscribe_btn" style="right: 28px;">
-                                                            Get Subscribed
+                                                            <?php echo esc_html('Get Subscribed') ?>
                                                         </button>
                                                     </form>
 
@@ -191,30 +191,30 @@ global $gswpts;
 
             <div class="col-6 p-0 m-0">
 
-                <div class="col-md-12 p-0 ps-2">
+                <div class="col-md-12 p-0 pl-2">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/people-carry-solid.svg' ?>
                                 </span>
-                                <span class="ms-2">Help Center</span>
+                                <span class="ml-2"><?php echo esc_html('Help Center') ?></span>
                             </div>
-                            <a target="blank" href="https://wppool.dev/contact/" class="ui inverted green button">
-                                Get Help
+                            <a target="blank" href="<?php echo esc_url('https://wppool.dev/contact/') ?>" class="ui inverted green button">
+                                <?php echo esc_html('Get Help') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 d-flex p-0">
                                 <div class="col-6">
                                     <h4 class="">
-                                        Need some help
+                                        <?php echo esc_html('Need some help') ?>
                                     </h4>
                                     <p>
-                                        We provide professional support to all our users via our ticketing system.
+                                        <?php echo esc_html('We provide professional support to all our users via our ticketing system') ?>.
                                     </p>
-                                    <a href="https://wppool.dev/contact/">
-                                        Visit Support Center
+                                    <a href="<?php echo esc_url('https://wppool.dev/contact/') ?>">
+                                        <?php echo esc_html('Visit Support Center') ?>
                                     </a>
                                 </div>
                                 <div class="col-6">
@@ -226,59 +226,59 @@ global $gswpts;
                 </div>
 
 
-                <div class="col-md-12 p-0 ps-2 mt-3 pro_box">
+                <div class="col-md-12 p-0 pl-2 mt-3 pro_box">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                 </span>
-                                <span class="ms-2">Go Pro!</span>
+                                <span class="ml-2"><?php echo esc_html('Go Pro') ?>!</span>
                             </div>
                             <a href="" class="ui inverted green button">
-                                Compare
+                                <?php echo esc_html('Compare') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 p-0 m-0 d-flex">
                                 <div class="col-6 p-0">
                                     <p>
-                                        Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
+                                        <?php echo esc_html('Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features') ?>.
                                     </p>
                                     <ul class="p-0 m-0">
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="me-2">
+                                            <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            Responsive Table: <?php echo esc_html(PlUGIN_NAME) ?> plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
+                                            <?php echo esc_html('Responsive Table') ?>: <?php echo esc_html(PlUGIN_NAME) ?> <?php echo esc_html('Plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens') ?>.
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="me-2">
+                                            <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            Export table: Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin
+                                            <?php echo esc_html('Export table') ?>: <?php echo esc_html('Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="me-2">
+                                            <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            50 rows fetching from the sheet: Fetch up to 50 row data on this feature.
+                                            <?php echo esc_html('50 rows fetching from the sheet') ?>: <?php echo esc_html('Fetch up to 50 row data on this feature.') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="me-2">
+                                            <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            Elementor Widget Support: <?php echo esc_html(PlUGIN_NAME) ?> supports elementor widget. Organize your table data effortlessly than ever.
+                                            <?php echo esc_html('Elementor Widget Support') ?>: <?php echo esc_html(PlUGIN_NAME) ?> <?php echo esc_html('supports elementor widget. Organize your table data effortlessly than ever.') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
-                                            <span class="me-2">
+                                            <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            And much more.
+                                            <?php echo esc_html('And much more') ?>.
                                         </li>
 
                                     </ul>
@@ -289,7 +289,7 @@ global $gswpts;
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
-                                    Get Pro Today <span class="ms-2">
+                                    <?php echo esc_html('Get Pro Today') ?> <span class="ml-2">
                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                     </span>
                                 </a>
@@ -307,11 +307,11 @@ global $gswpts;
 
             <div class="col-sm-12 p-0 m-0">
                 <h2 class="text-center text-capitalize">
-                    Our Other Products
+                    <?php echo esc_html('Our Other Products') ?>
                 </h2>
                 <p class="text-center">
-                    Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
-                    Think you know WordPress products? Think Deeper!
+                    <?php echo esc_html('Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
+                    Think you know WordPress products? Think Deeper!') ?>
                 </p>
             </div>
         </div>

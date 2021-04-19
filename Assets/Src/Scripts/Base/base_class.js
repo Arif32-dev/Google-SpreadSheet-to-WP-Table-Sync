@@ -35,31 +35,31 @@ export default class Base_Class {
                     <div class="content">
                         <div class="row">
                             <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h4 class="m-0">Sheet Name: </h4>
-                                <h5 class="m-0 ml-2">${res.sheet_data.sheet_name}</h5>
+                                <h6 class="m-0">Sheet Name: </h6>
+                                <h6 class="m-0 ml-2">${res.sheet_data.sheet_name}</h6>
                             </div>
                             <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h4 class="m-0">Total Rows: </h4>
-                                <h5 class="m-0 ml-2">${res.sheet_data.total_rows}</h5>
+                                <h6 class="m-0">Total Rows: </h6>
+                                <h6 class="m-0 ml-2">${res.sheet_data.total_rows}</h6>
                             </div>
                             <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h4 class="m-0">Total Result: </h4>
-                                <h5 class="m-0 ml-2">${res.sheet_data.sheet_total_result}</h5>
+                                <h6 class="m-0">Total Result: </h6>
+                                <h6 class="m-0 ml-2">${res.sheet_data.sheet_total_result}</h6>
                             </div>
                             <div class="col-12 d-flex align-items-center justify-content-start">
-                                <h4 class="m-0">Author Mail: </h4>
-                                <h5 class="m-0 ml-2">${res.sheet_data.author_info[0].email.$t}</h5>
+                                <h6 class="m-0">Author Mail: </h6>
+                                <h6 class="m-0 ml-2">${res.sheet_data.author_info[0].email.$t}</h6>
                             </div>
                             <div id="shortcode_container" style="display: none !important;" class="col-12 d-flex mt-3 align-items-center justify-content-start transition hidden">
-                                <h4 class="m-0">Table Shortcode: </h4>
-                                <h5 class="m-0 ml-2">
+                                <h6 class="m-0">Table Shortcode: </h6>
+                                <h6 class="m-0 ml-2">
                                     <div class="ui action input">
                                         <input id="sortcode_value" type="text" class="copyInput" value="">
                                         <button id="sortcode_copy" type="button" name="copyToken" value="copy" class="copyToken ui right icon button">
                                             <i class="clone icon"></i>
                                         </button>
                                     </div>
-                                </h5>
+                                </h6>
                             </div>
                         </div>
                     </div>

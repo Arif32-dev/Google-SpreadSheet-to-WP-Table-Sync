@@ -17,7 +17,7 @@ class ClassSortcode {
         if (defined('ELEMENTOR_VERSION') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
             return $this->gswpts_sortcodes($atts);
         } else {
-            $output = "<h5><b>No table data found</b></h5> <br>";
+            $output = "<h5><b>" .  esc_html('No table data found') . "</b></h5> <br>";
             if (!is_int(intval($atts['id']))) {
                 return $output;
             }
@@ -31,7 +31,7 @@ class ClassSortcode {
             $output .= '
                  <div class="ui segment gswpts_table_loader">
                             <div class="ui active inverted dimmer">
-                                <div class="ui large text loader">Loading</div>
+                                <div class="ui large text loader">' . esc_html('Loading') . '</div>
                             </div>
                             <p></p>
                             <p></p>
@@ -48,7 +48,7 @@ class ClassSortcode {
     }
 
     public function gswpts_sortcodes($atts) {
-        $output = "<h5><b>No table data found</b></h5><br>";
+        $output = "<h5><b>" . esc_html('No table data found') . "</b></h5><br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;

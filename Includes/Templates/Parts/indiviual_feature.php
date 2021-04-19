@@ -11,7 +11,7 @@
                 <?php } ?>
                 <div class="header"><?php echo esc_html($feature_title) ?></div>
                 <div class="description">
-                    <?php echo esc_html($feature_desc) ?>
+                    <?php echo __($feature_desc) ?>
                 </div>
             </div>
             <div class="ui toggle checkbox">

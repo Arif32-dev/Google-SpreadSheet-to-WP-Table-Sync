@@ -1,5 +1,6 @@
 <?php
 global $gswpts;
+$table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GET['id']) : null;
 ?>
 <div class="gswpts_create_table_container">
 
@@ -16,9 +17,9 @@ global $gswpts;
     <div class="container mt-4 create_table_content transition hidden">
 
         <div class="row heading_row">
-            <div class="col-12 d-flex justify-content-start p-0 align-items-center">
+            <div class="col-12 d-flex justify-content-start p-0 align-iteml-center">
                 <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
-                <span class="ms-2">
+                <span class="ml-2">
                     <strong><?php echo esc_html(PlUGIN_NAME) ?></strong>
                 </span>
             </div>
@@ -27,20 +28,20 @@ global $gswpts;
         <div class="row mt-3">
             <div class="col-12 p-0 d-flex align-items-center">
 
-                <div class="ui action input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'transition hidden' : '' ?>">
-                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
-                    <button <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'disabled' : '' ?> class="ui button edit_table_name ">
-                        Edit Title &nbsp;
+                <div class="ui action input <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : '' ?>">
+                    <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
+                    <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : '' ?> class="ui button edit_table_name ">
+                        <?php echo esc_html('Edit Title') ?> &nbsp;
                         <span><i class="edit icon"></i></span>
                     </button>
                 </div>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
-                    <button id="create_button" class="positive ui button m-0 me-2 <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
-                        Create New &nbsp; <i class="plus icon"></i>
+                    <button id="create_button" class="positive ui button m-0 mr-2 <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
+                        <?php echo esc_html('Create New') ?> &nbsp; <i class="plus icon"></i>
                     </button>
-                    <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
-                        <?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>
+                    <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($table_id) && !empty($table_id) ? 'save' : 'fetch' ?>">
+                        <?php echo isset($table_id) && !empty($table_id) ? esc_html('Save Table') : esc_html('Fetch Data') ?>
                     </button>
                 </div>
 
@@ -53,43 +54,43 @@ global $gswpts;
                 <div class="tabs">
 
                     <input type="radio" id="tab1" name="tab-control" checked>
-                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab2" name="tab-control" class="secondary_inputs">
-                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab3" name="tab-control" class="secondary_inputs">
-                    <input <?php echo isset($_GET['id']) && !empty($_GET['id']) ? '' : 'disabled' ?> type="radio" id="tab4" name="tab-control" class="secondary_inputs">
+                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab2" name="tab-control" class="secondary_inputs">
+                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab3" name="tab-control" class="secondary_inputs">
+                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab4" name="tab-control" class="secondary_inputs">
                     <ul>
-                        <li title="Data Source" class="tables_settings" data-btn-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'Save Table' : 'Fetch Data' ?>" data-attr-text="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'save' : 'fetch' ?>">
+                        <li title="<?php echo esc_attr('Data Source') ?>" class="tables_settings" data-btn-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('Save Table') : esc_attr('Fetch Data') ?>" data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch') ?>">
                             <label for="tab1" role="button">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg' ?>
                                 </span>
-                                <span>Data Source</span>
+                                <span><?php echo esc_html('Data Source') ?></span>
                             </label>
                         </li>
 
-                        <li title="Display Settings" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="<?php echo esc_attr('Display Settings') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
                             <label for="tab2" role="button">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
                                 </span>
-                                <span>Display Settings</span>
+                                <span><?php echo esc_html('Display Settings') ?></span>
                             </label>
                         </li>
 
-                        <li title="Delivery Contents" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="<?php echo esc_attr('Delivery Contents') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
                             <label for="tab3" role="button">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
                                 </span>
-                                <span>Sort & Filter</span>
+                                <span><?php echo esc_html('Sort & Filter') ?></span>
                             </label>
                         </li>
 
-                        <li title="Table Tools" class="<?php echo isset($_GET['id']) && !empty($_GET['id']) ? 'tables_settings' : 'disabled_checkbox' ?>" data-btn-text="Save Changes" data-attr-text="save_changes">
+                        <li title="<?php echo esc_attr('Table Tools') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
                             <label for="tab4" role="button">
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
                                 </span>
-                                <span>Table Tools</span>
+                                <span><?php echo esc_html('Table Tools') ?></span>
                             </label>
                         </li>
 
@@ -112,29 +113,29 @@ global $gswpts;
                                             <div class="ui fluid search selection dropdown" id="table_type">
                                                 <input type="hidden" name="source_type">
                                                 <i class="dropdown icon"></i>
-                                                <div class="default text">Choose Source Type</div>
+                                                <div class="default text"><?php echo esc_html('Choose Source Type') ?></div>
                                                 <div class="menu">
                                                     <div class="item" data-value="spreadsheet">
-                                                        Google Spreadsheet
+                                                        <?php echo esc_html('Google Spreadsheet') ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="csv">
-                                                        <span>CSV File</span>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('csv') ?>">
+                                                        <span><?php echo esc_html('CSV File') ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="excel">
-                                                        <span>Excel File</span>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('excel') ?>">
+                                                        <span><?php echo esc_html('Excel File') ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="xml">
-                                                        <span>XML File</span>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('xml') ?>">
+                                                        <span><?php echo esc_html('XML File') ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="json">
-                                                        <span>JSON File</span>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('json') ?>">
+                                                        <span><?php echo esc_html('JSON File') ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="php_array">
-                                                        <span>PHP Array</span>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('php_array') ?>">
+                                                        <span><?php echo esc_html('PHP Array') ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                     </div>
                                                 </div>
@@ -151,9 +152,9 @@ global $gswpts;
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-2 ps-2 transition hidden browse_input">
+                                        <div class="col-12 col-md-2 pl-2 transition hidden browse_input">
                                             <button id="browse_input" class="positive ui button m-0">
-                                                Browse File&nbsp;
+                                                <?php echo esc_html('Browse File') ?>&nbsp;
                                                 <i class="fas fa-hand-pointer"></i>
                                             </button>
                                         </div>
@@ -179,43 +180,43 @@ global $gswpts;
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header">Default rows per page</div>
+                                                <div class="header"><?php echo esc_html('Default rows per page') ?></div>
                                                 <div class="description">
-                                                    This will show rows per page in the frontend
+                                                    <?php echo esc_html('This will show rows per page in the frontend') ?>
                                                 </div>
 
                                                 <div class="ui fluid selection dropdown" id="rows_per_page">
                                                     <input type="hidden" name="rows_per_page">
                                                     <i class="dropdown icon"></i>
-                                                    <div class="default text">Rows Per Page</div>
+                                                    <div class="default text"><?php echo esc_html('Rows Per Page') ?></div>
 
                                                     <div class="menu">
-                                                        <div class="item" data-value="1">
-                                                            1
+                                                        <div class="item" data-value="<?php echo esc_attr('1') ?>">
+                                                            <?php echo esc_html('1') ?>
                                                         </div>
-                                                        <div class="item" data-value="5">
-                                                            5
+                                                        <div class="item" data-value="<?php echo esc_attr('5') ?>">
+                                                            <?php echo esc_html('5') ?>
                                                         </div>
-                                                        <div class="item" data-value="10">
-                                                            10
+                                                        <div class="item" data-value="<?php echo esc_attr('10') ?>">
+                                                            <?php echo esc_html('10') ?>
                                                         </div>
-                                                        <div class="item" data-value="15">
-                                                            15
+                                                        <div class="item" data-value="<?php echo esc_attr('15') ?>">
+                                                            <?php echo esc_html('15') ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="25">
-                                                            <span>25</span>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('25') ?>">
+                                                            <span><?php echo esc_html('25') ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="50">
-                                                            <span>50</span>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('50') ?>">
+                                                            <span><?php echo esc_html('50') ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="100">
-                                                            <span>100</span>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('100') ?>">
+                                                            <span><?php echo esc_html('100') ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="all">
-                                                            <span>All</span>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('all') ?>">
+                                                            <span><?php echo esc_html('All') ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                                         </div>
                                                     </div>
@@ -276,7 +277,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Display Documention <span class="ms-2">
+                                        <?php echo esc_html('Display Documention') ?> <span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
                                         </span>
                                     </button>
@@ -322,7 +323,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Sorting Documention <span class="ms-2">
+                                        <?php echo esc_html('Sorting Documention') ?> <span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
                                         </span>
                                     </button>
@@ -339,18 +340,18 @@ global $gswpts;
                                         <div class="card">
                                             <div class="content">
                                                 <span class="pro_feature"><i class="fas fa-medal"></i></span>
-                                                <div class="header">Table Exporting</div>
+                                                <div class="header"><?php echo esc_html('Table Exporting') ?></div>
                                                 <div class="description">
-                                                    Enable this feature in order to allow your user to download your table content as various format.
+                                                    <?php echo esc_html(' Enable this feature in order to allow your user to download your table content as various format.') ?>
                                                 </div>
                                                 <select name="skills" multiple="" class="ui fluid dropdown mt-2 pro_feature_input" id="table_exporting">
-                                                    <option value="">Select Type</option>
-                                                    <option value="json">JSON</option>
-                                                    <option value="pdf">PDF</option>
-                                                    <option value="csv">CSV</option>
-                                                    <option value="excel">Excel</option>
-                                                    <option value="print">Print</option>
-                                                    <option value="copy">Copy</option>
+                                                    <option value=""><?php echo esc_html('Select Type') ?></option>
+                                                    <option value="<?php echo esc_attr('json') ?>"><?php echo esc_html('JSON') ?></option>
+                                                    <option value="<?php echo esc_attr('pdf') ?>"><?php echo esc_html('PDF') ?></option>
+                                                    <option value="<?php echo esc_attr('csv') ?>"><?php echo esc_html('CSV') ?></option>
+                                                    <option value="<?php echo esc_attr('excel') ?>"><?php echo esc_html('Excel') ?></option>
+                                                    <option value="<?php echo esc_attr('print') ?>"><?php echo esc_html('Print') ?></option>
+                                                    <option value="<?php echo esc_attr('copy') ?>"><?php echo esc_html('Copy') ?></option>
                                                 </select>
                                                 <div class="pro_feature_input selectbox_overlay">
 
@@ -367,7 +368,7 @@ global $gswpts;
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        Table Tools Doc<span class="ms-2">
+                                        <?php echo esc_html('Table Tools Doc') ?><span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
                                         </span>
                                     </button>
@@ -388,11 +389,11 @@ global $gswpts;
         <div class="row mt-4">
             <div id="spreadsheet_container" class="col-12 d-flex justify-content-center align-content-center p-relative p-0 position-relative">
 
-                <?php if (isset($_GET['id']) && !empty($_GET['id'])) : ?>
+                <?php if (isset($table_id) && !empty($table_id)) : ?>
 
                     <div class="ui segment gswpts_table_loader" style="z-index: -1;">
                         <div class="ui active inverted dimmer">
-                            <div class="ui large text loader">Loading</div>
+                            <div class="ui large text loader"><?php echo esc_html('Loading') ?></div>
                         </div>
                         <p></p>
                         <p></p>

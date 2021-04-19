@@ -7,27 +7,24 @@ defined('ABSPATH') || die('you cant access this plugin directly');
 class GlobalClass {
     public function data_table_styles() {
         wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
     }
     public function data_table_scripts() {
-        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-data-table-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', [], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
     public function nonce_field($nonce_action, $nonce_name) {
         wp_nonce_field($nonce_action, $nonce_name);
     }
-    public function bootstrap_files() {
-        wp_enqueue_style('GSWPTS-bootstap-css', GSWPTS_BASE_URL . 'Assets/Public/Common/bootstrap/css/bootstrap.min.css', [], GSWPTS_VERSION, 'all');
-    }
+
     public function semantic_files() {
         wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
     public function frontend_tables_assets() {
-        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
-        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/DataTables-1.10.22/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
     public function get_sheet_id(string $string) {
@@ -176,31 +173,31 @@ class GlobalClass {
                             <div class="content">
                                 <div class="row">
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h4 class="m-0">Sheet Name: </h4>
-                                        <h5 class="m-0 ml-2">' . esc_html($data['sheet_name']) . '</h5>
+                                        <h6 class="m-0">Sheet Name: </h6>
+                                        <h6 class="m-0 ml-2">' . esc_html($data['sheet_name']) . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h4 class="m-0">Total Rows: </h4>
-                                        <h5 class="m-0 ml-2">' . esc_html($data['total_rows']) . '</h5>
+                                        <h6 class="m-0">Total Rows: </h6>
+                                        <h6 class="m-0 ml-2">' . esc_html($data['total_rows']) . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h4 class="m-0">Total Result: </h4>
-                                        <h5 class="m-0 ml-2">' . esc_html($data['sheet_total_result']) . '</h5>
+                                        <h6 class="m-0">Total Result: </h6>
+                                        <h6 class="m-0 ml-2">' . esc_html($data['sheet_total_result']) . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start">
-                                        <h4 class="m-0">Author Mail: </h4>
-                                        <h5 class="m-0 ml-2">' . esc_html($data['author_info'][0]['email']['$t']) . '</h5>
+                                        <h6 class="m-0">Author Mail: </h6>
+                                        <h6 class="m-0 ml-2">' . esc_html($data['author_info'][0]['email']['$t']) . '</h6>
                                     </div>
                                     <div id="shortcode_container" class="col-12 d-flex mt-3 align-items-center justify-content-start">
-                                        <h4 class="m-0">Table Shortcode: </h4>
-                                        <h5 class="m-0 ml-2">
+                                        <h6 class="m-0">Table Shortcode: </h6>
+                                        <h6 class="m-0 ml-2">
                                             <div class="ui action input">
                                                 <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id=' . esc_html(esc_attr($data['id'])) . ']">
                                                 <button id="sortcode_copy" type="button" name="copyToken" value="copy" class="copyToken ui right icon button">
                                                     <i class="clone icon"></i>
                                                 </button>
                                             </div>
-                                        </h5>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +211,7 @@ class GlobalClass {
         if ($db_result) {
             $input_values = [
                 'source_url' => $db_result[0]->source_url,
-                'table_name' => $this->ouput_table_by_condition($db_result)
+                'table_name' => $this->output_table_by_condition($db_result)
             ];
             return $input_values;
         } else {
@@ -222,7 +219,7 @@ class GlobalClass {
         }
         return false;
     }
-    public function ouput_table_by_condition($db_result) {
+    public function output_table_by_condition($db_result) {
         $table_settings = unserialize($db_result[0]->table_settings);
         if ($table_settings['table_title'] == 'true') {
             return '<h3>' . $db_result[0]->table_name . '</h3>';

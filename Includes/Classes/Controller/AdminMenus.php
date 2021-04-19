@@ -10,8 +10,8 @@ class AdminMenus {
     }
     public function admin_menus() {
         add_menu_page(
-            'Sheets To Table',
-            'Sheets To Table',
+            esc_html('Sheets To Table'),
+            esc_html('Sheets To Table'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
@@ -20,32 +20,32 @@ class AdminMenus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            'DashBoard',
-            'DashBoard',
+            esc_html('DashBoard'),
+            esc_html('DashBoard'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            'Manage Tables',
-            'Manage Tables',
+            esc_html('Manage Tables'),
+            esc_html('Manage Tables'),
             'manage_options',
             'gswpts-tables',
             [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            'Create Table',
-            'Create Table',
+            esc_html('Create Table'),
+            esc_html('Create Table'),
             'manage_options',
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            'General Settings',
-            'General Settings',
+            esc_html('General Settings'),
+            esc_html('General Settings'),
             'manage_options',
             'gswpts-general-settings',
             [get_called_class(), 'general_settings']

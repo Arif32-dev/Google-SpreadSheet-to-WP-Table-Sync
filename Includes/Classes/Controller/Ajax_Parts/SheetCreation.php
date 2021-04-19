@@ -141,7 +141,7 @@ class SheetCreation {
 
         if (count(fgetcsv($sheet_response)) < 2) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>' . esc_html('The spreadsheet is restricted.<br/>Please make it public by clicking on share button at the top of spreadsheet') . '</b>';
+            self::$output['output'] = '<b>' . esc_html('The spreadsheet is restricted.')  . ' <br/> ' . esc_html('Please make it public by clicking on share button at the top of spreadsheet') . '</b>';
             return self::$output;
         }
 
