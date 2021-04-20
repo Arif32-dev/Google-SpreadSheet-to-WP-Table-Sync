@@ -43,8 +43,8 @@ class GswptsUninstall {
     public function unregister_options() {
         $settings_options = [
             'asynchronous_loading',
-            'gutenberg_support',
-            'elementor_support',
+            'multiple_sheet_tab',
+            'sheet_tab_connection'
         ];
         foreach ($settings_options as  $option) {
             unregister_setting('gswpts_general_setting', $option);
