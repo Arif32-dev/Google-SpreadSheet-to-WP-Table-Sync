@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'GSWPTS\\Includes\\Classes\\ClassSortcode' => $baseDir . '/Includes/Classes/ClassSortcode.php',
     'GSWPTS\\Includes\\Classes\\Controller\\AdminMenus' => $baseDir . '/Includes/Classes/Controller/AdminMenus.php',
     'GSWPTS\\Includes\\Classes\\Controller\\AjaxHandler' => $baseDir . '/Includes/Classes/Controller/AjaxHandler.php',
     'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\FetchProducts' => $baseDir . '/Includes/Classes/Controller/Ajax_Parts/FetchProducts.php',
@@ -18,8 +19,7 @@ return array(
     'GSWPTS\\Includes\\Classes\\EnqueueFiles' => $baseDir . '/Includes/Classes/EnqueueFiles.php',
     'GSWPTS\\Includes\\Classes\\GlobalClass' => $baseDir . '/Includes/Classes/GlobalClass.php',
     'GSWPTS\\Includes\\Classes\\SettingsApi' => $baseDir . '/Includes/Classes/SettingsApi.php',
-    'GSWPTS\\Includes\\Classes\\Sortcode' => $baseDir . '/Includes/Classes/Sortcode.php',
-    'GSWPTS\\Includes\\Plugin' => $baseDir . '/Includes/Plugin.php',
+    'GSWPTS\\Includes\\PluginBase' => $baseDir . '/Includes/PluginBase.php',
     'GuzzleHttp\\BodySummarizer' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizer.php',
     'GuzzleHttp\\BodySummarizerInterface' => $vendorDir . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
     'GuzzleHttp\\Client' => $vendorDir . '/guzzlehttp/guzzle/src/Client.php',

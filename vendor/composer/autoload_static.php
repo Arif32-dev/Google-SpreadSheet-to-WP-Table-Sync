@@ -57,6 +57,7 @@ class ComposerStaticInit9d7906fd3cf8a27ad792d2a8c967981c
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'GSWPTS\\Includes\\Classes\\ClassSortcode' => __DIR__ . '/../..' . '/Includes/Classes/ClassSortcode.php',
         'GSWPTS\\Includes\\Classes\\Controller\\AdminMenus' => __DIR__ . '/../..' . '/Includes/Classes/Controller/AdminMenus.php',
         'GSWPTS\\Includes\\Classes\\Controller\\AjaxHandler' => __DIR__ . '/../..' . '/Includes/Classes/Controller/AjaxHandler.php',
         'GSWPTS\\Includes\\Classes\\Controller\\Ajax_Parts\\FetchProducts' => __DIR__ . '/../..' . '/Includes/Classes/Controller/Ajax_Parts/FetchProducts.php',
@@ -68,8 +69,7 @@ class ComposerStaticInit9d7906fd3cf8a27ad792d2a8c967981c
         'GSWPTS\\Includes\\Classes\\EnqueueFiles' => __DIR__ . '/../..' . '/Includes/Classes/EnqueueFiles.php',
         'GSWPTS\\Includes\\Classes\\GlobalClass' => __DIR__ . '/../..' . '/Includes/Classes/GlobalClass.php',
         'GSWPTS\\Includes\\Classes\\SettingsApi' => __DIR__ . '/../..' . '/Includes/Classes/SettingsApi.php',
-        'GSWPTS\\Includes\\Classes\\Sortcode' => __DIR__ . '/../..' . '/Includes/Classes/Sortcode.php',
-        'GSWPTS\\Includes\\Plugin' => __DIR__ . '/../..' . '/Includes/Plugin.php',
+        'GSWPTS\\Includes\\PluginBase' => __DIR__ . '/../..' . '/Includes/PluginBase.php',
         'GuzzleHttp\\BodySummarizer' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizer.php',
         'GuzzleHttp\\BodySummarizerInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
