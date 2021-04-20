@@ -76,18 +76,19 @@ class SheetFetching {
         self::$output['response_type'] = esc_html('success');
         self::$output['sheet_data'] = [
             'sheet_name' => $json_res['title']['$t'],
-            'author_info' => (array) $json_res['author'],
+            'author_info' => $json_res['author'],
             'sheet_total_result' => esc_html($json_res['openSearch$totalResults']['$t']),
-            'total_rows' => esc_html($response['count']),
+            'total_rows' => esc_html($response['count'])
         ];
 
-        // All data escaped and sanitize in global functions
         self::$output['table_data'] = [
-            'table_id' => $table_id,
-            'source_url' => $url,
-            'table_name' => $table_name,
-            'source_type' => $source_type,
-            'table_settings' => json_encode($table_settings),
+            'table_id' => esc_html($table_id),
+            'source_url' => esc_url($url),
+            'table_name' => esc_html($table_name),
+            'source_type' => esc_html($source_type),
+            'table_settings' => json_encode(array_map(function ($setting) {
+                return esc_html($setting);
+            }, $table_settings))
         ];
         self::$output['output'] = "" . $response['table'] . "";
         return self::$output;

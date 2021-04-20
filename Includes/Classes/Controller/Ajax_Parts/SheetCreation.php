@@ -159,7 +159,7 @@ class SheetCreation {
             'sheet_name' => esc_html($json_res['title']['$t']),
             'author_info' => (array) $json_res['author'],
             'sheet_total_result' => esc_html($json_res['openSearch$totalResults']['$t']),
-            'total_rows' => esc_html($response['count']),
+            'total_rows' => esc_html($response['count'])
         ];
         self::$output['output'] = "" . $response['table'] . "";
         return self::$output;
@@ -180,7 +180,7 @@ class SheetCreation {
             'table_name' => sanitize_text_field($table_name),
             'source_url' => esc_url_raw($parsed_data['file_input']),
             'source_type' => sanitize_text_field($parsed_data['source_type']),
-            'table_settings' => serialize($settings),
+            'table_settings' => serialize($settings)
         ];
 
         $db_respond = $wpdb->insert($table, $data, [
@@ -198,7 +198,7 @@ class SheetCreation {
             self::$output['output'] = '<b>' . esc_html('Table saved successfully') . '</b>';
         } else {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = "<b>Table couldn't be saved. Please try again</b>";
+            self::$output['output'] = "<b>" . esc_html("Table couldn't be saved. Please try again") . "</b>";
         }
         return self::$output;
     }

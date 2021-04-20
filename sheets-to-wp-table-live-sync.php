@@ -12,8 +12,8 @@
  * Plugin URI:       https://wordpress.org/plugins/sheets-to-wp-table-live-sync/
  * Description:      This is a WordPress plugin to synchronize google spreadsheet data into wordpress table.
  * Version:           1.0.0
- * Requires at least: 5.2
- * Requires PHP:      7.0.0
+ * Requires at least: 5.0
+ * Requires PHP:      5.4
  * Author:             WPPOOL
  * Author URI:        https://wppool.dev/
  * Text Domain:       gswpts
@@ -67,7 +67,7 @@ final class GSWPTS_Plugin {
     }
 
     public function show_notice() {
-        echo '<div class="notice notice-error is-dismissible"><h3><strong>Plugin </strong></h3><p> cannot be activated - requires at least  PHP 7.0.0 Plugin automatically deactivated.</p></div>';
+        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', esc_html('Plugin'), esc_html('cannot be activated - requires at least  PHP 5.4 Plugin automatically deactivated.'));
         return;
     }
 
@@ -109,9 +109,9 @@ final class GSWPTS_Plugin {
     }
     public static function add_action_links($links) {
         $mylinks = array(
-            '<a href="' . admin_url('admin.php?page=gswpts-dashboard') . '">Dashboard</a>',
-            '<a href="' . admin_url('admin.php?page=gswpts-create-tables') . '">Create Table</a>',
-            '<a href="' . admin_url('admin.php?page=gswpts-general-settings') . '">General Settings</a>',
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-dashboard')), esc_html('Dashboard')),
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-create-tables')), esc_html('Create Table')),
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html('General Settings')),
         );
         return array_merge($links, $mylinks);
     }
