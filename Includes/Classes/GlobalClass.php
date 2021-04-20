@@ -222,7 +222,7 @@ class GlobalClass {
     public function output_table_by_condition($db_result) {
         $table_settings = unserialize($db_result[0]->table_settings);
         if ($table_settings['table_title'] == 'true') {
-            return '<h3>' . $db_result[0]->table_name . '</h3>';
+            return '<h3>' . esc_html($db_result[0]->table_name) . '</h3>';
         } else {
             return null;
         }

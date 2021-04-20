@@ -88,8 +88,6 @@ class SettingsApi {
     public static function get_option_values() {
         $options_values = [
             'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
-            'gutenberg_support' => get_option('gutenberg_support') ? 'checked' : '',
-            'elementor_support' => get_option('elementor_support') ? 'checked' : '',
             'multiple_sheet_tab' => get_option('multiple_sheet_tab') ? 'checked' : '',
             'sheet_tab_connection' => get_option('sheet_tab_connection') ? 'checked' : '',
         ];
