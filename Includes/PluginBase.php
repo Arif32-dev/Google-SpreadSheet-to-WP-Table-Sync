@@ -16,12 +16,19 @@ if (!defined('ABSPATH')) {
 }
 
 
+
+if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
+    return;
+}
+
+
 class PluginBase {
     public function __construct() {
         $this->includes();
         $this->global_functions();
     }
     public function includes() {
+        require GSWPTS_BASE_PATH . 'vendor/autoload.php';
         new EnqueueFiles;
         new AdminMenus;
         new AjaxHandler;

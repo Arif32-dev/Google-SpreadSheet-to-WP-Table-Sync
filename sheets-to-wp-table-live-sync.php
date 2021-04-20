@@ -45,7 +45,7 @@ if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
     return;
 }
 
-require_once GSWPTS_BASE_PATH . 'vendor/autoload.php';
+require GSWPTS_BASE_PATH . 'vendor/autoload.php';
 
 final class GSWPTS_Plugin {
 
