@@ -24,11 +24,11 @@ global $gswpts;
             </div>
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                 <h3 class="m-0">
-                    Dashboard
+                    <?php echo __('Dashboard', 'sheets-to-wp-table-live-sync') ?>
                 </h3>
                 <span>
                     <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
-                        View Documention <span class="ml-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?></span>
+                        <?php echo __('View Documention', 'sheets-to-wp-table-live-sync') ?> <span class="ml-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?></span>
                     </a>
                 </span>
             </div>
@@ -40,10 +40,10 @@ global $gswpts;
                 <h2 class="p-0 m-t-0 m-b-4">
                     Welcome to <?php echo esc_html(PlUGIN_NAME) ?>
                 </h2>
-                <p><?php echo esc_html('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization') ?></p>
+                <p><?php echo __('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization', 'sheets-to-wp-table-live-sync') ?></p>
                 <a href="<?php echo esc_url('https://vimeo.com/526189502') ?>" target="blank">
                     <button class="ui inverted green button">
-                        <?php echo esc_html('Learn how to sync Google spreadsheet') ?>
+                        <?php echo __('Learn how to sync Google spreadsheet', 'sheets-to-wp-table-live-sync') ?>
                     </button>
                 </a>
             </div>
@@ -61,20 +61,20 @@ global $gswpts;
                         <div class="card-header d-flex align-iteml-center justify-content-between">
                             <div class="title">
                                 <span><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/table-solid.svg' ?></span>
-                                <span class="ml-2"><?php echo esc_html('Tables') ?></span>
+                                <span class="ml-2"><?php echo __('Tables', 'sheets-to-wp-table-live-sync') ?></span>
                             </div>
                             <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')) ?>" class="ui inverted green button">
-                                <?php echo esc_html('Create Tables') ?>
+                                <?php echo __('Create Tables', 'sheets-to-wp-table-live-sync') ?>
                             </a>
                         </div>
                         <div class="card-body d-flex">
                             <div class="col-3 d-flex justify-content-center align-iteml-center flex-column total_created">
-                                <span><?php echo esc_html($gswpts->latest_table_details()['total_table_count']) ?></span>
-                                <span><?php echo esc_html('Created') ?></span>
+                                <span><?php echo __($gswpts->latest_table_details()['total_table_count']) ?></span>
+                                <span><?php echo __('Created', 'sheets-to-wp-table-live-sync') ?></span>
                             </div>
                             <div class="col-9 details">
                                 <div class="col-12 pl-0">
-                                    <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($gswpts->latest_table_details()['last_table_id']) . '')) ?>"><?php echo esc_html($gswpts->latest_table_details()['last_table_name']) ?></a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($gswpts->latest_table_details()['last_table_id']) . '')) ?>"><?php echo __($gswpts->latest_table_details()['last_table_name'], 'sheets-to-wp-table-live-sync') ?></a>
                                 </div>
                                 <div class="col-12 mt-2 pl-0">Latest table created</div>
                                 <?php if ($gswpts->latest_table_details()['last_table_id']) { ?>
@@ -84,7 +84,7 @@ global $gswpts;
                                         [gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]
                                     </div>
                                 <?php } else { ?>
-                                    <div class="ui label mt-2"><?php echo esc_html('Empty') ?></div>
+                                    <div class="ui label mt-2"><?php echo __('Empty', 'sheets-to-wp-table-live-sync') ?></div>
                                 <?php } ?>
 
                             </div>
@@ -102,7 +102,7 @@ global $gswpts;
                                 <span class="ml-2">Change Logs</span>
                             </div>
                             <a href="" class="ui inverted green button">
-                                <?php echo esc_html('View Logs') ?>
+                                <?php echo __('View Logs', 'sheets-to-wp-table-live-sync') ?>
                             </a>
                         </div>
                         <div class="card-body">
@@ -110,7 +110,7 @@ global $gswpts;
                                 You are currently using Version <?php echo GSWPTS_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
-                                <?php echo esc_html('The first realease of this plugin with compatibility checking') ?>:
+                                <?php echo __('The first realease of this plugin with compatibility checking', 'sheets-to-wp-table-live-sync') ?>:
                             </div>
                             <div class="col-12 mt-4 d-flex">
 
@@ -120,7 +120,7 @@ global $gswpts;
 
                                 <div class="col-11 p-0">
                                     <ul class="p-0 m-0">
-                                        <li><?php echo esc_html('Plugins version') ?> <?php echo GSWPTS_VERSION ?> released</li>
+                                        <li><?php echo __('Plugins version', 'sheets-to-wp-table-live-sync') ?> <?php echo GSWPTS_VERSION ?> released</li>
                                     </ul>
                                 </div>
 
@@ -139,15 +139,15 @@ global $gswpts;
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/blog-solid.svg' ?>
                                 </span>
-                                <span class="ml-2"><?php echo esc_html('Our Blogs') ?></span>
+                                <span class="ml-2"><?php echo __('Our Blogs', 'sheets-to-wp-table-live-sync') ?></span>
                             </div>
                             <a href="<?php echo esc_url('https://wppool.dev/blog/') ?>" target="blank" class="ui inverted green button">
-                                <?php echo esc_html('Read Blogs') ?>
+                                <?php echo __('Read Blogs', 'sheets-to-wp-table-live-sync') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <p><?php echo esc_html('Checkout useful articles from') ?> <a class="ml-1" href="<?php echo esc_url('https://wppool.dev/blog/') ?>" target="blank">WPPOOL</a></p>
+                                <p><?php echo __('Checkout useful articles from', 'sheets-to-wp-table-live-sync') ?> <a class="ml-1" href="<?php echo esc_url('https://wppool.dev/blog/') ?>" target="blank">WPPOOL</a></p>
 
                                 <div class="col-12 p-0 mt-3 useful_links">
                                     <div class="ui fitted divider mt-2 mb-2"></div>
@@ -158,19 +158,19 @@ global $gswpts;
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header"><?php echo esc_html('Get Subscribed') ?></div>
+                                                <div class="header"><?php echo __('Get Subscribed', 'sheets-to-wp-table-live-sync') ?></div>
                                                 <div class="description">
 
                                                     <p>
-                                                        <?php echo esc_html('Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
-                                                        We send about 1 message per month and never spam') ?>!
+                                                        <?php echo __('Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
+                                                        We send about 1 message per month and never spam', 'sheets-to-wp-table-live-sync') ?>!
                                                     </p>
 
                                                     <form id="wemail-embedded-subscriber-form" method="post" action="<?php esc_url('https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471') ?>" class="ui right labeled left icon input mt-3">
                                                         <i class="bell icon"></i>
                                                         <input style="width: 250px;" id="wemail-email" type="email" name="email" required placeholder="You email" />
                                                         <button type="submit" class="ui violet tag label" id="subscribe_btn" style="right: 28px;">
-                                                            <?php echo esc_html('Get Subscribed') ?>
+                                                            <?php echo __('Get Subscribed', 'sheets-to-wp-table-live-sync') ?>
                                                         </button>
                                                     </form>
 
@@ -198,23 +198,23 @@ global $gswpts;
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/people-carry-solid.svg' ?>
                                 </span>
-                                <span class="ml-2"><?php echo esc_html('Help Center') ?></span>
+                                <span class="ml-2"><?php echo __('Help Center','sheets-to-wp-table-live-sync') ?></span>
                             </div>
                             <a target="blank" href="<?php echo esc_url('https://wppool.dev/contact/') ?>" class="ui inverted green button">
-                                <?php echo esc_html('Get Help') ?>
+                                <?php echo __('Get Help','sheets-to-wp-table-live-sync') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 d-flex p-0">
                                 <div class="col-6">
                                     <h4 class="">
-                                        <?php echo esc_html('Need some help') ?>
+                                        <?php echo __('Need some help','sheets-to-wp-table-live-sync') ?>
                                     </h4>
                                     <p>
-                                        <?php echo esc_html('We provide professional support to all our users via our ticketing system') ?>.
+                                        <?php echo __('We provide professional support to all our users via our ticketing system','sheets-to-wp-table-live-sync') ?>.
                                     </p>
                                     <a href="<?php echo esc_url('https://wppool.dev/contact/') ?>">
-                                        <?php echo esc_html('Visit Support Center') ?>
+                                        <?php echo __('Visit Support Center','sheets-to-wp-table-live-sync') ?>
                                     </a>
                                 </div>
                                 <div class="col-6">
@@ -233,52 +233,52 @@ global $gswpts;
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                 </span>
-                                <span class="ml-2"><?php echo esc_html('Go Pro') ?>!</span>
+                                <span class="ml-2"><?php echo __('Go Pro','sheets-to-wp-table-live-sync') ?>!</span>
                             </div>
                             <a href="" class="ui inverted green button">
-                                <?php echo esc_html('Compare') ?>
+                                <?php echo __('Compare','sheets-to-wp-table-live-sync') ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 p-0 m-0 d-flex">
                                 <div class="col-6 p-0">
                                     <p>
-                                        <?php echo esc_html('Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features') ?>.
+                                        <?php echo __('Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features','sheets-to-wp-table-live-sync') ?>.
                                     </p>
                                     <ul class="p-0 m-0">
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            <?php echo esc_html('Responsive Table') ?>: <?php echo esc_html(PlUGIN_NAME) ?> <?php echo esc_html('Plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens') ?>.
+                                            <?php echo __('Responsive Table','sheets-to-wp-table-live-sync') ?>: <?php echo PlUGIN_NAME ?> <?php echo __('Plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens','sheets-to-wp-table-live-sync') ?>.
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            <?php echo esc_html('Export table') ?>: <?php echo esc_html('Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin') ?>
+                                            <?php echo __('Export table', 'sheets-to-wp-table-live-sync') ?>: <?php echo __('Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin', 'sheets-to-wp-table-live-sync') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            <?php echo esc_html('50 rows fetching from the sheet') ?>: <?php echo esc_html('Fetch up to 50 row data on this feature.') ?>
+                                            <?php echo __('50 rows fetching from the sheet', 'sheets-to-wp-table-live-sync') ?>: <?php echo __('Fetch up to 50 row data on this feature.', 'sheets-to-wp-table-live-sync') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            <?php echo esc_html('Elementor Widget Support') ?>: <?php echo esc_html(PlUGIN_NAME) ?> <?php echo esc_html('supports elementor widget. Organize your table data effortlessly than ever.') ?>
+                                            <?php echo __('Elementor Widget Support', 'sheets-to-wp-table-live-sync') ?>: <?php echo PlUGIN_NAME ?> <?php echo __('supports elementor widget. Organize your table data effortlessly than ever.', 'sheets-to-wp-table-live-sync') ?>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
                                             </span>
-                                            <?php echo esc_html('And much more') ?>.
+                                            <?php echo __('And much more','sheets-to-wp-table-live-sync') ?>.
                                         </li>
 
                                     </ul>
@@ -289,7 +289,7 @@ global $gswpts;
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
-                                    <?php echo esc_html('Get Pro Today') ?> <span class="ml-2">
+                                    <?php echo __('Get Pro Today', 'sheets-to-wp-table-live-sync') ?> <span class="ml-2">
                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                                     </span>
                                 </a>
@@ -307,11 +307,11 @@ global $gswpts;
 
             <div class="col-sm-12 p-0 m-0">
                 <h2 class="text-center text-capitalize">
-                    <?php echo esc_html('Our Other Products') ?>
+                    <?php echo __('Our Other Products', 'sheets-to-wp-table-live-sync') ?>
                 </h2>
                 <p class="text-center">
-                    <?php echo esc_html('Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
-                    Think you know WordPress products? Think Deeper!') ?>
+                    <?php echo __('Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
+                    Think you know WordPress products? Think Deeper!', 'sheets-to-wp-table-live-sync') ?>
                 </p>
             </div>
         </div>

@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 use GSWPTS\Includes\Classes\ClassSortcode;
 use GSWPTS\Includes\Classes\Controller\AdminMenus;
@@ -10,10 +10,6 @@ use GSWPTS\Includes\Classes\Controller\AjaxHandler;
 use GSWPTS\Includes\Classes\EnqueueFiles;
 use GSWPTS\Includes\Classes\GlobalClass;
 use GSWPTS\Includes\Classes\SettingsApi;
-
-if (!defined('ABSPATH')) {
-    die('you cant access this plugin directly');
-}
 
 class PluginBase {
     public function __construct() {

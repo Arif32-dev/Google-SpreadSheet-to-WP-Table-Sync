@@ -1,8 +1,8 @@
 <?php
 
-defined('WP_UNINSTALL_PLUGIN') || die;
+defined('WP_UNINSTALL_PLUGIN') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
-class GswptsUninstall {
+class SheetsToWPTableLiveSyncUninstall {
     public function __construct() {
         $all_sql = $this->all_delete_sql();
         if (!empty($all_sql)) {
@@ -52,4 +52,7 @@ class GswptsUninstall {
         }
     }
 }
-new GswptsUninstall;
+
+if(!class_exists('SheetsToWPTableLiveSyncUninstall')) return;
+
+new SheetsToWPTableLiveSyncUninstall;

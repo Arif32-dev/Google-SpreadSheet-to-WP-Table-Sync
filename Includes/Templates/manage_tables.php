@@ -25,7 +25,7 @@
             <div class="col-12 p-0">
                 <button id="delete_button" class="negative ui button mr-0 float-right transition hidden" data-show="false">
                     <span>
-                        <?php echo esc_html('Delete Selected') ?>
+                        <?php echo __('Delete Selected','sheets-to-wp-table-live-sync') ?>
                     </span>
                 </button>
             </div>
@@ -38,7 +38,7 @@
 
                 <div class="ui segment gswpts_table_loader">
                     <div class="ui active inverted dimmer">
-                        <div class="ui large text loader"><?php echo esc_html('Loading') ?></div>
+                        <div class="ui large text loader"><?php echo __('Loading','sheets-to-wp-table-live-sync') ?></div>
                     </div>
                     <p></p>
                     <p></p>

@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 class SheetCreation {
     private static $output = [];
@@ -259,8 +259,8 @@ class SheetCreation {
 
     public static  function get_table_settings($table_settings) {
         $settings = [
-            'table_title' => sanitize_text_field($table_settings['table_title']),
-            'default_rows_per_page' => intval(sanitize_text_field($table_settings['defaultRowsPerPage'])),
+            'table_title' => $table_settings['table_title'],
+            'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
             'show_info_block' => $table_settings['showInfoBlock'],
             'show_x_entries' => $table_settings['showXEntries'],
             'swap_filter_inputs' => $table_settings['swapFilterInputs'],

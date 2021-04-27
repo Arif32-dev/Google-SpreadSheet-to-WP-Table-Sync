@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 class AdminMenus {
     public function __construct() {
@@ -10,8 +10,8 @@ class AdminMenus {
     }
     public function admin_menus() {
         add_menu_page(
-            esc_html('Sheets To Table'),
-            esc_html('Sheets To Table'),
+            __('Sheets To Table', 'sheets-to-wp-table-live-sync'),
+            __('Sheets To Table', 'sheets-to-wp-table-live-sync'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
@@ -20,32 +20,32 @@ class AdminMenus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            esc_html('DashBoard'),
-            esc_html('DashBoard'),
+            __('DashBoard', 'sheets-to-wp-table-live-sync'),
+            __('DashBoard', 'sheets-to-wp-table-live-sync'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            esc_html('Manage Tables'),
-            esc_html('Manage Tables'),
+            __('Manage Tables', 'sheets-to-wp-table-live-sync'),
+            __('Manage Tables', 'sheets-to-wp-table-live-sync'),
             'manage_options',
             'gswpts-tables',
             [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            esc_html('Create Table'),
-            esc_html('Create Table'),
+            __('Create Table', 'sheets-to-wp-table-live-sync'),
+            __('Create Table', 'sheets-to-wp-table-live-sync'),
             'manage_options',
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            esc_html('General Settings'),
-            esc_html('General Settings'),
+            __('General Settings', 'sheets-to-wp-table-live-sync'),
+            __('General Settings', 'sheets-to-wp-table-live-sync'),
             'manage_options',
             'gswpts-general-settings',
             [get_called_class(), 'general_settings']

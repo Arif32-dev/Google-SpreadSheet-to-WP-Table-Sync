@@ -2,17 +2,13 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
-
-if (!defined('ABSPATH')) {
-    die('you cant access this plugin directly');
-}
 
 class AjaxHandler {
 

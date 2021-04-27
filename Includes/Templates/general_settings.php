@@ -34,11 +34,11 @@ settings_errors();
                 </div>
                 <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                     <h4 class="m-0">
-                        <?php echo esc_html('General Settings') ?>
+                        <?php echo __('General Settings', 'sheets-to-wp-table-live-sync') ?>
                     </h4>
                     <span>
                         <button type="submit" name="submit" id="submit" class="button ui violet m-0" value="Save Changes">
-                            <?php echo esc_html('Save Changes') ?>
+                            <?php echo __('Save Changes', 'sheets-to-wp-table-live-sync') ?>
                             <span class="ml-2">
                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg' ?>
                             </span>

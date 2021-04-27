@@ -16,13 +16,13 @@
  * Requires PHP:      5.4
  * Author:             WPPOOL
  * Author URI:        https://wppool.dev/
- * Text Domain:       gswpts
+ * Text Domain:       sheets-to-wp-table-live-sync
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 /* if accessed directly exit from plugin */
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 if (!defined('GSWPTS_VERSION')) {
     define('GSWPTS_VERSION', '1.0.0');
@@ -47,7 +47,7 @@ if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
 
 require_once GSWPTS_BASE_PATH . 'vendor/autoload.php';
 
-final class GSWPTS_Plugin {
+final class SheetsToWPTableLiveSync {
 
     public function __construct() {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -67,7 +67,7 @@ final class GSWPTS_Plugin {
     }
 
     public function show_notice() {
-        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', esc_html('Plugin'), esc_html('cannot be activated - requires at least  PHP 5.4 Plugin automatically deactivated.'));
+        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', __('Plugin', 'sheets-to-wp-table-live-sync'), __('cannot be activated - requires at least  PHP 5.4 Plugin automatically deactivated.', 'sheets-to-wp-table-live-sync'));
         return;
     }
 
@@ -117,13 +117,13 @@ final class GSWPTS_Plugin {
     }
 }
 
-if (!class_exists('GSWPTS_Plugin')) {
+if (!class_exists('SheetsToWPTableLiveSync')) {
     return;
 }
 
-if (!function_exists('GSWPTS_plugin')) {
-    function GSWPTS_plugin() {
-        return new GSWPTS_Plugin;
+if (!function_exists('sheetsToWPTableLiveSync')) {
+    function sheetsToWPTableLiveSync() {
+        return new SheetsToWPTableLiveSync;
     }
 }
-GSWPTS_plugin();
+sheetsToWPTableLiveSync();

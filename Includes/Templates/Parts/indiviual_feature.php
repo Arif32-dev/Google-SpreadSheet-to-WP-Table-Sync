@@ -9,9 +9,9 @@
                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
                     </span>
                 <?php } ?>
-                <div class="header"><?php echo esc_html($feature_title) ?></div>
+                <div class="header"><?php echo $feature_title ?></div>
                 <div class="description">
-                    <?php echo __($feature_desc) ?>
+                    <?php echo $feature_desc ?>
                 </div>
             </div>
             <div class="ui toggle checkbox">

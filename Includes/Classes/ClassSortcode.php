@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 class ClassSortcode {
     public function __construct() {

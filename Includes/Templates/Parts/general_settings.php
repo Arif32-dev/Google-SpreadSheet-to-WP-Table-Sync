@@ -5,7 +5,7 @@
         <div class="content">
             <div class="description d-flex justify-content-between align-items-center">
                 <h5 class="m-0">
-                    <?php echo  $setting_title ?>
+                    <?php echo $setting_title ?>
                     <span class="ui icon button p-0 m-0" data-tooltip="<?php echo esc_attr($setting_tooltip) ?>" data-position="right center" data-inverted="">
                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg' ?>
                     </span>
@@ -21,7 +21,7 @@
         </div>
         <div class="settings_desc <?php echo $is_checked == 'checked' ? '' : 'transition hidden' ?>">
             <p>
-                <?php echo __($setting_desc) ?>
+                <?php echo $setting_desc ?>
             </p>
         </div>
     </div>

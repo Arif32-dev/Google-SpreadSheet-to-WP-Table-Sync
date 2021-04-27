@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || die('you cant access this plugin directly');
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
 
 class GlobalClass {
     public function data_table_styles() {
@@ -46,19 +46,16 @@ class GlobalClass {
             return;
         }
         $sheet_url = "https://spreadsheets.google.com/feeds/cells/" . $sheet_id . "/1/public/full?alt=json";
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request(
-            'GET',
-            $sheet_url
-        );
-        return json_decode($res->getBody(), true, 99)['feed'];
+       
+        $res = file_get_contents($sheet_url);
+        return json_decode($res, true)['feed'];
     }
     public function get_csv_data($url) {
         $sheet_id = $this->get_sheet_id($url);
         if (!$sheet_id) {
             return;
         }
-        return  fopen("https://docs.google.com/spreadsheets/d/" . $sheet_id . "/export?format=csv&id=" . $sheet_id . "", "r");
+        return fopen("https://docs.google.com/spreadsheets/d/" . $sheet_id . "/export?format=csv&id=" . $sheet_id . "", "r");
     }
     public function get_table($ajax_req = false, $sheet_response = null, $table_id = null) {
         if ($ajax_req && $sheet_response) {
