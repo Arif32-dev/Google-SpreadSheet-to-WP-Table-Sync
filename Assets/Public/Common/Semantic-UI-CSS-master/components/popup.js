@@ -533,7 +533,7 @@ $.fn.popup = function(parameters) {
                 height : $popup.outerHeight()
               },
               // offset container (or 3d context)
-              parent : {
+              parent  {
                 width  : $offsetParent.outerWidth(),
                 height : $offsetParent.outerHeight()
               },

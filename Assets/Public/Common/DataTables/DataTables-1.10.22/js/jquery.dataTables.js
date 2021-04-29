@@ -753,7 +753,7 @@
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
 		 *
-		 *      // Sort immediately with columns 0 and 1
+		 *   "  // Sort immediately with columns 0 and 1
 		 *      oTable.fnSort( [ [0,'asc'], [1,'asc'] ] );
 		 *    } );
 		 */
