@@ -8,10 +8,13 @@ jQuery(document).ready(function ($) {
             this.fetch_and_save_button = $('#fetch_save_btn')
             this.sheet_url = '';
             this.dropdown_select = $('#table_type')
-            this.events();
             if ($('#table_type').length) {
                 $('#table_type').dropdown();
             }
+            if ($('#rows_per_page').length) {
+                $('#rows_per_page').dropdown('set selected', '10');
+            }
+            this.events();
         }
 
         events() {
@@ -195,7 +198,8 @@ jQuery(document).ready(function ($) {
                         let table_name = $('#table_name').val();
                         let defaultRowsPerPage = default_settings.defaultRowsPerPage;
                         let allowSorting = default_settings.allowSorting;
-                        let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                        // let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                        let dom = '<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
                         $('#create_tables').DataTable(
                             this.table_object(

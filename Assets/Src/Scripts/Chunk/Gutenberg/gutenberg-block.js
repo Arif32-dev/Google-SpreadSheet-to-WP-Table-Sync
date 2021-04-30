@@ -1,4 +1,5 @@
 import { Dropdown } from 'semantic-ui-react'
+import Block_Logo from './logo';
 
 const { registerBlockType } = wp.blocks;
 const { InspectorControls, URLInput } = wp.blockEditor;
@@ -14,12 +15,12 @@ const {
 
 
 registerBlockType(
-    'gswpts/spreadsheet-to-wp-table-sync',
+    'gswpts/google-sheets-to-wp-tables',
     {
-        title: ('Spreadsheet to WP Table Sync'),
-        description: ('Syncronization Google spreadsheet data to WP table'),
+        title: ('Sheets To WP Table Live Sync'),
+        description: ('Syncronization of Google spreadsheet data into WP table'),
         category: 'common',
-        icon: 'media-text',
+        icon: Block_Logo,
         keywords: [('spreadsheet'), ('google'), ('table')],
         attributes: {
 
@@ -99,13 +100,13 @@ registerBlockType(
                     table_title: false,
                     defaultRowsPerPage: '10',
                     showInfoBlock: true,
-                    responsiveTable: false,
+                    // responsiveTable: false,
                     showXEntries: true,
                     swapFilterInputs: false,
                     swapBottomOptions: false,
                     allowSorting: true,
                     searchBar: true,
-                    tableExport: null
+                    // tableExport: null
                 }
             },
 
@@ -211,7 +212,8 @@ registerBlockType(
                             let default_settings = table_default_settings();
                             let defaultRowsPerPage = default_settings.defaultRowsPerPage;
                             let allowSorting = default_settings.allowSorting;
-                            let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                            // let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                            let dom = '<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
                             $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
                                 table_object(
@@ -243,13 +245,13 @@ registerBlockType(
                     table_title: false,
                     defaultRowsPerPage: 10,
                     showInfoBlock: true,
-                    responsiveTable: false,
+                    // responsiveTable: false,
                     showXEntries: true,
                     swapFilterInputs: false,
                     swapBottomOptions: false,
                     allowSorting: true,
                     searchBar: true,
-                    tableExport: null
+                    // tableExport: null
                 }
                 return default_settings;
             }
@@ -311,9 +313,10 @@ registerBlockType(
                             let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
 
                             let table_name = JSON.parse(res.responseText).table_data.table_name;
-                            let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                            // let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                            let dom = `<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
                             let defaultRowsPerPage = table_settings.default_rows_per_page;
-                            let allowSorting = table_settings.allow_sorting;
+                            let allowSorting = table_settings.allow_sorting == 'true' ? true : false;
 
                             setAttributes({ table_name: table_name });
 
@@ -344,7 +347,7 @@ registerBlockType(
                 prevSettingObj.table_title = ajax_table_settings.table_title == 'true' ? true : false;
                 prevSettingObj.defaultRowsPerPage = ajax_table_settings.default_rows_per_page;
                 prevSettingObj.showInfoBlock = ajax_table_settings.show_info_block == 'true' ? true : false;
-                prevSettingObj.responsiveTable = ajax_table_settings.responsive_table == 'true' ? true : false;
+                // prevSettingObj.responsiveTable = ajax_table_settings.responsive_table == 'true' ? true : false;
                 prevSettingObj.showXEntries = ajax_table_settings.show_x_entries == 'true' ? true : false;
                 prevSettingObj.swapFilterInputs = ajax_table_settings.swap_filter_inputs == 'true' ? true : false;
                 prevSettingObj.swapBottomOptions = ajax_table_settings.swap_bottom_options == 'true' ? true : false;
@@ -354,7 +357,8 @@ registerBlockType(
             }
 
             function table_changer(id = null, prevSettingObj) {
-                let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
+                // let dom = `B<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
+                let dom = `<"#filtering_input"${prevSettingObj.showXEntries ? 'l' : ''}${prevSettingObj.searchBar ? 'f' : ''}>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? 'i' : ''}p>`;
                 if (id == null) {
                     $('#' + spreadsheet_container.current.id + ' #create_tables').DataTable(
                         table_object(
@@ -421,27 +425,66 @@ registerBlockType(
                     selector = table_id;
                 }
 
-                if (bottom_state) {
-                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row-reverse');
-                    $('#' + selector + ' #create_tables_info').css({
-                        'margin-right': '0',
-                        'margin-left': 'auto'
-                    });
-                    $('#' + selector + ' #create_tables_paginate').css({
-                        'margin-left': '0',
-                        'margin-right': 'auto',
-                    });
-                } else {
-                    $('#' + selector + ' #bottom_options').css('flex-direction', 'row');
-                    $('#' + selector + ' #create_tables_info').css({
-                        'margin-right': 'auto',
-                        'margin-left': '0'
-                    });
-                    $('#' + selector + ' #create_tables_paginate').css({
-                        'margin-left': 'auto',
-                        'margin-right': '0',
-                    });
+                let pagination_menu = $('#' + selector + ' #bottom_options .pagination.menu')
+
+                let style = {
+                    flex_direction: 'row-reverse',
+                    table_info_style: {
+                        margin_right: 0,
+                        margin_left: 'auto'
+                    },
+                    table_paginate_style: {
+                        margin_right: 'auto',
+                        margin_left: 0
+                    }
                 }
+
+                if (bottom_state) {
+
+                    if (pagination_menu.children().length > 5) {
+                        overflow_menu_style(selector)
+                    } else {
+                        bottom_option_style(style, selector)
+                    }
+
+                } else {
+                    if (pagination_menu.children().length > 5) {
+                        overflow_menu_style(selector)
+                    } else {
+
+                        style['flex_direction'] = 'row'
+
+                        style.table_info_style['margin_left'] = 0
+                        style.table_info_style['margin_right'] = 'auto'
+
+                        style.table_paginate_style['margin_left'] = 'auto'
+                        style.table_paginate_style['margin_right'] = 0
+
+                        bottom_option_style(style, selector)
+                    }
+                }
+            }
+
+            function overflow_menu_style(selector) {
+                $('#' + selector + ' #bottom_options').css('flex-direction', 'column');
+                $('#' + selector + ' #create_tables_info').css({
+                    'margin': '5px auto',
+                });
+                $('#' + selector + ' #create_tables_paginate').css({
+                    'margin': '5px auto',
+                });
+            }
+
+            function bottom_option_style($arg, selector) {
+                $('#' + selector + ' #bottom_options').css('flex-direction', $arg['flex_direction']);
+                $('#' + selector + ' #create_tables_info').css({
+                    'margin-left': $arg['table_info_style']['margin_left'],
+                    'margin-right': $arg['table_info_style']['margin_right']
+                });
+                $('#' + selector + ' #create_tables_paginate').css({
+                    'margin-left': $arg['table_paginate_style']['margin_left'],
+                    'margin-right': $arg['table_paginate_style']['margin_right'],
+                });
             }
 
             let loader = `
@@ -460,9 +503,13 @@ registerBlockType(
                     dom: dom,
                     "order": [],
                     "responsive": true,
+                    // "lengthMenu": [
+                    //     [1, 5, 10, 15, 25, 50, 100, -1],
+                    //     [1, 5, 10, 15, 25, 50, 100, "All"]
+                    // ],
                     "lengthMenu": [
-                        [1, 5, 10, 15, 25, 50, 100, -1],
-                        [1, 5, 10, 15, 25, 50, 100, "All"]
+                        [1, 5, 10, 15],
+                        [1, 5, 10, 15]
                     ],
                     "pageLength": parseInt(pageLength),
                     "lengthChange": true,
@@ -479,7 +526,7 @@ registerBlockType(
                 [
                     <InspectorControls style="margin-top: 40px">
 
-                        <Panel header="Spreadsheet to WP Table Sync">
+                        <Panel header="Sheets To WP Table Live Sync">
 
                             {
                                 attributes.show_choose_table ? (
@@ -548,10 +595,6 @@ registerBlockType(
                                                                 { key: '5', value: '5', text: '5' },
                                                                 { key: '10', value: '10', text: '10' },
                                                                 { key: '15', value: '15', text: '15' },
-                                                                { key: '25', value: '25', text: '25' },
-                                                                { key: '50', value: '50', text: '50' },
-                                                                { key: '100', value: '100', text: '100' },
-                                                                { key: '-1', value: '-1', text: 'All' },
                                                             ]
                                                         }
                                                         onChange={(e, { value }) => {
@@ -595,7 +638,7 @@ registerBlockType(
                                             </PanelRow>
 
 
-                                            <PanelRow>
+                                            {/* <PanelRow>
                                                 <ToggleControl
                                                     label="Resposive table"
                                                     help='Allow collapsing on mobile and tablet screen'
@@ -610,7 +653,7 @@ registerBlockType(
                                                     }}
                                                 />
                                                 <br />
-                                            </PanelRow>
+                                            </PanelRow> */}
 
                                             <PanelRow>
                                                 <ToggleControl

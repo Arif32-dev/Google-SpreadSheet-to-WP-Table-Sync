@@ -1,23 +1,74 @@
 const path = require('path');
-const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
-    ...defaultConfig,
     mode: 'production',
     entry: {
         gutenberg: {
             import: path.resolve(__dirname, 'Assets/Src/Scripts/gutenberg.js'),
-            filename: '[name].min.js'
+            filename: 'Scripts/Backend/Gutenberg/[name].min.js'
         },
     },
     output: {
-        path: path.resolve(__dirname, 'Assets/Public/Scripts/Backend/Gutenberg/'),
+        path: path.resolve(__dirname, 'Assets/Public/'),
     },
     module: {
-        ...defaultConfig.module,
         rules: [
-            ...defaultConfig.module.rules,
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react']
+                        }
+                    }
+                ],
+            },
+            {
+                test: /.s?css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true,
+                            url: true
+                        },
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env",
+                                    ],
+                                ],
+                            }
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+            }
         ],
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'Styles/[name].min.css',
+        })
+    ],
     devtool: 'source-map',
     watch: true,
     watchOptions: {

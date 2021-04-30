@@ -1,8 +1,9 @@
 import Global_Table_Config from './common_func';
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
     class Data_Tables_Default {
         constructor() {
+
             this.frontend_table = $('.gswpts_tables_container');
             if (front_end_data.asynchronous_loading == 'off') {
                 this.events();
@@ -23,7 +24,7 @@ $(document).ready(function () {
 
                 let table_obj = new Global_Table_Config();
 
-                table_obj.table_configuration(i, elem, table_name, table_settings)
+                table_obj.table_configuration($, i, elem, table_name, table_settings)
 
             });
 

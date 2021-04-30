@@ -6,6 +6,8 @@ jQuery(document).ready(function ($) {
         constructor() {
             super($);
             this.table_settings = $('.tables_settings');
+            this.promo_close_btn = $('.promo_close_btn')
+            this.pro_feature_input = $('.pro_feature_input')
             this.events();
         }
 
@@ -17,6 +19,13 @@ jQuery(document).ready(function ($) {
 
             this.settings_field.on('change', (e) => {
                 this.update_table_by_changes(e)
+            })
+
+            this.pro_feature_input.on('click', (e) => {
+                this.pro_feature_popup(e)
+            })
+            this.promo_close_btn.on('click', (e) => {
+                this.close_promo_popup(e)
             })
         }
 
@@ -41,16 +50,17 @@ jQuery(document).ready(function ($) {
             let table_name = $('.edit_table_name').siblings('input[name=table_name]').val();
             let table_settings = this.table_settings_obj();
 
-            if ($(e.currentTarget).attr('id') == 'table_exporting') {
-                let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
-                export_btn.forEach(btn => {
-                    this.button_reavealer(e, btn)
-                });
-            }
+            // if ($(e.currentTarget).attr('id') == 'table_exporting') {
+            //     let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
+            //     export_btn.forEach(btn => {
+            //         this.button_reavealer(e, btn)
+            //     });
+            // }
 
             if ($(e.currentTarget).attr('id') == 'show_title' || 'responsive' || 'search_table' || 'rows_per_page' || 'sorting' || 'show_entries' || 'info_block') {
-                let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
-                this.export_buttons_row_revealer(table_settings.tableExport);
+                // let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
+                let dom = `<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
+                // this.export_buttons_row_revealer(table_settings.tableExport);
                 this.table_changer(table_name, table_settings, dom)
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
                 this.swap_bottom_options(table_settings.swapBottomOptions);
@@ -113,7 +123,21 @@ jQuery(document).ready(function ($) {
             });
         }
 
+        pro_feature_popup(e) {
+
+            let target = $(e.currentTarget);
+            let promo = target.parents('.card').find('.pro_feature_promo');
+            promo.addClass('active')
+            target.prop('checked', false);
+
+        }
+        close_promo_popup(e) {
+            let target = $(e.currentTarget);
+            let promo = target.parents('.card').find('.pro_feature_promo');
+            promo.removeClass('active')
+        }
     }
+
 
     new Table_Changes;
 })

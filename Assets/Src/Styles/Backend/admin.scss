@@ -1,17 +1,13 @@
-// @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
-
-
 @import './Parts/loader';
 @import './Parts/variable';
 @import './Parts/dashboard';
 @import './Parts/manage_table';
 @import './Parts/create_table';
 @import './Parts/general_settings';
-
+@import './layout.scss';
 body {
-	background-color: #f1f1f1 !important;
-
-	[contenteditable]:focus {
-		outline: 2px solid $link-hover-color;
-	}
+    background-color: #f1f1f1 !important;
+    [contenteditable]:focus {
+        outline: 2px solid $link-hover-color;
+    }
 }

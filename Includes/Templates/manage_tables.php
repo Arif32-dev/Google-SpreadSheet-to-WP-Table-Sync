@@ -1,9 +1,3 @@
-<?php
-global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->data_table_styles();
-$gswpts->data_table_scripts();
-?>
 <div class="gswpts_manage_table_container">
 
 
@@ -20,9 +14,9 @@ $gswpts->data_table_scripts();
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo GSWPTS_BASE_URL . '/Assets/Public/Images/Google_Sheets_logo.svg' ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
                 <span class="ml-2">
-                    <strong>Google Spredsheet to WP Table Sync</strong>
+                    <strong><?php echo PlUGIN_NAME ?></strong>
                 </span>
             </div>
         </div>
@@ -31,7 +25,7 @@ $gswpts->data_table_scripts();
             <div class="col-12 p-0">
                 <button id="delete_button" class="negative ui button mr-0 float-right transition hidden" data-show="false">
                     <span>
-                        Delete Selected
+                        <?php echo __('Delete Selected','sheets-to-wp-table-live-sync') ?>
                     </span>
                 </button>
             </div>
@@ -44,7 +38,7 @@ $gswpts->data_table_scripts();
 
                 <div class="ui segment gswpts_table_loader">
                     <div class="ui active inverted dimmer">
-                        <div class="ui large text loader">Loading</div>
+                        <div class="ui large text loader"><?php echo __('Loading','sheets-to-wp-table-live-sync') ?></div>
                     </div>
                     <p></p>
                     <p></p>

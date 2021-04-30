@@ -56,7 +56,8 @@
 		}
 	}
 
-	#table_type {
+	#table_type,
+	#rows_per_page {
 		z-index: 20;
 
 		i {
@@ -375,8 +376,13 @@
 	#display_settings,
 	#sort_filter,
 	#table_tools {
+		.card {
+			position: relative;
+		}
+
 		.content {
 			margin-top: 5px;
+			position: relative;
 
 			.ui.dropdown {
 				width: 100%;
@@ -386,6 +392,26 @@
 					background-color: $link-hover-color;
 					color: #fff;
 				}
+			}
+
+			.pro_feature {
+				float: right;
+				margin-top: -10px;
+				font-size: 20px;
+				color: $link-hover-color;
+			}
+
+			.selectbox_overlay {
+				position: absolute;
+				width: 90%;
+				margin: 0 auto;
+				height: 40px;
+				bottom: 15px;
+				z-index: 20;
+			}
+
+			.header {
+				text-transform: capitalize;
 			}
 		}
 
@@ -407,6 +433,50 @@
 			input:checked~.box:before,
 			input:checked~label:before {
 				background-color: $link-color !important;
+			}
+		}
+
+		.pro_feature_promo {
+			position: absolute;
+			width: 0;
+			height: 0;
+			z-index: 20;
+			background: #0000007d;
+			overflow: hidden;
+
+
+			a {
+				margin: 0;
+				position: absolute;
+				top: 65%;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.promo_close_btn {
+				position: absolute;
+				top: 0;
+				left: 0;
+				margin-left: 8px;
+				margin: 8px 0 0 8px;
+				color: white;
+				font-size: 17px;
+				cursor: pointer;
+			}
+
+			strong {
+				position: absolute;
+				top: 45%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				white-space: nowrap;
+				color: white;
+				font-size: 15px;
+			}
+
+			&.active {
+				width: 100%;
+				height: 100%;
 			}
 		}
 	}

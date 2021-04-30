@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Fetch_Sheet_Data extends Base_Class {
         constructor() {
             super($);
@@ -36,7 +36,6 @@ jQuery(document).ready(function ($) {
                             $('.edit_table_name').siblings('input[name=table_name]').val(JSON.parse(res).table_data.table_name);
                             $('.edit_table_name').parent().transition('fade up');
                             $("#table_type").dropdown('set selected', JSON.parse(res).table_data.source_type);
-
                             this.sheet_form.find('input[name=file_input]').val(JSON.parse(res).table_data.source_url)
                             this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                             this.sheet_details.transition('scale');
@@ -60,7 +59,8 @@ jQuery(document).ready(function ($) {
                         let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
 
                         let table_name = JSON.parse(res.responseText).table_data.table_name;
-                        let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                        // let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                        let dom = `<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
 
                         let swap_filter_inputs = table_settings.swap_filter_inputs == 'true' ? true : false;
                         let swap_bottom_options = table_settings.swap_bottom_options == 'true' ? true : false;
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
                                 this.table_object(
                                     table_name,
                                     table_settings.default_rows_per_page,
-                                    table_settings.allow_sorting,
+                                    table_settings.allow_sorting == 'true' ? true : false,
                                     dom
                                 )
                             );
@@ -83,9 +83,9 @@ jQuery(document).ready(function ($) {
 
                             this.swap_bottom_options(swap_bottom_options);
 
-                            if (table_settings.table_export != 'empty') {
-                                this.export_buttons_row_revealer(table_settings.table_export);
-                            }
+                            // if (table_settings.table_export != 'empty') {
+                            //     this.export_buttons_row_revealer(table_settings.table_export);
+                            // }
 
                             this.call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
 

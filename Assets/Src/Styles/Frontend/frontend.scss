@@ -25,11 +25,19 @@
 			max-width: 200px;
 			min-width: 90px;
 			overflow-wrap: break-word;
+			border: 1px solid #76767647;
 		}
 
 		th:focus {
 			outline: none;
 		}
+	}
+
+	select {
+		width: 70px;
+		border-radius: 5px;
+		border: 1px solid #00000033 !important;
+		background: transparent !important;
 	}
 
 	.dt-buttons {
@@ -66,6 +74,10 @@
 			#create_tables_filter {
 				margin-left: auto;
 			}
+
+			input {
+				background: transparent !important;
+			}
 		}
 
 		.bottom_options {
@@ -81,6 +93,12 @@
 
 			#create_tables_paginate {
 				margin-left: auto;
+			}
+
+			.pagination.menu {
+				padding: 0 !important;
+				font-size: 14px !important;
+				background: transparent !important;
 			}
 		}
 	}
@@ -122,6 +140,7 @@
 
 }
 
-.gswpts_tables_container.gswpts_resposive {
-	@include mixin.table_style;
-}
+/* Lock this css in free version */
+// .gswpts_tables_container.gswpts_resposive {
+// 	@include mixin.table_style;
+// }

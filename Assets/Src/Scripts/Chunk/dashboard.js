@@ -41,7 +41,6 @@ jQuery(document).ready(function ($) {
                         res.forEach(blog => {
                             blogs += ` <a class="col-12 p-0 d-flex justify-content-between align-items-center"  href="${blog.link}" target="blank">
                                                     <p class="m-0 p-0">${blog.title.rendered}</p>
-                                                    <span><i class="fas fa-link"></i></span>
                                             </a>
                                             <div class="ui fitted divider mt-2 mb-2"></div>`
                         });

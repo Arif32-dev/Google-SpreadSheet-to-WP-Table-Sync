@@ -1,7 +1,7 @@
 import Global_Table_Config from './common_func';
 
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
     class Data_Tables_Async {
         constructor() {
             this.frontend_table = $('.gswpts_tables_container');
@@ -33,9 +33,9 @@ $(document).ready(function () {
 
                             let table_settings = JSON.parse(JSON.parse(res).table_data.table_settings);
 
-                            if (table_settings.responsive_table == 'true') {
-                                $(elem).addClass('gswpts_resposive');
-                            }
+                            // if (table_settings.responsive_table == 'true') {
+                            //     $(elem).addClass('gswpts_resposive');
+                            // }
 
                             if (table_settings.table_title == 'true') {
                                 $(elem).find('h3').html(JSON.parse(res).table_data.table_name);
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
                             let table_obj = new Global_Table_Config();
 
-                            table_obj.table_configuration(i, elem, table_name, table_settings)
+                            table_obj.table_configuration($, i, elem, table_name, table_settings)
 
                         } else {
                             alert('Table could not be loaded. Try again');
