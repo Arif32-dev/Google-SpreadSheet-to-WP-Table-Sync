@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Sheets To WP Table Live Sync
- * Plugin URI:       https://wordpress.org/plugins/sheetstowptable/
+ * Plugin URI:       https://wordpress.org/plugins/sheets-to-wp-table-live-sync/
  * Description:      This is a WordPress plugin to synchronize google spreadsheet data into wordpress table.
  * Version:           1.0.0
  * Requires at least: 5.0
