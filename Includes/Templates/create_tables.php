@@ -31,14 +31,14 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                 <div class="ui action input <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
                     <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> class="ui button edit_table_name ">
-                        <?php echo __('Edit Title', 'sheetstowptable'); ?> &nbsp;
+                        <?php _e('Edit Title', 'sheetstowptable'); ?> &nbsp;
                         <span><i class="edit icon"></i></span>
                     </button>
                 </div>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button" class="positive ui button m-0 mr-2 <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
-                        <?php echo __('Create New', 'sheetstowptable'); ?> &nbsp; <i class="plus icon"></i>
+                        <?php _e('Create New', 'sheetstowptable'); ?> &nbsp; <i class="plus icon"></i>
                     </button>
                     <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($table_id) && !empty($table_id) ? 'save' : 'fetch' ?>">
                         <?php echo isset($table_id) && !empty($table_id) ? __('Save Table', 'sheetstowptable') : __('Fetch Data', 'sheetstowptable'); ?>
@@ -63,7 +63,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Data Source', 'sheetstowptable'); ?></span>
+                                <span><?php _e('Data Source', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
@@ -72,7 +72,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Display Settings', 'sheetstowptable'); ?></span>
+                                <span><?php _e('Display Settings', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
@@ -81,7 +81,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Sort & Filter', 'sheetstowptable'); ?></span>
+                                <span><?php _e('Sort & Filter', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
@@ -90,7 +90,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                 <span>
                                     <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Table Tools', 'sheetstowptable'); ?></span>
+                                <span><?php _e('Table Tools', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
@@ -113,29 +113,29 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                             <div class="ui fluid search selection dropdown" id="table_type">
                                                 <input type="hidden" name="source_type">
                                                 <i class="dropdown icon"></i>
-                                                <div class="default text"><?php echo __('Choose Source Type', 'sheetstowptable'); ?></div>
+                                                <div class="default text"><?php _e('Choose Source Type', 'sheetstowptable'); ?></div>
                                                 <div class="menu">
                                                     <div class="item" data-value="spreadsheet">
-                                                        <?php echo __('Google Spreadsheet', 'sheetstowptable'); ?>
+                                                        <?php echo esc_html('Google Spreadsheet'); ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('csv'); ?>">
-                                                        <span><?php echo __('CSV File', 'sheetstowptable'); ?></span>
+                                                        <span><?php echo esc_html('CSV File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('excel'); ?>">
-                                                        <span><?php echo __('Excel File', 'sheetstowptable'); ?></span>
+                                                        <span><?php echo esc_html('Excel File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('xml'); ?>">
-                                                        <span><?php echo __('XML File', 'sheetstowptable'); ?></span>
+                                                        <span><?php echo esc_html('XML File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('json'); ?>">
-                                                        <span><?php echo __('JSON File', 'sheetstowptable'); ?></span>
+                                                        <span><?php echo esc_html('JSON File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('php_array'); ?>">
-                                                        <span><?php echo __('PHP Array', 'sheetstowptable'); ?></span>
+                                                        <span><?php echo esc_html('PHP Array'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                 </div>
@@ -154,7 +154,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
                                         <div class="col-12 col-md-2 pl-2 transition hidden browse_input">
                                             <button id="browse_input" class="positive ui button m-0">
-                                                <?php echo __('Browse File', 'sheetstowptable'); ?>&nbsp;
+                                                <?php _e('Browse File', 'sheetstowptable'); ?>&nbsp;
                                                 <i class="fas fa-hand-pointer"></i>
                                             </button>
                                         </div>
@@ -180,43 +180,43 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header"><?php echo __('Default rows per page', 'sheetstowptable') ?></div>
+                                                <div class="header"><?php _e('Default rows per page', 'sheetstowptable') ?></div>
                                                 <div class="description">
-                                                    <?php echo __('This will show rows per page in the frontend', 'sheetstowptable') ?>
+                                                    <?php _e('This will show rows per page in the frontend', 'sheetstowptable') ?>
                                                 </div>
 
                                                 <div class="ui fluid selection dropdown" id="rows_per_page">
                                                     <input type="hidden" name="rows_per_page">
                                                     <i class="dropdown icon"></i>
-                                                    <div class="default text"><?php echo __('Rows Per Page', 'sheetstowptable') ?></div>
+                                                    <div class="default text"><?php _e('Rows Per Page', 'sheetstowptable') ?></div>
 
                                                     <div class="menu">
                                                         <div class="item" data-value="<?php echo esc_attr('1'); ?>">
-                                                            <?php echo __('1', 'sheetstowptable'); ?>
+                                                            <?php _e('1', 'sheetstowptable'); ?>
                                                         </div>
                                                         <div class="item" data-value="<?php echo esc_attr('5'); ?>">
-                                                            <?php echo __('5', 'sheetstowptable'); ?>
+                                                            <?php _e('5', 'sheetstowptable'); ?>
                                                         </div>
                                                         <div class="item" data-value="<?php echo esc_attr('10'); ?>">
-                                                            <?php echo __('10', 'sheetstowptable'); ?>
+                                                            <?php _e('10', 'sheetstowptable'); ?>
                                                         </div>
                                                         <div class="item" data-value="<?php echo esc_attr('15'); ?>">
-                                                            <?php echo __('15', 'sheetstowptable'); ?>
+                                                            <?php _e('15', 'sheetstowptable'); ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('25'); ?>">
-                                                            <span><?php echo __('25', 'sheetstowptable'); ?></span>
+                                                            <span><?php _e('25', 'sheetstowptable'); ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('50'); ?>">
-                                                            <span><?php echo __('50', 'sheetstowptable'); ?></span>
+                                                            <span><?php _e('50', 'sheetstowptable'); ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('100'); ?>">
-                                                            <span><?php echo __('100', 'sheetstowptable'); ?></span>
+                                                            <span><?php _e('100', 'sheetstowptable'); ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
                                                         <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('all'); ?>">
-                                                            <span><?php echo __('All', 'sheetstowptable'); ?></span>
+                                                            <span><?php _e('All', 'sheetstowptable'); ?></span>
                                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
                                                     </div>
@@ -277,7 +277,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Display Documention', 'sheetstowptable') ?> <span class="ml-2">
+                                        <?php _e('Display Documention', 'sheetstowptable') ?> <span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg'; ?>
                                         </span>
                                     </button>
@@ -323,7 +323,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Sorting Documention', 'sheetstowptable') ;?> <span class="ml-2">
+                                        <?php _e('Sorting Documention', 'sheetstowptable') ;?> <span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ;?>
                                         </span>
                                     </button>
@@ -340,18 +340,18 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                         <div class="card">
                                             <div class="content">
                                                 <span class="pro_feature"><i class="fas fa-medal"></i></span>
-                                                <div class="header"><?php echo __('Table Exporting', 'sheetstowptable'); ?></div>
+                                                <div class="header"><?php _e('Table Exporting', 'sheetstowptable'); ?></div>
                                                 <div class="description">
-                                                    <?php echo __(' Enable this feature in order to allow your user to download your table content as various format.'); ?>
+                                                    <?php _e(' Enable this feature in order to allow your user to download your table content as various format.'); ?>
                                                 </div>
                                                 <select name="skills" multiple="" class="ui fluid dropdown mt-2 pro_feature_input" id="table_exporting">
-                                                    <option value=""><?php echo __('Select Type', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('json'); ?>"><?php echo __('JSON', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('pdf'); ?>"><?php echo __('PDF', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('csv'); ?>"><?php echo __('CSV', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('excel'); ?>"><?php echo __('Excel', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('print'); ?>"><?php echo __('Print', 'sheetstowptable'); ?></option>
-                                                    <option value="<?php echo esc_attr('copy'); ?>"><?php echo __('Copy', 'sheetstowptable'); ?></option>
+                                                    <option value=""><?php _e('Select Type', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('json'); ?>"><?php esc_html('JSON'); ?></option>
+                                                    <option value="<?php echo esc_attr('pdf'); ?>"><?php esc_html('PDF'); ?></option>
+                                                    <option value="<?php echo esc_attr('csv'); ?>"><?php esc_html('CSV'); ?></option>
+                                                    <option value="<?php echo esc_attr('excel'); ?>"><?php esc_html('Excel'); ?></option>
+                                                    <option value="<?php echo esc_attr('print'); ?>"><?php esc_html('Print'); ?></option>
+                                                    <option value="<?php echo esc_attr('copy'); ?>"><?php esc_html('Copy'); ?></option>
                                                 </select>
                                                 <div class="pro_feature_input selectbox_overlay">
 
@@ -368,7 +368,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Table Tools Doc', 'sheetstowptable') ?><span class="ml-2">
+                                        <?php _e('Table Tools Doc', 'sheetstowptable') ?><span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
                                         </span>
                                     </button>
@@ -393,7 +393,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
                     <div class="ui segment gswpts_table_loader" style="z-index: -1;">
                         <div class="ui active inverted dimmer">
-                            <div class="ui large text loader"><?php echo __('Loading', 'sheetstowptable'); ?></div>
+                            <div class="ui large text loader"><?php _e('Loading', 'sheetstowptable'); ?></div>
                         </div>
                         <p></p>
                         <p></p>

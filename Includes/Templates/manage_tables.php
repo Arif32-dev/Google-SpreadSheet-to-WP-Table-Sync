@@ -25,7 +25,7 @@
             <div class="col-12 p-0">
                 <button id="delete_button" class="negative ui button mr-0 float-right transition hidden" data-show="false">
                     <span>
-                        <?php echo __('Delete Selected','sheetstowptable'); ?>
+                        <?php _e('Delete Selected','sheetstowptable'); ?>
                     </span>
                 </button>
             </div>
@@ -38,7 +38,7 @@
 
                 <div class="ui segment gswpts_table_loader">
                     <div class="ui active inverted dimmer">
-                        <div class="ui large text loader"><?php echo __('Loading','sheetstowptable'); ?></div>
+                        <div class="ui large text loader"><?php _e('Loading','sheetstowptable'); ?></div>
                     </div>
                     <p></p>
                     <p></p>

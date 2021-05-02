@@ -34,11 +34,11 @@ settings_errors();
                 </div>
                 <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                     <h4 class="m-0">
-                        <?php echo __('General Settings', 'sheetstowptable'); ?>
+                        <?php _e('General Settings', 'sheetstowptable'); ?>
                     </h4>
                     <span>
                         <button type="submit" name="submit" id="submit" class="button ui violet m-0" value="Save Changes">
-                            <?php echo __('Save Changes', 'sheetstowptable'); ?>
+                            <?php _e('Save Changes', 'sheetstowptable'); ?>
                             <span class="ml-2">
                                 <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg'; ?>
                             </span>

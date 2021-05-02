@@ -12,7 +12,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ==================================== Description ====================================
 
 
-This plugin is able to load google spreadsheet data as WordPress tables. 
+Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
+
 For usage of this plugin watch the full video  https://vimeo.com/526189502
 
 Sheets To WP Table Live Sync is a WordPress plugin with new concept to facilitate anyone showing Spreadsheet data directly to WordPress website with fastest way in just a few clicks. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly. Order up all your tables in the simplest way possible.

@@ -4,9 +4,9 @@
             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg' ?>
         </span>
         <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/gift-box.svg') ?>" class="large_promo_gift">
-        <h5><?php echo __('Unlock all the features', 'sheetstowptable'); ?></h5>
+        <h5><?php _e('Unlock all the features', 'sheetstowptable'); ?></h5>
         <a class="ui violet button">
-            <?php echo __('Get Pro', 'sheetstowptable') ?> <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
+            <?php _e('Get Pro', 'sheetstowptable'); ?> <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
         </a>
     </div>
 </div>
