@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class ClassSortcode {
     public function __construct() {
@@ -17,7 +17,7 @@ class ClassSortcode {
         if (defined('ELEMENTOR_VERSION') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
             return $this->gswpts_sortcodes($atts);
         } else {
-            $output = "<h5><b>" .  __('No table data found', 'sheets-to-wp-table-live-sync') . "</b></h5> <br>";
+            $output = "<h5><b>" .  __('No table data found', 'sheetstowptable') . "</b></h5> <br>";
             if (!is_int(intval($atts['id']))) {
                 return $output;
             }
@@ -31,7 +31,7 @@ class ClassSortcode {
             $output .= '
                  <div class="ui segment gswpts_table_loader">
                             <div class="ui active inverted dimmer">
-                                <div class="ui large text loader">' . __('Loading', 'sheets-to-wp-table-live-sync') . '</div>
+                                <div class="ui large text loader">' . __('Loading', 'sheetstowptable') . '</div>
                             </div>
                             <p></p>
                             <p></p>
@@ -48,7 +48,7 @@ class ClassSortcode {
     }
 
     public function gswpts_sortcodes($atts) {
-        $output = "<h5><b>" . __('No table data found', 'sheets-to-wp-table-live-sync') . "</b></h5><br>";
+        $output = "<h5><b>" . __('No table data found', 'sheetstowptable') . "</b></h5><br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;

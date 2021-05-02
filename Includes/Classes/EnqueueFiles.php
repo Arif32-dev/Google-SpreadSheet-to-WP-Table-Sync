@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('ABSPATH')) {
     die('you cant access this plugin directly');
@@ -91,7 +91,7 @@ class EnqueueFiles {
         $gswpts->data_table_scripts();
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
-            'admin_ajax' => admin_url('admin-ajax.php'),
+            'admin_ajax' => esc_url(admin_url('admin-ajax.php')),
             'table_details' => $gswpts->fetch_gswpts_tables()
         ]);
     }

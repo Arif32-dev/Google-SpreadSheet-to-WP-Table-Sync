@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
@@ -25,7 +25,7 @@ class AjaxHandler {
         /* Table Fetching */
         add_action('wp_ajax_gswpts_table_fetch', [$this, 'table_fetch']);
         add_action('wp_ajax_nopriv_gswpts_table_fetch', [$this, 'table_fetch']);
-        /* Table Fetching */
+        /* Update and delete table */
         add_action('wp_ajax_gswpts_ud_table', [$this, 'ud_tables']);
         add_action('wp_ajax_nopriv_gswpts_ud_table', [$this, 'ud_tables']);
         /* Other product fetching */

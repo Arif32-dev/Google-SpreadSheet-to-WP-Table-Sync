@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class GlobalClass {
     public function data_table_styles() {
@@ -106,7 +106,7 @@ class GlobalClass {
                 foreach (fgetcsv($sheet_response) as $cell_value) {
 
                     if ($cell_value) {
-                        $table .= '<th>' . esc_html__($cell_value, 'sheets-to-wp-table-live-sync') . '</th>';
+                        $table .= '<th>' . esc_html__($cell_value, 'sheetstowptable') . '</th>';
                     } else {
                         $table .= '<th>&nbsp;</th>';
                     }
@@ -119,7 +119,7 @@ class GlobalClass {
                 $table .= '<tr>';
                 foreach (fgetcsv($sheet_response) as $cell_value) {
                     if ($cell_value) {
-                        $table .= '<td>' . esc_html__($cell_value, 'sheets-to-wp-table-live-sync') . '</td>';
+                        $table .= '<td>' . esc_html__($cell_value, 'sheetstowptable') . '</td>';
                     } else {
                         $table .= '<td>&nbsp;</td>';
                     }
@@ -171,25 +171,25 @@ class GlobalClass {
                                 <div class="row">
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h6 class="m-0">Sheet Name: </h6>
-                                        <h6 class="m-0 ml-2">' . esc_html__($data['sheet_name'], 'sheets-to-wp-table-live-sync') . '</h6>
+                                        <h6 class="m-0 ml-2">' . esc_html__($data['sheet_name'], 'sheetstowptable') . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h6 class="m-0">Total Rows: </h6>
-                                        <h6 class="m-0 ml-2">' . esc_html__($data['total_rows'], 'sheets-to-wp-table-live-sync') . '</h6>
+                                        <h6 class="m-0 ml-2">' . esc_html__($data['total_rows'], 'sheetstowptable') . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start mb-3">
                                         <h6 class="m-0">Total Result: </h6>
-                                        <h6 class="m-0 ml-2">' . esc_html__($data['sheet_total_result'], 'sheets-to-wp-table-live-sync') . '</h6>
+                                        <h6 class="m-0 ml-2">' . esc_html__($data['sheet_total_result'], 'sheetstowptable') . '</h6>
                                     </div>
                                     <div class="col-12 d-flex align-items-center justify-content-start">
                                         <h6 class="m-0">Author Mail: </h6>
-                                        <h6 class="m-0 ml-2">' . esc_html__($data['author_info'][0]['email']['$t'], 'sheets-to-wp-table-live-sync') . '</h6>
+                                        <h6 class="m-0 ml-2">' . esc_html__($data['author_info'][0]['email']['$t'], 'sheetstowptable') . '</h6>
                                     </div>
                                     <div id="shortcode_container" class="col-12 d-flex mt-3 align-items-center justify-content-start">
                                         <h6 class="m-0">Table Shortcode: </h6>
                                         <h6 class="m-0 ml-2">
                                             <div class="ui action input">
-                                                <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id=' . esc_html__(esc_attr($data['id']), 'sheets-to-wp-table-live-sync') . ']">
+                                                <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id=' . esc_html__(esc_attr($data['id']), 'sheetstowptable') . ']">
                                                 <button id="sortcode_copy" type="button" name="copyToken" value="copy" class="copyToken ui right icon button">
                                                     <i class="clone icon"></i>
                                                 </button>
@@ -219,7 +219,7 @@ class GlobalClass {
     public function output_table_by_condition($db_result) {
         $table_settings = unserialize($db_result[0]->table_settings);
         if ($table_settings['table_title'] == 'true') {
-            return '<h3>' . esc_html__($db_result[0]->table_name, 'sheets-to-wp-table-live-sync') . '</h3>';
+            return '<h3>' . esc_html__($db_result[0]->table_name, 'sheetstowptable') . '</h3>';
         } else {
             return null;
         }

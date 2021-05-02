@@ -18,9 +18,9 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-iteml-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
                 <span class="ml-2">
-                    <strong><?php echo __(PlUGIN_NAME, 'sheets-to-wp-table-live-sync') ?></strong>
+                    <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
             </div>
         </div>
@@ -28,20 +28,20 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
         <div class="row mt-3">
             <div class="col-12 p-0 d-flex align-items-center">
 
-                <div class="ui action input <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : '' ?>">
-                    <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : '' ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
-                    <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : '' ?> class="ui button edit_table_name ">
-                        <?php echo __('Edit Title', 'sheets-to-wp-table-live-sync') ?> &nbsp;
+                <div class="ui action input <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
+                    <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text" placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
+                    <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> class="ui button edit_table_name ">
+                        <?php echo __('Edit Title', 'sheetstowptable'); ?> &nbsp;
                         <span><i class="edit icon"></i></span>
                     </button>
                 </div>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button" class="positive ui button m-0 mr-2 <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>" style="padding-left: 30px;">
-                        <?php echo __('Create New', 'sheets-to-wp-table-live-sync') ?> &nbsp; <i class="plus icon"></i>
+                        <?php echo __('Create New', 'sheetstowptable'); ?> &nbsp; <i class="plus icon"></i>
                     </button>
                     <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn" req-type="<?php echo isset($table_id) && !empty($table_id) ? 'save' : 'fetch' ?>">
-                        <?php echo isset($table_id) && !empty($table_id) ? __('Save Table', 'sheets-to-wp-table-live-sync') : __('Fetch Data', 'sheets-to-wp-table-live-sync') ?>
+                        <?php echo isset($table_id) && !empty($table_id) ? __('Save Table', 'sheetstowptable') : __('Fetch Data', 'sheetstowptable'); ?>
                     </button>
                 </div>
 
@@ -58,39 +58,39 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                     <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab3" name="tab-control" class="secondary_inputs">
                     <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab4" name="tab-control" class="secondary_inputs">
                     <ul>
-                        <li title="<?php echo esc_attr('Data Source') ?>" class="tables_settings" data-btn-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('Save Table') : esc_attr('Fetch Data') ?>" data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch') ?>">
+                        <li title="<?php echo esc_attr('Data Source') ?>" class="tables_settings" data-btn-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('Save Table') : esc_attr('Fetch Data') ?>" data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch'); ?>">
                             <label for="tab1" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg' ?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Data Source', 'sheets-to-wp-table-live-sync') ?></span>
+                                <span><?php echo __('Data Source', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
-                        <li title="<?php echo esc_attr('Display Settings') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
+                        <li title="<?php echo esc_attr('Display Settings'); ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox'); ?>" data-btn-text="<?php echo esc_attr('Save Changes'); ?>" data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab2" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Display Settings', 'sheets-to-wp-table-live-sync') ?></span>
+                                <span><?php echo __('Display Settings', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
-                        <li title="<?php echo esc_attr('Delivery Contents') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
+                        <li title="<?php echo esc_attr('Delivery Contents'); ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox'); ?>" data-btn-text="<?php echo esc_attr('Save Changes'); ?>" data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab3" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Sort & Filter', 'sheets-to-wp-table-live-sync') ?></span>
+                                <span><?php echo __('Sort & Filter', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
-                        <li title="<?php echo esc_attr('Table Tools') ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox') ?>" data-btn-text="<?php echo esc_attr('Save Changes') ?>" data-attr-text="<?php echo esc_attr('save_changes') ?>">
+                        <li title="<?php echo esc_attr('Table Tools'); ?>" class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox'); ?>" data-btn-text="<?php echo esc_attr('Save Changes'); ?>" data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab4" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg'; ?>
                                 </span>
-                                <span><?php echo __('Table Tools', 'sheets-to-wp-table-live-sync') ?></span>
+                                <span><?php echo __('Table Tools', 'sheetstowptable'); ?></span>
                             </label>
                         </li>
 
@@ -105,7 +105,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
                             <div class="col-12 p-0">
                                 <form id="gswpts_create_table" class="ui form">
-                                    <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce') ?>
+                                    <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce'); ?>
                                     <div class="row input_fields">
 
                                         <div class="col-12 col-md-4">
@@ -113,30 +113,30 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                             <div class="ui fluid search selection dropdown" id="table_type">
                                                 <input type="hidden" name="source_type">
                                                 <i class="dropdown icon"></i>
-                                                <div class="default text"><?php echo __('Choose Source Type', 'sheets-to-wp-table-live-sync') ?></div>
+                                                <div class="default text"><?php echo __('Choose Source Type', 'sheetstowptable'); ?></div>
                                                 <div class="menu">
                                                     <div class="item" data-value="spreadsheet">
-                                                        <?php echo __('Google Spreadsheet', 'sheets-to-wp-table-live-sync') ?>
+                                                        <?php echo __('Google Spreadsheet', 'sheetstowptable'); ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('csv') ?>">
-                                                        <span><?php echo __('CSV File', 'sheets-to-wp-table-live-sync') ?></span>
-                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('csv'); ?>">
+                                                        <span><?php echo __('CSV File', 'sheetstowptable'); ?></span>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('excel') ?>">
-                                                        <span><?php echo __('Excel File', 'sheets-to-wp-table-live-sync') ?></span>
-                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('excel'); ?>">
+                                                        <span><?php echo __('Excel File', 'sheetstowptable'); ?></span>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('xml') ?>">
-                                                        <span><?php echo __('XML File', 'sheets-to-wp-table-live-sync') ?></span>
-                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('xml'); ?>">
+                                                        <span><?php echo __('XML File', 'sheetstowptable'); ?></span>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('json') ?>">
-                                                        <span><?php echo __('JSON File', 'sheets-to-wp-table-live-sync') ?></span>
-                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('json'); ?>">
+                                                        <span><?php echo __('JSON File', 'sheetstowptable'); ?></span>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('php_array') ?>">
-                                                        <span><?php echo __('PHP Array', 'sheets-to-wp-table-live-sync') ?></span>
-                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                    <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('php_array'); ?>">
+                                                        <span><?php echo __('PHP Array', 'sheetstowptable'); ?></span>
+                                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,14 +147,14 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                             <div class="ui icon input">
                                                 <input required type="text" name="file_input" placeholder="Enter URL of spreadsheet to load data">
                                                 <span class="ui icon button p-0 m-0 helper_text" data-tooltip="Share your sheet publicly. Publish the sheet to web & click the share button at the top of your spreadsheet" data-position="left center" data-inverted="">
-                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg' ?>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg'; ?>
                                                 </span>
                                             </div>
                                         </div>
 
                                         <div class="col-12 col-md-2 pl-2 transition hidden browse_input">
                                             <button id="browse_input" class="positive ui button m-0">
-                                                <?php echo __('Browse File', 'sheets-to-wp-table-live-sync') ?>&nbsp;
+                                                <?php echo __('Browse File', 'sheetstowptable'); ?>&nbsp;
                                                 <i class="fas fa-hand-pointer"></i>
                                             </button>
                                         </div>
@@ -170,8 +170,8 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row">
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Table Title', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Table Title', 'sheetstowptable'),
+                                    'feature_desc' => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheetstowptable'),
                                     'input_name' => 'show_title',
                                     'checked' => false,
                                 ]); ?>
@@ -180,44 +180,44 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header"><?php echo __('Default rows per page', 'sheets-to-wp-table-live-sync') ?></div>
+                                                <div class="header"><?php echo __('Default rows per page', 'sheetstowptable') ?></div>
                                                 <div class="description">
-                                                    <?php echo __('This will show rows per page in the frontend', 'sheets-to-wp-table-live-sync') ?>
+                                                    <?php echo __('This will show rows per page in the frontend', 'sheetstowptable') ?>
                                                 </div>
 
                                                 <div class="ui fluid selection dropdown" id="rows_per_page">
                                                     <input type="hidden" name="rows_per_page">
                                                     <i class="dropdown icon"></i>
-                                                    <div class="default text"><?php echo __('Rows Per Page', 'sheets-to-wp-table-live-sync') ?></div>
+                                                    <div class="default text"><?php echo __('Rows Per Page', 'sheetstowptable') ?></div>
 
                                                     <div class="menu">
-                                                        <div class="item" data-value="<?php echo esc_attr('1') ?>">
-                                                            <?php echo __('1', 'sheets-to-wp-table-live-sync') ?>
+                                                        <div class="item" data-value="<?php echo esc_attr('1'); ?>">
+                                                            <?php echo __('1', 'sheetstowptable'); ?>
                                                         </div>
-                                                        <div class="item" data-value="<?php echo esc_attr('5') ?>">
-                                                            <?php echo __('5', 'sheets-to-wp-table-live-sync') ?>
+                                                        <div class="item" data-value="<?php echo esc_attr('5'); ?>">
+                                                            <?php echo __('5', 'sheetstowptable'); ?>
                                                         </div>
-                                                        <div class="item" data-value="<?php echo esc_attr('10') ?>">
-                                                            <?php echo __('10', 'sheets-to-wp-table-live-sync') ?>
+                                                        <div class="item" data-value="<?php echo esc_attr('10'); ?>">
+                                                            <?php echo __('10', 'sheetstowptable'); ?>
                                                         </div>
-                                                        <div class="item" data-value="<?php echo esc_attr('15') ?>">
-                                                            <?php echo __('15', 'sheets-to-wp-table-live-sync') ?>
+                                                        <div class="item" data-value="<?php echo esc_attr('15'); ?>">
+                                                            <?php echo __('15', 'sheetstowptable'); ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('25') ?>">
-                                                            <span><?php echo __('25', 'sheets-to-wp-table-live-sync') ?></span>
-                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('25'); ?>">
+                                                            <span><?php echo __('25', 'sheetstowptable'); ?></span>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('50') ?>">
-                                                            <span><?php echo __('50', 'sheets-to-wp-table-live-sync') ?></span>
-                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('50'); ?>">
+                                                            <span><?php echo __('50', 'sheetstowptable'); ?></span>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('100') ?>">
-                                                            <span><?php echo __('100', 'sheets-to-wp-table-live-sync') ?></span>
-                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('100'); ?>">
+                                                            <span><?php echo __('100', 'sheetstowptable'); ?></span>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
-                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('all') ?>">
-                                                            <span><?php echo __('All', 'sheets-to-wp-table-live-sync') ?></span>
-                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                                                        <div class="item d-flex justify-content-between align-items-center disabled item" data-value="<?php echo esc_attr('all'); ?>">
+                                                            <span><?php echo __('All', 'sheetstowptable'); ?></span>
+                                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                                                         </div>
                                                     </div>
 
@@ -229,44 +229,44 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                 </div>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Show info block', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Show info block', 'sheetstowptable'),
+                                    'feature_desc' => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
                                     'input_name' => 'info_block',
                                     'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Resposive Table', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Allow collapsing on mobile and tablet screen', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Resposive Table', 'sheetstowptable'),
+                                    'feature_desc' => __('Allow collapsing on mobile and tablet screen', 'sheetstowptable'),
                                     'input_name' => 'responsive',
                                     'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Show X entries', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('<i>Show X entries</i> per page dropdown', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Show X entries', 'sheetstowptable'),
+                                    'feature_desc' => __('<i>Show X entries</i> per page dropdown', 'sheetstowptable'),
                                     'input_name' => 'show_entries',
                                     'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Swap Filters', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Swap Filters', 'sheetstowptable'),
+                                    'feature_desc' => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheetstowptable'),
                                     'input_name' => 'swap_filter_inputs',
                                     'checked' => false,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Swap Bottom Elements', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Swap Bottom Elements', 'sheetstowptable'),
+                                    'feature_desc' => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheetstowptable'),
                                     'input_name' => 'swap_bottom_options',
                                     'checked' => false,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Vertical Scrolling', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Turning ON this feature will enable the table to scroll vertically', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Vertical Scrolling', 'sheetstowptable'),
+                                    'feature_desc' => __('Turning ON this feature will enable the table to scroll vertically', 'sheetstowptable'),
                                     'input_name' => 'vertical_scrolling',
                                     'checked' => false,
                                     'is_pro' => true
@@ -277,8 +277,8 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Display Documention', 'sheets-to-wp-table-live-sync') ?> <span class="ml-2">
-                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg' ?>
+                                        <?php echo __('Display Documention', 'sheetstowptable') ?> <span class="ml-2">
+                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg'; ?>
                                         </span>
                                     </button>
                                 </div>
@@ -289,30 +289,30 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row">
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Allow Sorting', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Enable this feature to sort table data for frontend.', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Allow Sorting', 'sheetstowptable'),
+                                    'feature_desc' => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
                                     'input_name' => 'sorting',
                                     'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Search Bar', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Search Bar', 'sheetstowptable'),
+                                    'feature_desc' => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
                                     'input_name' => 'search_table',
                                     'checked' => true,
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Rows Highlight', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Rows Highlight', 'sheetstowptable'),
+                                    'feature_desc' => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheetstowptable'),
                                     'input_name' => 'rows_highlight',
                                     'checked' => false,
                                     'is_pro' => true
                                 ]); ?>
 
                                 <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, [
-                                    'feature_title' => __('Chart Integration', 'sheets-to-wp-table-live-sync'),
-                                    'feature_desc' => __('Enable this feature to filter data by various terms in the sheet & is going to show all the filtered data in the table as well as in a chart', 'sheets-to-wp-table-live-sync'),
+                                    'feature_title' => __('Chart Integration', 'sheetstowptable'),
+                                    'feature_desc' => __('Enable this feature to filter data by various terms in the sheet & is going to show all the filtered data in the table as well as in a chart', 'sheetstowptable'),
                                     'input_name' => 'chart_integration',
                                     'checked' => false,
                                     'is_pro' => true
@@ -323,8 +323,8 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Sorting Documention', 'sheets-to-wp-table-live-sync') ?> <span class="ml-2">
-                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ?>
+                                        <?php echo __('Sorting Documention', 'sheetstowptable') ;?> <span class="ml-2">
+                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg' ;?>
                                         </span>
                                     </button>
                                 </div>
@@ -340,18 +340,18 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                         <div class="card">
                                             <div class="content">
                                                 <span class="pro_feature"><i class="fas fa-medal"></i></span>
-                                                <div class="header"><?php echo __('Table Exporting', 'sheets-to-wp-table-live-sync') ?></div>
+                                                <div class="header"><?php echo __('Table Exporting', 'sheetstowptable'); ?></div>
                                                 <div class="description">
-                                                    <?php echo __(' Enable this feature in order to allow your user to download your table content as various format.') ?>
+                                                    <?php echo __(' Enable this feature in order to allow your user to download your table content as various format.'); ?>
                                                 </div>
                                                 <select name="skills" multiple="" class="ui fluid dropdown mt-2 pro_feature_input" id="table_exporting">
-                                                    <option value=""><?php echo __('Select Type', 'sheets-to-wp-table-live-sync') ?></option>
-                                                    <option value="<?php echo esc_attr('json') ?>"><?php echo __('JSON') ?></option>
-                                                    <option value="<?php echo esc_attr('pdf') ?>"><?php echo __('PDF') ?></option>
-                                                    <option value="<?php echo esc_attr('csv') ?>"><?php echo __('CSV') ?></option>
-                                                    <option value="<?php echo esc_attr('excel') ?>"><?php echo __('Excel') ?></option>
-                                                    <option value="<?php echo esc_attr('print') ?>"><?php echo __('Print') ?></option>
-                                                    <option value="<?php echo esc_attr('copy') ?>"><?php echo __('Copy') ?></option>
+                                                    <option value=""><?php echo __('Select Type', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('json'); ?>"><?php echo __('JSON', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('pdf'); ?>"><?php echo __('PDF', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('csv'); ?>"><?php echo __('CSV', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('excel'); ?>"><?php echo __('Excel', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('print'); ?>"><?php echo __('Print', 'sheetstowptable'); ?></option>
+                                                    <option value="<?php echo esc_attr('copy'); ?>"><?php echo __('Copy', 'sheetstowptable'); ?></option>
                                                 </select>
                                                 <div class="pro_feature_input selectbox_overlay">
 
@@ -368,7 +368,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
-                                        <?php echo __('Table Tools Doc', 'sheets-to-wp-table-live-sync') ?><span class="ml-2">
+                                        <?php echo __('Table Tools Doc', 'sheetstowptable') ?><span class="ml-2">
                                             <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg' ?>
                                         </span>
                                     </button>
@@ -393,7 +393,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
                     <div class="ui segment gswpts_table_loader" style="z-index: -1;">
                         <div class="ui active inverted dimmer">
-                            <div class="ui large text loader"><?php echo __('Loading', 'sheets-to-wp-table-live-sync') ?></div>
+                            <div class="ui large text loader"><?php echo __('Loading', 'sheetstowptable'); ?></div>
                         </div>
                         <p></p>
                         <p></p>

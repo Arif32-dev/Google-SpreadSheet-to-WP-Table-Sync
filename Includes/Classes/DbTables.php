@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 final class DbTables {
     private $connection;

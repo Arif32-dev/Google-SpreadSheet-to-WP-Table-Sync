@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class FetchProducts {
 
@@ -11,7 +11,7 @@ class FetchProducts {
     public function fetch_products() {
         if (sanitize_text_field($_POST['action']) != 'gswpts_product_fetch') {
             self::$output['response_type'] = 'invalid_action';
-            self::$output['output'] = '<b>' . esc_html__('Action is invalid','sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['output'] = '<b>' . esc_html__('Action is invalid','sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }

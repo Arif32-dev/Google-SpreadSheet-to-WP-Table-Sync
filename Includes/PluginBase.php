@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 use GSWPTS\Includes\Classes\ClassSortcode;
 use GSWPTS\Includes\Classes\Controller\AdminMenus;

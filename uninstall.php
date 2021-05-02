@@ -1,6 +1,6 @@
 <?php
 
-defined('WP_UNINSTALL_PLUGIN') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('WP_UNINSTALL_PLUGIN') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class SheetsToWPTableLiveSyncUninstall {
     public function __construct() {

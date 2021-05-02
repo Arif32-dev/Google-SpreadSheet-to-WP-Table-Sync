@@ -6,17 +6,17 @@
                 <?php
                 if (isset($is_pro) && $is_pro) { ?>
                     <span class="pro_feature">
-                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg' ?>
+                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
                     </span>
                 <?php } ?>
-                <div class="header"><?php echo $feature_title ?></div>
+                <div class="header"><?php echo $feature_title; ?></div>
                 <div class="description">
-                    <?php echo $feature_desc ?>
+                    <?php echo $feature_desc; ?>
                 </div>
             </div>
             <div class="ui toggle checkbox">
-                <input <?php echo $checked ? 'checked' : '' ?> type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo esc_attr($input_name) ?>" id="<?php echo esc_attr($input_name) ?>">
-                <label for="<?php echo esc_attr($input_name) ?>"></label>
+                <input <?php echo $checked ? 'checked' : '' ?> type="checkbox" class="<?php echo isset($is_pro) && $is_pro ? 'pro_feature_input' : '' ?>" name="<?php echo esc_attr($input_name); ?>" id="<?php echo esc_attr($input_name); ?>">
+                <label for="<?php echo esc_attr($input_name); ?>"></label>
             </div>
             <?php
             if (isset($is_pro) && $is_pro) {

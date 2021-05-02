@@ -2,7 +2,7 @@
 
 namespace GSWPTS\Includes\Classes\Controller;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class AdminMenus {
     public function __construct() {
@@ -10,8 +10,8 @@ class AdminMenus {
     }
     public function admin_menus() {
         add_menu_page(
-            __('Sheets To Table', 'sheets-to-wp-table-live-sync'),
-            __('Sheets To Table', 'sheets-to-wp-table-live-sync'),
+            __('Sheets To Table', 'sheetstowptable'),
+            __('Sheets To Table', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
@@ -20,32 +20,32 @@ class AdminMenus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('DashBoard', 'sheets-to-wp-table-live-sync'),
-            __('DashBoard', 'sheets-to-wp-table-live-sync'),
+            __('DashBoard', 'sheetstowptable'),
+            __('DashBoard', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('Manage Tables', 'sheets-to-wp-table-live-sync'),
-            __('Manage Tables', 'sheets-to-wp-table-live-sync'),
+            __('Manage Tables', 'sheetstowptable'),
+            __('Manage Tables', 'sheetstowptable'),
             'manage_options',
             'gswpts-tables',
             [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('Create Table', 'sheets-to-wp-table-live-sync'),
-            __('Create Table', 'sheets-to-wp-table-live-sync'),
+            __('Create Table', 'sheetstowptable'),
+            __('Create Table', 'sheetstowptable'),
             'manage_options',
             'gswpts-create-tables',
             [get_called_class(), 'gswpts_create_tables']
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('General Settings', 'sheets-to-wp-table-live-sync'),
-            __('General Settings', 'sheets-to-wp-table-live-sync'),
+            __('General Settings', 'sheetstowptable'),
+            __('General Settings', 'sheetstowptable'),
             'manage_options',
             'gswpts-general-settings',
             [get_called_class(), 'general_settings']

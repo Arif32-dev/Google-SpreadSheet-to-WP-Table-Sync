@@ -2,15 +2,15 @@
 
 namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class SheetCreation {
     private static $output = [];
 
     public function sheet_creation() {
         if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_create') {
-            self::$output['response_type'] = esc_html__('invalid_action', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = '<b>' . esc_html__('Action is invalid', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['response_type'] = esc_html('invalid_action');
+            self::$output['output'] = '<b>' . esc_html__('Action is invalid', 'sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
@@ -23,8 +23,8 @@ class SheetCreation {
             if (sanitize_text_field($_POST['type']) == 'fetch') {
 
                 if (!$file_input || $file_input == "") {
-                    self::$output['response_type'] = esc_html__('empty_field', 'sheets-to-wp-table-live-sync');
-                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheets-to-wp-table-live-sync') . '</b>';
+                    self::$output['response_type'] = esc_html('empty_field');
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -36,8 +36,8 @@ class SheetCreation {
             if (sanitize_text_field($_POST['type']) == 'save' || sanitize_text_field($_POST['type']) == 'saved') {
 
                 if (!$file_input || $file_input == "") {
-                    self::$output['response_type'] = esc_html__('empty_field', 'sheets-to-wp-table-live-sync');
-                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheets-to-wp-table-live-sync') . '</b>';
+                    self::$output['response_type'] = esc_html('empty_field');
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -81,8 +81,8 @@ class SheetCreation {
             }, $_POST['table_settings']);
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'],  'gswpts_sheet_nonce_action')) {
-                self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-                self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheets-to-wp-table-live-sync') . '</b>';
+                self::$output['response_type'] = esc_html('invalid_request');
+                self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             }
@@ -90,8 +90,8 @@ class SheetCreation {
             if ($parsed_data['source_type'] === 'spreadsheet') {
 
                 if (!$file_input || $file_input == "") {
-                    self::$output['response_type'] = esc_html__('empty_field', 'sheets-to-wp-table-live-sync');
-                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheets-to-wp-table-live-sync') . '</b>';
+                    self::$output['response_type'] = esc_html('empty_field');
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -120,8 +120,8 @@ class SheetCreation {
             }
         }
 
-        self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-        self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheets-to-wp-table-live-sync') . '</b>';
+        self::$output['response_type'] = esc_html('invalid_request');
+        self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
         echo json_encode(self::$output);
         wp_die();
     }
@@ -132,34 +132,34 @@ class SheetCreation {
         $json_res = $gswpts->get_json_data($url);
 
         if (!$json_res) {
-            self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = '<b>' . esc_html__('The spreadsheet is not publicly available. Publish it to the web', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html__('The spreadsheet is not publicly available. Publish it to the web', 'sheetstowptable') . '</b>';
             return self::$output;
         }
 
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (count(fgetcsv($sheet_response)) < 2) {
-            self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = sprintf('<b>%s<br/>%s</b>', __('The spreadsheet is restricted.', 'sheets-to-wp-table-live-sync'), __('Please make it public by clicking on share button at the top of spreadsheet', 'sheets-to-wp-table-live-sync'));
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = sprintf('<b>%s<br/>%s</b>', __('The spreadsheet is restricted.', 'sheetstowptable'), __('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable'));
             return self::$output;
         }
 
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
-            self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = '<b>' . esc_html__('The SpreadSheet url is invalid. Please enter a valid public sheet url', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html__('The SpreadSheet url is invalid. Please enter a valid public sheet url', 'sheetstowptable') . '</b>';
             return self::$output;
         }
 
         $response = $gswpts->get_table(true, $sheet_response);
-        self::$output['response_type'] = esc_html__('success', 'sheets-to-wp-table-live-sync');
+        self::$output['response_type'] = esc_html('success');
         self::$output['sheet_data'] = [
-            'sheet_name' => esc_html__($json_res['title']['$t'], 'sheets-to-wp-table-live-sync'),
+            'sheet_name' => esc_html__($json_res['title']['$t'], 'sheetstowptable'),
             'author_info' => (array) $json_res['author'],
-            'sheet_total_result' => esc_html__($json_res['openSearch$totalResults']['$t'], 'sheets-to-wp-table-live-sync'),
-            'total_rows' => esc_html__($response['count'], 'sheets-to-wp-table-live-sync')
+            'sheet_total_result' => esc_html__($json_res['openSearch$totalResults']['$t'], 'sheetstowptable'),
+            'total_rows' => esc_html__($response['count'], 'sheetstowptable')
         ];
         self::$output['output'] = "" . $response['table'] . "";
         return self::$output;
@@ -170,8 +170,8 @@ class SheetCreation {
         $table = $wpdb->prefix . 'gswpts_tables';
 
         if (self::check_sheet_url($parsed_data['file_input']) == false) {
-            self::$output['response_type'] = esc_html__('sheet_exists', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = "<b>" . esc_html__('This SpreadSheet already exists. Try new one', 'sheets-to-wp-table-live-sync') . "</b>";
+            self::$output['response_type'] = esc_html('sheet_exists');
+            self::$output['output'] = "<b>" . esc_html__('This SpreadSheet already exists. Try new one', 'sheetstowptable') . "</b>";
             return self::$output;
         }
         $settings = self::get_table_settings($table_settings);
@@ -192,13 +192,13 @@ class SheetCreation {
         ]);
 
         if (is_int($db_respond)) {
-            self::$output['response_type'] = esc_html__('saved', 'sheets-to-wp-table-live-sync');
+            self::$output['response_type'] = esc_html('saved');
             self::$output['id'] = $wpdb->get_results("SELECT LAST_INSERT_ID();")[0];
             self::$output['sheet_url'] = esc_url($parsed_data['file_input']);
-            self::$output['output'] = '<b>' . esc_html__('Table saved successfully', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table saved successfully', 'sheetstowptable') . '</b>';
         } else {
-            self::$output['response_type'] = esc_html__('invalid_request', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = "<b>" . esc_html__("Table couldn't be saved. Please try again", 'sheets-to-wp-table-live-sync') . "</b>";
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = "<b>" . esc_html__("Table couldn't be saved. Please try again", 'sheetstowptable') . "</b>";
         }
         return self::$output;
     }
@@ -247,12 +247,12 @@ class SheetCreation {
             ]
         );
         if (is_int($update_response)) {
-            self::$output['response_type'] = esc_html__('updated', 'sheets-to-wp-table-live-sync');
-            self::$output['output'] = '<b>' . esc_html__('Table changes updated successfully', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['response_type'] = esc_html('updated');
+            self::$output['output'] = '<b>' . esc_html__('Table changes updated successfully', 'sheetstowptable') . '</b>';
             return self::$output;
         } else {
-            self::$output['response_type'] = esc_html__('invalid_request');
-            self::$output['output'] = '<b>' . esc_html__('Table changes could not be updated', 'sheets-to-wp-table-live-sync') . '</b>';
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>' . esc_html__('Table changes could not be updated', 'sheetstowptable') . '</b>';
             return self::$output;
         }
     }

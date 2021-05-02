@@ -1,28 +1,21 @@
 <?php
 
 /**
- * Sheets To WP Table Live Sync
- *
- * @package           sheets-to-wp-table-live-sync
- * @author            WPPOOL
- * @license           GPL-2.0-or-later
- *
- * @wordpress-plugin
  * Plugin Name:       Sheets To WP Table Live Sync
- * Plugin URI:       https://wordpress.org/plugins/sheets-to-wp-table-live-sync/
+ * Plugin URI:       https://wordpress.org/plugins/sheetstowptable/
  * Description:      This is a WordPress plugin to synchronize google spreadsheet data into wordpress table.
  * Version:           1.0.0
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:             WPPOOL
  * Author URI:        https://wppool.dev/
- * Text Domain:       sheets-to-wp-table-live-sync
+ * Text Domain:       sheetstowptable
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 /* if accessed directly exit from plugin */
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheets-to-wp-table-live-sync'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
     define('GSWPTS_VERSION', '1.0.0');
@@ -67,7 +60,7 @@ final class SheetsToWPTableLiveSync {
     }
 
     public function show_notice() {
-        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', __('Plugin', 'sheets-to-wp-table-live-sync'), __('cannot be activated - requires at least PHP 5.4. Plugin automatically deactivated.', 'sheets-to-wp-table-live-sync'));
+        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', __('Plugin', 'sheetstowptable'), __('cannot be activated - requires at least PHP 5.4. Plugin automatically deactivated.', 'sheetstowptable'));
         return;
     }
 
@@ -109,9 +102,9 @@ final class SheetsToWPTableLiveSync {
     }
     public static function add_action_links($links) {
         $mylinks = array(
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-dashboard')), esc_html__('Dashboard', 'sheets-to-wp-table-live-sync')),
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-create-tables')), esc_html__('Create Table', 'sheets-to-wp-table-live-sync')),
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html__('General Settings', 'sheets-to-wp-table-live-sync')),
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-dashboard')), esc_html__('Dashboard', 'sheetstowptable')),
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-create-tables')), esc_html__('Create Table', 'sheetstowptable')),
+            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html__('General Settings', 'sheetstowptable')),
         );
         return array_merge($links, $mylinks);
     }
