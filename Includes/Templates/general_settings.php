@@ -22,7 +22,7 @@ settings_errors();
     </div>
 
 
-    <div class="container mt-4 settings_content transition hidden">
+    <div class="child_container mt-4 settings_content transition hidden">
         <form action="options.php" method="POST">
 
             <div class="row heading_row">

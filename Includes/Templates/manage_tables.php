@@ -10,7 +10,7 @@
         <p></p>
     </div>
 
-    <div class="container mt-4 manage_table_content transition hidden">
+    <div class="child_container mt-4 manage_table_content transition hidden">
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">

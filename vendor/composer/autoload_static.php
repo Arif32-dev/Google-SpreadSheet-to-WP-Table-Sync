@@ -11,6 +11,10 @@ class ComposerStaticInit4a887bf191ef4240d681730203fea2c6
         array (
             'GSWPTS\\Includes\\' => 16,
         ),
+        'A' => 
+        array (
+            'Appsero\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,6 +22,14 @@ class ComposerStaticInit4a887bf191ef4240d681730203fea2c6
         array (
             0 => __DIR__ . '/../..' . '/Includes',
         ),
+        'Appsero\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/appsero/client/src',
+        ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -25,6 +37,7 @@ class ComposerStaticInit4a887bf191ef4240d681730203fea2c6
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4a887bf191ef4240d681730203fea2c6::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4a887bf191ef4240d681730203fea2c6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4a887bf191ef4240d681730203fea2c6::$classMap;
 
         }, null, ClassLoader::class);
     }

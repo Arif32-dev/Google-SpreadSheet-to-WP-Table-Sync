@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '1.0.0');
+    define('GSWPTS_VERSION', time());
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -47,6 +47,7 @@ final class SheetsToWPTableLiveSync {
         if ($this->version_check() == 'version_low') return;
         $this->register_active_deactive_hooks();
         $this->plugins_check();
+        $this->appseroInit();
     }
 
     public function version_check() {
@@ -107,6 +108,16 @@ final class SheetsToWPTableLiveSync {
             sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html__('General Settings', 'sheetstowptable')),
         );
         return array_merge($links, $mylinks);
+    }
+    public function appseroInit(){
+        if( ! class_exists( 'Appsero\Client' ) ) {
+            require_once __DIR__ . '/appsero/src/Client.php';
+        }
+      
+        $client = new Appsero\Client( 'e8bb9069-1a77-457b-b1e3-a961ce950e2f', 'Sheets To WP Table Live Sync', __FILE__ );
+      
+          // Active insights
+        $client->insights()->init();
     }
 }
 

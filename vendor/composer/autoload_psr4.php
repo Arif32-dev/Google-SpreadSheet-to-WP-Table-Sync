@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'GSWPTS\\Includes\\' => array($baseDir . '/Includes'),
+    'Appsero\\' => array($vendorDir . '/appsero/client/src'),
 );

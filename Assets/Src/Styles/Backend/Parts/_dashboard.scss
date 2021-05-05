@@ -14,6 +14,24 @@
     .card {
         max-width: unset !important;
     }
+    .other_products_section {
+        .plugin-card-top {
+            min-height: 200px;
+        }
+    }
+    .plugin-card {
+        background: transparent;
+        border: none;
+        .plugin-card-top {
+            background: white;
+            border: 1px solid #dcdcde;
+            border-bottom: none;
+        }
+        .plugin-card-bottom {
+            border: 1px solid #dcdcde;
+            border-top: none;
+        }
+    }
 }
 
 .dash_boxes {
@@ -125,14 +143,11 @@
 @media screen and (min-width: 1200px) {
     .other_products_section {
         display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
         gap: 20px;
         .plugin-card {
             width: 100%;
             margin: 0 !important;
-        }
-        .plugin-card-top {
-            min-height: 200px;
         }
     }
 }

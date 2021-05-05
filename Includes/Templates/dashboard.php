@@ -13,7 +13,7 @@ global $gswpts;
     </div>
 
 
-    <div class="container mt-4 dashboard_content transition hidden">
+    <div class="child_container mt-4 dashboard_content transition hidden">
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
@@ -66,7 +66,7 @@ global $gswpts;
                             </a>
                         </div>
                         <div class="card-body d-flex">
-                            <div class="col-3 d-flex justify-content-center align-iteml-center flex-column total_created">
+                            <div class="col-3 d-flex justify-content-center align-item-center flex-column text-center total_created">
                                 <span><?php _e($gswpts->latest_table_details()['total_table_count']); ?></span>
                                 <span><?php _e('Created', 'sheetstowptable'); ?></span>
                             </div>
@@ -81,9 +81,15 @@ global $gswpts;
                                         <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]">
                                         [gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']); ?>]
                                     </div>
+                                    
                                 <?php } else { ?>
                                     <div class="ui label mt-2"><?php _e('Empty', 'sheetstowptable'); ?></div>
                                 <?php } ?>
+
+                                <br>
+                                <br>
+
+                                <a href="">How to create a table</a>
 
                             </div>
                         </div>
@@ -164,9 +170,12 @@ global $gswpts;
                                                         We send about 1 message per month and never spam', 'sheetstowptable'); ?>!
                                                     </p>
 
-                                                    <form id="wemail-embedded-subscriber-form" method="post" action="<?php esc_url('https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471'); ?>" class="ui right labeled left icon input mt-3">
+                                                    <form id="subscriber-form" method="post" action="" class="ui right labeled left icon input mt-3">
                                                         <i class="bell icon"></i>
                                                         <input style="width: 250px;" id="wemail-email" type="email" name="email" required placeholder="You email" />
+                                                        <input style="width: 250px;" id="full_name" type="hidden" name="full_name" required value="<?php esc_html_e(wp_get_current_user(  )->data->display_name); ?>" />
+                                                        <input style="width: 250px;" id="url" type="hidden" name="url" required value="<?php echo esc_url('https://wppool.dev/wp-admin/?fluentcrm=1&route=contact&hash=8297bc37-59a2-4fd8-b77b-220d673642bb'); ?>" />
+                                                        <?php wp_nonce_field('user_subscription_action', 'user_subscription') ?>
                                                         <button type="submit" class="ui violet tag label" id="subscribe_btn" style="right: 28px;">
                                                             <?php _e('Get Subscribed', 'sheetstowptable'); ?>
                                                         </button>

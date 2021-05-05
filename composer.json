@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "appsero/client": "^1.2"
     },
     "autoload": {
         "psr-4": {

@@ -1,5 +1,5 @@
 === Sheets To WP Table Live Sync ===
-Contributors: wppool, azizultex, devdrarif
+Contributors: wppool, azizultex, devdrarif, wpdarkmode
 Tags: spreadsheet, google, data synchronization, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7

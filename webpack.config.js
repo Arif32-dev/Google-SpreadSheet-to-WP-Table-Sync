@@ -24,23 +24,19 @@ module.exports = {
         path: path.resolve(__dirname, 'Assets/Public/'),
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
-                        }
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
                     }
-                ],
+                }],
             },
             {
                 test: /.s?css$/,
-                use: [
-                    {
+                use: [{
                         loader: MiniCssExtractPlugin.loader
                     },
                     {
@@ -73,17 +69,17 @@ module.exports = {
         ],
     },
     plugins: [
-        // new BrowserSyncPlugin({
-        //     host: 'localhost',
-        //     port: 4040,
-        //     injectChanges: true,
-        //     watch: true,
-        //     reloadOnRestart: true,
-        //     reloadDelay: 300,
-        //     files: ['./**/*.php'],
-        //     watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
-        //     proxy: 'http://localhost/wordpress/wp-admin',
-        // }),
+        new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 4040,
+            injectChanges: true,
+            watch: true,
+            reloadOnRestart: true,
+            reloadDelay: 300,
+            files: ['./**/*.php'],
+            watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
+            proxy: 'http://localhost/wordpress/wp-admin',
+        }),
         new MiniCssExtractPlugin({
             filename: 'Styles/[name].min.css',
         }),
@@ -93,8 +89,7 @@ module.exports = {
                     `${PATHS.Src}/**/*`,
                     `${PATHS.Includes}/**/*`,
                     `${PATHS.Public}/**/*`,
-                ],
-                { nodir: true }
+                ], { nodir: true }
             )
         }),
     ],

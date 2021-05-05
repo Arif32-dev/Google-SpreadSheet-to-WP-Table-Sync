@@ -1,10 +1,11 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Dashboard extends Base_Class {
         constructor() {
             super($);
             this.sortcode_copy_btn = $('.dashboard_sortcode_copy_btn');
+            this.form = $('#subscriber-form');
             this.events();
         }
         events() {
@@ -15,14 +16,19 @@ jQuery(document).ready(function ($) {
                 this.retrieve_wppool_post()
                 this.retrieve_other_products()
             }
-            this.send_subscriber()
+            this.form.on('submit', (e) => {
+                e.preventDefault();
+                this.send_subscriber(e);
+            })
+
         }
         retrieve_wppool_post() {
             $.ajax({
-                url: 'https://wppool.dev/wp-json/wp/v2/posts?per_page=10',
-
+                url: file_url.admin_ajax,
                 type: 'GET',
-
+                data: {
+                    action: 'gswpts_get_posts',
+                },
                 beforeSend: () => {
                     $('.useful_links').html(`
                             <div class="ui segment" style="min-height: 150px;">
@@ -35,10 +41,20 @@ jQuery(document).ready(function ($) {
                     `);
                 },
                 success: res => {
-                    console.log(res)
-                    if (res) {
+
+                    if (!res) return;
+                    let responseType = JSON.parse(res).response_type
+                    let posts = JSON.parse(res).output
+
+                    if (responseType == 'invalid_action' ||
+                        responseType == 'error') {
+                        this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4);
+                        $('.useful_links').html('');
+                    }
+
+                    if (responseType == 'success') {
                         let blogs = ''
-                        res.forEach(blog => {
+                        posts.forEach(blog => {
                             blogs += ` <a class="col-12 p-0 d-flex justify-content-between align-items-center"  href="${blog.link}" target="blank">
                                                     <p class="m-0 p-0">${blog.title.rendered}</p>
                                             </a>
@@ -49,82 +65,54 @@ jQuery(document).ready(function ($) {
                         $('.useful_links').html('');
                     }
                 },
-                error: err => {
-                    this.call_alert('Error &#128683;', '<b>Plugins Blog could not be loaded. Try again</b>', 'error', 3)
+                error: (xhr, status, error) => {
+                    this.call_alert('Error &#128683;', error, 'error', 3)
                     $('.useful_links').html('');
                 },
             })
         }
 
-        send_subscriber() {
+        send_subscriber(e) {
+            let form_data = this.form.serialize();
+            let button = $('#subscribe_btn');
+            let buttonText = button.text();
+            $.ajax({
+                type: "POST",
+                url: file_url.admin_ajax,
+                data: {
+                    action: 'gswpts_user_subscribe',
+                    form_data: form_data,
+                },
+                beforeSend: () => {
+                    button.text('Submitting')
+                },
+                success: (res) => {
+                    console.log(res);
 
-            var form = document.getElementById('wemail-embedded-subscriber-form');
-            if (form == null) {
-                return;
-            }
-            var button = form.querySelector('#subscribe_btn');
-            if (button == null) {
-                return;
-            }
-            var buttonText = button.innerText;
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const xhr = new XMLHttpRequest();
-                xhr.addEventListener('loadstart', function () {
-                    button.setAttribute('disabled', true);
-                    button.innerText = 'Submitting';
-                });
-                xhr.addEventListener('load', function () {
-                    let data = JSON.parse(xhr.response);
+                    if (!res) return;
 
-                    if (data.mode == 'already-subscribe') {
+                    let responseType = JSON.parse(res).response_type;
 
-                        $.suiAlert({
-                            title: 'Warning &#9888;&#65039;',
-                            description: `<b>${data.message}</b>`,
-                            type: 'warning',
-                            time: 3,
-                            position: 'bottom-right',
-                        });
-                    }
-                    if (data.mode == 'new-subscribe') {
-                        $.suiAlert({
-                            title: 'Successfull &#128077;',
-                            description: `<b>${data.message}</b>`,
-                            type: 'success',
-                            time: 3,
-                            position: 'bottom-right',
-                        });
-                    }
-                    if (data.errors) {
-                        $.suiAlert({
-                            title: 'Error &#128683;',
-                            description: `<b>${data.message}</b>`,
-                            type: 'error',
-                            time: 4,
-                            position: 'bottom-right',
-                        });
+                    if (responseType == 'invalid_action' ||
+                        responseType == 'empty' ||
+                        responseType == 'error') {
+                        this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
                     }
 
-                });
-                xhr.addEventListener('error', function () {
+                    if (responseType == 'success') {
+                        this.call_alert('Success &#128077;', JSON.parse(res).output, 'success', 4)
+                    }
 
-                    $.suiAlert({
-                        title: 'Error &#128683;',
-                        description: '<b>Something went wrong. Subscription could not be made</b>',
-                        type: 'error',
-                        time: 4,
-                        position: 'bottom-right',
-                    });
-                });
-                xhr.addEventListener('loadend', function () {
-                    button.removeAttribute('disabled');
-                    button.innerHTML = buttonText;
-                });
-                xhr.open(form.method, form.action);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.send(new FormData(form));
-            })
+                    button.text(buttonText)
+
+                },
+
+                error: (xhr, status, error) => {
+                    button.text(buttonText)
+                    console.error(error);
+                }
+            });
+
         }
 
         retrieve_other_products() {

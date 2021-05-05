@@ -9,6 +9,7 @@ use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
 
 class AjaxHandler {
 
@@ -31,6 +32,12 @@ class AjaxHandler {
         /* Other product fetching */
         add_action('wp_ajax_gswpts_product_fetch', [$this, 'fetch_products']);
         add_action('wp_ajax_nopriv_gswpts_product_fetch', [$this, 'fetch_products']);
+        /* User subscription */
+        add_action('wp_ajax_gswpts_user_subscribe', [$this, 'userSubscribe']);
+        add_action('wp_ajax_nopriv_gswpts_user_subscribe', [$this, 'userSubscribe']);
+        /* Ger wppool post */
+        add_action('wp_ajax_gswpts_get_posts', [$this, 'getPosts']);
+        add_action('wp_ajax_nopriv_gswpts_get_posts', [$this, 'getPosts']);
     }
     public function sheet_creation() {
         $sheet_creation = new SheetCreation;
@@ -55,5 +62,15 @@ class AjaxHandler {
     public function fetch_products() {
         $ud_tables = new FetchProducts;
         $ud_tables->fetch_products();
+    }
+
+    public function userSubscribe(){
+        $remoteClass = new RemoteClass;
+        $remoteClass->subscriptionRequest();
+    }
+    
+    public function getPosts(){
+        $remoteClass = new RemoteClass;
+        $remoteClass->getPostRequest();
     }
 }

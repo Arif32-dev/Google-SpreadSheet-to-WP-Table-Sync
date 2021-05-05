@@ -14,7 +14,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
     </div>
 
 
-    <div class="container mt-4 create_table_content transition hidden">
+    <div class="child_container mt-4 create_table_content transition hidden">
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-iteml-center">
