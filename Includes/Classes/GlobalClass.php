@@ -256,4 +256,46 @@ class GlobalClass {
         }
         return $table_details;
     }
+    public function changeLogs() {
+        
+       $changeLogs = [
+           '1.0.0' => [
+                __('Initial Release', 'sheetstowptable')
+           ],
+           '1.0.1' => [
+                __('Fix: Fixed user subscription', 'sheetstowptable'),
+                __('Fix: Fixed post fetching from WPPOOL', 'sheetstowptable'),
+                __('Improvement: Improved plugin admin layout', 'sheetstowptable'),
+           ],
+        ];
+
+        $html = '';
+
+        foreach ($changeLogs as $key => $logs) {
+
+            $html .= "<div class='col-12 mt-4 flex-column'>
+                        <strong>Version: ". esc_html__($key) ."</strong>
+                        ". $this->innerLogs($logs)."
+                </div>";
+        }
+
+        return $html;
+    }
+
+    public function innerLogs($logs){
+        $logsHtml = '';
+        foreach ($logs as $log) {
+            $logsHtml .= "<div class='d-flex mt-2'>
+                            <div class='col-1 p-0 info_circle text-center'>
+                            <svg class='svg_icons' width='15px' height='15px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='info-circle' class='svg-inline--fa fa-info-circle fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='currentColor' d='M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z'></path></svg>
+                            </div>
+                            <div class='col-11 p-0'>
+                                <ul class='p-0 m-0'>
+                                    " . sprintf('<li>%s</li>', $log) . "
+                                </ul>
+                            </div>
+                        </div>";
+        }
+        return $logsHtml;
+    }
 }

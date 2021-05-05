@@ -116,19 +116,8 @@ global $gswpts;
                             <div class="col-12 mb-2">
                                 <?php _e('The first realease of this plugin with compatibility checking', 'sheetstowptable'); ?>:
                             </div>
-                            <div class="col-12 mt-4 d-flex">
 
-                                <div class="col-1 p-0 info_circle">
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg'; ?>
-                                </div>
-
-                                <div class="col-11 p-0">
-                                    <ul class="p-0 m-0">
-                                        <?php printf('<li>%s %s %s</li>', __('Plugins version', 'sheetstowptable'), GSWPTS_VERSION, __('released', 'sheetstowptable')); ?>
-                                    </ul>
-                                </div>
-
-                            </div>
+                           <?php echo $gswpts->changeLogs(); ?>
 
                         </div>
                     </div>

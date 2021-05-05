@@ -108,4 +108,4 @@ Additionally read the WPPOOL [privacy policy](https://wppool.dev/privacy-policy/
 = 1.0.1 =
 * Fix: Fixed user subscription
 * Fix: Fixed post fetching from WPPOOL
-* improvement: Improved plugin admin layout
+* Improvement: Improved plugin admin layout
