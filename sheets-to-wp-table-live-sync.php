@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', time());
+    define('GSWPTS_VERSION', '1.0.1');
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -32,7 +32,6 @@ if (!defined('GSWPTS_BASE_URL')) {
 if (!defined('PlUGIN_NAME')) {
     define('PlUGIN_NAME', 'Sheets To WP Table Live Sync');
 }
-
 
 if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
     return;
