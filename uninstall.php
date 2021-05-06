@@ -1,9 +1,8 @@
 <?php
-if (!defined('ABSPATH')) {
-    die('you cant access this plugin directly');
-}
 
-class Plugin_Uninstall {
+defined('WP_UNINSTALL_PLUGIN') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
+
+class SheetsToWPTableLiveSyncUninstall {
     public function __construct() {
         $all_sql = $this->all_delete_sql();
         if (!empty($all_sql)) {
@@ -11,6 +10,7 @@ class Plugin_Uninstall {
                 $this->delete_tables($sql);
             }
         }
+        $this->unregister_options();
     }
     public function db_connection() {
         $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -40,5 +40,19 @@ class Plugin_Uninstall {
             return $sql;
         }
     }
+    public function unregister_options() {
+        $settings_options = [
+            'asynchronous_loading',
+            'multiple_sheet_tab',
+            'sheet_tab_connection'
+        ];
+        foreach ($settings_options as  $option) {
+            unregister_setting('gswpts_general_setting', $option);
+            delete_option($option);
+        }
+    }
 }
-new Plugin_Uninstall;
+
+if(!class_exists('SheetsToWPTableLiveSyncUninstall')) return;
+
+new SheetsToWPTableLiveSyncUninstall;

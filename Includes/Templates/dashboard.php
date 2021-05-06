@@ -1,9 +1,6 @@
 <?php
 global $gswpts;
-$gswpts->bootstrap_files();
-$gswpts->semantic_files();
 ?>
-
 <div class="gswpts_dashboard_container">
 
     <div class="ui segment gswpts_loader">
@@ -16,22 +13,22 @@ $gswpts->semantic_files();
     </div>
 
 
-    <div class="container mt-4 dashboard_content transition hidden">
+    <div class="child_container mt-4 dashboard_content transition hidden">
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo GSWPTS_BASE_URL . '/Assets/Public/Images/Google_Sheets_logo.svg' ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
                 <span class="ml-2">
-                    <strong>Google Spredsheet to WP Table Sync</strong>
+                    <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
             </div>
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                 <h3 class="m-0">
-                    Dashboard
+                    <?php _e('Dashboard', 'sheetstowptable'); ?>
                 </h3>
                 <span>
-                    <a class="ui violet button m-0">
-                        View Documention <span class="ml-2"><i class="fas fa-file-alt"></i></span>
+                    <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
+                        <?php _e('View Documention', 'sheetstowptable'); ?> <span class="ml-2"><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg'; ?></span>
                     </a>
                 </span>
             </div>
@@ -40,54 +37,59 @@ $gswpts->semantic_files();
         <div class="row mt-3 dash_boxes pt-3 pb-3 pl-2 pr-2">
 
             <div class="col-md-7">
-                <h1 class="p-0 m-t-0 m-b-4">
-                    Welcome to Google Spreadsheet to WP Table Sync
-                </h1>
-                <p> Congratulations! You are about to use the most powerful Google spreadsheet data syncronization</p>
-                <a href="#">
+                <?php printf('<h2 class="p-0 m-t-0 m-b-4">%s %s</h2', __('Welcome to', 'sheetstowptable'), PlUGIN_NAME); ?>
+                <p><?php _e('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization', 'sheetstowptable'); ?></p>
+                <a href="<?php echo esc_url('https://vimeo.com/526189502'); ?>" target="blank">
                     <button class="ui inverted green button">
-                        Learn how to sync Google spreadsheet
+                        <?php _e('Learn how to sync Google spreadsheet', 'sheetstowptable'); ?>
                     </button>
                 </a>
             </div>
             <div class="col-md-5">
-                <img class="img-responsive wdt-welcome-img" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg' ?>" alt="Welcome message">
+                <img class="img-responsive wdt-welcomr-img" src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/welcome_message.svg'); ?>" alt="Welcome message">
             </div>
 
         </div>
 
         <div class="row mt-3  pt-3 pb-3">
-            <div class="col-6 p-0 m-0">
+            <div class="col-md-6 col-12 p-0 m-0">
                 <!-- Latest table start -->
                 <div class="col-md-12 p-0 pr-2 latest_table">
                     <div class="card p-0 m-0">
-                        <div class="card-header d-flex align-items-center justify-content-between">
+                        <div class="card-header d-flex align-iteml-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-table"></i></span>
-                                <span class="ml-2">Tables</span>
+                                <span><?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/table-solid.svg'; ?></span>
+                                <span class="ml-2"><?php _e('Tables', 'sheetstowptable'); ?></span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-dashboard') ?>" class="ui inverted green button">
-                                Create Tables
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')); ?>" class="ui inverted green button">
+                                <?php _e('Create Tables', 'sheetstowptable'); ?>
                             </a>
                         </div>
                         <div class="card-body d-flex">
-                            <div class="col-3 d-flex justify-content-center align-items-center flex-column total_created">
-                                <span><?php echo $gswpts->latest_table_details()['total_table_count'] ?></span>
-                                <span>Created</span>
+                            <div class="col-3 d-flex justify-content-center align-item-center flex-column text-center total_created">
+                                <span><?php _e($gswpts->latest_table_details()['total_table_count']); ?></span>
+                                <span><?php _e('Created', 'sheetstowptable'); ?></span>
                             </div>
                             <div class="col-9 details">
-                                <div class="col-12">
-                                    <a href="<?php echo admin_url('admin.php?page=gswpts-create-tables&id=' . $gswpts->latest_table_details()['last_table_id'] . '') ?>"><?php echo $gswpts->latest_table_details()['last_table_name'] ?></a>
-                                    <div class="ui tag label ml-3">Spreadsheet</div>
+                                <div class="col-12 pl-0">
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id=' . esc_attr($gswpts->latest_table_details()['last_table_id']) . '')); ?>"><?php _e($gswpts->latest_table_details()['last_table_name'], 'sheetstowptable') ?></a>
                                 </div>
-                                <div class="col-12 mt-2">Latest table created</div>
-                                <div class="col-12 mt-2">
-                                    <div class="ui label">
+                                <div class="col-12 mt-2 pl-0">Latest table created</div>
+                                <?php if ($gswpts->latest_table_details()['last_table_id']) { ?>
+                                    <div class="ui label mt-2">
                                         <i class="clone icon dashboard_sortcode_copy_btn"></i>
-                                        <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]">
-                                        [gswpts_table id=<?php echo $gswpts->latest_table_details()['last_table_id'] ?>]
+                                        <input type="hidden" name="sortcode" value="[gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]">
+                                        [gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']); ?>]
                                     </div>
-                                </div>
+                                    
+                                <?php } else { ?>
+                                    <div class="ui label mt-2"><?php _e('Empty', 'sheetstowptable'); ?></div>
+                                <?php } ?>
+
+                                <br>
+                                <br>
+
+                                <a href="">How to create a table</a>
 
                             </div>
                         </div>
@@ -100,33 +102,22 @@ $gswpts->semantic_files();
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <i class="fas fa-file-alt"></i>
-                                <span class="ml-2">Change Logs</span>
+                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/file-alt-solid.svg'; ?>
+                                <span class="ml-2"><?php _e('Change Logs', 'sheetstowptable'); ?></span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
-                                View Logs
+                            <a href="" class="ui inverted green button">
+                                <?php _e('View Logs', 'sheetstowptable'); ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 mb-2">
-                                You are currently using Version <?php echo GSWPTS_VERSION ?>
+                                <?php _e('You are currently using Version', 'sheetstowptable'); ?> <?php echo GSWPTS_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
-                                The first realease of this plugin with compatibility checking:
+                                <?php _e('The first realease of this plugin with compatibility checking', 'sheetstowptable'); ?>:
                             </div>
-                            <div class="col-12 mt-4 d-flex">
 
-                                <div class="col-1 p-0 info_circle">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-
-                                <div class="col-11 p-0">
-                                    <ul>
-                                        <li>Plugins version <?php echo GSWPTS_VERSION ?> released</li>
-                                    </ul>
-                                </div>
-
-                            </div>
+                           <?php echo $gswpts->changeLogs(); ?>
 
                         </div>
                     </div>
@@ -138,24 +129,21 @@ $gswpts->semantic_files();
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-blog"></i></span>
-                                <span class="ml-2">Our Blogs</span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/blog-solid.svg' ?>
+                                </span>
+                                <span class="ml-2"><?php _e('Our Blogs', 'sheetstowptable'); ?></span>
                             </div>
-                            <a href="https://wppool.dev/" target="blank" class="ui inverted green button">
-                                Read Blogs
+                            <a href="<?php echo esc_url('https://wppool.dev/blog/'); ?>" target="blank" class="ui inverted green button">
+                                <?php _e('Read Blogs', 'sheetstowptable'); ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <p>Checkout useful articles from <a class="ml-1" href="https://wppool.dev/" target="blank">WPPOOL</a></p>
+                                <p><?php _e('Checkout useful articles from', 'sheetstowptable'); ?> <a class="ml-1" href="<?php echo esc_url('https://wppool.dev/blog/'); ?>" target="blank">WPPOOL</a></p>
+
                                 <div class="col-12 p-0 mt-3 useful_links">
-
-                                    <a class="col-12 p-0 d-flex justify-content-between align-items-center" href="" target="blank">
-                                        <p class="m-0 p-0">All You Need to Know About the WooCommerce Grouped Product Option</p>
-                                        <span><i class="fas fa-link"></i></span>
-                                    </a>
                                     <div class="ui fitted divider mt-2 mb-2"></div>
-
                                 </div>
 
                                 <div class="col-12 p-0 mt-4 subscribe_sec">
@@ -163,19 +151,22 @@ $gswpts->semantic_files();
                                     <div class="ui cards">
                                         <div class="card">
                                             <div class="content">
-                                                <div class="header">Get Subscribed</div>
+                                                <div class="header"><?php _e('Get Subscribed', 'sheetstowptable'); ?></div>
                                                 <div class="description">
 
                                                     <p>
-                                                        Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
-                                                        We send about 1 message per month and never spam!
+                                                        <?php _e('Never miss notifications about new cool features, promotions, giveaways or freebies – subscribe to our newsletter!
+                                                        We send about 1 message per month and never spam', 'sheetstowptable'); ?>!
                                                     </p>
 
-                                                    <form id="wemail-embedded-subscriber-form" method="post" action="https://api.getwemail.io/v1/embed/subscribe/ef1e42ee-2a60-429f-8e80-b5f324540471" class="ui right labeled left icon input mt-3">
+                                                    <form id="subscriber-form" method="post" action="" class="ui right labeled left icon input mt-3">
                                                         <i class="bell icon"></i>
                                                         <input style="width: 250px;" id="wemail-email" type="email" name="email" required placeholder="You email" />
+                                                        <input style="width: 250px;" id="full_name" type="hidden" name="full_name" required value="<?php esc_html_e(wp_get_current_user(  )->data->display_name); ?>" />
+                                                        <input style="width: 250px;" id="url" type="hidden" name="url" required value="<?php echo esc_url('https://wppool.dev/wp-admin/?fluentcrm=1&route=contact&hash=8297bc37-59a2-4fd8-b77b-220d673642bb'); ?>" />
+                                                        <?php wp_nonce_field('user_subscription_action', 'user_subscription') ?>
                                                         <button type="submit" class="ui violet tag label" id="subscribe_btn" style="right: 28px;">
-                                                            Get Subscribed
+                                                            <?php _e('Get Subscribed', 'sheetstowptable'); ?>
                                                         </button>
                                                     </form>
 
@@ -194,34 +185,36 @@ $gswpts->semantic_files();
             </div>
 
 
-            <div class="col-6 p-0 m-0">
+            <div class="col-md-6 col-12 p-0 m-0">
 
-                <div class="col-md-12 p-0 pl-2">
+                <div class="col-md-12 p-0">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-people-carry"></i></span>
-                                <span class="ml-2">Help Center</span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/people-carry-solid.svg'; ?>
+                                </span>
+                                <span class="ml-2"><?php _e('Help Center','sheetstowptable'); ?></span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
-                                Get Help
+                            <a target="blank" href="<?php echo esc_url('https://wppool.dev/contact/'); ?>" class="ui inverted green button">
+                                <?php _e('Get Help','sheetstowptable'); ?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 d-flex p-0">
                                 <div class="col-6">
                                     <h4 class="">
-                                        Need some help
+                                        <?php _e('Need some help','sheetstowptable'); ?>
                                     </h4>
                                     <p>
-                                        We provide professional support to all our users via our ticketing system.
+                                        <?php _e('We provide professional support to all our users via our ticketing system','sheetstowptable'); ?>.
                                     </p>
-                                    <a href="http://localhost/wordpress/wp-admin/admin.php?page=wpdatatables-support">
-                                        Visit Support Center
+                                    <a href="<?php echo esc_url('https://wppool.dev/contact/'); ?>">
+                                        <?php _e('Visit Support Center','sheetstowptable'); ?>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg' ?>" alt="" class="img-fluid">
+                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg'); ?>" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -229,32 +222,72 @@ $gswpts->semantic_files();
                 </div>
 
 
-                <div class="col-md-12 p-0 pl-2 mt-3 pro_box">
-                    <div class="card p-0 m-0" style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg' ?>);">
+                <div class="col-md-12 p-0 mt-3 pro_box">
+                    <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <span><i class="fas fa-medal"></i></span>
-                                <span class="ml-2">Go Pro!</span>
+                                <span>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
+                                </span>
+                                <span class="ml-2"><?php _e('Go Pro','sheetstowptable'); ?>!</span>
                             </div>
-                            <a href="<?php echo admin_url('admin.php?page=gswpts-tables') ?>" class="ui inverted green button">
-                                Compare
+                            <a href="" class="ui inverted green button">
+                                <?php _e('Compare','sheetstowptable'); ?>
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="col-12">
-                                <p>
-                                    Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features.
-                                </p>
-                                <ul>
-                                    <li class="d-flex align-items-center mb-3">
-                                        <span class="mr-2"><i class="fas fa-check-circle"></i></span>
-                                        Product is in under development.
-                                    </li>
-                                </ul>
+                            <div class="col-12 p-0 m-0 d-flex">
+                                <div class="col-6 p-0">
+                                    <p>
+                                        <?php _e('Get the most out of this awesome plugin by upgrading to Pro version and unlock all of the powerful features','sheetstowptable'); ?>.
+                                    </p>
+                                    <ul class="p-0 m-0">
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg' ?>
+                                            </span>
+                                            <?php _e('Responsive Table','sheetstowptable'); ?>: <?php echo PlUGIN_NAME ?> <?php _e('Plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens','sheetstowptable'); ?>.
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg'; ?>
+                                            </span>
+                                            <?php _e('Export table', 'sheetstowptable') ?>: <?php _e('Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin', 'sheetstowptable') ?>
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg'; ?>
+                                            </span>
+                                            <?php _e('50 rows fetching from the sheet', 'sheetstowptable') ?>: <?php _e('Fetch up to 50 row data on this feature.', 'sheetstowptable') ?>
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg'; ?>
+                                            </span>
+                                            <?php _e('Elementor Widget Support', 'sheetstowptable'); ?>: <?php echo PlUGIN_NAME; ?> <?php _e('supports elementor widget. Organize your table data effortlessly than ever.', 'sheetstowptable'); ?>
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/check-circle-solid.svg'; ?>
+                                            </span>
+                                            <?php _e('And much more','sheetstowptable'); ?>.
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-6 p-0 m-0">
+                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg');; ?>" alt="" class="img-fluid">
+                                </div>
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
-                                    Get Pro Today <span class="ml-2"><i class="fas fa-medal"></i></span>
+                                    <?php _e('Get Pro Today', 'sheetstowptable'); ?> <span class="ml-2">
+                                        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/medal-solid.svg'; ?>
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -270,11 +303,11 @@ $gswpts->semantic_files();
 
             <div class="col-sm-12 p-0 m-0">
                 <h2 class="text-center text-capitalize">
-                    Our Other Products
+                    <?php _e('Our Other Products', 'sheetstowptable'); ?>
                 </h2>
                 <p class="text-center">
-                    Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
-                    Think you know WordPress products? Think Deeper!
+                    <?php _e('Experience remarkable WordPress products with a new level of power, beauty, and human-centered designs.
+                    Think you know WordPress products? Think Deeper!', 'sheetstowptable'); ?>
                 </p>
             </div>
         </div>
