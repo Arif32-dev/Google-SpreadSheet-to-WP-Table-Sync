@@ -4,7 +4,7 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,9 +33,9 @@ Worried about how to display your Google Spreadsheet on the WordPress table? Wel
 
 Quick and effortless. Sheets to WP Table Live Sync plugin lets you organize and display all the Google Spreadsheet data on WordPress within just a few clicks! Keep your Google Spreadsheet data always synced with your  WordPress.
 
-The plugin supports sorting options, search bars, and swap options. Keep almost every kind of data safe and secure and manage them smoothly without any hassle. Sheet to WP Table Live Sync creates responsive data tables and makes powerful data administration. 
+The plugin supports sorting options, search bars, and swap options. Keep almost every kind of data safe and secure and manage them smoothly without any hassle. Sheet to WP Table Live Sync creates responsive data tables and makes powerful data administration.
 
-Simple and easy. No coding knowledge required. It’s easy to install and will offer you the simplest settings to configure. With Sheets to Wp Table Live Sync, even a beginner can create a table on the backend by exporting data from any google sheet. 
+Simple and easy. No coding knowledge required. It’s easy to install and will offer you the simplest settings to configure. With Sheets to Wp Table Live Sync, even a beginner can create a table on the backend by exporting data from any google sheet.
 
 After you set up a table, a shortcode is generated automatically. All you need to place the shortcode anywhere you want on your website. Table data will be displayed in a Google spreadsheet format in your dashboard. It doesn’t matter what type of data you would like to include, Sheet to WP Table Sync has support for almost everything you can think of!
 
@@ -54,11 +54,11 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 4. **Data Fetching:** Create a table and fetch up to 15-row data from your targeted table in the free version. You can show more data in the pro version.
 
-5. **Show Info block:** Show Showing X to Y of Z entries block below the table. With this feature, you will get the idea of the data sequence of your table at a glance. The plugin also has an On/Off button on the backend for this feature. 
+5. **Show Info block:** Show Showing X to Y of Z entries block below the table. With this feature, you will get the idea of the data sequence of your table at a glance. The plugin also has an On/Off button on the backend for this feature.
 
 6. **Show X Entries:** This option appears on the top of your table. It counts your total entries on that page of your table. This feature also contains an On/Off button on the backend.
 
-7. **Swap Filters:** With this swap filtering feature you can swap the filtering positions from left to right or right to left. 
+7. **Swap Filters:** With this swap filtering feature you can swap the filtering positions from left to right or right to left.
 
 8. **Swap Bottom Elements:** Swap elements from top to button or bottom to top with Sheets to WP Table Live Sync. Swap the places of Showing X to Y of Z entries with table pagination filter
 
@@ -89,17 +89,17 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 4. **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
 
-5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever. 
+5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
 
 
 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 
-## Privacy Policy 
+## Privacy Policy
 Sheets To WP Table Live Sync uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
-Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
 
