@@ -1,6 +1,6 @@
 === Sheets To WP Table Live Sync ===
 Contributors: wppool, azizultex, devdrarif, wpdarkmode
-Tags: spreadsheet, google spreadsheet, live data, gutenberg blocks, tables
+Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
@@ -15,6 +15,20 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Google Sheets allows you to input data on your Google sheet and show the same data on WordPress as a table effortlessly. Once you update your Google sheet, it automatically updates on WordPress without touching anything. Google Sheets to WP Table is always live sync’d. After setting up, you do not have to edit your WordPress post/or your table to update the new data. You can just add a new row in Google Sheets and the plugin will automatically do the rest of the job.
 
+[youtube https://youtu.be/_LWcaErh8jw]
+
+ 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
+
+
+
+ === LEARN MORE ===
+
+
+* [How to Add a New Table in Sheets To WP Table Live Sync](https://youtu.be/wp7y9v2_4wY)
+* [How to Use Shortcode to Display Sheets To WP Table Live Sync](https://youtu.be/uGPO8qLUIq0)
+* [How to Use Sheets To WP Table Live Sync Gutenberg block](https://youtu.be/OYPG_wWHnjc)
+
+
 Worried about how to display your Google Spreadsheet on the WordPress table? Well, your hustle ends today! Presenting Sheets to WP Table Live Sync - the easiest solution to showcase the spreadsheet data in your WordPress.
 
 Quick and effortless. Sheets to WP Table Live Sync plugin lets you organize and display all the Google Spreadsheet data on WordPress within just a few clicks! Keep your Google Spreadsheet data always synced with your  WordPress.
@@ -24,10 +38,6 @@ The plugin supports sorting options, search bars, and swap options. Keep almost 
 Simple and easy. No coding knowledge required. It’s easy to install and will offer you the simplest settings to configure. With Sheets to Wp Table Live Sync, even a beginner can create a table on the backend by exporting data from any google sheet. 
 
 After you set up a table, a shortcode is generated automatically. All you need to place the shortcode anywhere you want on your website. Table data will be displayed in a Google spreadsheet format in your dashboard. It doesn’t matter what type of data you would like to include, Sheet to WP Table Sync has support for almost everything you can think of!
-
-[youtube https://youtu.be/_LWcaErh8jw]
-
- 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 
@@ -82,13 +92,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever. 
 
 
-
-=== LEARN MORE ===
-
-
-* [How to Add a New Table in Sheets To WP Table Live Sync](https://youtu.be/wp7y9v2_4wY)
-* [How to Use Shortcode to Display Sheets To WP Table Live Sync](https://youtu.be/uGPO8qLUIq0)
-* [How to Use Sheets To WP Table Live Sync Gutenberg block](https://youtu.be/OYPG_wWHnjc)
+🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 
