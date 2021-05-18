@@ -16,15 +16,17 @@ class PluginBase {
         $this->includes();
         $this->global_functions();
     }
-    public function includes() {
-        new EnqueueFiles;
-        new AdminMenus;
-        new AjaxHandler;
-        new ClassSortcode;
-        new SettingsApi;
-    }
+
     public function global_functions() {
         global $gswpts;
-        $gswpts = new GlobalClass;
+        $gswpts = new GlobalClass();
+    }
+
+    public function includes() {
+        new EnqueueFiles();
+        new AdminMenus();
+        new AjaxHandler();
+        new ClassSortcode();
+        new SettingsApi();
     }
 }
