@@ -1,7 +1,7 @@
 import Global_Table_Config from './common_func';
 
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Data_Tables_Async {
         constructor() {
             this.frontend_table = $('.gswpts_tables_container');
@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
         }
 
         get_frontend_table() {
-            $.each(this.frontend_table, function (i, elem) {
+            $.each(this.frontend_table, function(i, elem) {
                 let id = $(elem).attr('id');
                 $.ajax({
                     url: front_end_data.admin_ajax,
@@ -25,6 +25,7 @@ jQuery(document).ready(function ($) {
                         action: 'gswpts_sheet_fetch',
                         id: id
                     },
+
                     type: 'post',
 
                     success: res => {
@@ -57,6 +58,7 @@ jQuery(document).ready(function ($) {
 
                     error: err => {
                         alert('Something went wrong')
+                        $(elem).find('.gswpts_tables_content').html("<strong>Table could not be loaded. Try again</strong>");
                     },
 
                 })
