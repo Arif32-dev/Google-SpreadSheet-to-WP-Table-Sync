@@ -80,7 +80,11 @@ class GlobalClass {
 
         $response = wp_remote_get("https://docs.google.com/spreadsheets/d/".$sheet_id."/export?format=csv&id=".$sheet_id."")['body'];
 
-        return $response;
+        if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
+            return false;
+        } else {
+            return $response;
+        }
     }
 
     /**

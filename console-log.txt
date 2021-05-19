@@ -1,0 +1,24 @@
+=>	2
+	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync\Includes\Classes\GlobalClass.php
+	on line 91
+	at 19-May-2021 | 07:28:43 AM 
+
+
+=>	false
+	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync\Includes\Classes\GlobalClass.php
+	on line 91
+	at 19-May-2021 | 07:27:11 AM 
+
+
+=>	false
+	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync\Includes\Classes\GlobalClass.php
+	on line 91
+	at 19-May-2021 | 07:26:57 AM 
+
+
+=>	false
+	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync\Includes\Classes\GlobalClass.php
+	on line 91
+	at 19-May-2021 | 07:26:27 AM 
+
+
