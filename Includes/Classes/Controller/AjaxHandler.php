@@ -5,17 +5,18 @@ namespace GSWPTS\Includes\Classes\Controller;
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
 
 class AjaxHandler {
 
     public function __construct() {
         $this->events();
     }
+
     public function events() {
         /* Sheet Creation */
         add_action('wp_ajax_gswpts_sheet_create', [$this, 'sheet_creation']);
@@ -39,38 +40,39 @@ class AjaxHandler {
         add_action('wp_ajax_gswpts_get_posts', [$this, 'getPosts']);
         add_action('wp_ajax_nopriv_gswpts_get_posts', [$this, 'getPosts']);
     }
+
     public function sheet_creation() {
-        $sheet_creation = new SheetCreation;
+        $sheet_creation = new SheetCreation();
         $sheet_creation->sheet_creation();
     }
 
     public function sheet_fetch() {
-        $sheet_fetching = new SheetFetching;
+        $sheet_fetching = new SheetFetching();
         $sheet_fetching->sheet_fetch();
     }
 
     public function table_fetch() {
-        $table_fetching = new TableFetch;
+        $table_fetching = new TableFetch();
         $table_fetching->table_fetch();
     }
 
     public function ud_tables() {
-        $ud_tables = new UdTables;
+        $ud_tables = new UdTables();
         $ud_tables->ud_tables();
     }
 
     public function fetch_products() {
-        $ud_tables = new FetchProducts;
+        $ud_tables = new FetchProducts();
         $ud_tables->fetch_products();
     }
 
-    public function userSubscribe(){
-        $remoteClass = new RemoteClass;
+    public function userSubscribe() {
+        $remoteClass = new RemoteClass();
         $remoteClass->subscriptionRequest();
     }
-    
-    public function getPosts(){
-        $remoteClass = new RemoteClass;
+
+    public function getPosts() {
+        $remoteClass = new RemoteClass();
         $remoteClass->getPostRequest();
     }
 }

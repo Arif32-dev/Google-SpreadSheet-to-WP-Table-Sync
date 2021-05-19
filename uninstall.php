@@ -12,23 +12,10 @@ class SheetsToWPTableLiveSyncUninstall {
         }
         $this->unregister_options();
     }
-    public function db_connection() {
-        $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-        return $connection;
-    }
-    public function delete_tables($sql) {
-        $connection = $this->db_connection();
-        if ($connection) {
-            $connection->query($sql);
-        }
-    }
-    public function db_tables() {
-        global $wpdb;
-        $tables = [
-            $wpdb->prefix . 'gswpts_tables',
-        ];
-        return $tables;
-    }
+
+    /**
+     * @return mixed
+     */
     public function all_delete_sql() {
         $sql = [];
         $db_tables = $this->db_tables();
@@ -40,19 +27,51 @@ class SheetsToWPTableLiveSyncUninstall {
             return $sql;
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function db_connection() {
+        $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        return $connection;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function db_tables() {
+        global $wpdb;
+        $tables = [
+            $wpdb->prefix.'gswpts_tables'
+        ];
+        return $tables;
+    }
+
+    /**
+     * @param $sql
+     */
+    public function delete_tables($sql) {
+        $connection = $this->db_connection();
+        if ($connection) {
+            $connection->query($sql);
+        }
+    }
+
     public function unregister_options() {
         $settings_options = [
             'asynchronous_loading',
             'multiple_sheet_tab',
             'sheet_tab_connection'
         ];
-        foreach ($settings_options as  $option) {
+        foreach ($settings_options as $option) {
             unregister_setting('gswpts_general_setting', $option);
             delete_option($option);
         }
     }
 }
 
-if(!class_exists('SheetsToWPTableLiveSyncUninstall')) return;
+if (!class_exists('SheetsToWPTableLiveSyncUninstall')) {
+    return;
+}
 
-new SheetsToWPTableLiveSyncUninstall;
+new SheetsToWPTableLiveSyncUninstall();
