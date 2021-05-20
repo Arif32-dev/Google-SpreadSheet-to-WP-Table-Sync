@@ -9,7 +9,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: {
         admin: {
             import: path.resolve(__dirname, 'Assets/Src/Scripts/admin.js'),
@@ -37,7 +37,7 @@ module.exports = {
             {
                 test: /.s?css$/,
                 use: [{
-                        loader: MiniCssExtractPlugin.loader
+                        loader: "style-loader"
                     },
                     {
                         loader: "css-loader",

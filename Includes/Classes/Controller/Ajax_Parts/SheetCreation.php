@@ -10,7 +10,11 @@ class SheetCreation {
      */
     private static $output = [];
 
+    /**
+     * @return mixed
+     */
     public function sheet_creation() {
+
         if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_create') {
             self::$output['response_type'] = esc_html('invalid_action');
             self::$output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
@@ -79,8 +83,10 @@ class SheetCreation {
             $file_input = sanitize_text_field($parsed_data['file_input']);
 
             $table_settings = array_map(function ($setting) {
-                return sanitize_text_field($setting);
+                return $setting;
             }, $_POST['table_settings']);
+
+            // wp_console_log($table_settings);
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'], 'gswpts_sheet_nonce_action')) {
                 self::$output['response_type'] = esc_html('invalid_request');
@@ -293,19 +299,21 @@ class SheetCreation {
     }
 
     /**
-     * @param  $table_settings
-     * @return mixed
+     * @param  array   $table_settings
+     * @return array
      */
-    public static function get_table_settings($table_settings) {
+    public static function get_table_settings(array $table_settings) {
         $settings = [
             'table_title'           => $table_settings['table_title'],
             'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
             'show_info_block'       => $table_settings['showInfoBlock'],
+            'responsive_table'      => $table_settings['responsiveTable'],
             'show_x_entries'        => $table_settings['showXEntries'],
             'swap_filter_inputs'    => $table_settings['swapFilterInputs'],
             'swap_bottom_options'   => $table_settings['swapBottomOptions'],
             'allow_sorting'         => $table_settings['allowSorting'],
-            'search_bar'            => $table_settings['searchBar']
+            'search_bar'            => $table_settings['searchBar'],
+            'table_export'          => isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty'
         ];
         return $settings;
     }

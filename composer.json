@@ -1,13 +1,11 @@
 {
-    "name": "user/google-spreadsheet-to-wp-table-sync",
-    "description": "This is a WordPress plugin to synchronize google spreadsheet data into wordpress table",
+    "name": "user/sheets-to-wp-table-live-sync-pro",
+    "description": "Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.",
     "type": "project",
-    "authors": [
-        {
-            "name": "Arif32-dev",
-            "email": "dragonwarrior062@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "Arifur Rahman Arif",
+        "email": "dev.ar.arif@gmail.com"
+    }],
     "require": {
         "appsero/client": "^1.2"
     },

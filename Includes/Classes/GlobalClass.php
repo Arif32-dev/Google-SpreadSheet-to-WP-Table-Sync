@@ -15,13 +15,23 @@ class GlobalClass {
         wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
 
+    public function tableExportDependencies() {
+        wp_enqueue_script('GSWPTS-buttons', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-flash', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/button-flesh.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-jszip', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/jszip.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-pdfmake', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/pdfmake.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-vfs_fonts', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/vfs_fonts.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-html5', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.html5.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-print', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.print.min.js', ['jquery'], GSWPTS_VERSION, true);
+    }
+
     /**
-     * @param $nonce_action
-     * @param $nonce_name
+     * @param string $nonce_action
+     * @param string $nonce_name
      */
     public function nonce_field(
-        $nonce_action,
-        $nonce_name
+        string $nonce_action,
+        string $nonce_name
     ) {
         wp_nonce_field($nonce_action, $nonce_name);
     }
@@ -164,9 +174,7 @@ class GlobalClass {
                 }
                 $table .= '</tr></thead>';
             } else {
-                if ($i == 15) {
-                    break;
-                }
+
                 $table .= '<tr>';
                 foreach ($data as $cell_value) {
                     if ($cell_value) {
@@ -394,5 +402,21 @@ class GlobalClass {
                         </div>";
         }
         return $logsHtml;
+    }
+
+    /**
+     * @return array
+     */
+    public function loadIconsUrl() {
+        $iconUrls = [
+            'curlyBrackets' => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/brackets-curly.svg'),
+            'copySolid'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/copy-solid.svg'),
+            'fileCSV'       => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-csv-solid.svg'),
+            'fileExcel'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-excel-solid.svg'),
+            'filePdf'       => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-pdf-solid.svg'),
+            'printIcon'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/print-solid.svg')
+        ];
+
+        return $iconUrls;
     }
 }

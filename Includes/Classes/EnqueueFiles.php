@@ -31,16 +31,20 @@ class EnqueueFiles {
 
             $gswpts->data_table_styles();
             $gswpts->data_table_scripts();
+            $gswpts->tableExportDependencies();
 
             /* CSS Files */
             wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL.'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
-            wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL.'Assets/Public/Styles/admin.min.css', [], GSWPTS_VERSION, 'all');
+            // wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL.'Assets/Public/Styles/admin.min.css', [], GSWPTS_VERSION, 'all');
 
             /* Javascript Files */
             wp_enqueue_script('jquery');
             wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL.'Assets/Public/Package/alert.min.js', ['jquery'], GSWPTS_VERSION, true);
             wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL.'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
-            wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php')]);
+            wp_localize_script('GSWPTS-admin-js', 'file_url', [
+                'admin_ajax' => admin_url('admin-ajax.php'),
+                'iconsURL'   => $gswpts->loadIconsUrl()
+            ]);
         }
     }
 
@@ -50,8 +54,9 @@ class EnqueueFiles {
         wp_enqueue_script('jquery');
 
         $gswpts->frontend_tables_assets();
+        $gswpts->tableExportDependencies();
 
-        wp_enqueue_style('GSWPTS-frontend-css', GSWPTS_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_VERSION, 'all');
+        // wp_enqueue_style('GSWPTS-frontend-css', GSWPTS_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_VERSION, 'all');
 
         wp_enqueue_script(
             'GSWPTS-frontend-js',
@@ -63,7 +68,8 @@ class EnqueueFiles {
 
         wp_localize_script('GSWPTS-frontend-js', 'front_end_data', [
             'admin_ajax'           => admin_url('admin-ajax.php'),
-            'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off'
+            'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off',
+            'iconsURL'             => $gswpts->loadIconsUrl()
         ]);
     }
 

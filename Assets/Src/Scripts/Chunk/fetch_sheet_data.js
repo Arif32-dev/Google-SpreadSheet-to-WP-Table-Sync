@@ -23,7 +23,6 @@ jQuery(document).ready(function($) {
                 type: 'post',
 
                 success: res => {
-                    console.log(res)
                     if (JSON.parse(res).response_type == 'invalid_action' || JSON.parse(res).response_type == 'invalid_request') {
                         this.sheet_container.html('');
                         this.call_alert('Error &#128683;', JSON.parse(res).output, 'error', 4)
@@ -59,8 +58,7 @@ jQuery(document).ready(function($) {
                         let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
 
                         let table_name = JSON.parse(res.responseText).table_data.table_name;
-                        // let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
-                        let dom = `<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
+                        let dom = `B<"#filtering_input"${table_settings.show_x_entries == 'true' ? 'l' : ''}${table_settings.search_bar == 'true' ? 'f' : ''}>rt<"#bottom_options"${table_settings.show_info_block == 'true' ? 'i' : ''}p>`;
 
                         let swap_filter_inputs = table_settings.swap_filter_inputs == 'true' ? true : false;
                         let swap_bottom_options = table_settings.swap_bottom_options == 'true' ? true : false;
@@ -83,9 +81,9 @@ jQuery(document).ready(function($) {
 
                             this.swap_bottom_options(swap_bottom_options);
 
-                            // if (table_settings.table_export != 'empty') {
-                            //     this.export_buttons_row_revealer(table_settings.table_export);
-                            // }
+                            if (table_settings.table_export != 'empty') {
+                                this.export_buttons_row_revealer(table_settings.table_export);
+                            }
 
                             this.call_alert('Successfull &#128077;', '<b>Google Sheet data fetched successfully</b>', 'success', 3)
 

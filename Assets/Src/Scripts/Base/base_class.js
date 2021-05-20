@@ -3,7 +3,7 @@ export default class Base_Class {
         this.sheet_form = $('#gswpts_create_table');
         this.sheet_details = $('#sheet_details');
         this.sheet_container = $('#spreadsheet_container');
-        this.settings_field = $('#show_title, #rows_per_page, #info_block, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table');
+        this.settings_field = $('#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table, #table_exporting');
     }
 
     call_alert(title, description, type, time, pos = 'bottom-right') {
@@ -119,13 +119,13 @@ export default class Base_Class {
             table_title: $('#show_title').prop('checked'),
             defaultRowsPerPage: $('#rows_per_page').find('input[name=rows_per_page]').val() == 'all' ? -1 : $('#rows_per_page').find('input[name=rows_per_page]').val(),
             showInfoBlock: $('#info_block').prop('checked'),
-            // responsiveTable: $('#responsive').prop('checked'),
+            responsiveTable: $('#responsive').prop('checked'),
             showXEntries: $('#show_entries').prop('checked'),
             swapFilterInputs: $('#swap_filter_inputs').prop('checked'),
             swapBottomOptions: $('#swap_bottom_options').prop('checked'),
             allowSorting: $('#sorting').prop('checked'),
             searchBar: $('#search_table').prop('checked'),
-            // tableExport: $('#table_exporting').val() || null
+            tableExport: $('#table_exporting').val() || null
         }
         return settings;
     }
@@ -141,7 +141,7 @@ export default class Base_Class {
             swapBottomOptions: false,
             allowSorting: true,
             searchBar: true,
-            // tableExport: null
+            tableExport: null
         }
         return default_settings;
     }
@@ -202,8 +202,7 @@ export default class Base_Class {
 
             if (pagination_menu.children().length > 5) {
                 this.overflow_menu_style()
-            }
-            else {
+            } else {
                 this.bottom_option_style(style)
             }
 
@@ -211,8 +210,7 @@ export default class Base_Class {
 
             if (pagination_menu.children().length > 5) {
                 this.overflow_menu_style()
-            }
-            else {
+            } else {
 
                 style['flex_direction'] = 'row'
 
@@ -251,11 +249,13 @@ export default class Base_Class {
     }
 
     export_buttons_row_revealer(export_btns) {
-        export_btns.forEach(btn => {
-            setTimeout(() => {
-                this.export_button_revealer_by_other_input(btn)
-            }, 300);
-        });
+        if (export_btns) {
+            export_btns.forEach(btn => {
+                setTimeout(() => {
+                    this.export_button_revealer_by_other_input(btn)
+                }, 300);
+            });
+        }
     }
 
     export_button_revealer_by_other_input(btn) {
@@ -267,59 +267,55 @@ export default class Base_Class {
     table_object(table_name, pageLength, ordering, dom) {
         let obj = {
             dom: dom,
-            // buttons: [{
-            //     text: 'JSON { }',
-            //     className: 'ui inverted yellow button transition hidden json_btn',
-            //     action: function (e, dt, button, config) {
-            //         var data = dt.buttons.exportData();
+            buttons: [{
+                    text: `JSON &nbsp;<img src="${file_url.iconsURL.curlyBrackets}" />`,
+                    className: 'ui inverted yellow button transition hidden json_btn',
+                    action: function(e, dt, button, config) {
+                        var data = dt.buttons.exportData();
 
-            //         $.fn.dataTable.fileSave(
-            //             new Blob([JSON.stringify(data)]),
-            //             `${table_name}.json`
-            //         );
-            //     }
-            // },
-            // {
-            //     text: 'PDF &nbsp;<i class="fas fa-file-pdf"></i>',
-            //     extend: 'pdf',
-            //     className: 'ui inverted red button transition hidden pdf_btn',
-            //     title: `${table_name}`
-            // },
-            // {
-            //     text: 'CSV &nbsp; <i class="fas fa-file-csv"></i>',
-            //     extend: 'csv',
-            //     className: 'ui inverted green button transition hidden csv_btn',
-            //     title: `${table_name}`
-            // },
-            // {
-            //     text: 'Excel &nbsp; <i class="fas fa-file-excel"></i>',
-            //     extend: 'excel',
-            //     className: 'ui inverted green button transition hidden excel_btn',
-            //     title: `${table_name}`
-            // },
-            // {
-            //     text: 'Print &nbsp; <i class="fas fa-print"></i>',
-            //     extend: 'print',
-            //     className: 'ui inverted secondary button transition hidden print_btn',
-            //     title: `${table_name}`
-            // },
-            // {
-            //     text: 'Copy &nbsp; <i class="fas fa-copy"></i>',
-            //     extend: 'copy',
-            //     className: 'ui inverted violet button transition hidden copy_btn',
-            //     title: `${table_name}`
-            // }
+                        $.fn.dataTable.fileSave(
+                            new Blob([JSON.stringify(data)]),
+                            `${table_name}.json`
+                        );
+                    }
+                },
+                {
+                    text: `PDF &nbsp;<img src="${file_url.iconsURL.filePdf}" />`,
+                    extend: 'pdf',
+                    className: 'ui inverted red button transition hidden pdf_btn',
+                    title: `${table_name}`
+                },
+                {
+                    text: `CSV &nbsp;<img src="${file_url.iconsURL.fileCSV}" />`,
+                    extend: 'csv',
+                    className: 'ui inverted green button transition hidden csv_btn',
+                    title: `${table_name}`
+                },
+                {
+                    text: `Excel &nbsp;<img src="${file_url.iconsURL.fileExcel}" />`,
+                    extend: 'excel',
+                    className: 'ui inverted green button transition hidden excel_btn',
+                    title: `${table_name}`
+                },
+                {
+                    text: `Print &nbsp;<img src="${file_url.iconsURL.printIcon}" />`,
+                    extend: 'print',
+                    className: 'ui inverted secondary button transition hidden print_btn',
+                    title: `${table_name}`
+                },
+                {
+                    text: `Copy &nbsp;<img src="${file_url.iconsURL.copySolid}" />`,
+                    extend: 'copy',
+                    className: 'ui inverted violet button transition hidden copy_btn',
+                    title: `${table_name}`
+                }
 
-            // ],
+            ],
             "order": [],
             "responsive": true,
-            // "lengthMenu": [
-            //     [1, 5, 10, 15, 25, 50, 100, -1],
-            //     [1, 5, 10, 15, 25, 50, 100, "All"]
-            // ],
             "lengthMenu": [
-                [1, 5, 10, 15],
-                [1, 5, 10, 15]
+                [1, 5, 10, 15, 25, 50, 100, -1],
+                [1, 5, 10, 15, 25, 50, 100, "All"]
             ],
             "pageLength": parseInt(pageLength),
             "lengthChange": true,
@@ -336,18 +332,19 @@ export default class Base_Class {
         $('#show_title').prop('checked', settings.table_title == 'true' ? true : false);
         $("#rows_per_page").dropdown('set selected', settings.default_rows_per_page == '-1' ? 'all' : settings.default_rows_per_page);
         $('#info_block').prop('checked', settings.show_info_block == 'true' ? true : false);
-        // $('#responsive').prop('checked', settings.responsive_table == 'true' ? true : false);
+        $('#responsive').prop('checked', settings.responsive_table == 'true' ? true : false);
         $('#show_entries').prop('checked', settings.show_x_entries == 'true' ? true : false);
         $('#swap_filter_inputs').prop('checked', settings.swap_filter_inputs == 'true' ? true : false);
         $('#swap_bottom_options').prop('checked', settings.swap_bottom_options == 'true' ? true : false);
         $('#sorting').prop('checked', settings.allow_sorting == 'true' ? true : false);
         $('#search_table').prop('checked', settings.search_bar == 'true' ? true : false);
 
-        // if (settings.table_export != 'empty') {
-        //     settings.table_export.forEach(export_type => {
-        //         $('#table_exporting').dropdown('set selected', export_type)
-        //     });
-        // }
+        console.log(settings.table_export);
+        if (settings.table_export != 'empty' && settings.table_export) {
+            settings.table_export.forEach(export_type => {
+                $('#table_exporting').dropdown('set selected', export_type)
+            });
+        }
 
     }
 }

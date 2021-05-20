@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Table_Changes extends Base_Class {
 
         constructor() {
@@ -50,17 +50,16 @@ jQuery(document).ready(function ($) {
             let table_name = $('.edit_table_name').siblings('input[name=table_name]').val();
             let table_settings = this.table_settings_obj();
 
-            // if ($(e.currentTarget).attr('id') == 'table_exporting') {
-            //     let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
-            //     export_btn.forEach(btn => {
-            //         this.button_reavealer(e, btn)
-            //     });
-            // }
+            if ($(e.currentTarget).attr('id') == 'table_exporting') {
+                let export_btn = ['json', 'pdf', 'csv', 'excel', 'print', 'copy'];
+                export_btn.forEach(btn => {
+                    this.button_reavealer(e, btn)
+                });
+            }
 
             if ($(e.currentTarget).attr('id') == 'show_title' || 'responsive' || 'search_table' || 'rows_per_page' || 'sorting' || 'show_entries' || 'info_block') {
-                // let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
-                let dom = `<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
-                // this.export_buttons_row_revealer(table_settings.tableExport);
+                let dom = `B<"#filtering_input"${table_settings.showXEntries ? 'l' : ''}${table_settings.searchBar ? 'f' : ''}>rt<"#bottom_options"${table_settings.showInfoBlock ? 'i' : ''}p>`;
+                this.export_buttons_row_revealer(table_settings.tableExport);
                 this.table_changer(table_name, table_settings, dom)
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
                 this.swap_bottom_options(table_settings.swapBottomOptions);
@@ -81,7 +80,6 @@ jQuery(document).ready(function ($) {
 
         /* Show the export buttons based on user selection */
         button_reavealer(e, target) {
-
             if ($(e.currentTarget).val().includes(target)) {
                 if ($('.' + target + '_btn').hasClass('hidden')) {
                     $('.' + target + '_btn').transition('scale');
@@ -98,7 +96,7 @@ jQuery(document).ready(function ($) {
 
         set_default() {
             let default_settings = this.default_settings();
-            $.each(this.settings, function (index, value) {
+            $.each(this.settings, function(index, value) {
                 if ($(value).attr('id') == 'show_title') {
                     $(value).prop('checked', default_settings.table_title);
                 }

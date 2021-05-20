@@ -29,7 +29,7 @@
                     <?php _e('Dashboard', 'sheetstowptable');?>
                 </h3>
                 <span>
-                    <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
+                    <a class="ui violet button m-0" href="https://youtu.be/_LWcaErh8jw" target="blank">
                         <?php _e('View Documention', 'sheetstowptable');?> <span
                             class="ml-2"><?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?></span>
                     </a>
@@ -43,11 +43,7 @@
                 <?php printf('<h2 class="p-0 m-t-0 m-b-4">%s %s</h2', __('Welcome to', 'sheetstowptable'), PlUGIN_NAME);?>
                 <p><?php _e('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization', 'sheetstowptable');?>
                 </p>
-                <!-- <a href="<?php echo esc_url('https://vimeo.com/526189502'); ?>" target="blank">
-                    <button class="ui inverted green button">
-                        <?php _e('Learn how to sync Google spreadsheet', 'sheetstowptable');?>
-                    </button>
-                </a> -->
+
                 <iframe style="width: 100%;" height="370" src="https://www.youtube-nocookie.com/embed/_LWcaErh8jw"
                     title="How to install and use Google Spreadsheets to WP Table Live Sync" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

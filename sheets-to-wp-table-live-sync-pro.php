@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name:       Sheets To WP Table Live Sync
+ * Plugin Name:       Sheets To WP Table Live Sync Pro
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           1.1.2
+ * Version:           1.0.0
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '1.1.2');
+    define('GSWPTS_VERSION', time());
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -39,7 +39,7 @@ if (!file_exists(GSWPTS_BASE_PATH.'vendor/autoload.php')) {
 
 require_once GSWPTS_BASE_PATH.'vendor/autoload.php';
 
-final class SheetsToWPTableLiveSync {
+final class SheetsToWPTableLiveSyncPro {
     /**
      * @return null
      */
@@ -51,7 +51,7 @@ final class SheetsToWPTableLiveSync {
 
         $this->register_active_deactive_hooks();
         $this->plugins_check();
-        $this->appseroInit();
+        // $this->appseroInit();
     }
 
     /**
@@ -133,13 +133,13 @@ final class SheetsToWPTableLiveSync {
     }
 }
 
-if (!class_exists('SheetsToWPTableLiveSync')) {
+if (!class_exists('SheetsToWPTableLiveSyncPro')) {
     return;
 }
 
-if (!function_exists('sheetsToWPTableLiveSync')) {
-    function sheetsToWPTableLiveSync() {
-        return new SheetsToWPTableLiveSync();
+if (!function_exists('sheetsToWPTableLiveSyncPro')) {
+    function sheetsToWPTableLiveSyncPro() {
+        return new SheetsToWPTableLiveSyncPro();
     }
 }
-sheetsToWPTableLiveSync();
+sheetsToWPTableLiveSyncPro();

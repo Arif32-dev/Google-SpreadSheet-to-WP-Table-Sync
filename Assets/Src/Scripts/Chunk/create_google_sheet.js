@@ -1,6 +1,6 @@
 import Base_Class from './../Base/base_class';
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     class Google_Sheets_Creation extends Base_Class {
 
         constructor() {
@@ -198,8 +198,7 @@ jQuery(document).ready(function ($) {
                         let table_name = $('#table_name').val();
                         let defaultRowsPerPage = default_settings.defaultRowsPerPage;
                         let allowSorting = default_settings.allowSorting;
-                        // let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
-                        let dom = '<"#filtering_input"lf>rt<"#bottom_options"ip>';
+                        let dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
 
                         $('#create_tables').DataTable(
                             this.table_object(
