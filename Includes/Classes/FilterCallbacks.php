@@ -64,4 +64,47 @@ class FilterCallbacks {
         return $rowsPerPage;
     }
 
+    /**
+     * @param  array   $rowFetching
+     * @return array
+     */
+    public function sheetsRowFetching(array $rowFetching): array{
+        $rowFetching['unlimited'] = true;
+        return $rowFetching;
+    }
+
+    /**
+     * @param  array   $settingsArray
+     * @return array
+     */
+    public function displaySettingsArray(array $settingsArray): array{
+        $settingsArray['responsive_table']['is_pro'] = false;
+
+        return $settingsArray;
+    }
+
+    /**
+     * @param  array   $settingsArray
+     * @return mixed
+     */
+    public function tableToolsArray(array $settingsArray): array{
+        $settingsArray['table_export']['is_pro'] = false;
+
+        return $settingsArray;
+    }
+
+    /**
+     * @param  array   $settings
+     * @param  array   $table_settings
+     * @return array
+     */
+    public function getTableSettings(
+        array $settings,
+        array $table_settings
+    ): array{
+        $settings['responsive_table'] = $table_settings['responsiveTable'];
+        $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
+        return $settings;
+    }
+
 }

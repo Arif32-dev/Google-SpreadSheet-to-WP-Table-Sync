@@ -10,5 +10,6 @@ class ActionHooks extends ActionCallbacks {
     public function __construct() {
         add_action('gswpts_export_dependency_backend', [$this, 'tableExportDependencies']);
         add_action('gswpts_export_dependency_frontend', [$this, 'tableExportDependencies']);
+        add_action('gswpts_export_dependency_frontend', [$this, 'addResponsiveCss']);
     }
 }

@@ -14,4 +14,8 @@ class ActionCallbacks {
         wp_enqueue_script('GSWPTS-buttons-html5', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.html5.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
         wp_enqueue_script('GSWPTS-buttons-print', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.print.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
     }
+
+    public function addResponsiveCss() {
+        wp_enqueue_style('GSWPTS-table-responsive', GSWPTS_PRO_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_PRO_VERSION, 'all');
+    }
 }
