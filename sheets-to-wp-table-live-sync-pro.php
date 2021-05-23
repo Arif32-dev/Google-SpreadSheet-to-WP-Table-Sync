@@ -17,27 +17,27 @@
 /* if accessed directly exit from plugin */
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
-if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', time());
+if (!defined('GSWPTS_PRO_VERSION')) {
+    define('GSWPTS_PRO_VERSION', time());
 }
 
-if (!defined('GSWPTS_BASE_PATH')) {
-    define('GSWPTS_BASE_PATH', plugin_dir_path(__FILE__));
+if (!defined('GSWPTS_PRO_BASE_PATH')) {
+    define('GSWPTS_PRO_BASE_PATH', plugin_dir_path(__FILE__));
 }
 
-if (!defined('GSWPTS_BASE_URL')) {
-    define('GSWPTS_BASE_URL', plugin_dir_url(__FILE__));
+if (!defined('GSWPTS_PRO_BASE_URL')) {
+    define('GSWPTS_PRO_BASE_URL', plugin_dir_url(__FILE__));
 }
 
 if (!defined('PlUGIN_NAME')) {
     define('PlUGIN_NAME', 'Sheets To WP Table Live Sync');
 }
 
-if (!file_exists(GSWPTS_BASE_PATH.'vendor/autoload.php')) {
+if (!file_exists(GSWPTS_PRO_BASE_PATH.'vendor/autoload.php')) {
     return;
 }
 
-require_once GSWPTS_BASE_PATH.'vendor/autoload.php';
+require_once GSWPTS_PRO_BASE_PATH.'vendor/autoload.php';
 
 final class SheetsToWPTableLiveSyncPro {
     /**

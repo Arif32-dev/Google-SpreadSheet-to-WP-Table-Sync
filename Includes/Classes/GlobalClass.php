@@ -6,23 +6,23 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'
 
 class GlobalClass {
     public function data_table_styles() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_PRO_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_PRO_VERSION, 'all');
     }
 
     public function data_table_scripts() {
-        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
     }
 
     public function tableExportDependencies() {
-        wp_enqueue_script('GSWPTS-buttons', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-buttons-flash', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/button-flesh.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-jszip', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/jszip.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-pdfmake', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/pdfmake.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-vfs_fonts', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/vfs_fonts.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-buttons-html5', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.html5.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-buttons-print', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.print.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-flash', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/button-flesh.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-jszip', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/jszip.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-pdfmake', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/pdfmake.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-vfs_fonts', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/vfs_fonts.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-html5', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.html5.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
+        wp_enqueue_script('GSWPTS-buttons-print', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.print.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
     }
 
     /**
@@ -37,13 +37,13 @@ class GlobalClass {
     }
 
     public function semantic_files() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_PRO_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_PRO_VERSION, false);
     }
 
     public function frontend_tables_assets() {
-        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
-        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_PRO_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_PRO_VERSION, false);
     }
 
     /**
@@ -409,12 +409,12 @@ class GlobalClass {
      */
     public function loadIconsUrl() {
         $iconUrls = [
-            'curlyBrackets' => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/brackets-curly.svg'),
-            'copySolid'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/copy-solid.svg'),
-            'fileCSV'       => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-csv-solid.svg'),
-            'fileExcel'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-excel-solid.svg'),
-            'filePdf'       => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/file-pdf-solid.svg'),
-            'printIcon'     => esc_url(GSWPTS_BASE_URL.'Assets/Public/Icons/ExportIcons/print-solid.svg')
+            'curlyBrackets' => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/brackets-curly.svg'),
+            'copySolid'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/copy-solid.svg'),
+            'fileCSV'       => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-csv-solid.svg'),
+            'fileExcel'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-excel-solid.svg'),
+            'filePdf'       => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-pdf-solid.svg'),
+            'printIcon'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/print-solid.svg')
         ];
 
         return $iconUrls;

@@ -28,7 +28,7 @@
         }
     }
     select {
-        width: 70px;
+        width: 90px;
         border-radius: 5px;
         border: 1px solid #00000033 !important;
         background: transparent !important;
@@ -135,9 +135,8 @@
     }
 }
 
-
 /* Lock this css in free version */
 
-// .gswpts_tables_container.gswpts_resposive {
-// 	@include mixin.table_style;
-// }
+.gswpts_tables_container.gswpts_resposive {
+    @include mixin.table_style;
+}

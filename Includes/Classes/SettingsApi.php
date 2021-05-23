@@ -52,7 +52,7 @@ class SettingsApi {
 
         $option_values = self::get_option_values();
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
             'setting_title'   => __('Asynchronous Loading', 'sheetstowptable'),
             'setting_tooltip' => __('Enable this feature for loading table asynchronously', 'sheetstowptable'),
             'is_checked'      => $option_values['asynchronous_loading'],
@@ -62,7 +62,7 @@ class SettingsApi {
                                             If you don't want to enable this feature than the table will load with the reloading of browser every time.", 'sheetstowptable')
         ]);
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
             'setting_title'   => __('Multiple Spreadsheet Tab', 'sheetstowptable'),
             'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
             'is_checked'      => $option_values['multiple_sheet_tab'],
@@ -73,7 +73,7 @@ class SettingsApi {
             'is_pro'          => true
         ]);
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
             'setting_title'   => __('Table Connection', 'sheetstowptable'),
             'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
             'is_checked'      => $option_values['sheet_tab_connection'],

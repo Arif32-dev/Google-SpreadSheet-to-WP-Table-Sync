@@ -18,7 +18,7 @@
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-iteml-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
@@ -29,10 +29,10 @@
             <div class="col-12 p-0 d-flex align-items-center">
 
                 <div
-                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
-                    <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text"
+                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
+                    <input                                                     <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text"
                         placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
-                    <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?>
+                    <button                                                       <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?>
                         class="ui button edit_table_name ">
                         <?php _e('Edit Title', 'sheetstowptable');?> &nbsp;
                         <span><i class="edit icon"></i></span>
@@ -41,7 +41,7 @@
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button"
-                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
+                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
                         style="padding-left: 30px;">
                         <?php _e('Create New', 'sheetstowptable');?> &nbsp; <i class="plus icon"></i>
                     </button>
@@ -60,11 +60,11 @@
                 <div class="tabs">
 
                     <input type="radio" id="tab1" name="tab-control" checked>
-                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab2"
+                    <input                                                     <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab2"
                         name="tab-control" class="secondary_inputs">
-                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab3"
+                    <input                                                     <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab3"
                         name="tab-control" class="secondary_inputs">
-                    <input <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab4"
+                    <input                                                     <?php echo isset($table_id) && !empty($table_id) ? '' : 'disabled' ?> type="radio" id="tab4"
                         name="tab-control" class="secondary_inputs">
                     <ul>
                         <li title="<?php echo esc_attr('Data Source') ?>" class="tables_settings"
@@ -72,7 +72,7 @@
                             data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch'); ?>">
                             <label for="tab1" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/archive-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/archive-solid.svg';?>
                                 </span>
                                 <span><?php _e('Data Source', 'sheetstowptable');?></span>
                             </label>
@@ -84,7 +84,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab2" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg';?>
                                 </span>
                                 <span><?php _e('Display Settings', 'sheetstowptable');?></span>
                             </label>
@@ -96,7 +96,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab3" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
                                 </span>
                                 <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
                             </label>
@@ -108,7 +108,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab4" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/tools-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/tools-solid.svg';?>
                                 </span>
                                 <span><?php _e('Table Tools', 'sheetstowptable');?></span>
                             </label>
@@ -142,27 +142,27 @@
                                                     <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('csv'); ?>">
                                                         <span><?php echo esc_html('CSV File'); ?></span>
-                                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('excel'); ?>">
                                                         <span><?php echo esc_html('Excel File'); ?></span>
-                                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('xml'); ?>">
                                                         <span><?php echo esc_html('XML File'); ?></span>
-                                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('json'); ?>">
                                                         <span><?php echo esc_html('JSON File'); ?></span>
-                                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
                                                     <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('php_array'); ?>">
                                                         <span><?php echo esc_html('PHP Array'); ?></span>
-                                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,7 +176,7 @@
                                                 <span class="ui icon button p-0 m-0 helper_text"
                                                     data-tooltip="Share your sheet publicly. Publish the sheet to web & click the share button at the top of your spreadsheet"
                                                     data-position="left center" data-inverted="">
-                                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
                                                 </span>
                                             </div>
                                         </div>
@@ -198,7 +198,7 @@
                         <section id="display_settings">
                             <div class="row">
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Table Title', 'sheetstowptable'),
                                         'feature_desc'  => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheetstowptable'),
                                         'input_name'    => 'show_title',
@@ -255,14 +255,14 @@
                                     </div>
                                 </div>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Show info block', 'sheetstowptable'),
                                         'feature_desc'  => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
                                         'input_name'    => 'info_block',
                                         'checked'       => true
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Resposive Table', 'sheetstowptable'),
                                         'feature_desc'  => __('Allow collapsing on mobile and tablet screen', 'sheetstowptable'),
                                         'input_name'    => 'responsive',
@@ -270,28 +270,28 @@
                                         'is_pro'        => false
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Show X entries', 'sheetstowptable'),
                                         'feature_desc'  => __('<i>Show X entries</i> per page dropdown', 'sheetstowptable'),
                                         'input_name'    => 'show_entries',
                                         'checked'       => true
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Swap Filters', 'sheetstowptable'),
                                         'feature_desc'  => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheetstowptable'),
                                         'input_name'    => 'swap_filter_inputs',
                                         'checked'       => false
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Swap Bottom Elements', 'sheetstowptable'),
                                         'feature_desc'  => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheetstowptable'),
                                         'input_name'    => 'swap_bottom_options',
                                         'checked'       => false
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Vertical Scrolling', 'sheetstowptable'),
                                         'feature_desc'  => __('Turning ON this feature will enable the table to scroll vertically', 'sheetstowptable'),
                                         'input_name'    => 'vertical_scrolling',
@@ -305,7 +305,7 @@
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
                                         <?php _e('Display Documention', 'sheetstowptable')?> <span class="ml-2">
-                                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg';?>
+                                            <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg';?>
                                         </span>
                                     </button>
                                 </div>
@@ -315,21 +315,21 @@
                         <section id="sort_filter">
                             <div class="row">
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Allow Sorting', 'sheetstowptable'),
                                         'feature_desc'  => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
                                         'input_name'    => 'sorting',
                                         'checked'       => true
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Search Bar', 'sheetstowptable'),
                                         'feature_desc'  => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
                                         'input_name'    => 'search_table',
                                         'checked'       => true
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Rows Highlight', 'sheetstowptable'),
                                         'feature_desc'  => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheetstowptable'),
                                         'input_name'    => 'rows_highlight',
@@ -337,7 +337,7 @@
                                         'is_pro'        => true
                                 ]);?>
 
-                                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
+                                <?php load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, [
                                         'feature_title' => __('Chart Integration', 'sheetstowptable'),
                                         'feature_desc'  => __('Enable this feature to filter data by various terms in the sheet & is going to show all the filtered data in the table as well as in a chart', 'sheetstowptable'),
                                         'input_name'    => 'chart_integration',
@@ -351,7 +351,7 @@
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
                                         <?php _e('Sorting Documention', 'sheetstowptable');?> <span class="ml-2">
-                                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
+                                            <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
                                         </span>
                                     </button>
                                 </div>
@@ -401,7 +401,7 @@
                                 <div class="col-12">
                                     <button class="ui violet button m-0" type="button">
                                         <?php _e('Table Tools Doc', 'sheetstowptable')?><span class="ml-2">
-                                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/tools-solid.svg'?>
+                                            <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/tools-solid.svg'?>
                                         </span>
                                     </button>
                                 </div>

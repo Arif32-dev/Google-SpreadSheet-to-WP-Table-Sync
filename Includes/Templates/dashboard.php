@@ -19,7 +19,7 @@
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
@@ -31,7 +31,7 @@
                 <span>
                     <a class="ui violet button m-0" href="https://youtu.be/_LWcaErh8jw" target="blank">
                         <?php _e('View Documention', 'sheetstowptable');?> <span
-                            class="ml-2"><?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?></span>
+                            class="ml-2"><?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?></span>
                     </a>
                 </span>
             </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-5 d-flex justify-content-center align-items-center">
                 <img class="img-responsive wdt-welcomr-img"
-                    src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/welcome_message.svg'); ?>"
+                    src="<?php echo esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Images/welcome_message.svg'); ?>"
                     alt="Welcome message">
             </div>
 
@@ -66,7 +66,7 @@
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-iteml-center justify-content-between">
                             <div class="title">
-                                <span><?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/table-solid.svg';?></span>
+                                <span><?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/table-solid.svg';?></span>
                                 <span class="ml-2"><?php _e('Tables', 'sheetstowptable');?></span>
                             </div>
                             <a href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')); ?>"
@@ -115,7 +115,7 @@
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
-                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?>
+                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?>
                                 <span class="ml-2"><?php _e('Change Logs', 'sheetstowptable');?></span>
                             </div>
                             <a href="<?php echo self_admin_url('plugin-install.php?tab=plugin-information&plugin=sheets-to-wp-table-live-sync&section=changelog&TB_iframe=true&width=600&height=800') ?>"
@@ -125,7 +125,7 @@
                         </div>
                         <div class="card-body">
                             <div class="col-12 mb-2">
-                                <?php _e('You are currently using Version', 'sheetstowptable');?><?php echo GSWPTS_VERSION ?>
+                                <?php _e('You are currently using Version', 'sheetstowptable');?><?php echo GSWPTS_PRO_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
                                 <?php _e('The first realease of this plugin with compatibility checking', 'sheetstowptable');?>:
@@ -144,7 +144,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/blog-solid.svg'?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/blog-solid.svg'?>
                                 </span>
                                 <span class="ml-2"><?php _e('Our Blogs', 'sheetstowptable');?></span>
                             </div>
@@ -217,7 +217,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/people-carry-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/people-carry-solid.svg';?>
                                 </span>
                                 <span class="ml-2"><?php _e('Help Center', 'sheetstowptable');?></span>
                             </div>
@@ -240,7 +240,7 @@
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/need_help.svg'); ?>"
+                                    <img src="<?php echo esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Images/need_help.svg'); ?>"
                                         alt="" class="img-fluid">
                                 </div>
                             </div>
@@ -254,7 +254,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                    <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                 </span>
                                 <span class="ml-2"><?php _e('Go Pro', 'sheetstowptable');?>!</span>
                             </div>
@@ -271,35 +271,35 @@
                                     <ul class="p-0 m-0">
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
-                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg'?>
+                                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg'?>
                                             </span>
                                             <span><b><?php _e('Responsive Table: ', 'sheetstowptable');?></b><?php echo PlUGIN_NAME ?><?php _e('Plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens', 'sheetstowptable');?></span>.
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
-                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
+                                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
                                             </span>
                                             <span><b><?php _e('Export table: ', 'sheetstowptable')?></b><?php _e('Table Exporting via CSV, Excel, PDF, JSON, Print, Table Copy is easy on this plugin', 'sheetstowptable')?></span>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
-                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
+                                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
                                             </span>
                                             <span><b><?php _e('Unlimited rows fetching from the sheet: ', 'sheetstowptable')?></b><?php _e('Fetch as many row data you want to show it as WordPress table.', 'sheetstowptable')?></span>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
-                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
+                                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
                                             </span>
                                             <span><b><?php _e('Elementor Widget Support: ', 'sheetstowptable');?></b><?php echo PlUGIN_NAME; ?><?php _e('supports elementor widget. Organize your table data effortlessly than ever.', 'sheetstowptable');?></span>
                                         </li>
 
                                         <li class="d-flex align-items-center mb-3">
                                             <span class="mr-2">
-                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
+                                                <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
                                             </span>
                                             <?php _e('And much more', 'sheetstowptable');?>.
                                         </li>
@@ -307,14 +307,14 @@
                                     </ul>
                                 </div>
                                 <div class="col-6 p-0 m-0">
-                                    <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/premium.svg'); ?>"
+                                    <img src="<?php echo esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Images/premium.svg'); ?>"
                                         alt="" class="img-fluid">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <a class="ui violet button m-0">
                                     <?php _e('Get Pro Today', 'sheetstowptable');?> <span class="ml-2">
-                                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                                        <?php require GSWPTS_PRO_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                     </span>
                                 </a>
                             </div>

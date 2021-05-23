@@ -16,7 +16,7 @@ class AdminMenus {
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
-            GSWPTS_BASE_URL.'Assets/Public/Images/logo_20_20.svg',
+            GSWPTS_PRO_BASE_URL.'Assets/Public/Images/logo_20_20.svg',
             10
         );
         add_submenu_page(
@@ -54,18 +54,18 @@ class AdminMenus {
     }
 
     public static function gswpts_dashboard() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/dashboard.php', true);
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/dashboard.php', true);
     }
 
     public static function gswpts_tables() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/manage_tables.php', true);
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/manage_tables.php', true);
     }
 
     public static function gswpts_create_tables() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/create_tables.php', true);
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/create_tables.php', true);
     }
 
     public static function general_settings() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/general_settings.php', true);
+        load_template(GSWPTS_PRO_BASE_PATH.'Includes/Templates/general_settings.php', true);
     }
 }

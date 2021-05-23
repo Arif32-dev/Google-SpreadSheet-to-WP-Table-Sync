@@ -24,9 +24,8 @@ class SheetCreation {
 
         if (isset($_POST['gutenberg_req']) && sanitize_text_field($_POST['gutenberg_req'])) {
 
-            $file_input = sanitize_text_field($_POST['file_input']);
-
             if (sanitize_text_field($_POST['type']) == 'fetch') {
+                $file_input = sanitize_text_field($_POST['file_input']);
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
@@ -40,6 +39,7 @@ class SheetCreation {
             }
 
             if (sanitize_text_field($_POST['type']) == 'save' || sanitize_text_field($_POST['type']) == 'saved') {
+                $file_input = sanitize_text_field($_POST['file_input']);
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
@@ -66,6 +66,11 @@ class SheetCreation {
             }
 
             if (sanitize_text_field($_POST['type']) == 'save_changes') {
+
+                $table_settings = array_map(function ($setting) {
+                    return sanitize_text_field($setting);
+                }, $_POST['table_settings']);
+
                 echo json_encode(self::update_changes(
                     sanitize_text_field($_POST['id']),
                     $table_settings
