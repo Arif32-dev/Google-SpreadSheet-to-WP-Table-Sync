@@ -1,23 +1,57 @@
 =>	Array
 (
-    [table_title] => false
-    [defaultRowsPerPage] => 10
-    [showInfoBlock] => true
-    [responsiveTable] => false
-    [showXEntries] => true
-    [swapFilterInputs] => false
-    [swapBottomOptions] => false
-    [allowSorting] => true
-    [searchBar] => true
-    [tableExport] => Array
+    [1] => Array
         (
-            [0] => pdf
+            [val] => 1
+            [isPro] => 
+        )
+
+    [5] => Array
+        (
+            [val] => 5
+            [isPro] => 
+        )
+
+    [10] => Array
+        (
+            [val] => 10
+            [isPro] => 
+        )
+
+    [15] => Array
+        (
+            [val] => 15
+            [isPro] => 
+        )
+
+    [25] => Array
+        (
+            [val] => 25
+            [isPro] => 1
+        )
+
+    [50] => Array
+        (
+            [val] => 50
+            [isPro] => 1
+        )
+
+    [100] => Array
+        (
+            [val] => 100
+            [isPro] => 1
+        )
+
+    [All] => Array
+        (
+            [val] => all
+            [isPro] => 1
         )
 
 )
 
-	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync-pro\Includes\Classes\Controller\Ajax_Parts\SheetCreation.php
-	on line 89
-	at 20-May-2021 | 05:37:51 AM 
+	Occured in E:\laragon\www\wordpress\wp-content\plugins\sheets-to-wp-table-live-sync\Includes\Templates\Parts\rows_per_page.php
+	on line 3
+	at 23-May-2021 | 08:48:37 AM 
 
 

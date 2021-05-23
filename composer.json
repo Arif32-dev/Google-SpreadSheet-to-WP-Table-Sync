@@ -2,16 +2,15 @@
     "name": "user/sheets-to-wp-table-live-sync-pro",
     "description": "Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.",
     "type": "project",
-    "authors": [{
-        "name": "Arifur Rahman Arif",
-        "email": "dev.ar.arif@gmail.com"
-    }],
-    "require": {
-        "appsero/client": "^1.2"
-    },
+    "authors": [
+        {
+            "name": "Arifur Rahman Arif",
+            "email": "dev.ar.arif@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "GSWPTS\\Includes\\": "Includes/"
+            "GSWPTS_PRO\\Includes\\": "Includes/"
         }
     }
 }

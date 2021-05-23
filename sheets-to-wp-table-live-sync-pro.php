@@ -9,13 +9,13 @@
  * Requires PHP:      5.4
  * Author:            WPPOOL
  * Author URI:        https://wppool.dev/
- * Text Domain:       sheetstowptable
+ * Text Domain:       sheetstowptable-pro
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 /* if accessed directly exit from plugin */
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
 if (!defined('GSWPTS_PRO_VERSION')) {
     define('GSWPTS_PRO_VERSION', time());
@@ -27,10 +27,6 @@ if (!defined('GSWPTS_PRO_BASE_PATH')) {
 
 if (!defined('GSWPTS_PRO_BASE_URL')) {
     define('GSWPTS_PRO_BASE_URL', plugin_dir_url(__FILE__));
-}
-
-if (!defined('PlUGIN_NAME')) {
-    define('PlUGIN_NAME', 'Sheets To WP Table Live Sync');
 }
 
 if (!file_exists(GSWPTS_PRO_BASE_PATH.'vendor/autoload.php')) {
@@ -48,65 +44,36 @@ final class SheetsToWPTableLiveSyncPro {
         if ($this->version_check() == 'version_low') {
             return;
         }
+        add_action('plugins_loaded', [$this, 'initializeProPlugin']);
 
         $this->register_active_deactive_hooks();
+    }
+
+    public function initializeProPlugin() {
+
+        $this->isBasePluginActive();
+
         $this->plugins_check();
-        // $this->appseroInit();
     }
 
-    /**
-     * @param $links
-     */
-    public static function add_action_links($links) {
-        $mylinks = [
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-dashboard')), esc_html__('Dashboard', 'sheetstowptable')),
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-create-tables')), esc_html__('Create Table', 'sheetstowptable')),
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html__('General Settings', 'sheetstowptable'))
-        ];
-        return array_merge($links, $mylinks);
-    }
-
-    public function appseroInit() {
-        if (!class_exists('Appsero\Client')) {
-            require_once __DIR__.'/appsero/src/Client.php';
-        }
-
-        $client = new Appsero\Client('e8bb9069-1a77-457b-b1e3-a961ce950e2f', 'Sheets To WP Table Live Sync', __FILE__);
-
-        // Active insights
-        $client->insights()->init();
-    }
-
-    /**
-     * @requiring all the classes once
-     * @return void
-     */
     public function include_file() {
-
-        new GSWPTS\Includes\PluginBase();
-
-        if (get_option('gswpts_activation_redirect', false)) {
-            delete_option('gswpts_activation_redirect');
+        if (get_option('gswpts_activation_pro_redirect', false)) {
+            delete_option('gswpts_activation_pro_redirect');
             wp_redirect(admin_url('admin.php?page=gswpts-dashboard'));
         }
+
+        new GSWPTS_PRO\Includes\PluginBase();
     }
 
     public function plugins_check() {
         if (is_plugin_active(plugin_basename(__FILE__))) {
-            add_action('plugins_loaded', [$this, 'include_file']);
-            add_filter('plugin_action_links_'.plugin_basename(__FILE__), [__CLASS__, 'add_action_links']);
+            $this->include_file();
         }
     }
 
-    /**
-     * registering activation and deactivation Hooks
-     * @return void
-     */
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
-
-            new GSWPTS\Includes\Classes\DbTables();
-            add_option('gswpts_activation_redirect', true);
+            add_option('gswpts_activation_pro_redirect', true);
             flush_rewrite_rules();
         });
         register_activation_hook(__FILE__, function () {
@@ -118,7 +85,7 @@ final class SheetsToWPTableLiveSyncPro {
      * @return null
      */
     public function show_notice() {
-        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', __('Plugin', 'sheetstowptable'), __('cannot be activated - requires at least PHP 5.4. Plugin automatically deactivated.', 'sheetstowptable'));
+        printf('<div class="notice notice-error is-dismissible"><h3><strong>%s %s </strong></h3><p>%s</p></div>', esc_html('Sheets To WP Table Live Sync Pro'), __('Plugin', 'sheetstowptable-pro'), __('cannot be activated - requires at least PHP 5.4. Plugin automatically deactivated.', 'sheetstowptable-pro'));
         return;
     }
 
@@ -131,6 +98,37 @@ final class SheetsToWPTableLiveSyncPro {
             return 'version_low';
         }
     }
+
+    /**
+     * @return boolean
+     */
+    public function isBasePluginActive(): bool {
+        $returnValue = false;
+
+        if (!class_exists('SheetsToWPTableLiveSync')) {
+
+            if (is_plugin_active(plugin_basename(__FILE__))) {
+                deactivate_plugins(plugin_basename(__FILE__));
+                add_action('admin_notices', function () {
+                    printf(
+                        '<div class="notice notice-error is-dismissible"><h3><strong>%s %s </strong></h3><p>%s</p></div>',
+                        esc_html('Sheets To WP Table Live Sync Pro'),
+                        __('Plugin', 'sheetstowptable-pro'),
+                        __('cannot be activated - requires the base plugin
+                            <b><a href="'.esc_url(self_admin_url('plugin-install.php?s=Sheets+to+WP+Table+Live+Sync+WPPOOL&tab=search&type=term')).'">Sheets to WP Table Live Sync</a></b>
+                            Activated.', 'sheetstowptable-pro'
+                        )
+                    );
+                });
+            }
+
+            $returnValue = false;
+        } else {
+            $returnValue = true;
+        }
+        return $returnValue;
+    }
+
 }
 
 if (!class_exists('SheetsToWPTableLiveSyncPro')) {

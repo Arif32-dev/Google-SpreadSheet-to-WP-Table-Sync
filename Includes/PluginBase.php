@@ -1,32 +1,23 @@
 <?php
 
-namespace GSWPTS\Includes;
+namespace GSWPTS_PRO\Includes;
 
-defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
+defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
-use GSWPTS\Includes\Classes\ClassSortcode;
-use GSWPTS\Includes\Classes\Controller\AdminMenus;
-use GSWPTS\Includes\Classes\Controller\AjaxHandler;
-use GSWPTS\Includes\Classes\EnqueueFiles;
-use GSWPTS\Includes\Classes\GlobalClass;
-use GSWPTS\Includes\Classes\SettingsApi;
+use GSWPTS_PRO\Includes\Classes\ActionCallbacks;
+use GSWPTS_PRO\Includes\Classes\ActionHooks;
+use GSWPTS_PRO\Includes\Classes\FilterCallbacks;
+use GSWPTS_PRO\Includes\Classes\FilterHooks;
 
 class PluginBase {
     public function __construct() {
-        $this->includes();
-        $this->global_functions();
+        $this->includeClasses();
     }
 
-    public function global_functions() {
-        global $gswpts;
-        $gswpts = new GlobalClass();
-    }
-
-    public function includes() {
-        new EnqueueFiles();
-        new AdminMenus();
-        new AjaxHandler();
-        new ClassSortcode();
-        new SettingsApi();
+    public function includeClasses() {
+        new ActionHooks();
+        new ActionCallbacks();
+        new FilterHooks();
+        new FilterCallbacks();
     }
 }

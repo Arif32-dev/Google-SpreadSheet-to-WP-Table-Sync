@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'GSWPTS\\Includes\\' => array($baseDir . '/Includes'),
-    'Appsero\\' => array($vendorDir . '/appsero/client/src'),
+    'GSWPTS_PRO\\Includes\\' => array($baseDir . '/Includes'),
 );
