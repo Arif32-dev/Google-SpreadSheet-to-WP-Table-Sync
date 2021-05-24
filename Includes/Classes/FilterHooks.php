@@ -15,5 +15,6 @@ class FilterHooks extends FilterCallbacks {
         add_filter('gswpts_display_settings_arr', [$this, 'displaySettingsArray']);
         add_filter('gswpts_table_tools_settings_arr', [$this, 'tableToolsArray']);
         add_filter('gswpts_table_settings', [$this, 'getTableSettings'], 10, 2);
+        add_filter('gswpts_table_scorll_height', [$this, 'scrollHeightArray']);
     }
 }

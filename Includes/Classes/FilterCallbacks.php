@@ -79,6 +79,7 @@ class FilterCallbacks {
      */
     public function displaySettingsArray(array $settingsArray): array{
         $settingsArray['responsive_table']['is_pro'] = false;
+        $settingsArray['vertical_scrolling']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -103,8 +104,21 @@ class FilterCallbacks {
         array $table_settings
     ): array{
         $settings['responsive_table'] = $table_settings['responsiveTable'];
+        $settings['vertical_scroll'] = $table_settings['verticalScroll'];
         $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
         return $settings;
     }
 
+    /**
+     * @param  array   $scrollHeights
+     * @return array
+     */
+    public function scrollHeightArray(array $scrollHeights): array{
+        $scrollHeights = array_map(function ($scrollHeight) {
+            $scrollHeight['isPro'] = false;
+            return $scrollHeight;
+        }, $scrollHeights);
+
+        return $scrollHeights;
+    }
 }
