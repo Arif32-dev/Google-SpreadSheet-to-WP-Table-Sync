@@ -15,6 +15,10 @@ module.exports = {
             import: path.resolve(__dirname, "Assets/Src/Scripts/frontend.js"),
             filename: "Scripts/Frontend/[name].min.js",
         },
+        elementor: {
+            import: path.resolve(__dirname, "Assets/Src/Scripts/elementor.js"),
+            filename: "Scripts/Backend/[name].min.js",
+        },
     },
     output: {
         path: path.resolve(__dirname, "Assets/Public/"),
@@ -82,12 +86,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "Styles/[name].min.css",
         }),
-        // new PurgecssPlugin({
-        //     paths: glob.sync(
-        //         [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
-        //         { nodir: true }
-        //     ),
-        // }),
+        new PurgecssPlugin({
+            paths: glob.sync(
+                [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
+                { nodir: true }
+            ),
+        }),
     ],
     devtool: "source-map",
     watch: true,

@@ -6,6 +6,7 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-
 
 use GSWPTS_PRO\Includes\Classes\ActionCallbacks;
 use GSWPTS_PRO\Includes\Classes\ActionHooks;
+use GSWPTS_PRO\Includes\Classes\Elementor\ElementorBase;
 use GSWPTS_PRO\Includes\Classes\FilterCallbacks;
 use GSWPTS_PRO\Includes\Classes\FilterHooks;
 
@@ -19,5 +20,6 @@ class PluginBase {
         new ActionCallbacks();
         new FilterHooks();
         new FilterCallbacks();
+        new ElementorBase();
     }
 }
