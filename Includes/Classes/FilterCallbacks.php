@@ -121,4 +121,21 @@ class FilterCallbacks {
 
         return $scrollHeights;
     }
+
+    /**
+     * @param  array   $exportValues
+     * @return array
+     */
+    public function tableExportValues(array $exportValues): array{
+        if (!$exportValues) {
+            $exportValues;
+        }
+
+        $exportValues = array_map(function ($value) {
+            $value['isPro'] = false;
+            return $value;
+        }, $exportValues);
+
+        return $exportValues;
+    }
 }

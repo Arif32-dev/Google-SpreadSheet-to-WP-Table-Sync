@@ -4,7 +4,7 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.1.2
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,3 +122,9 @@ Additionally read the WPPOOL [privacy policy](https://wppool.dev/privacy-policy/
 = 1.1.2 =
 * Fix: Fixed spreadsheet data fetching issue for different server
 * Improvement: Added video documention in dashboard page
+
+= 1.2.2 =
+* Fix: Fixed admin page css issue
+* Improvement: UI/UX improved for users
+* Improvement: Plugins code structure updated for pro version
+* Added: Added 20 row fetching from google sheet
