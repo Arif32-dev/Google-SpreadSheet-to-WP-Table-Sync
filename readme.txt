@@ -1,4 +1,4 @@
-=== Sheets To WP Table Live Sync ===
+=== Sheets To WP Table Live Sync Pro ===
 Contributors: wppool, azizultex, devdrarif, wpdarkmode
 Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
