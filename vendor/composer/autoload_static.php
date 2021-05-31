@@ -11,12 +11,20 @@ class ComposerStaticInitd6eee3f502bbf353f1294b13c225313c
         array (
             'GSWPTS_PRO\\Includes\\' => 20,
         ),
+        'A' => 
+        array (
+            'Appsero\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'GSWPTS_PRO\\Includes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Includes',
+        ),
+        'Appsero\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/appsero/client/src',
         ),
     );
 

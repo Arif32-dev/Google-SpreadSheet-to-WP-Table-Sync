@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8869ea4d12ccc96cbbf183658ccead1e",
+    "content-hash": "4b7a586ef1b9df685100f9c0b6d67abb",
     "packages": [
         {
             "name": "appsero/client",
@@ -46,10 +46,6 @@
                 "theme",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/Appsero/client/issues",
-                "source": "https://github.com/Appsero/client/tree/v1.2.0"
-            },
             "time": "2020-09-10T09:10:28+00:00"
         }
     ],
@@ -60,6 +56,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "platform-dev": []
 }

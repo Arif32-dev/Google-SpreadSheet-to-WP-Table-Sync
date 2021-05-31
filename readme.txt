@@ -79,33 +79,76 @@ After you set up a table, a shortcode is generated automatically. All you need t
 === Pro Features ===
 
 
-💰 Pro features (coming soon!):
+💰 Pro features:
 
 1. **All Free Features**
 
 2. **Responsive Table:** Sheets to WP Table Live Sync plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
 
-3. **Export table:** Table exporting via CSV, Excel, PDF, JSON, Print, table copy is easy on this plugin.
+3. **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
 
 4. **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
 
-5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever. 
+5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
+
+6. **Vetical Scroll/Sticky Header:** This feature allows you to scroll vertically in the table. Activating this feature will allow the table to behave as sticky header.
+
+7. **Format Table Cell ***(UPCOMING)***:** Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style.
+
+8. **Rows Highlight ***(UPCOMING)***:** Enable this feature to show highlighted rows of the table in the frontend selected by admin/user
+
+8. **Multiple Spreadsheet Tab ***(UPCOMING)***:** Enabling this feature will allow user/admin to choose & save multiple Google sheet tabs from a single Google spreadsheet
+
+8. **Table Connection ***(UPCOMING)***:** Enabling this feature will allow user/admin to connect multiple created table in a single page. Each individual table will be shown as like bootstrap tab or accordian design.
+
+
 
 
 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 
-## Privacy Policy 
-Sheets To WP Table Live Sync uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
-
-Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
-
+## Privacy Policy
+Sheets to WP Table Live Sync Premium uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
-
 Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
-Additionally read the WPPOOL [privacy policy](https://wppool.dev/privacy-policy/).
+
+== Frequently Asked Questions ==
+
+= How to install and activate the plugin? =
+[Watch this video to learn how to install and activate the plugin in simple steps](https://youtu.be/OYPG_wWHnjc)
+
+= How do I add a new table using the plugin? =
+[Watch the video to learn how to add a new table very easily with the plugin](https://youtu.be/wp7y9v2_4wY)
+
+= How should I use the Shortcode feature to display my spreadsheet data? =
+[Watch this video to learn how to use the Shortcode to display your spreadsheet data in WP table](https://youtu.be/uGPO8qLUIq0)
+
+= Does this plugin support the popular page builders?  =
+Yes, the plugin supports the most popular WP page builders - Elementor widget in Pro version and Gutenberg block in both Pro and Free version
+
+= How to hide “Showing X of X entries” in pagination? =
+Go to the Display tab of the table settings block and disable the “Show Info block” setting.
+
+= Do the Sheets to WP Table Live Sync plugin have any impact on page loading? =
+Not at all! Sheets to WP Table Live Sync is a very robust and fast plugin. It won’t impact your page loading. But sometimes it may take some time to load the page if the Asynchronous Loading feature is not On & the Google Sheet data is too big.
+
+= Where can I find the tutorials about using the plugin? =
+Please visit our [Youtube playlist](https://youtube.com/playlist?list=PLd6WEu38CQSyY-1rzShSfsHn4ZVmiGNLP) where we put all the videos of how you can use the features of the plugin. Also, let us know if there is anything we can help you with.
+
+= Is this plugin compatible with all modern browsers? =
+Yes, We have tested this plugin in all modern browsers (Safari, Chrome, Firefox, Edge etc) works without any issue.
+
+= Do I need to know any programming language for using this plugin? =
+No. WP Dark Mode is a very user-friendly and simple plugin. Just download and use it accordingly.
+
+= I want a refund for my purchase of the plugin. What is the procedure? =
+We have a 14 days refund policy. Please email us at support@wppool.dev explaining why you would like to get a refund.
+
+= Whom do I contact for any kind of support? =
+For instant support please send us a message on our Facebook page or you also contact us through https://wppool.dev/contact/.
 
 
 === Changelog ===
@@ -113,18 +156,3 @@ Additionally read the WPPOOL [privacy policy](https://wppool.dev/privacy-policy/
 
 = 1.0.0 =
 * Initial Release
-
-= 1.0.1 =
-* Fix: Fixed user subscription
-* Fix: Fixed post fetching from WPPOOL
-* Improvement: Improved plugin admin layout
-
-= 1.1.2 =
-* Fix: Fixed spreadsheet data fetching issue for different server
-* Improvement: Added video documention in dashboard page
-
-= 1.2.2 =
-* Fix: Fixed admin page css issue
-* Improvement: UI/UX improved for users
-* Improvement: Plugins code structure updated for pro version
-* Added: Added 20 row fetching from google sheet

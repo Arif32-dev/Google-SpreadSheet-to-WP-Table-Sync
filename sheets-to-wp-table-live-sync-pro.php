@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
 if (!defined('GSWPTS_PRO_VERSION')) {
-    define('GSWPTS_PRO_VERSION', time());
+    define('GSWPTS_PRO_VERSION', '1.0.0');
 }
 
 if (!defined('GSWPTS_PRO_BASE_PATH')) {
@@ -47,6 +47,7 @@ final class SheetsToWPTableLiveSyncPro {
         add_action('plugins_loaded', [$this, 'initializeProPlugin']);
 
         $this->register_active_deactive_hooks();
+        $this->appseroInit();
     }
 
     public function initializeProPlugin() {
@@ -79,6 +80,29 @@ final class SheetsToWPTableLiveSyncPro {
         register_activation_hook(__FILE__, function () {
             flush_rewrite_rules();
         });
+    }
+
+    public function appseroInit() {
+        if (!class_exists('Appsero\Client')) {
+            require_once __DIR__.'/appsero/src/Client.php';
+        }
+
+        $client = new Appsero\Client('b82905c5-b807-47a0-a2cf-a7d3792f362f', 'Sheets to WP Table Live Sync Premium', __FILE__);
+
+        // Active insights
+        $client->insights()->init();
+
+        // Active automatic updater
+        $client->updater();
+
+        // Active license page and checker
+        $args = array(
+            'type'       => 'options',
+            'menu_title' => 'Sheets to WP Table Live Sync Premium',
+            'page_title' => 'Sheets to WP Table Live Sync Premium Settings',
+            'menu_slug'  => 'sheets_to_wp_table_live_sync_premium_settings'
+        );
+        $client->license()->add_settings_page($args);
     }
 
     /**

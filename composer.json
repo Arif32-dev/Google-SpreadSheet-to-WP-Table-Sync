@@ -12,5 +12,8 @@
         "psr-4": {
             "GSWPTS_PRO\\Includes\\": "Includes/"
         }
+    },
+    "require": {
+        "appsero/client": "^1.2"
     }
 }
