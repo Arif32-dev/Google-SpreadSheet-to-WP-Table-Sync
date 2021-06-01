@@ -29,7 +29,7 @@
                     <?php _e('Dashboard', 'sheetstowptable');?>
                 </h3>
                 <span>
-                    <a class="ui violet button m-0" href="https://vimeo.com/526189502" target="blank">
+                    <a class="ui violet button m-0" href="https://youtu.be/_LWcaErh8jw" target="blank">
                         <?php _e('View Documention', 'sheetstowptable');?> <span
                             class="ml-2"><?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?></span>
                     </a>
@@ -43,11 +43,7 @@
                 <?php printf('<h2 class="p-0 m-t-0 m-b-4">%s %s</h2', __('Welcome to', 'sheetstowptable'), PlUGIN_NAME);?>
                 <p><?php _e('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization', 'sheetstowptable');?>
                 </p>
-                <!-- <a href="<?php echo esc_url('https://vimeo.com/526189502'); ?>" target="blank">
-                    <button class="ui inverted green button">
-                        <?php _e('Learn how to sync Google spreadsheet', 'sheetstowptable');?>
-                    </button>
-                </a> -->
+
                 <iframe style="width: 100%;" height="370" src="https://www.youtube-nocookie.com/embed/_LWcaErh8jw"
                     title="How to install and use Google Spreadsheets to WP Table Live Sync" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -106,7 +102,7 @@
                                 <br>
                                 <br>
 
-                                <a href="https://youtu.be/_LWcaErh8jw">How to create a table</a>
+                                <a href="https://youtu.be/_LWcaErh8jw" target="blank">How to create a table</a>
 
                             </div>
                         </div>
@@ -124,12 +120,12 @@
                             </div>
                             <a href="<?php echo self_admin_url('plugin-install.php?tab=plugin-information&plugin=sheets-to-wp-table-live-sync&section=changelog&TB_iframe=true&width=600&height=800') ?>"
                                 class="ui inverted green button">
-                                <?php _e('View Logs', 'sheetstowptable');?>
+                                <?php _e('View All Logs', 'sheetstowptable');?>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="col-12 mb-2">
-                                <?php _e('You are currently using Version', 'sheetstowptable');?><?php echo GSWPTS_VERSION ?>
+                                <?php _e('You are currently using Version: ', 'sheetstowptable');?><?php echo GSWPTS_VERSION ?>
                             </div>
                             <div class="col-12 mb-2">
                                 <?php _e('The first realease of this plugin with compatibility checking', 'sheetstowptable');?>:
@@ -262,7 +258,8 @@
                                 </span>
                                 <span class="ml-2"><?php _e('Go Pro', 'sheetstowptable');?>!</span>
                             </div>
-                            <a href="" class="ui inverted green button">
+                            <a class="ui inverted green button" href="https://wppool.dev/sheets-to-wp-table-live-sync/"
+                                target="blank">
                                 <?php _e('Compare', 'sheetstowptable');?>
                             </a>
                         </div>
@@ -305,6 +302,13 @@
                                             <span class="mr-2">
                                                 <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
                                             </span>
+                                            <span><b><?php _e('Vertical Scroll: ', 'sheetstowptable');?></b><?php echo PlUGIN_NAME; ?><?php _e('Choose the height of the table to scroll vertically. This feature will allow the table to behave as sticky header', 'sheetstowptable');?></span>
+                                        </li>
+
+                                        <li class="d-flex align-items-center mb-3">
+                                            <span class="mr-2">
+                                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/check-circle-solid.svg';?>
+                                            </span>
                                             <?php _e('And much more', 'sheetstowptable');?>.
                                         </li>
 
@@ -316,7 +320,8 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <a class="ui violet button m-0">
+                                <a class="ui violet button m-0" href="https://wppool.dev/sheets-to-wp-table-live-sync/"
+                                    target="blank">
                                     <?php _e('Get Pro Today', 'sheetstowptable');?> <span class="ml-2">
                                         <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                     </span>

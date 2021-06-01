@@ -82,9 +82,9 @@ class GlobalClass {
 
         if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
             return false;
-        } else {
-            return $response;
         }
+
+        return $response;
     }
 
     /**
@@ -143,7 +143,8 @@ class GlobalClass {
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
 
-        $row = str_getcsv($sheet_response, "\n");
+        $row = explode(PHP_EOL, $sheet_response);
+
         $length = count($row);
 
         if (!$length) {
@@ -152,6 +153,7 @@ class GlobalClass {
 
         for ($i; $i < $length; $i++) {
             $data = str_getcsv($row[$i], ",");
+
             if ($i == 0) {
                 $table .= '<thead><tr>';
                 foreach ($data as $cell_value) {
@@ -164,8 +166,15 @@ class GlobalClass {
                 }
                 $table .= '</tr></thead>';
             } else {
-                if ($i == 15) {
-                    break;
+                $allowRowFetching = apply_filters('gswpts_allow_sheet_rows_fetching', [
+                    'unlimited' => false,
+                    'totalRows' => 21
+                ]);
+
+                if (!$allowRowFetching['unlimited']) {
+                    if ($i == $allowRowFetching['totalRows']) {
+                        break;
+                    }
                 }
                 $table .= '<tr>';
                 foreach ($data as $cell_value) {
@@ -345,18 +354,19 @@ class GlobalClass {
     public function changeLogs() {
 
         $changeLogs = [
-            '1.0.0' => [
-                __('Initial Release', 'sheetstowptable')
-            ],
-            '1.0.1' => [
-                __('Fix: Fixed user subscription', 'sheetstowptable'),
-                __('Fix: Fixed post fetching from WPPOOL', 'sheetstowptable'),
-                __('Improvement: Improved plugin admin layout', 'sheetstowptable')
-            ],
             '1.1.2' => [
                 __('Fix: Fixed spreadsheet data fetching issue for different server', 'sheetstowptable'),
                 __('Fix: Fixed tutorial video linking in dashboard', 'sheetstowptable'),
                 __('Improvement: Added video documention in dashboard page', 'sheetstowptable')
+            ],
+            '1.2.2' => [
+                __('Fix: Fixed admin page css issue', 'sheetstowptable'),
+                __('Fix: Fixed tabe broken issue', 'sheetstowptable'),
+                __('Added: Add cell formating feature as upcoming feature', 'sheetstowptable').
+                __('Added: Changed non-developed feature as upcoming feature', 'sheetstowptable'),
+                __('Improvement: UI/UX improved for users', 'sheetstowptable'),
+                __('Improvement: Added 20 row fetching from google sheet', 'sheetstowptable'),
+                __('Improvement: Plugins code structure updated for pro version', 'sheetstowptable')
             ]
         ];
 
@@ -394,5 +404,401 @@ class GlobalClass {
                         </div>";
         }
         return $logsHtml;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isProActive(): bool {
+        $returnValue = false;
+        if (class_exists('SheetsToWPTableLiveSyncPro')) {
+            $returnValue = true;
+        } else {
+            $returnValue = false;
+        }
+        return $returnValue;
+    }
+
+    /**
+     * @return array
+     */
+    public function rowsPerPage(): array{
+        $rowsPerPage = [
+            '1'   => [
+                'val'   => 1,
+                'isPro' => false
+            ],
+            '5'   => [
+                'val'   => 5,
+                'isPro' => false
+            ],
+            '10'  => [
+                'val'   => 10,
+                'isPro' => false
+            ],
+            '15'  => [
+                'val'   => 15,
+                'isPro' => false
+            ],
+            '25'  => [
+                'val'   => 25,
+                'isPro' => true
+            ],
+            '50'  => [
+                'val'   => 50,
+                'isPro' => true
+            ],
+            '100' => [
+                'val'   => 100,
+                'isPro' => true
+            ],
+            'all' => [
+                'val'   => 'All',
+                'isPro' => true
+            ]
+        ];
+
+        $rowsPerPage = apply_filters('gswpts_rows_per_page', $rowsPerPage);
+
+        return $rowsPerPage;
+    }
+
+    /**
+     * @param  array  $values
+     * @return null
+     */
+    public function selectFieldHTML(array $values) {
+        if (!$values) {
+            return;
+        }
+        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/select_values.php', false, $values);
+    }
+
+    /**
+     * @return array
+     */
+    public function scrollHeightArray(): array{
+        $scrollHeights = [
+            '200'  => [
+                'val'   => '200px',
+                'isPro' => true
+            ],
+            '400'  => [
+                'val'   => '400px',
+                'isPro' => true
+            ],
+            '500'  => [
+                'val'   => '500px',
+                'isPro' => true
+            ],
+            '600'  => [
+                'val'   => '600px',
+                'isPro' => true
+            ],
+            '700'  => [
+                'val'   => '700px',
+                'isPro' => true
+            ],
+            '800'  => [
+                'val'   => '800px',
+                'isPro' => true
+            ],
+            '900'  => [
+                'val'   => '900px',
+                'isPro' => true
+            ],
+            '1000' => [
+                'val'   => '1000px',
+                'isPro' => true
+            ]
+        ];
+
+        $scrollHeights = apply_filters('gswpts_table_scorll_height', $scrollHeights);
+
+        return $scrollHeights;
+    }
+
+    /**
+     * @return array
+     */
+    public function displaySettingsArray(): array{
+        $settingsArray = [
+            'table_title'          => [
+                'feature_title' => __('Table Title', 'sheetstowptable'),
+                'feature_desc'  => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheetstowptable'),
+                'input_name'    => 'show_title',
+                'checked'       => false,
+                'type'          => 'checkbox'
+            ],
+            'rows_per_page'        => [
+                'feature_title' => __('Default rows per page', 'sheetstowptable'),
+                'feature_desc'  => __('This will show rows per page in the frontend', 'sheetstowptable'),
+                'input_name'    => 'rows_per_page',
+                'type'          => 'select',
+                'values'        => $this->rowsPerPage(),
+                'default_text'  => 'Rows Per Page'
+            ],
+            'show_info_block'      => [
+                'feature_title' => __('Show info block', 'sheetstowptable'),
+                'feature_desc'  => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
+                'input_name'    => 'info_block',
+                'checked'       => true,
+                'type'          => 'checkbox'
+            ],
+            'responsive_table'     => [
+                'feature_title' => __('Resposive Table', 'sheetstowptable'),
+                'feature_desc'  => __('Allow collapsing on mobile and tablet screen', 'sheetstowptable'),
+                'input_name'    => 'responsive',
+                'checked'       => false,
+                'is_pro'        => true,
+                'type'          => 'checkbox'
+            ],
+            'show_x_entries'       => [
+                'feature_title' => __('Show X entries', 'sheetstowptable'),
+                'feature_desc'  => __('<i>Show X entries</i> per page dropdown', 'sheetstowptable'),
+                'input_name'    => 'show_entries',
+                'checked'       => true,
+                'type'          => 'checkbox'
+            ],
+            'swap_filters'         => [
+                'feature_title' => __('Swap Filters', 'sheetstowptable'),
+                'feature_desc'  => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheetstowptable'),
+                'input_name'    => 'swap_filter_inputs',
+                'checked'       => false,
+                'type'          => 'checkbox'
+
+            ],
+            'swap_bottom_elements' => [
+                'feature_title' => __('Swap Bottom Elements', 'sheetstowptable'),
+                'feature_desc'  => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheetstowptable'),
+                'input_name'    => 'swap_bottom_options',
+                'checked'       => false,
+                'type'          => 'checkbox'
+            ],
+            'vertical_scrolling'   => [
+                'feature_title' => __('Vertical Scroll/Sticky Header', 'sheetstowptable'),
+                'feature_desc'  => __('Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header', 'sheetstowptable'),
+                'input_name'    => 'vertical_scrolling',
+                'checked'       => false,
+                'is_pro'        => true,
+                'type'          => 'select',
+                'values'        => $this->scrollHeightArray(),
+                'default_text'  => 'Choose Height'
+            ],
+            'cell_format'          => [
+                'feature_title' => __('Format Table Cell', 'sheetstowptable'),
+                'feature_desc'  => __('Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style', 'sheetstowptable'),
+                'input_name'    => 'cell_format',
+                'checked'       => false,
+                // 'is_pro'        => true,
+                'is_upcoming'   => true,
+                'type'          => 'select',
+                'values'        => $this->cellFormattingArray(),
+                'default_text'  => 'Cell Format'
+            ]
+        ];
+
+        $settingsArray = apply_filters('gswpts_display_settings_arr', $settingsArray);
+
+        return $settingsArray;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function cellFormattingArray(): array{
+        $cellFormats = [
+            'clip'   => [
+                'val'   => 'Clip Style',
+                'isPro' => true
+            ],
+            'wrap'   => [
+                'val'   => 'Wrap Style',
+                'isPro' => true
+            ],
+            'expand' => [
+                'val'   => 'Expanded Style',
+                'isPro' => true
+            ]
+        ];
+
+        $cellFormats = apply_filters('gswpts_cell_format', $cellFormats);
+
+        return $cellFormats;
+    }
+
+    /**
+     * @return null
+     */
+    public function displaySettingsHTML() {
+        $settingsArray = $this->displaySettingsArray();
+        if (!$settingsArray) {
+            return;
+        }
+
+        foreach ($settingsArray as $key => $setting) {
+            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function sortAndFilterSettingsArray(): array
+    {
+        $settingsArray = [
+            'allow_sorting'    => [
+                'feature_title' => __('Allow Sorting', 'sheetstowptable'),
+                'feature_desc'  => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
+                'input_name'    => 'sorting',
+                'checked'       => true,
+                'type'          => 'checkbox'
+            ],
+            'search_bar'       => [
+                'feature_title' => __('Search Bar', 'sheetstowptable'),
+                'feature_desc'  => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
+                'input_name'    => 'search_table',
+                'checked'       => true,
+                'type'          => 'checkbox'
+            ],
+            'rows_higlighting' => [
+                'feature_title' => __('Rows Highlight', 'sheetstowptable'),
+                'feature_desc'  => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheetstowptable'),
+                'input_name'    => 'rows_highlight',
+                'checked'       => false,
+                // 'is_pro'        => true,
+                'is_upcoming'   => true,
+                'type'          => 'checkbox'
+            ]
+        ];
+
+        $settingsArray = apply_filters('gswpts_sortfilter_settings_arr', $settingsArray);
+
+        return $settingsArray;
+    }
+
+    /**
+     * @return null
+     */
+    public function sortAndFilterHTML() {
+        $settingsArray = $this->sortAndFilterSettingsArray();
+
+        if (!$settingsArray) {
+            return;
+        }
+
+        foreach ($settingsArray as $key => $setting) {
+            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function docButtonsArray(): array
+    {
+        $docArray = [
+            'displayDocButton'       => [
+                'btnText' => 'Display Documention',
+                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg'
+            ],
+            'sortAndFilterDocButton' => [
+                'btnText' => 'Sorting Documention',
+                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg'
+            ],
+            'tableToolsDocButton'    => [
+                'btnText' => 'Table Tools Doc',
+                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/tools-solid.svg'
+            ]
+        ];
+        return $docArray;
+    }
+
+    /**
+     * @param  null   $key
+     * @return null
+     */
+    public function tabDocButtons($key = null) {
+        $docArray = $this->docButtonsArray();
+        if (!$docArray) {
+            return;
+        }
+
+        if ($key == null) {
+            return;
+        }
+        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/tab_page_button.php', false, $docArray[$key]);
+    }
+
+    /**
+     * @return array
+     */
+    public function tableToolsArray(): array{
+        $settingsArray = [
+            'table_export' => [
+                'feature_title' => __('Table Exporting', 'sheetstowptable'),
+                'feature_desc'  => __('Enable this feature in order to allow your user to download your table content as various format.', 'sheetstowptable'),
+                'input_name'    => 'table_exporting',
+                'is_pro'        => true,
+                'type'          => 'multi-select',
+                'values'        => $this->tableExportValues(),
+                'default_text'  => 'Choose Type'
+            ]
+        ];
+
+        $settingsArray = apply_filters('gswpts_table_tools_settings_arr', $settingsArray);
+
+        return $settingsArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function tableExportValues(): array{
+        $exportValues = [
+            'json'  => [
+                'val'   => 'JSON',
+                'isPro' => true
+            ],
+            'pdf'   => [
+                'val'   => 'PDF',
+                'isPro' => true
+            ],
+            'csv'   => [
+                'val'   => 'CSV',
+                'isPro' => true
+            ],
+            'excel' => [
+                'val'   => 'Excel',
+                'isPro' => true
+            ],
+            'print' => [
+                'val'   => 'Print',
+                'isPro' => true
+            ],
+            'copy'  => [
+                'val'   => 'Copy',
+                'isPro' => true
+            ]
+        ];
+
+        $exportValues = apply_filters('gswpts_table_export_values', $exportValues);
+
+        return $exportValues;
+    }
+
+    /**
+     * @return null
+     */
+    public function tableToolsHTML() {
+        $settingsArray = $this->tableToolsArray();
+
+        if (!$settingsArray) {
+            return;
+        }
+
+        foreach ($settingsArray as $key => $setting) {
+            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+        }
     }
 }

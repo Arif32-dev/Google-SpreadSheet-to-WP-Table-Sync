@@ -32,6 +32,8 @@ class EnqueueFiles {
             $gswpts->data_table_styles();
             $gswpts->data_table_scripts();
 
+            do_action('gswpts_export_dependency_backend');
+
             /* CSS Files */
             wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL.'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
             wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL.'Assets/Public/Styles/admin.min.css', [], GSWPTS_VERSION, 'all');
@@ -40,7 +42,14 @@ class EnqueueFiles {
             wp_enqueue_script('jquery');
             wp_enqueue_script('GSWPTS-alert-js', GSWPTS_BASE_URL.'Assets/Public/Package/alert.min.js', ['jquery'], GSWPTS_VERSION, true);
             wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL.'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
-            wp_localize_script('GSWPTS-admin-js', 'file_url', ['admin_ajax' => admin_url('admin-ajax.php')]);
+
+            $iconsURLs = apply_filters('export_buttons_logo_backend', false);
+
+            wp_localize_script('GSWPTS-admin-js', 'file_url', [
+                'admin_ajax'  => esc_url(admin_url('admin-ajax.php')),
+                'iconsURL'    => $iconsURLs,
+                'isProActive' => $gswpts->isProActive()
+            ]);
         }
     }
 
@@ -50,6 +59,8 @@ class EnqueueFiles {
         wp_enqueue_script('jquery');
 
         $gswpts->frontend_tables_assets();
+
+        do_action('gswpts_export_dependency_frontend');
 
         wp_enqueue_style('GSWPTS-frontend-css', GSWPTS_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_VERSION, 'all');
 
@@ -61,9 +72,13 @@ class EnqueueFiles {
             true
         );
 
+        $iconsURLs = apply_filters('export_buttons_logo_frontend', false);
+
         wp_localize_script('GSWPTS-frontend-js', 'front_end_data', [
-            'admin_ajax'           => admin_url('admin-ajax.php'),
-            'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off'
+            'admin_ajax'           => esc_url(admin_url('admin-ajax.php')),
+            'asynchronous_loading' => get_option('asynchronous_loading') == 'on' ? 'on' : 'off',
+            'isProActive'          => $gswpts->isProActive(),
+            'iconsURL'             => $iconsURLs
         ]);
     }
 
@@ -81,9 +96,12 @@ class EnqueueFiles {
 
         register_block_type(
             'gswpts/google-sheets-to-wp-tables',
-            array(
-                'editor_script' => 'gswpts-gutenberg'
-            )
+            [
+                'description'   => __('Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.', 'sheetstowptable'),
+                'title'         => 'Sheets To WP Table Live Sync',
+                'editor_script' => 'gswpts-gutenberg',
+                'editor_style'  => 'GSWPTS-gutenberg-css'
+            ]
         );
         global $gswpts;
         $gswpts->semantic_files();
@@ -92,7 +110,8 @@ class EnqueueFiles {
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
             'admin_ajax'    => esc_url(admin_url('admin-ajax.php')),
-            'table_details' => $gswpts->fetch_gswpts_tables()
+            'table_details' => $gswpts->fetch_gswpts_tables(),
+            'isProActive'   => $gswpts->isProActive()
         ]);
     }
 }

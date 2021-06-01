@@ -97,11 +97,28 @@ class SheetFetching {
             'source_url'     => esc_url($url),
             'table_name'     => esc_html__($table_name, 'sheetstowptable'),
             'source_type'    => esc_html__($source_type, 'sheetstowptable'),
-            'table_settings' => json_encode(array_map(function ($setting) {
-                return esc_html__($setting, 'sheetstowptable');
-            }, $table_settings))
+            'table_settings' => json_encode(self::escapeData($table_settings))
         ];
         self::$output['output'] = "".$response['table']."";
         return self::$output;
     }
+
+    /**
+     * @param  array   $tableSettings
+     * @return array
+     */
+    public static function escapeData(array $tableSettings) {
+        $escapedData = null;
+
+        $escapedData = array_map(function ($setting) {
+            if (gettype($setting) == 'array') {
+                return self::escapeData($setting);
+            } else {
+                return esc_html__($setting);
+            }
+        }, $tableSettings);
+
+        return $escapedData;
+    }
+
 }

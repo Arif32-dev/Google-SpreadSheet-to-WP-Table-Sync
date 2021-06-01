@@ -10,7 +10,11 @@ class SheetCreation {
      */
     private static $output = [];
 
+    /**
+     * @return mixed
+     */
     public function sheet_creation() {
+
         if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_create') {
             self::$output['response_type'] = esc_html('invalid_action');
             self::$output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
@@ -20,9 +24,8 @@ class SheetCreation {
 
         if (isset($_POST['gutenberg_req']) && sanitize_text_field($_POST['gutenberg_req'])) {
 
-            $file_input = sanitize_text_field($_POST['file_input']);
-
             if (sanitize_text_field($_POST['type']) == 'fetch') {
+                $file_input = sanitize_text_field($_POST['file_input']);
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
@@ -36,6 +39,7 @@ class SheetCreation {
             }
 
             if (sanitize_text_field($_POST['type']) == 'save' || sanitize_text_field($_POST['type']) == 'saved') {
+                $file_input = sanitize_text_field($_POST['file_input']);
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
@@ -62,6 +66,11 @@ class SheetCreation {
             }
 
             if (sanitize_text_field($_POST['type']) == 'save_changes') {
+
+                $table_settings = array_map(function ($setting) {
+                    return sanitize_text_field($setting);
+                }, $_POST['table_settings']);
+
                 echo json_encode(self::update_changes(
                     sanitize_text_field($_POST['id']),
                     $table_settings
@@ -79,7 +88,7 @@ class SheetCreation {
             $file_input = sanitize_text_field($parsed_data['file_input']);
 
             $table_settings = array_map(function ($setting) {
-                return sanitize_text_field($setting);
+                return $setting;
             }, $_POST['table_settings']);
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'], 'gswpts_sheet_nonce_action')) {
@@ -293,10 +302,10 @@ class SheetCreation {
     }
 
     /**
-     * @param  $table_settings
-     * @return mixed
+     * @param  array   $table_settings
+     * @return array
      */
-    public static function get_table_settings($table_settings) {
+    public static function get_table_settings(array $table_settings) {
         $settings = [
             'table_title'           => $table_settings['table_title'],
             'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
@@ -307,6 +316,9 @@ class SheetCreation {
             'allow_sorting'         => $table_settings['allowSorting'],
             'search_bar'            => $table_settings['searchBar']
         ];
+
+        $settings = apply_filters('gswpts_table_settings', $settings, $table_settings);
+
         return $settings;
     }
 }
