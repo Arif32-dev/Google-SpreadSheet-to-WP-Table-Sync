@@ -16,8 +16,7 @@ class AdminMenus {
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_dashboard'],
-            GSWPTS_BASE_URL.'Assets/Public/Images/logo_20_20.svg',
-            10
+            GSWPTS_BASE_URL.'Assets/Public/Images/logo_20_20.svg'
         );
         add_submenu_page(
             'gswpts-dashboard',
