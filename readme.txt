@@ -156,3 +156,7 @@ For instant support please send us a message on our Facebook page or you also co
 
 = 1.0.0 =
 * Initial Release
+
+= 1.0.1 =
+* Fix: Fixed pro plugin license issue
+* Fix: Fixed license page menu issue
