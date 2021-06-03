@@ -4,7 +4,7 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,3 +160,6 @@ For instant support please send us a message on our Facebook page or you also co
 = 1.0.1 =
 * Fix: Fixed pro plugin license issue
 * Fix: Fixed license page menu issue
+
+= 1.0.2 =
+* Fix: Fixed some minor issues

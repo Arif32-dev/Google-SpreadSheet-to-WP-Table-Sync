@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync Pro
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           1.0.0
+ * Version:           1.0.2
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
 if (!defined('GSWPTS_PRO_VERSION')) {
-    define('GSWPTS_PRO_VERSION', '1.0.0');
+    define('GSWPTS_PRO_VERSION', '1.0.2');
 }
 
 if (!defined('GSWPTS_PRO_BASE_PATH')) {
@@ -51,7 +51,10 @@ final class SheetsToWPTableLiveSyncPro {
 
     public function initializeProPlugin() {
 
-        $this->isBasePluginActive();
+        if (!$this->isBasePluginActive()) {
+            deactivate_plugins(plugin_basename(__FILE__));
+            return false;
+        }
 
         $this->redirectUser();
 
@@ -100,8 +103,10 @@ final class SheetsToWPTableLiveSyncPro {
 
         $client = new Appsero\Client('b82905c5-b807-47a0-a2cf-a7d3792f362f', 'Sheets to WP Table Live Sync Premium', __FILE__);
 
-        // Active insights
-        $client->insights()->init();
+        // Hide the notice
+        $client->insights()
+               ->hide_notice()
+               ->init();
 
         // Active automatic updater
         $client->updater();
@@ -168,7 +173,6 @@ final class SheetsToWPTableLiveSyncPro {
         if (!class_exists('SheetsToWPTableLiveSync')) {
 
             if (is_plugin_active(plugin_basename(__FILE__))) {
-                deactivate_plugins(plugin_basename(__FILE__));
                 add_action('admin_notices', function () {
                     printf(
                         '<div class="notice notice-error is-dismissible"><h3><strong>%s %s </strong></h3><p>%s</p></div>',
@@ -176,7 +180,7 @@ final class SheetsToWPTableLiveSyncPro {
                         __('Plugin', 'sheetstowptable-pro'),
                         __('cannot be activated - requires the base plugin
                             <b><a href="'.esc_url(self_admin_url('plugin-install.php?s=Sheets+to+WP+Table+Live+Sync+WPPOOL&tab=search&type=term')).'">Sheets to WP Table Live Sync</a></b>
-                            Activated.', 'sheetstowptable-pro'
+                            to be activated.', 'sheetstowptable-pro'
                         )
                     );
                 });
