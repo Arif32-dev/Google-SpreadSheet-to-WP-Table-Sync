@@ -29,7 +29,7 @@
             width: 105% !important;
         }
     }
-    #manage_tables_paginate>div {
+    #manage_tables_paginate > div {
         padding-top: 0 !important;
     }
     #manage_tables th,
@@ -77,7 +77,7 @@
                 outline: none;
             }
         }
-        #create_tables_paginate>div {
+        #create_tables_paginate > div {
             padding-top: 0 !important;
         }
         .dt-buttons {
@@ -161,12 +161,19 @@
     $indicator-width: 50px;
     $indicator-height: 4px;
     /* breakpoints */
-    $breakpoints: (medium: #{$tab-count * 250px}, small: #{$tab-count * 150px}, );
+    $breakpoints: (
+        medium: #{$tab-count * 250px},
+        small: #{$tab-count * 150px},
+    );
     /* selectors relative to radio inputs */
     $label-selector: "~ ul > li";
     $slider-selector: "~ .slider";
     $content-selector: "~ .content > section";
-    @mixin tabs($label-selector: $label-selector, $slider-selector: $slider-selector, $content-selector: $content-selector) {
+    @mixin tabs(
+        $label-selector: $label-selector,
+        $slider-selector: $slider-selector,
+        $content-selector: $content-selector
+    ) {
         @for $i from 1 through $tab-count {
             &:nth-of-type(#{$i}):checked {
                 #{$label-selector}:nth-child(#{$i}) {
@@ -288,7 +295,7 @@
         }
         input[name="tab-control"] {
             @include tabs {
-                >label {
+                > label {
                     cursor: default;
                     color: $accent;
                     svg {
@@ -393,8 +400,8 @@
             label {
                 cursor: pointer;
             }
-            input:checked~.box:before,
-            input:checked~label:before {
+            input:checked ~ .box:before,
+            input:checked ~ label:before {
                 background-color: $link-color !important;
             }
         }
@@ -438,7 +445,8 @@
         }
     }
     .disabled_checkbox *,
-    .disabled_checkbox>label {
+    .disabled_checkbox > label {
         cursor: not-allowed !important;
+        visibility: hidden;
     }
 }

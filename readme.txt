@@ -173,9 +173,12 @@ For instant support please send us a message on our Facebook page or you also co
 
 = 1.2.2 =
 * Fix: Fixed admin page css issue
-* Fix: Fixed Tabe broken issue
-* Added: Add cell formating feature as upcoming feature
+* Fix: Fixed Table broken issue
+* Added: Add cell formatting feature as upcoming feature
 * Added: Changed non-developed feature as upcoming feature
 * Improvement: UI/UX improved for users
 * Improvement: Added 20 row fetching from google sheet
 * Improvement: Plugins code structure updated for pro version
+
+= 1.2.3 =
+* Fix: Minor bugs fixed for pro plugin
