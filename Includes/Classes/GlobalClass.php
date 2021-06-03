@@ -354,11 +354,6 @@ class GlobalClass {
     public function changeLogs() {
 
         $changeLogs = [
-            '1.1.2' => [
-                __('Fix: Fixed spreadsheet data fetching issue for different server', 'sheetstowptable'),
-                __('Fix: Fixed tutorial video linking in dashboard', 'sheetstowptable'),
-                __('Improvement: Added video documention in dashboard page', 'sheetstowptable')
-            ],
             '1.2.2' => [
                 __('Fix: Fixed admin page css issue', 'sheetstowptable'),
                 __('Fix: Fixed tabe broken issue', 'sheetstowptable'),
@@ -367,7 +362,11 @@ class GlobalClass {
                 __('Improvement: UI/UX improved for users', 'sheetstowptable'),
                 __('Improvement: Added 20 row fetching from google sheet', 'sheetstowptable'),
                 __('Improvement: Plugins code structure updated for pro version', 'sheetstowptable')
+            ],
+            '1.2.3' => [
+                __('Fix: Minor bugs fixed for pro plugin', 'sheetstowptable')
             ]
+
         ];
 
         krsort($changeLogs);
@@ -411,7 +410,7 @@ class GlobalClass {
      */
     public function isProActive(): bool {
         $returnValue = false;
-        if (class_exists('SheetsToWPTableLiveSyncPro')) {
+        if (class_exists('SheetsToWPTableLiveSyncPro') && get_option('is-sheets-to-wp-table-pro-active')) {
             $returnValue = true;
         } else {
             $returnValue = false;
@@ -799,6 +798,33 @@ class GlobalClass {
 
         foreach ($settingsArray as $key => $setting) {
             load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+        }
+    }
+
+    public function showCreatedTables() {
+        $createdTables = $this->fetch_gswpts_tables();
+        if ($createdTables) {
+            krsort($createdTables);
+            foreach ($createdTables as $table_data) {
+                echo '
+                    <div class="col-md-6 col-12">
+                        <div class="col-12 pl-0">
+                            <a
+                                href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.esc_attr($table_data->id).'')).'">
+                                '.esc_html__($table_data->table_name, 'sheetstowptable').'
+                            </a>
+                        </div>
+                        <div class="ui label mt-2 mb-2">
+                            <i class="clone icon dashboard_sortcode_copy_btn"></i>
+                            <input type="hidden" name="sortcode"
+                                value="[gswpts_table id='.esc_attr($table_data->id).']">
+                            [gswpts_table id='.esc_attr($table_data->id).']
+                        </div>
+                    </div>
+                   ';
+            }
+        } else {
+            echo '<div class="ui label mt-2">'.__('Empty', 'sheetstowptable').'</div>';
         }
     }
 }

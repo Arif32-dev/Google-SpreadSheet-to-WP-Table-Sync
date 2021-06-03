@@ -4,7 +4,7 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -173,9 +173,12 @@ For instant support please send us a message on our Facebook page or you also co
 
 = 1.2.2 =
 * Fix: Fixed admin page css issue
-* Fix: Fixed Tabe broken issue
-* Added: Add cell formating feature as upcoming feature
+* Fix: Fixed Table broken issue
+* Added: Add cell formatting feature as upcoming feature
 * Added: Changed non-developed feature as upcoming feature
 * Improvement: UI/UX improved for users
 * Improvement: Added 20 row fetching from google sheet
 * Improvement: Plugins code structure updated for pro version
+
+= 1.2.3 =
+* Fix: Minor bugs fixed for pro plugin

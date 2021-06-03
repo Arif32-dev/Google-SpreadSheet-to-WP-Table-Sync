@@ -3,7 +3,7 @@
 ?>
 
 
-<div class="gswpts_dashboard_container">
+<div class="gswpts_dashboard_container" id="toplevel_page_gswpts-dashboard">
 
     <div class="ui segment gswpts_loader">
         <div class="ui active inverted dimmer">
@@ -80,30 +80,10 @@
                                 <span><?php _e($gswpts->latest_table_details()['total_table_count']);?></span>
                                 <span><?php _e('Created', 'sheetstowptable');?></span>
                             </div>
-                            <div class="col-9 details">
-                                <div class="col-12 pl-0">
-                                    <a
-                                        href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.esc_attr($gswpts->latest_table_details()['last_table_id']).'')); ?>"><?php _e($gswpts->latest_table_details()['last_table_name'], 'sheetstowptable')?></a>
-                                </div>
-                                <div class="col-12 mt-2 pl-0">Latest table created</div>
-                                <?php if ($gswpts->latest_table_details()['last_table_id']) {?>
-                                <div class="ui label mt-2">
-                                    <i class="clone icon dashboard_sortcode_copy_btn"></i>
-                                    <input type="hidden" name="sortcode"
-                                        value="[gswpts_table id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']) ?>]">
-                                    [gswpts_table
-                                    id=<?php echo esc_attr($gswpts->latest_table_details()['last_table_id']); ?>]
-                                </div>
-
-                                <?php } else {?>
-                                <div class="ui label mt-2"><?php _e('Empty', 'sheetstowptable');?></div>
-                                <?php }?>
-
+                            <div class="col-9 details d-flex flex-wrap">
+                                <?php $gswpts->showCreatedTables()?>
                                 <br>
                                 <br>
-
-                                <a href="https://youtu.be/_LWcaErh8jw" target="blank">How to create a table</a>
-
                             </div>
                         </div>
                     </div>
