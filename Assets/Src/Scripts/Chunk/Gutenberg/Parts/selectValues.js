@@ -26,7 +26,29 @@ export function scrollHeights(isProActive) {
             { key: "700", value: "700", text: "700px" },
             { key: "800", value: "800", text: "800px" },
             { key: "900", value: "900", text: "900px" },
-            { key: "1000", value: "1000", text: "1000px" }
+            { key: "1000", value: "1000", text: "1000px" },
+            { key: "default", value: "default", text: "Default Style" }
+        );
+    }
+    return values;
+}
+export function formatCellValues(isProActive) {
+    const values = [];
+    if (isProActive) {
+        values.push(
+            { key: "clip", value: "clip", text: "Clip Style" },
+            { key: "wrap", value: "wrap", text: "Wrap Style" },
+            { key: "expand", value: "expand", text: "Expanded Style" }
+        );
+    }
+    return values;
+}
+export function redirectionValues(isProActive) {
+    const values = [];
+    if (isProActive) {
+        values.push(
+            { key: "_blank", value: "_blank", text: "Blank Type" },
+            { key: "_self", value: "_self", text: "Self Type" }
         );
     }
     return values;

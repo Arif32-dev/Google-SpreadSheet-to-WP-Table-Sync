@@ -44,6 +44,9 @@ jQuery(document).ready(function ($) {
             if ($("#cell_format").length) {
                 $("#cell_format").dropdown();
             }
+            if ($("#redirection_type").length) {
+                $("#redirection_type").dropdown();
+            }
         }
         edit_table_name(e) {
             $(e.currentTarget).siblings("input").select();
@@ -184,8 +187,6 @@ jQuery(document).ready(function ($) {
                         $(".disabled_checkbox").removeClass("disabled_checkbox");
                         $(".secondary_inputs").attr("disabled", false);
 
-                        this.sheet_details.addClass("mt-4 p-0");
-                        this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
                         this.sheet_details.transition("scale");
                         this.sheet_container.parent().removeClass("mt-4").addClass("mt-3");
                         this.sheet_container.html(JSON.parse(res).output);
@@ -193,6 +194,10 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res).response_type == "saved") {
                         this.btn_changer(submit_button, "Table Saved", "saved");
+
+                        this.sheet_details.addClass("mt-4 p-0");
+                        this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
+
                         this.call_alert(
                             "Successfull &#128077;",
                             JSON.parse(res).output,
@@ -258,7 +263,7 @@ jQuery(document).ready(function ($) {
                             if (!this.isProPluginActive()) {
                                 this.call_alert(
                                     "Warning &#9888;&#65039;",
-                                    "<b>20 row fetched.<br/><a target='blank' href='https://wppool.dev/sheets-to-wp-table-live-sync/'>Upgrade to Pro</a> for showing full google sheet.</b>",
+                                    "<b>Live sync is limited to 20 rows.<br/><a target='blank' href='https://wppool.dev/sheets-to-wp-table-live-sync/'>Upgrade to Pro</a> for showing full google sheet.</b>",
                                     "warning",
                                     10
                                 );

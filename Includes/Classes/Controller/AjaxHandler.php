@@ -6,6 +6,7 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'
 
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\ReviewNotice;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
@@ -39,6 +40,9 @@ class AjaxHandler {
         /* Ger wppool post */
         add_action('wp_ajax_gswpts_get_posts', [$this, 'getPosts']);
         add_action('wp_ajax_nopriv_gswpts_get_posts', [$this, 'getPosts']);
+        /* Ger wppool post */
+        add_action('wp_ajax_gswpts_review_notice', [$this, 'manageReviewNotice']);
+        add_action('wp_ajax_nopriv_gswpts_review_notice', [$this, 'manageReviewNotice']);
     }
 
     public function sheet_creation() {
@@ -74,5 +78,10 @@ class AjaxHandler {
     public function getPosts() {
         $remoteClass = new RemoteClass();
         $remoteClass->getPostRequest();
+    }
+
+    public function manageReviewNotice() {
+        $remoteClass = new ReviewNotice();
+        $remoteClass->manageNotices();
     }
 }

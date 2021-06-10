@@ -92,7 +92,7 @@
         }
         h5 {
             color: white;
-            text-transform: capitalize;
+            text-transform: uppercase;
             margin: 15px 0;
         }
         img {
@@ -102,6 +102,7 @@
         }
         a {
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
     }
     .promo_large.active {

@@ -14,6 +14,19 @@ export default class Global_Table_Config {
             }>rt<"bottom_options bottom_options_${i}"${
                 table_settings.show_info_block == "true" ? "i" : ""
             }p>`;
+
+            // change the cell format according to feature saved at database
+            this.changeCellFormat(
+                table_settings.cell_format,
+                $(elem).find("#create_tables th, td"),
+                $
+            );
+
+            this.changeRedirectionType(
+                table_settings.redirection_type,
+                $(elem).find("#create_tables a"),
+                $
+            );
         }
 
         $(elem)
@@ -27,6 +40,43 @@ export default class Global_Table_Config {
         this.swap_input_filter($, i, table_settings);
 
         this.swap_bottom_options($, i, table_settings);
+    }
+
+    changeRedirectionType(type, links, $) {
+        if (!links.length) return;
+        $.each(links, function (i, link) {
+            $(link).attr("target", type);
+        });
+    }
+
+    changeCellFormat(formatStyle, tableCell, $) {
+        switch (formatStyle) {
+            case "wrap":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("wrap_style");
+                });
+                break;
+
+            case "clip":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("wrap_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("clip_style");
+                });
+                break;
+            case "expand":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("wrap_style");
+                    $(cell).addClass("expanded_style");
+                });
+                break;
+
+            default:
+                break;
+        }
     }
 
     isProPluginActive() {
@@ -103,7 +153,9 @@ export default class Global_Table_Config {
                 [1, 5, 10, 15, 25, 50, 100, "All"],
             ];
 
-            table_object.scrollY = `${table_settings.vertical_scroll}px`;
+            if (table_object.scrollY != "default") {
+                table_object.scrollY = `${table_settings.vertical_scroll}px`;
+            }
         }
 
         return table_object;

@@ -5,7 +5,12 @@ const { useEffect, useRef } = wp.element;
 const { InspectorControls } = wp.blockEditor;
 const { Panel, PanelBody, PanelRow, SelectControl, ToggleControl } = wp.components;
 
-import { rowsPerPage, scrollHeights } from "./Parts/selectValues";
+import {
+    formatCellValues,
+    rowsPerPage,
+    scrollHeights,
+    redirectionValues,
+} from "./Parts/selectValues";
 
 export default function editFucntion({ attributes, setAttributes }) {
     useEffect(() => {
@@ -80,17 +85,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     setAttributes({ btn_text: "Save Table" });
                     setAttributes({ innerHTML: JSON.parse(res).output });
                     setAttributes({ show_settings: true });
-                }
-
-                if (JSON.parse(res).response_type == "saved") {
-                    let id = Object.values(JSON.parse(res).id)[0];
-                    setAttributes({ sortcode_id: parseInt(id) });
-                    setAttributes({ is_table_saved_to_db: true });
-                    callAlert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
-                }
-
-                if (JSON.parse(res).response_type == "sheet_exists") {
-                    callAlert("Warning &#9888;&#65039;", JSON.parse(res).output, "warning", 3);
+                    immidiateSaveTable(url);
                 }
             },
 
@@ -125,6 +120,74 @@ export default function editFucntion({ attributes, setAttributes }) {
         });
     }
 
+    function immidiateSaveTable(url) {
+        $.ajax({
+            url: gswpts_gutenberg_block.admin_ajax,
+
+            data: {
+                action: "gswpts_sheet_create",
+                type: "save",
+                table_name: attributes.init_table_name,
+                table_settings: attributes.table_settings,
+                file_input: url,
+                source_type: "spreadsheet",
+                gutenberg_req: true,
+            },
+
+            type: "POST",
+
+            beforeSend: () => {
+                setAttributes({ show_settings: false });
+            },
+
+            success: (res) => {
+                console.log(res);
+                if (
+                    JSON.parse(res).response_type == "invalid_action" ||
+                    JSON.parse(res).response_type == "invalid_request"
+                ) {
+                    callAlert("Error &#128683;", JSON.parse(res).output, "error", 4);
+                }
+
+                if (JSON.parse(res).response_type == "empty_field") {
+                    callAlert("Warning &#9888;&#65039;", JSON.parse(res).output, "warning", 3);
+                }
+
+                if (JSON.parse(res).response_type == "saved") {
+                    let id = Object.values(JSON.parse(res).id)[0];
+                    let tableName = attributes.init_table_name;
+                    setAttributes({ sortcode_id: parseInt(id) });
+                    setAttributes({ is_table_saved_to_db: true });
+                    setAttributes({ show_settings: true });
+                    setAttributes({ table_name: tableName });
+
+                    callAlert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
+                }
+
+                if (JSON.parse(res).response_type == "sheet_exists") {
+                    setAttributes({ show_settings: false });
+
+                    setAttributes({ block_init: false });
+                    setAttributes({ sheet_url: null });
+                    setAttributes({ btn_text: "Fetch Data" });
+                    setAttributes({ req_type: "fetch" });
+                    callAlert(
+                        "Warning &#9888;&#65039;",
+                        "<b>Google sheet previously saved. Try choose table instead of creating</b>",
+                        "warning",
+                        6
+                    );
+                }
+            },
+
+            error: (err) => {
+                callAlert("Error &#128683;", "<b>Something went wrong</b>", "error", 3);
+                setAttributes({ show_settings: false });
+                setAttributes({ innerHTML: "<b>Something went wrong</b>" });
+            },
+        });
+    }
+
     function table_default_settings() {
         let default_settings = {
             table_title: false,
@@ -137,6 +200,8 @@ export default function editFucntion({ attributes, setAttributes }) {
             allowSorting: true,
             searchBar: true,
             verticalScroll: "400",
+            cellFormat: "wrap",
+            redirectionType: "_self",
         };
         return default_settings;
     }
@@ -210,10 +275,17 @@ export default function editFucntion({ attributes, setAttributes }) {
                     let defaultRowsPerPage = table_settings.default_rows_per_page;
                     let allowSorting = table_settings.allow_sorting == "true" ? true : false;
                     let verticalScroll = table_settings.vertical_scroll;
+                    let cellFormat = table_settings.cell_format;
+                    let redirectionType = table_settings.redirection_type;
 
                     setAttributes({ table_name: table_name });
 
                     setTimeout(() => {
+                        if (isProPluginActive()) {
+                            changeCellFormat(cellFormat, id);
+                            changeRedirectionType(redirectionType, id);
+                        }
+
                         $("#" + id + " #create_tables").DataTable(
                             table_object(defaultRowsPerPage, allowSorting, dom, verticalScroll)
                         );
@@ -250,8 +322,17 @@ export default function editFucntion({ attributes, setAttributes }) {
         if (isProPluginActive()) {
             prevSettingObj.responsiveTable =
                 ajax_table_settings.responsive_table == "true" ? true : false;
+
             if (ajax_table_settings.vertical_scroll) {
                 prevSettingObj.verticalScroll = ajax_table_settings.vertical_scroll;
+            }
+
+            if (ajax_table_settings.cell_format) {
+                prevSettingObj.cellFormat = ajax_table_settings.cell_format;
+            }
+
+            if (ajax_table_settings.redirection_type) {
+                prevSettingObj.redirectionType = ajax_table_settings.redirection_type;
             }
         }
         setAttributes({ table_settings: prevSettingObj });
@@ -417,7 +498,10 @@ export default function editFucntion({ attributes, setAttributes }) {
                 [1, 5, 10, 15, 25, 50, 100, -1],
                 [1, 5, 10, 15, 25, 50, 100, "All"],
             ];
-            obj.scrollY = `${verticalScroll}px`;
+
+            if (verticalScroll != "default") {
+                obj.scrollY = `${verticalScroll}px`;
+            }
         }
 
         return obj;
@@ -429,6 +513,57 @@ export default function editFucntion({ attributes, setAttributes }) {
         } else {
             return false;
         }
+    }
+
+    // Change the cell format of the table
+    function changeCellFormat(formatStyle, tableID) {
+        let tableCells = null;
+        if (tableID == null) {
+            tableCells = $("#" + spreadsheet_container.current.id + " table th, td");
+        } else {
+            tableCells = $("#" + tableID + " table th, td");
+        }
+
+        switch (formatStyle) {
+            case "wrap":
+                $.each(tableCells, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("wrap_style");
+                });
+                break;
+
+            case "clip":
+                $.each(tableCells, function (i, cell) {
+                    $(cell).removeClass("wrap_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("clip_style");
+                });
+                break;
+            case "expand":
+                $.each(tableCells, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("wrap_style");
+                    $(cell).addClass("expanded_style");
+                });
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    function changeRedirectionType(type, tableID = null) {
+        let links = null;
+        if (tableID == null) {
+            links = $("#" + spreadsheet_container.current.id + " table a");
+        } else {
+            links = $("#" + tableID + " table a");
+        }
+        if (!links.length) return;
+        $.each(links, function (i, link) {
+            $(link).attr("target", type);
+        });
     }
 
     return [
@@ -469,11 +604,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         const prevSettingObj = { ...attributes.table_settings };
                                         prevSettingObj.table_title = !prevSettingObj.table_title;
                                         setAttributes({ table_settings: prevSettingObj });
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
                                 />
                                 <br />
@@ -494,12 +626,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             };
                                             prevSettingObj.defaultRowsPerPage = value;
                                             setAttributes({ table_settings: prevSettingObj });
-                                            if (
-                                                attributes.initializer_button_action ==
-                                                "choose_table"
-                                            ) {
-                                                saveChanges(attributes.sortcode_id, prevSettingObj);
-                                            }
+
+                                            saveChanges(attributes.sortcode_id, prevSettingObj);
+
                                             table_changer(attributes.sortcode_id, prevSettingObj);
 
                                             swap_input_filter(
@@ -526,11 +655,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         prevSettingObj.showInfoBlock =
                                             !prevSettingObj.showInfoBlock;
                                         setAttributes({ table_settings: prevSettingObj });
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
+
                                         table_changer(attributes.sortcode_id, prevSettingObj);
 
                                         swap_input_filter(
@@ -558,12 +685,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             };
                                             prevSettingObj.responsiveTable =
                                                 !prevSettingObj.responsiveTable;
-                                            if (
-                                                attributes.initializer_button_action ==
-                                                "choose_table"
-                                            ) {
-                                                saveChanges(attributes.sortcode_id, prevSettingObj);
-                                            }
+
+                                            saveChanges(attributes.sortcode_id, prevSettingObj);
+
                                             setAttributes({ table_settings: prevSettingObj });
                                         }}
                                     />{" "}
@@ -580,11 +704,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         const prevSettingObj = { ...attributes.table_settings };
                                         prevSettingObj.showXEntries = !prevSettingObj.showXEntries;
                                         setAttributes({ table_settings: prevSettingObj });
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
+
                                         table_changer(attributes.sortcode_id, prevSettingObj);
                                         swap_input_filter(
                                             attributes.sortcode_id,
@@ -616,15 +738,98 @@ export default function editFucntion({ attributes, setAttributes }) {
 
                                                 prevSettingObj.verticalScroll = value;
                                                 setAttributes({ table_settings: prevSettingObj });
-                                                if (
-                                                    attributes.initializer_button_action ==
-                                                    "choose_table"
-                                                ) {
-                                                    saveChanges(
-                                                        attributes.sortcode_id,
-                                                        prevSettingObj
-                                                    );
-                                                }
+
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+                                                table_changer(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj
+                                                );
+                                                swap_input_filter(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapFilterInputs
+                                                );
+                                                swap_bottom_options(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapBottomOptions
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                    <br />
+                                </PanelRow>
+                            ) : null}
+
+                            {isProPluginActive() ? (
+                                <PanelRow>
+                                    <div class="cell_format">
+                                        <h5 class="header">Format Table Cell</h5>
+                                        <Dropdown
+                                            placeholder="Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style"
+                                            defaultValue={attributes.table_settings.cellFormat}
+                                            fluid
+                                            selection
+                                            options={formatCellValues(isProPluginActive())}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+
+                                                prevSettingObj.cellFormat = value;
+                                                setAttributes({ table_settings: prevSettingObj });
+
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+
+                                                changeCellFormat(
+                                                    prevSettingObj.cellFormat,
+                                                    attributes.sortcode_id
+                                                );
+
+                                                table_changer(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj
+                                                );
+                                                swap_input_filter(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapFilterInputs
+                                                );
+                                                swap_bottom_options(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapBottomOptions
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                    <br />
+                                </PanelRow>
+                            ) : null}
+
+                            {isProPluginActive() ? (
+                                <PanelRow>
+                                    <div class="redirection_type">
+                                        <h5 class="header">Link Redirection Type</h5>
+                                        <Dropdown
+                                            placeholder="Choose the redirection type of all the links in this table <br/>
+                                            <b>Blank Type</b> = Opens the links in a new window or tab <br/>
+                                            <b>Self Type</b> = Open links in the same tab (this is default)"
+                                            defaultValue={attributes.table_settings.redirectionType}
+                                            fluid
+                                            selection
+                                            options={redirectionValues(isProPluginActive())}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+
+                                                prevSettingObj.redirectionType = value;
+                                                setAttributes({ table_settings: prevSettingObj });
+
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+
+                                                changeRedirectionType(
+                                                    prevSettingObj.redirectionType,
+                                                    attributes.sortcode_id
+                                                );
+
                                                 table_changer(
                                                     attributes.sortcode_id,
                                                     prevSettingObj
@@ -658,11 +863,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             attributes.sortcode_id,
                                             prevSettingObj.swapFilterInputs
                                         );
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
                                 />
                                 <br />
@@ -682,11 +884,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             attributes.sortcode_id,
                                             prevSettingObj.swapBottomOptions
                                         );
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
                                 />
                                 <br />
@@ -712,11 +911,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             attributes.sortcode_id,
                                             prevSettingObj.swapBottomOptions
                                         );
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
                                 />
                                 <br />
@@ -740,11 +936,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             attributes.sortcode_id,
                                             prevSettingObj.swapBottomOptions
                                         );
-                                        if (
-                                            attributes.initializer_button_action == "choose_table"
-                                        ) {
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
-                                        }
+
+                                        saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
                                 />
                                 <br />

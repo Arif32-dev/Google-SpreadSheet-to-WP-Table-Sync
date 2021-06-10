@@ -13,8 +13,10 @@ jQuery(document).ready(function ($) {
                 this.copy_shorcode(e);
             });
             if (this.get_slug_parameter("page") == "gswpts-dashboard") {
-                this.retrieve_wppool_post();
                 this.retrieve_other_products();
+            }
+            if (this.get_slug_parameter("page") == "gswpts-documentation") {
+                this.retrieve_wppool_post();
             }
             this.form.on("submit", (e) => {
                 e.preventDefault();

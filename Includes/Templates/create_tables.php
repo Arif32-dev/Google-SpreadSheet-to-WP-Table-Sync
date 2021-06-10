@@ -29,7 +29,7 @@
             <div class="col-12 p-0 d-flex align-items-center">
 
                 <div
-                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
+                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
                     <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text"
                         placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?>
@@ -41,7 +41,7 @@
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button"
-                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
+                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
                         style="padding-left: 30px;">
                         <?php _e('Create New', 'sheetstowptable');?> &nbsp; <i class="plus icon"></i>
                     </button>
@@ -149,7 +149,7 @@
                                                         <span><?php echo esc_html('Excel File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
                                                     </div>
-                                                    <div class="item d-flex justify-content-between align-items-center disabled item"
+                                                    <!-- <div class="item d-flex justify-content-between align-items-center disabled item"
                                                         data-value="<?php echo esc_attr('xml'); ?>">
                                                         <span><?php echo esc_html('XML File'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
@@ -163,7 +163,7 @@
                                                         data-value="<?php echo esc_attr('php_array'); ?>">
                                                         <span><?php echo esc_html('PHP Array'); ?></span>
                                                         <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
 
@@ -201,7 +201,7 @@
                                 <?php $gswpts->displaySettingsHTML();?>
                             </div>
 
-                            <?php $gswpts->tabDocButtons('displayDocButton')?>
+                            <!--                                                                                                 <?php $gswpts->tabDocButtons('displayDocButton')?> -->
 
                         </section>
 
@@ -210,7 +210,7 @@
                                 <?php $gswpts->sortAndFilterHTML();?>
                             </div>
 
-                            <?php $gswpts->tabDocButtons('sortAndFilterDocButton')?>
+                            <!--                                                                                                 <?php $gswpts->tabDocButtons('sortAndFilterDocButton')?> -->
                         </section>
 
                         <section id="table_tools">
@@ -221,7 +221,7 @@
 
                             </div>
 
-                            <?php $gswpts->tabDocButtons('tableToolsDocButton')?>
+                            <!--                                                                                                 <?php $gswpts->tabDocButtons('tableToolsDocButton')?> -->
 
                         </section>
                     </div>

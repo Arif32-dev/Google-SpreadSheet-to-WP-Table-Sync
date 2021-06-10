@@ -63,7 +63,8 @@ jQuery(document).ready(function ($) {
                 "sorting" ||
                 "show_entries" ||
                 "info_block" ||
-                "vertical_scrolling"
+                "vertical_scrolling" ||
+                "cell_format"
             ) {
                 let dom = `<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
                     table_settings.searchBar ? "f" : ""
@@ -75,8 +76,8 @@ jQuery(document).ready(function ($) {
                     }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
 
                     this.export_buttons_row_revealer(table_settings.tableExport);
+                    this.changeCellFormat(table_settings.cellFormat, "#spreadsheet_container");
                 }
-
                 this.table_changer(table_name, table_settings, dom);
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
                 this.swap_bottom_options(table_settings.swapBottomOptions);
@@ -88,10 +89,24 @@ jQuery(document).ready(function ($) {
             }
 
             /* Swaping bottom elemts */
-
             if ($(e.currentTarget).attr("id") == "swap_bottom_options") {
                 this.swap_bottom_options($(e.currentTarget).prop("checked"));
             }
+
+            /* Swaping bottom elemts */
+            if (this.isProPluginActive()) {
+                if ($(e.currentTarget).attr("id") == "redirection_type") {
+                    this.changeRedirectionType(table_settings.redirectionType);
+                }
+            }
+        }
+
+        changeRedirectionType(type) {
+            let links = $("#create_tables a");
+            if (!links.length) return;
+            $.each(links, function (i, link) {
+                $(link).attr("target", type);
+            });
         }
 
         /* Show the export buttons based on user selection */

@@ -23,6 +23,8 @@ class EnqueueFiles {
             ($get_page == 'gswpts-tables') ||
             ($get_page == 'gswpts-create-tables') ||
             ($get_page == 'gswpts-general-settings') ||
+            ($get_page == 'gswpts-documentation') ||
+            ($get_page == 'sheets_to_wp_table_live_sync_pro_settings') ||
             ($current_screen->is_block_editor())
         ) {
 

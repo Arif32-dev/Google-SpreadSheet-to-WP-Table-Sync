@@ -48,7 +48,9 @@
 
 .components-panel__row {
     .default_rows,
-    .verticall_scrolling {
+    .verticall_scrolling,
+    .cell_format,
+    .redirection_type {
         width: 100%;
         margin-bottom: 15px;
     }

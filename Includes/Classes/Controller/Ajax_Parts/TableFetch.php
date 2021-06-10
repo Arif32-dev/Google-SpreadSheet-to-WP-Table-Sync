@@ -43,7 +43,6 @@ class TableFetch {
                                     <th class="text-center">'.esc_html__('Table Name', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Type', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Shortcode', 'sheetstowptable').'</th>
-                                    <th class="text-center">'.esc_html__('Update', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Delete', 'sheetstowptable').'</th>
                                 </tr>
                             </thead>
@@ -67,7 +66,7 @@ class TableFetch {
                                             href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.esc_attr($table_data->id).'')).'">
                                             '.esc_html__($table_data->table_name, 'sheetstowptable').'
                                             </a>
-                                            <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1">
+                                            <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1" id="'.esc_attr($table_data->id).'">
                                                 <i class="edit icon"></i>
                                             </button>
                                         </div>
@@ -75,14 +74,13 @@ class TableFetch {
                                     <td class="text-center">
                                         '.esc_html__(self::table_type($table_data->source_type), 'sheetstowptable').'
                                     </td>
-                                    <td class="text-center" style="display: flex; justify-content: space-around; align-items: center;">
+                                    <td class="text-center" style="display: flex; justify-content: center; align-items: center;">
                                             <input type="hidden" class="table_copy_sortcode" value="[gswpts_table id='.esc_attr($table_data->id).']">
-                                            <span style="display: flex; align-items: center; white-space: nowrap; margin-right: 5px">[gswpts_table id='.esc_attr($table_data->id).']</span>
+                                            <span style="display: flex; align-items: center; white-space: nowrap; margin-right: 12px">[gswpts_table id='.esc_attr($table_data->id).']</span>
                                             <button type="button" name="copyToken" value="copy" class="copyToken ui right icon button gswpts_sortcode_copy">
                                                 <i class="clone icon"></i>
                                             </button>
                                     </td>
-                                    <td class="text-center"><button id="'.esc_attr($table_data->id).'"  class="ui yellow button gswpts_table_update_btn">'.esc_html__('Update', 'sheetstowptable').'</button></td>
                                     <td class="text-center"><button id="'.esc_attr($table_data->id).'" class="negative ui button gswpts_table_delete_btn">'.esc_html__('Delete', 'sheetstowptable').'</button></td>
                                 </tr>';
             }

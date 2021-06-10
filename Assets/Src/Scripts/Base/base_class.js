@@ -6,7 +6,20 @@ export default class Base_Class {
 
         if (this.isProPluginActive()) {
             this.settings_field = $(
-                "#show_title, #rows_per_page, #info_block, #responsive, #show_entries, #swap_filter_inputs, #swap_bottom_options, #sorting, #search_table, #table_exporting, #vertical_scrolling"
+                `#show_title, 
+                #rows_per_page, 
+                #info_block, 
+                #responsive, 
+                #show_entries, 
+                #swap_filter_inputs, 
+                #swap_bottom_options, 
+                #sorting, 
+                #search_table, 
+                #table_exporting, 
+                #vertical_scrolling,
+                #cell_format,
+                #redirection_type
+                `
             );
         } else {
             this.settings_field = $(
@@ -49,26 +62,10 @@ export default class Base_Class {
 
     sheet_details_html(res) {
         let details = `
-                <div id="sheet_ui_card" class="ui card" style="width: 60%; min-width: 400px;">
+                <div id="sheet_ui_card" class="ui card" style="min-width: 360px;">
                     <div class="content">
                         <div class="row">
-                            <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h6 class="m-0">Sheet Name: </h6>
-                                <h6 class="m-0 ml-2">${res.sheet_data.sheet_name}</h6>
-                            </div>
-                            <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h6 class="m-0">Total Rows: </h6>
-                                <h6 class="m-0 ml-2">${res.sheet_data.total_rows}</h6>
-                            </div>
-                            <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                <h6 class="m-0">Total Result: </h6>
-                                <h6 class="m-0 ml-2">${res.sheet_data.sheet_total_result}</h6>
-                            </div>
-                            <div class="col-12 d-flex align-items-center justify-content-start">
-                                <h6 class="m-0">Author Mail: </h6>
-                                <h6 class="m-0 ml-2">${res.sheet_data.author_info[0].email.$t}</h6>
-                            </div>
-                            <div id="shortcode_container" style="display: none !important;" class="col-12 d-flex mt-3 align-items-center justify-content-start transition hidden">
+                            <div id="shortcode_container" style="display: none !important;" class="col-12 d-flex align-items-center justify-content-center transition hidden">
                                 <h6 class="m-0">Table Shortcode: </h6>
                                 <h6 class="m-0 ml-2">
                                     <div class="ui action input">
@@ -153,6 +150,10 @@ export default class Base_Class {
             settings.verticalScroll = $("#vertical_scrolling")
                 .find("input[name=vertical_scrolling]")
                 .val();
+            settings.cellFormat = $("#cell_format").find("input[name=cell_format]").val();
+            settings.redirectionType = $("#redirection_type")
+                .find("input[name=redirection_type]")
+                .val();
         }
         return settings;
     }
@@ -170,6 +171,7 @@ export default class Base_Class {
             searchBar: true,
             tableExport: null,
             verticalScroll: 400,
+            cellFormat: "wrap",
         };
 
         return default_settings;
@@ -356,7 +358,9 @@ export default class Base_Class {
                 [1, 5, 10, 15, 25, 50, 100, "All"],
             ];
 
-            obj.scrollY = `${verticalScroll}px`;
+            if (verticalScroll != "default") {
+                obj.scrollY = `${verticalScroll}px`;
+            }
         }
         return obj;
     }
@@ -389,6 +393,40 @@ export default class Base_Class {
                     $("#table_exporting_container").dropdown("set selected", export_type);
                 });
             }
+            $("#cell_format").dropdown("set selected", settings.cell_format);
+            $("#redirection_type").dropdown("set selected", settings.redirection_type);
+        }
+    }
+
+    changeCellFormat(formatStyle, tableSelector) {
+        let tableCell = $(`${tableSelector} th, td`);
+
+        switch (formatStyle) {
+            case "wrap":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("wrap_style");
+                });
+                break;
+
+            case "clip":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("wrap_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("clip_style");
+                });
+                break;
+            case "expand":
+                $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("wrap_style");
+                    $(cell).addClass("expanded_style");
+                });
+                break;
+
+            default:
+                break;
         }
     }
 }

@@ -73,6 +73,25 @@
                 max-width: 200px;
                 overflow-wrap: break-word;
             }
+            .expanded_style {
+                max-width: unset;
+                overflow-wrap: unset;
+                white-space: nowrap;
+                overflow-x: unset;
+            }
+            .clip_style {
+                max-width: 200px;
+                overflow-wrap: unset;
+                white-space: nowrap;
+                overflow-x: overlay;
+                height: 30px;
+            }
+            .wrap_style {
+                max-width: 200px;
+                overflow-wrap: break-word;
+                white-space: normal;
+                overflow-x: unset;
+            }
             th:focus {
                 outline: none;
             }

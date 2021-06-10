@@ -61,8 +61,22 @@ jQuery(document).ready(function ($) {
         activate_promo(e) {
             let target = $(e.currentTarget);
             target.prop("checked", false);
+            this.changeButtonTextLinks(e);
             let promo = target.parents(".dash_boxes").find(".promo_large");
             promo.addClass("active");
+        }
+
+        changeButtonTextLinks(e) {
+            let target = $(e.currentTarget);
+            let promoText = target.parents(".dash_boxes").find(".promo_large .promo_inner h5");
+            let promoBtn = target.parents(".dash_boxes").find(".promo_large .promo_inner a");
+            if (!target.hasClass("upcoming_setting")) {
+                promoText.text("Get this feature in Pro extension");
+                promoBtn.html("Get Pro");
+            } else {
+                promoText.text("This feature is coming soon");
+                promoBtn.html("Upcoming in Pro");
+            }
         }
 
         close_promo(e) {
