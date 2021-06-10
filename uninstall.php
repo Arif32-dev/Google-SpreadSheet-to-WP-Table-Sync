@@ -61,7 +61,11 @@ class SheetsToWPTableLiveSyncUninstall {
         $settings_options = [
             'asynchronous_loading',
             'multiple_sheet_tab',
-            'sheet_tab_connection'
+            'sheet_tab_connection',
+            'link_support',
+            'gswptsActivationTime',
+            'gswptsReviewNotice',
+            'deafaultNoticeInterval'
         ];
         foreach ($settings_options as $option) {
             unregister_setting('gswpts_general_setting', $option);

@@ -143,14 +143,6 @@ class SheetCreation {
     public static function sheet_html($url) {
         global $gswpts;
 
-        $json_res = $gswpts->get_json_data($url);
-
-        if (!$json_res) {
-            self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is not publicly available. Publish it to the web', 'sheetstowptable').'</b>';
-            return self::$output;
-        }
-
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
@@ -161,12 +153,6 @@ class SheetCreation {
 
         $response = $gswpts->get_table(true, $sheet_response);
         self::$output['response_type'] = esc_html('success');
-        self::$output['sheet_data'] = [
-            'sheet_name'         => esc_html__($json_res['title']['$t'], 'sheetstowptable'),
-            'author_info'        => (array) self::escapeAuthorData($json_res['author']),
-            'sheet_total_result' => esc_html__($json_res['openSearch$totalResults']['$t'], 'sheetstowptable'),
-            'total_rows'         => esc_html__($response['count'], 'sheetstowptable')
-        ];
         self::$output['output'] = "".$response['table']."";
         return self::$output;
     }

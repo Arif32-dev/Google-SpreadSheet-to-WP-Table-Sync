@@ -14,7 +14,8 @@ class SettingsApi {
         $settings_options = [
             'asynchronous_loading',
             'multiple_sheet_tab',
-            'sheet_tab_connection'
+            'sheet_tab_connection',
+            'link_support'
         ];
 
         foreach ($settings_options as $setting) {
@@ -48,53 +49,22 @@ class SettingsApi {
         );
     }
 
+    /**
+     * @return null
+     */
     public static function fields() {
 
-        $option_values = self::get_option_values();
+        global $gswpts;
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
-            'setting_title'   => __('Asynchronous Loading', 'sheetstowptable'),
-            'setting_tooltip' => __('Enable this feature for loading table asynchronously', 'sheetstowptable'),
-            'is_checked'      => $option_values['asynchronous_loading'],
-            'input_name'      => 'asynchronous_loading',
-            'setting_desc'    => __("Enable this feauture to load the table in the frontend after loading all content with a pre-loader.
-                                            This will help your website load fast.
-                                            If you don't want to enable this feature than the table will load with the reloading of browser every time.", 'sheetstowptable')
-        ]);
+        $settingsArray = $gswpts->generalSettingsArray();
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
-            'setting_title'   => __('Multiple Spreadsheet Tab', 'sheetstowptable'),
-            'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
-            'is_checked'      => $option_values['multiple_sheet_tab'],
-            'input_name'      => 'multiple_sheet_tab',
-            'setting_desc'    => __("Enabling this feature will allow user/admin to choose & save multiple spreadsheet tab from a Google spreadsheet.
-                                            In this free plugin user/admin can select 1 spreadsheet tab from a single Google spreadsheet.
-                                            To know more about this feature <a href=''>Click Here</a>", 'sheetstowptable'),
-            'is_pro'          => true
-        ]);
+        if (!$settingsArray) {
+            return;
+        }
 
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php', false, [
-            'setting_title'   => __('Table Connection', 'sheetstowptable'),
-            'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
-            'is_checked'      => $option_values['sheet_tab_connection'],
-            'input_name'      => 'sheet_tab_connection',
-            'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
-                                            Each individual table will be shown as like bootstrap tab or accordian design
-                                            To know more about this feature <a href=''>Click Here</a>", 'sheetstowptable'),
-            'is_pro'          => true
-        ]);
+        foreach ($settingsArray as $setting) {
+            load_template($setting['template_path'], false, $setting);
+        }
 
-    }
-
-    /**
-     * @return array
-     */
-    public static function get_option_values() {
-        $options_values = [
-            'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
-            'multiple_sheet_tab'   => get_option('multiple_sheet_tab') ? 'checked' : '',
-            'sheet_tab_connection' => get_option('sheet_tab_connection') ? 'checked' : ''
-        ];
-        return $options_values;
     }
 }

@@ -55,39 +55,6 @@ class GlobalClass {
     }
 
     /**
-     * @param  $url
-     * @return array
-     */
-    public function get_json_data($url) {
-        $sheet_id = $this->get_sheet_id($url);
-        if (!$sheet_id) {
-            return;
-        }
-        $sheet_url = "https://spreadsheets.google.com/feeds/cells/".$sheet_id."/1/public/full?alt=json";
-
-        return json_decode(wp_remote_get($sheet_url)['body'], true)['feed'];
-    }
-
-    /**
-     * @param  string   $url
-     * @return string
-     */
-    public function get_csv_data(string $url) {
-        $sheet_id = $this->get_sheet_id($url);
-        if (!$sheet_id) {
-            return;
-        }
-
-        $response = wp_remote_get("https://docs.google.com/spreadsheets/d/".$sheet_id."/export?format=csv&id=".$sheet_id."")['body'];
-
-        if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
-            return false;
-        }
-
-        return $response;
-    }
-
-    /**
      * @param  $ajax_req
      * @param  false        $sheet_response
      * @param  null         $table_id
@@ -103,13 +70,8 @@ class GlobalClass {
         }
         if (isset($table_id) && $table_id !== '') {
             $db_result = $this->fetch_db_by_id($table_id);
+
             if ($db_result) {
-
-                $json_response = $this->get_json_data($db_result[0]->source_url);
-
-                if (!$json_response) {
-                    return false;
-                }
 
                 $sheet_response = $this->get_csv_data($db_result[0]->source_url);
 
@@ -119,14 +81,11 @@ class GlobalClass {
 
                 $table = $this->the_table($sheet_response);
                 $output = [
-                    'id'                 => $table_id,
-                    'table'              => $table,
-                    'table_settings'     => unserialize($db_result[0]->table_settings),
-                    'table_name'         => $db_result[0]->table_name,
-                    'sheet_name'         => $json_response['title']['$t'],
-                    'author_info'        => $json_response['author'],
-                    'sheet_total_result' => $json_response['openSearch$totalResults']['$t'],
-                    'total_rows'         => $table['count']
+                    'id'             => $table_id,
+                    'table'          => $table,
+                    'table_settings' => unserialize($db_result[0]->table_settings),
+                    'table_name'     => $db_result[0]->table_name,
+                    'total_rows'     => $table['count']
                 ];
                 return $output;
             }
@@ -179,7 +138,7 @@ class GlobalClass {
                 $table .= '<tr>';
                 foreach ($data as $cell_value) {
                     if ($cell_value) {
-                        $table .= '<td>'.esc_html__($cell_value, 'sheetstowptable').'</td>';
+                        $table .= '<td>'.__($this->checkLinkExists($cell_value), 'sheetstowptable').'</td>';
                     } else {
                         $table .= '<td>&nbsp;</td>';
                     }
@@ -194,6 +153,88 @@ class GlobalClass {
             'table' => $table,
             'count' => $i
         ];
+        return $response;
+    }
+
+    /**
+     * @param  string  $string
+     * @return mixed
+     */
+    public function checkLinkExists(string $string): string {
+
+        if (!get_option('link_support') || !$this->isProActive()) {
+            return $string;
+        }
+
+        $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        // $pattern = '/[^($|#|\.|\w+)]([a-zA-Z0-9^$]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/i';
+        if (preg_match_all($pattern, $string, $matches)) {
+            if ($matches) {
+                return $this->transformLinks($matches[0][0], $string);
+            } else {
+                return $string;
+            }
+        } else {
+            return $string;
+        }
+    }
+
+    /**
+     * @param  string   $string
+     * @return string
+     */
+    public function transformLinks(
+        string $matchedLink,
+        string $string
+    ): string {
+        $replacedString = str_replace($matchedLink, '<a href="'.$this->checkHttpsInString($matchedLink).'" target="_self">'.$this->checkHttpsInString($matchedLink).'</a>', $string);
+        return $replacedString;
+    }
+
+    /**
+     * @param  string   $string
+     * @return string
+     */
+    public function checkHttpsInString(string $string): string {
+
+        $pattern = '/((https|ftp|file)):\/\//i';
+        if (!preg_match_all($pattern, $string, $matches)) {
+            return 'http://'.$string;
+        } else {
+            return $string;
+        }
+    }
+
+    /**
+     * @param  $url
+     * @return array
+     */
+    public function get_json_data($url) {
+        $sheet_id = $this->get_sheet_id($url);
+        if (!$sheet_id) {
+            return;
+        }
+        $sheet_url = "https://spreadsheets.google.com/feeds/cells/".$sheet_id."/1/public/full?alt=json";
+
+        return json_decode(wp_remote_get($sheet_url)['body'], true)['feed'];
+    }
+
+    /**
+     * @param  string   $url
+     * @return string
+     */
+    public function get_csv_data(string $url) {
+        $sheet_id = $this->get_sheet_id($url);
+        if (!$sheet_id) {
+            return;
+        }
+
+        $response = wp_remote_get("https://docs.google.com/spreadsheets/d/".$sheet_id."/export?format=csv&id=".$sheet_id."")['body'];
+
+        if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
+            return false;
+        }
+
         return $response;
     }
 
@@ -239,22 +280,6 @@ class GlobalClass {
                     <div id="sheet_ui_card" class="ui card" style="width: 60%; min-width: 400px;">
                             <div class="content">
                                 <div class="row">
-                                    <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h6 class="m-0">Sheet Name: </h6>
-                                        <h6 class="m-0 ml-2">'.esc_html__($data['sheet_name'], 'sheetstowptable').'</h6>
-                                    </div>
-                                    <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h6 class="m-0">Total Rows: </h6>
-                                        <h6 class="m-0 ml-2">'.esc_html__($data['total_rows'], 'sheetstowptable').'</h6>
-                                    </div>
-                                    <div class="col-12 d-flex align-items-center justify-content-start mb-3">
-                                        <h6 class="m-0">Total Result: </h6>
-                                        <h6 class="m-0 ml-2">'.esc_html__($data['sheet_total_result'], 'sheetstowptable').'</h6>
-                                    </div>
-                                    <div class="col-12 d-flex align-items-center justify-content-start">
-                                        <h6 class="m-0">Author Mail: </h6>
-                                        <h6 class="m-0 ml-2">'.esc_html__($data['author_info'][0]['email']['$t'], 'sheetstowptable').'</h6>
-                                    </div>
                                     <div id="shortcode_container" class="col-12 d-flex mt-3 align-items-center justify-content-start">
                                         <h6 class="m-0">Table Shortcode: </h6>
                                         <h6 class="m-0 ml-2">
@@ -354,17 +379,18 @@ class GlobalClass {
     public function changeLogs() {
 
         $changeLogs = [
-            '1.2.2' => [
-                __('Fix: Fixed admin page css issue', 'sheetstowptable'),
-                __('Fix: Fixed tabe broken issue', 'sheetstowptable'),
-                __('Added: Add cell formating feature as upcoming feature', 'sheetstowptable').
-                __('Added: Changed non-developed feature as upcoming feature', 'sheetstowptable'),
-                __('Improvement: UI/UX improved for users', 'sheetstowptable'),
-                __('Improvement: Added 20 row fetching from google sheet', 'sheetstowptable'),
-                __('Improvement: Plugins code structure updated for pro version', 'sheetstowptable')
-            ],
             '1.2.3' => [
                 __('Fix: Minor bugs fixed for pro plugin', 'sheetstowptable')
+            ],
+            '2.2.3' => [
+                __('Fix: Minor bugs fixed for pro plugin', 'sheetstowptable'),
+                __('Added: Added Format Table Cell feature in pro plugin', 'sheetstowptable'),
+                __('Added: Added Link Support feature in pro plugin', 'sheetstowptable'),
+                __('Added: Added plugin review reminder option in 1 day after activation', 'sheetstowptable'),
+                __('Added: Removed doc page from dashboard page', 'sheetstowptable'),
+                __('Improvement: Improved Gutenberg Table creation', 'sheetstowptable'),
+                __('Improvement: Improved table creation with 1 step reduced', 'sheetstowptable'),
+                __('Improvement: Other minor improvement for pro plugin', 'sheetstowptable')
             ]
 
         ];
@@ -589,13 +615,26 @@ class GlobalClass {
                 'feature_desc'  => __('Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style', 'sheetstowptable'),
                 'input_name'    => 'cell_format',
                 'checked'       => false,
-                // 'is_pro'        => true,
-                'is_upcoming'   => true,
+                'is_pro'        => true,
                 'type'          => 'select',
                 'values'        => $this->cellFormattingArray(),
                 'default_text'  => 'Cell Format'
             ]
         ];
+
+        if (get_option('link_support')) {
+            $settingsArray['redirection_type'] = [
+                'feature_title' => __('Link Redirection Type', 'sheetstowptable'),
+                'feature_desc'  => __('Choose the redirection type of all the links in this table <br/>
+                                        <b>Blank Type</b> = Opens the links in a new window or tab <br/>
+                                        <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable'),
+                'input_name'    => 'redirection_type',
+                'is_pro'        => true,
+                'type'          => 'select',
+                'values'        => $this->redirectionTypeArray(),
+                'default_text'  => 'Redirection Type'
+            ];
+        }
 
         $settingsArray = apply_filters('gswpts_display_settings_arr', $settingsArray);
 
@@ -604,6 +643,26 @@ class GlobalClass {
 
     /**
      * @return mixed
+     */
+    public function redirectionTypeArray(): array{
+        $redirectionTypes = [
+            '_blank' => [
+                'val'   => 'Blank Type',
+                'isPro' => true
+            ],
+            '_self'  => [
+                'val'   => 'Self Type',
+                'isPro' => true
+            ]
+        ];
+
+        $redirectionTypes = apply_filters('gswpts_redirection_types', $redirectionTypes);
+
+        return $redirectionTypes;
+    }
+
+    /**
+     * @return array
      */
     public function cellFormattingArray(): array{
         $cellFormats = [
@@ -824,7 +883,81 @@ class GlobalClass {
                    ';
             }
         } else {
-            echo '<div class="ui label mt-2">'.__('Empty', 'sheetstowptable').'</div>';
+            echo '<div class="ui label" style="align-self:center;">'.__('Empty', 'sheetstowptable').'</div>';
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function generalSettingsArray(): array{
+        $optionValues = $this->getOptionValues();
+        $settingsArray = [
+            'asynchronous_loading' => [
+                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'setting_title'   => __('Asynchronous Loading', 'sheetstowptable'),
+                'setting_tooltip' => __('Enable this feature for loading table asynchronously', 'sheetstowptable'),
+                'is_checked'      => $optionValues['asynchronous_loading'],
+                'input_name'      => 'asynchronous_loading',
+                'setting_desc'    => __("Enable this feauture to load the table in the frontend after loading all content with a pre-loader.
+                                                This will help your website load fast.
+                                                If you don't want to enable this feature than the table will load with the reloading of browser every time.", 'sheetstowptable'),
+                'is_pro'          => false
+
+            ],
+            'link_support'         => [
+                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'setting_title'   => __('Link Support', 'sheetstowptable'),
+                'setting_tooltip' => __('Enable this feature for supporting links from google sheet.', 'sheetstowptable'),
+                'is_checked'      => $optionValues['link_support'],
+                'input_name'      => 'link_support',
+                'setting_desc'    => __("Enable this feauture to support URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text.
+                                        You can change the link behavior of how to redirect your user when they click on those links", 'sheetstowptable'),
+                'is_pro'          => true
+
+            ],
+            'multiple_sheet_tab'   => [
+                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'setting_title'   => __('Multiple Spreadsheet Tab', 'sheetstowptable'),
+                'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
+                'is_checked'      => $optionValues['multiple_sheet_tab'],
+                'input_name'      => 'multiple_sheet_tab',
+                'setting_desc'    => __("Enabling this feature will allow user/admin to choose & save multiple spreadsheet tab from a Google spreadsheet.
+                                        In this free plugin user/admin can select 1 spreadsheet tab from a single Google spreadsheet.
+                                        To know more about this feature <a href=''>Click Here</a>", 'sheetstowptable'),
+                // 'is_pro'          => true,
+                'is_upcoming'     => true
+            ],
+            'sheet_tab_connection' => [
+                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'setting_title'   => __('Table Connection', 'sheetstowptable'),
+                'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
+                'is_checked'      => $optionValues['sheet_tab_connection'],
+                'input_name'      => 'sheet_tab_connection',
+                'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
+                                        Each individual table will be shown as like bootstrap tab or accordian design
+                                        To know more about this feature <a href=''>Click Here</a>", 'sheetstowptable'),
+                // 'is_pro'          => true,
+                'is_upcoming'     => true
+            ]
+
+        ];
+
+        $settingsArray = apply_filters('gswpts_general_settings', $settingsArray);
+
+        return $settingsArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptionValues() {
+        $options_values = [
+            'asynchronous_loading' => get_option('asynchronous_loading') ? 'checked' : '',
+            'multiple_sheet_tab'   => get_option('multiple_sheet_tab') ? 'checked' : '',
+            'sheet_tab_connection' => get_option('sheet_tab_connection') ? 'checked' : '',
+            'link_support'         => get_option('link_support') ? 'checked' : ''
+        ];
+        return $options_values;
     }
 }

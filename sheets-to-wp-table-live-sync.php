@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           1.2.3
+ * Version:           2.2.3
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '1.2.3');
+    define('GSWPTS_VERSION', '2.2.3');
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -45,6 +45,7 @@ final class SheetsToWPTableLiveSync {
      */
     public function __construct() {
         require_once ABSPATH.'wp-admin/includes/plugin.php';
+
         if ($this->version_check() == 'version_low') {
             return;
         }
@@ -104,6 +105,17 @@ final class SheetsToWPTableLiveSync {
         if (is_plugin_active(plugin_basename(__FILE__))) {
             add_action('plugins_loaded', [$this, 'include_file']);
             add_filter('plugin_action_links_'.plugin_basename(__FILE__), [$this, 'add_action_links']);
+            $this->reviewNoticeByCondition();
+        }
+    }
+
+    public function reviewNoticeByCondition() {
+        if (get_option('gswptsActivationTime')) {
+            if (abs((time() - get_option('gswptsActivationTime')) / (60 * 60 * 24)) > get_option('deafaultNoticeInterval')) {
+                if (get_option('gswptsReviewNotice')['isRated'] == false) {
+                    add_action('admin_notices', [$this, 'showReviewNotice']);
+                }
+            }
         }
     }
 
@@ -132,12 +144,18 @@ final class SheetsToWPTableLiveSync {
      */
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
-
             new GSWPTS\Includes\Classes\DbTables();
             add_option('gswpts_activation_redirect', true);
-            flush_rewrite_rules();
-        });
-        register_activation_hook(__FILE__, function () {
+
+            if (!get_option('gswptsActivationTime')) {
+                add_option('gswptsActivationTime', time());
+            }
+
+            add_option('gswptsReviewNotice', [
+                'isRated' => false
+            ]);
+
+            add_option('deafaultNoticeInterval', 0);
             flush_rewrite_rules();
         });
     }
@@ -147,6 +165,14 @@ final class SheetsToWPTableLiveSync {
      */
     public function show_notice() {
         printf('<div class="notice notice-error is-dismissible"><h3><strong>%s </strong></h3><p>%s</p></div>', __('Plugin', 'sheetstowptable'), __('cannot be activated - requires at least PHP 5.4. Plugin automatically deactivated.', 'sheetstowptable'));
+        return;
+    }
+
+    /**
+     * @return null
+     */
+    public function showReviewNotice() {
+        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/review_notice.php');
         return;
     }
 

@@ -66,14 +66,6 @@ class SheetFetching {
     ) {
         global $gswpts;
 
-        $json_res = $gswpts->get_json_data($url);
-
-        if (!$json_res) {
-            self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is not publicly available. Publish it to the web.', 'sheetstowptable').'</b>';
-            return self::$output;
-        }
-
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
@@ -85,12 +77,6 @@ class SheetFetching {
         $response = $gswpts->get_table(true, $sheet_response);
 
         self::$output['response_type'] = esc_html('success');
-        self::$output['sheet_data'] = [
-            'sheet_name'         => $json_res['title']['$t'],
-            'author_info'        => $json_res['author'],
-            'sheet_total_result' => esc_html__($json_res['openSearch$totalResults']['$t'], 'sheetstowptable'),
-            'total_rows'         => esc_html__($response['count'], 'sheetstowptable')
-        ];
 
         self::$output['table_data'] = [
             'table_id'       => esc_html__($table_id, 'sheetstowptable'),
