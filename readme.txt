@@ -4,7 +4,7 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 1.0.2
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,3 +163,13 @@ For instant support please send us a message on our Facebook page or you also co
 
 = 1.0.2 =
 * Fix: Fixed some minor issues
+
+= 2.2.3 =
+* Fix: Minor bugs fixed for pro plugin
+* Added: Added Format Table Cell feature in pro plugin
+* Added: Added Link Support feature in pro plugin
+* Added: Added plugin review reminder option in 1 day after activation
+* Added: Removed doc page from dashboard page
+* Improvement: Improved Gutenberg Table creation
+* Improvement: Improved table creation with 1 step reduced
+* Improvement: Other minor improvement for pro plugin

@@ -17,5 +17,8 @@ class FilterHooks extends FilterCallbacks {
         add_filter('gswpts_table_settings', [$this, 'getTableSettings'], 10, 2);
         add_filter('gswpts_table_scorll_height', [$this, 'scrollHeightArray']);
         add_filter('gswpts_table_export_values', [$this, 'tableExportValues']);
+        add_filter('gswpts_cell_format', [$this, 'cellFormattingArray']);
+        add_filter('gswpts_general_settings', [$this, 'generalSettingsArray']);
+        add_filter('gswpts_redirection_types', [$this, 'redirectionTypeArray']);
     }
 }

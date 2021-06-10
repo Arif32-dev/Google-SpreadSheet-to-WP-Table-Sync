@@ -81,7 +81,6 @@ class ElementorBase {
     public function init() {
         // Add Plugin actions
         add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets']);
-
     }
 
     /**

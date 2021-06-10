@@ -80,6 +80,10 @@ class FilterCallbacks {
     public function displaySettingsArray(array $settingsArray): array{
         $settingsArray['responsive_table']['is_pro'] = false;
         $settingsArray['vertical_scrolling']['is_pro'] = false;
+        $settingsArray['cell_format']['is_pro'] = false;
+        if (get_option('link_support')) {
+            $settingsArray['redirection_type']['is_pro'] = false;
+        }
 
         return $settingsArray;
     }
@@ -106,6 +110,8 @@ class FilterCallbacks {
         $settings['responsive_table'] = $table_settings['responsiveTable'];
         $settings['vertical_scroll'] = $table_settings['verticalScroll'];
         $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
+        $settings['cell_format'] = $table_settings['cellFormat'];
+        $settings['redirection_type'] = $table_settings['redirectionType'];
         return $settings;
     }
 
@@ -114,6 +120,12 @@ class FilterCallbacks {
      * @return array
      */
     public function scrollHeightArray(array $scrollHeights): array{
+
+        $scrollHeights['default'] = [
+            'val'   => 'Default Style',
+            'isPro' => true
+        ];
+
         $scrollHeights = array_map(function ($scrollHeight) {
             $scrollHeight['isPro'] = false;
             return $scrollHeight;
@@ -137,5 +149,57 @@ class FilterCallbacks {
         }, $exportValues);
 
         return $exportValues;
+    }
+
+    /**
+     * @param  array   $cellFormats
+     * @return array
+     */
+    public function cellFormattingArray(array $cellFormats): array{
+
+        if (!$cellFormats) {
+            $cellFormats;
+        }
+
+        $cellFormats = array_map(function ($value) {
+            $value['isPro'] = false;
+            return $value;
+        }, $cellFormats);
+
+        return $cellFormats;
+    }
+
+    /**
+     * @param  array   $settingsArray
+     * @return array
+     */
+    public function generalSettingsArray(array $settingsArray): array{
+        if (!$settingsArray) {
+            $settingsArray;
+        }
+
+        $settingsArray['link_support']['is_pro'] = false;
+
+        return $settingsArray;
+    }
+
+    /**
+     * @param  array   $cellFormats
+     * @return array
+     */
+    public function redirectionTypeArray(array $redirectionTypes): array{
+
+        if (!$redirectionTypes) {
+            $redirectionTypes;
+        }
+
+        $redirectionTypes = array_map(function ($types) {
+            if (get_option('link_support')) {
+                $types['isPro'] = false;
+            }
+            return $types;
+        }, $redirectionTypes);
+
+        return $redirectionTypes;
     }
 }
