@@ -15,7 +15,7 @@ class AdminMenus {
             __('Sheets To Table', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
-            [get_called_class(), 'gswpts_dashboard'],
+            [get_called_class(), 'gswpts_tables'],
             GSWPTS_BASE_URL.'Assets/Public/Images/logo_20_20.svg'
         );
         add_submenu_page(
@@ -24,14 +24,6 @@ class AdminMenus {
             __('Dashboard', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
-            [get_called_class(), 'gswpts_dashboard']
-        );
-        add_submenu_page(
-            'gswpts-dashboard',
-            __('Manage Tables', 'sheetstowptable'),
-            __('Manage Tables', 'sheetstowptable'),
-            'manage_options',
-            'gswpts-tables',
             [get_called_class(), 'gswpts_tables']
         );
         add_submenu_page(

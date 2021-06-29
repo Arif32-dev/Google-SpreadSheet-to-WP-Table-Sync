@@ -56,7 +56,7 @@ table {
 
                     <div class="gswpts_settings_container">
                         <?php settings_fields('gswpts_general_setting');?>
-                        <?php do_settings_sections('gswpts-general-settings');?>
+<?php do_settings_sections('gswpts-general-settings');?>
                     </div>
 
 

@@ -29,7 +29,7 @@
             <div class="col-12 p-0 d-flex align-items-center">
 
                 <div
-                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
+                    class="ui action input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo isset($table_id) && !empty($table_id) ? 'transition hidden' : ''; ?>">
                     <input <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?> type="text"
                         placeholder="Table Name" id="table_name" name="table_name" value="GSWPTS Table">
                     <button <?php echo isset($table_id) && !empty($table_id) ? 'disabled' : ''; ?>
@@ -41,7 +41,7 @@
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button"
-                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
+                        class="positive ui button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
                         style="padding-left: 30px;">
                         <?php _e('Create New', 'sheetstowptable');?> &nbsp; <i class="plus icon"></i>
                     </button>
@@ -201,7 +201,7 @@
                                 <?php $gswpts->displaySettingsHTML();?>
                             </div>
 
-                            <!--                                                                                                 <?php $gswpts->tabDocButtons('displayDocButton')?> -->
+
 
                         </section>
 
@@ -210,7 +210,6 @@
                                 <?php $gswpts->sortAndFilterHTML();?>
                             </div>
 
-                            <!--                                                                                                 <?php $gswpts->tabDocButtons('sortAndFilterDocButton')?> -->
                         </section>
 
                         <section id="table_tools">
@@ -220,8 +219,6 @@
                                 <?php $gswpts->tableToolsHTML()?>
 
                             </div>
-
-                            <!--                                                                                                 <?php $gswpts->tabDocButtons('tableToolsDocButton')?> -->
 
                         </section>
                     </div>
@@ -256,6 +253,28 @@
         </div>
 
 
+    </div>
+
+    <div class="tableStyleModal">
+        <div class="styleModal transition hidden">
+            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/times-circle-solid.svg'?>
+            <div class="header">
+                <h4>Choose Table Style</h4>
+            </div>
+
+            <div class="body">
+                <?php $gswpts->tableStylesHtml();?>
+            </div>
+
+            <div class="actions">
+                <div class="ui black deny button cancelBtn">
+                    Cancel
+                </div>
+                <div class="ui positive button selectBtn">
+                    Select
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

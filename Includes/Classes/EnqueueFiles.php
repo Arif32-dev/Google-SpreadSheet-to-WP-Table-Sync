@@ -34,11 +34,12 @@ class EnqueueFiles {
             $gswpts->data_table_styles();
             $gswpts->data_table_scripts();
 
-            do_action('gswpts_export_dependency_backend');
+            do_action('gswpts_export_dependency_backend', $get_page);
 
             /* CSS Files */
             wp_enqueue_style('GSWPTS-alert-css', GSWPTS_BASE_URL.'Assets/Public/Package/alert.min.css', [], GSWPTS_VERSION, 'all');
             wp_enqueue_style('GSWPTS-admin-css', GSWPTS_BASE_URL.'Assets/Public/Styles/admin.min.css', [], GSWPTS_VERSION, 'all');
+            $this->tableStylesCss();
 
             /* Javascript Files */
             wp_enqueue_script('jquery');
@@ -50,7 +51,8 @@ class EnqueueFiles {
             wp_localize_script('GSWPTS-admin-js', 'file_url', [
                 'admin_ajax'  => esc_url(admin_url('admin-ajax.php')),
                 'iconsURL'    => $iconsURLs,
-                'isProActive' => $gswpts->isProActive()
+                'isProActive' => $gswpts->isProActive(),
+                'tableStyles' => $gswpts->tableStylesArray()
             ]);
         }
     }
@@ -65,6 +67,7 @@ class EnqueueFiles {
         do_action('gswpts_export_dependency_frontend');
 
         wp_enqueue_style('GSWPTS-frontend-css', GSWPTS_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_VERSION, 'all');
+        $this->tableStylesCss();
 
         wp_enqueue_script(
             'GSWPTS-frontend-js',
@@ -109,11 +112,37 @@ class EnqueueFiles {
         $gswpts->semantic_files();
         $gswpts->data_table_styles();
         $gswpts->data_table_scripts();
+        $this->tableStylesCss();
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
             'admin_ajax'    => esc_url(admin_url('admin-ajax.php')),
             'table_details' => $gswpts->fetch_gswpts_tables(),
-            'isProActive'   => $gswpts->isProActive()
+            'isProActive'   => $gswpts->isProActive(),
+            'tableStyles'   => $gswpts->tableStylesArray()
         ]);
+    }
+
+    /**
+     * @return null
+     */
+    public function tableStylesCss() {
+        global $gswpts;
+
+        $stylesArray = $gswpts->tableStylesArray();
+
+        $stylesArray = apply_filters('gswpts_table_styles_path', $stylesArray);
+
+        if (!$stylesArray) {
+            return;
+        }
+
+        foreach ($stylesArray as $key => $style) {
+            $tableStyleFileURL = isset($style['cssURL']) ? $style['cssURL'] : '';
+            $tableStyleFilePath = isset($style['cssPath']) ? $style['cssPath'] : '';
+
+            if (file_exists($tableStyleFilePath)) {
+                wp_enqueue_style('gswptsProTable_'.$key.'', $tableStyleFileURL, [], GSWPTS_VERSION, 'all');
+            }
+        }
     }
 }

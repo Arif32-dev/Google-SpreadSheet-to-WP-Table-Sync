@@ -11,12 +11,10 @@ class SettingsApi {
     }
 
     public function add_settings() {
-        $settings_options = [
-            'asynchronous_loading',
-            'multiple_sheet_tab',
-            'sheet_tab_connection',
-            'link_support'
-        ];
+
+        global $gswpts;
+
+        $settings_options = $gswpts->generalSettingsOptions();
 
         foreach ($settings_options as $setting) {
             register_setting(
