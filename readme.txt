@@ -161,6 +161,7 @@ For instant support please send us a message on our Facebook page or you also co
 
 === Changelog ===
 
+
 = 2.1.2 =
 * Fix: Minor bugs fixed for pro plugin
 * Fix: Fixed Elementor page builder exports buttons bug
