@@ -159,7 +159,7 @@ We have a 14 days refund policy. Please email us at support@wppool.dev explainin
 For instant support please send us a message on our Facebook page or you also contact us through https://wppool.dev/contact/.
 
 
-=== Change Logs ===
+=== Changelog ===
 
 = 2.3.3 =
 * Fix: Minor bugs fixed for pro plugin
