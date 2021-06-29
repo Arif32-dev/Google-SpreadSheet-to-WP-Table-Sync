@@ -20,5 +20,9 @@ class FilterHooks extends FilterCallbacks {
         add_filter('gswpts_cell_format', [$this, 'cellFormattingArray']);
         add_filter('gswpts_general_settings', [$this, 'generalSettingsArray']);
         add_filter('gswpts_redirection_types', [$this, 'redirectionTypeArray']);
+        add_filter('gswpts_url_constructor', [$this, 'sheetURLConstructor'], 10, 2);
+        add_filter('gswpts_table_styles', [$this, 'tableStylesArray'], 10);
+        add_filter('gswpts_table_styles', [$this, 'tableStylesArray'], 10);
+        add_filter('gswpts_table_styles_path', [$this, 'tableStylesCssFile'], 10);
     }
 }

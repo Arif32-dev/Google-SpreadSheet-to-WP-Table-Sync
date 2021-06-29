@@ -1,0 +1,32 @@
+@import "./common";
+
+.gswpts_style-4.gswpts_style-4 {
+    table {
+        thead th,
+        tbody tr td {
+            background-color: #000;
+            color: white;
+        }
+
+        tr {
+            margin-bottom: 10px;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        a {
+            color: orange;
+            &:hover {
+                color: #2ecc40;
+            }
+        }
+
+        .sorting.sorting.sorting::after {
+            color: #fff;
+        }
+    }
+    &.gswpts_responsive {
+        @include sorting-icon;
+    }
+}

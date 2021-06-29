@@ -81,61 +81,55 @@
             $this->end_controls_section();
             // End table choose section
 
-            // // Display settings sectionffffffffffffffff
-            // $this->start_controls_section(
-            //     'display_settings',
-            //     [
-            //         'label' => 'Display Settings',
-            //         'tab'   => \Elementor\Controls_Manager::TAB_CONTENT
-            //     ]
-            // );
+            // wp_console_log($this->get_settings_for_display());
+            // If table is choosen than show the table settings
+            // if ($this->get_settings_for_display() != 'select') {
+            //     // Display settings sectionffffffffffffffff
+            //     $this->start_controls_section(
+            //         'display_settings',
+            //         [
+            //             'label' => 'Display Settings',
+            //             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT
+            //         ]
+            //     );
 
-            // $displaySettings = $this->tableSettingsClass->displaySettings();
+            //     $displaySettings = $this->tableSettingsClass->displaySettings();
 
-            // if ($displaySettings) {
-            //     foreach ($displaySettings as $key => $setting) {
-            //         $this->add_control(
-            //             $key,
-            //             $setting
-            //         );
+            //     if ($displaySettings) {
+            //         foreach ($displaySettings as $key => $setting) {
+            //             $this->add_control(
+            //                 $key,
+            //                 $setting
+            //             );
+            //         }
             //     }
-            // }
 
-            // $this->end_controls_section();
-            // // End of display settings
+            //     $this->end_controls_section();
+            //     // End of display settings
 
-            // // Sort & Filter settings section
-            // $this->start_controls_section(
-            //     'sort_and_filter',
-            //     [
-            //         'label' => 'Sort & Filter',
-            //         'tab'   => \Elementor\Controls_Manager::TAB_CONTENT
-            //     ]
-            // );
+            //     // Sort & Filter settings section
+            //     $this->start_controls_section(
+            //         'sort_and_filter',
+            //         [
+            //             'label' => 'Sort & Filter',
+            //             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT
+            //         ]
+            //     );
 
-            // $sortFilterSettings = $this->tableSettingsClass->sortFilterSettings();
+            //     $sortFilterSettings = $this->tableSettingsClass->sortFilterSettings();
 
-            // if ($sortFilterSettings) {
-            //     foreach ($sortFilterSettings as $key => $setting) {
-            //         $this->add_control(
-            //             $key,
-            //             $setting
-            //         );
+            //     if ($sortFilterSettings) {
+            //         foreach ($sortFilterSettings as $key => $setting) {
+            //             $this->add_control(
+            //                 $key,
+            //                 $setting
+            //             );
+            //         }
             //     }
+
+            //     $this->end_controls_section();
+            //     // End of sort & filter settings
             // }
-
-            // $this->end_controls_section();
-            // // End of sort & filter settings
-        }
-
-        public function enqueue() {
-            wp_enqueue_script('GSWPTS-buttons', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-buttons-flash', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/button-flesh.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-jszip', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/jszip.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-pdfmake', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/pdfmake.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-vfs_fonts', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/vfs_fonts.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-buttons-html5', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.html5.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-buttons-print', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/DataTables/DownlodableAssets/buttons.print.min.js', ['jquery'], GSWPTS_PRO_VERSION, true);
         }
 
         /**
@@ -165,7 +159,7 @@
                 return;
             }
             $table_id = intval($settings['choose_table']);
-            echo do_shortcode('[gswpts_table id=17]');
+            echo do_shortcode('[gswpts_table id='.$table_id.']');
         }
 
         protected function _content_template() {

@@ -81,6 +81,7 @@ class FilterCallbacks {
         $settingsArray['responsive_table']['is_pro'] = false;
         $settingsArray['vertical_scrolling']['is_pro'] = false;
         $settingsArray['cell_format']['is_pro'] = false;
+        $settingsArray['table_style']['is_pro'] = false;
         if (get_option('link_support')) {
             $settingsArray['redirection_type']['is_pro'] = false;
         }
@@ -94,6 +95,7 @@ class FilterCallbacks {
      */
     public function tableToolsArray(array $settingsArray): array{
         $settingsArray['table_export']['is_pro'] = false;
+        $settingsArray['table_cache']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -112,6 +114,8 @@ class FilterCallbacks {
         $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
         $settings['cell_format'] = $table_settings['cellFormat'];
         $settings['redirection_type'] = $table_settings['redirectionType'];
+        $settings['table_cache'] = $table_settings['tableCache'];
+        $settings['table_style'] = $table_settings['tableStyle'];
         return $settings;
     }
 
@@ -179,6 +183,8 @@ class FilterCallbacks {
         }
 
         $settingsArray['link_support']['is_pro'] = false;
+        $settingsArray['multiple_sheet_tab']['is_pro'] = false;
+        $settingsArray['custom_css']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -202,4 +208,76 @@ class FilterCallbacks {
 
         return $redirectionTypes;
     }
+
+    /**
+     * @param  array   $constructorArray
+     * @param  string  $url
+     * @return array
+     */
+    public function sheetURLConstructor(
+        array $constructorArray,
+        string $url
+    ): array{
+
+        $gID = $this->getGridID($url);
+
+        $constructorArray['gID'] = $gID;
+
+        return $constructorArray;
+    }
+
+    /**
+     * @param  string  $url
+     * @return mixed
+     */
+    public function getGridID(string $url) {
+        $gID = false;
+        $pattern = "/gid=(\w+)/i";
+
+        if (!get_option('multiple_sheet_tab')) {
+            return $gID;
+        }
+
+        if (preg_match_all($pattern, $url, $matches)) {
+
+            $matchedID = $matches[1][0];
+            if ($matchedID) {
+                $gID = $matchedID;
+            }
+        }
+        return $gID;
+    }
+
+    /**
+     * @param  array   $stylesArray
+     * @return array
+     */
+    public function tableStylesArray(array $stylesArray): array{
+
+        $stylesArray = array_map(function ($style) {
+            $style['isPro'] = false;
+            return $style;
+        }, $stylesArray);
+
+        return $stylesArray;
+    }
+
+    /**
+     * @param  array   $stylesArray
+     * @return mixed
+     */
+    public function tableStylesCssFile(array $stylesArray): array{
+
+        if (!$stylesArray) {
+            return $stylesArray;
+        }
+
+        foreach ($stylesArray as $key => $style) {
+            $stylesArray[$key]['cssURL'] = GSWPTS_PRO_BASE_URL.'Assets/Public/Styles/'.$key.'.min.css';
+            $stylesArray[$key]['cssPath'] = GSWPTS_PRO_BASE_PATH.'Assets/Public/Styles/'.$key.'.min.css';
+        }
+
+        return $stylesArray;
+    }
+
 }

@@ -1,5 +1,18 @@
 @use './Parts/mixin';
+.gswpts_tables_container.gswpts_responsive {
+    @media screen and (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+        }
 
-.gswpts_tables_container.gswpts_resposive {
-    @include mixin.table_style;
+        tbody {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }

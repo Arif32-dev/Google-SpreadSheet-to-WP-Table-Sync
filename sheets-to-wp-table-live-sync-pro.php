@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync Pro
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           2.0.2
+ * Version:           2.1.2
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
 if (!defined('GSWPTS_PRO_VERSION')) {
-    define('GSWPTS_PRO_VERSION', '2.0.2');
+    define('GSWPTS_PRO_VERSION', '2.1.2');
 }
 
 if (!defined('GSWPTS_PRO_BASE_PATH')) {
@@ -86,11 +86,15 @@ final class SheetsToWPTableLiveSyncPro {
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
             add_option('gswpts_activation_pro_redirect', true);
+            update_option('link_support', true);
+            update_option('multiple_sheet_tab', true);
             flush_rewrite_rules();
         });
         register_deactivation_hook(__FILE__, function () {
             flush_rewrite_rules();
             update_option('link_support', false);
+            update_option('multiple_sheet_tab', false);
+            update_option('custom_css', false);
         });
     }
 
@@ -122,6 +126,7 @@ final class SheetsToWPTableLiveSyncPro {
         );
         $client->license()->add_settings_page($args);
 
+        // IF license is not valid then show notice or elese return true
         if (!$client->license()->is_valid()) {
             add_action('admin_notices', [$this, 'licenseNotice']);
             return false;
@@ -136,8 +141,9 @@ final class SheetsToWPTableLiveSyncPro {
      */
     public function licenseNotice() {
         printf('
-                <div class="notice notice-warning">
-                    <h3 style="font-size: initial;"><strong>%s</strong></h3><p><strong>%s</strong></p>
+                <div class="notice notice-info">
+                    <p><strong>%s</strong></p>
+                    <p>%s</p>
                 </div>',
             esc_html('Sheets To WP Table Live Sync Pro License is not activated.'),
             __('Please activate the Pro plugin by entering a valid license
