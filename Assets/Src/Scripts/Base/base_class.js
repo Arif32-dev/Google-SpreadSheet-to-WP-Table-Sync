@@ -19,6 +19,7 @@ export default class Base_Class {
                 #vertical_scrolling,
                 #cell_format,
                 #redirection_type
+                #table_style
                 `
             );
         } else {
@@ -66,7 +67,7 @@ export default class Base_Class {
                     <div class="content">
                         <div class="row">
                             <div id="shortcode_container" style="display: none !important;" class="col-12 d-flex align-items-center justify-content-center transition hidden">
-                                <h6 class="m-0">Table Shortcode: </h6>
+                                <h6 class="m-0" style="white-space: nowrap;font-weight: bold;">Table Shortcode: </h6>
                                 <h6 class="m-0 ml-2">
                                     <div class="ui action input">
                                         <input id="sortcode_value" type="text" class="copyInput" value="">
@@ -154,6 +155,8 @@ export default class Base_Class {
             settings.redirectionType = $("#redirection_type")
                 .find("input[name=redirection_type]")
                 .val();
+            settings.tableCache = $("#table_cache").prop("checked");
+            settings.tableStyle = $("#table_style").val();
         }
         return settings;
     }
@@ -172,6 +175,8 @@ export default class Base_Class {
             tableExport: null,
             verticalScroll: 400,
             cellFormat: "wrap",
+            tableCache: false,
+            tableStyle: null,
         };
 
         return default_settings;
@@ -395,7 +400,71 @@ export default class Base_Class {
             }
             $("#cell_format").dropdown("set selected", settings.cell_format);
             $("#redirection_type").dropdown("set selected", settings.redirection_type);
+            $("#table_cache").prop("checked", settings.table_cache == "true" ? true : false);
+
+            if (settings.table_style) {
+                $("#table_style").val(settings.table_style);
+                $(".styleWrapper").find(`label[for=${settings.table_style}]`).addClass("active");
+                this.tableStyle(settings.table_style);
+            }
         }
+    }
+
+    tableStyle(tableStyle) {
+        // let headerCss = {};
+
+        // if (tableStyle == "style-1") {
+        //     headerCss = {
+        //         headerBackgroundColor: "#6807f9",
+        //         textColor: "#fff",
+        //     };
+        // } else if (tableStyle == "style-2") {
+        //     headerCss = {
+        //         headerBackgroundColor: "#36304a",
+        //         textColor: "#fff",
+        //     };
+        // } else if (tableStyle == "style-3") {
+        //     headerCss = {
+        //         headerBackgroundColor: "#6c7ae0",
+        //         textColor: "#fff",
+        //     };
+        // } else if (tableStyle == "style-4") {
+        //     headerCss = {
+        //         headerBackgroundColor: "#000",
+        //         textColor: "#fff",
+        //     };
+        // } else if (tableStyle == "style-5") {
+        //     headerCss = {
+        //         headerBackgroundColor: "rgba(249, 250, 251, 1)",
+        //         textColor: "#000",
+        //     };
+        // }
+
+        if (file_url.tableStyles) {
+            for (const style in file_url.tableStyles) {
+                $("#spreadsheet_container").removeClass(`gswpts_${style}`);
+            }
+        }
+
+        // if style is default then remove the header style and set ti back to previous style
+        // if (tableStyle == "default-style") {
+        //     let styleString = $("#spreadsheet_container table thead th").attr("style");
+        //     if (styleString) {
+        //         let styleStringArray = styleString.split(";");
+
+        //         if (styleStringArray) {
+        //             styleStringArray = styleStringArray.filter((val) => {
+        //                 return val.match("width");
+        //             });
+        //             $("#spreadsheet_container table thead th").attr(
+        //                 "style",
+        //                 styleStringArray[0].trim()
+        //             );
+        //         }
+        //     }
+        // }
+
+        $("#spreadsheet_container").addClass(`gswpts_${tableStyle}`);
     }
 
     changeCellFormat(formatStyle, tableSelector) {

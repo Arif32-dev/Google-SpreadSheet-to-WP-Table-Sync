@@ -143,11 +143,19 @@ class SheetCreation {
     public static function sheet_html($url) {
         global $gswpts;
 
+        $hasGID = $gswpts->getGridID($url);
+
+        if (get_option('multiple_sheet_tab') && $hasGID === false && $gswpts->isProActive()) {
+            self::$output['response_type'] = esc_html('invalid_request');
+            self::$output['output'] = '<b>'.__('Copy the Google sheet URL from browser URL bar that includes <i>gid</i> parameter', 'sheetstowptable').'</b>';
+            return self::$output;
+        }
+
         $sheet_response = $gswpts->get_csv_data($url);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__(' Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
             return self::$output;
         }
 
@@ -188,11 +196,20 @@ class SheetCreation {
         global $wpdb;
         $table = $wpdb->prefix.'gswpts_tables';
 
-        if (self::check_sheet_url($parsed_data['file_input']) == false) {
+        $dbResult = self::getURLsFromDB();
+
+        if (self::isSheetDuplicate($parsed_data['file_input'], $dbResult)) {
             self::$output['response_type'] = esc_html('sheet_exists');
-            self::$output['output'] = "<b>".esc_html__('This SpreadSheet already exists. Try new one', 'sheetstowptable')."</b>";
+            self::$output['output'] = "<b>".esc_html__('This Google sheet already saved. Try creating a new one', 'sheetstowptable')."</b>";
             return self::$output;
         }
+
+        if (self::isGridIdDuplicate($parsed_data['file_input'], $dbResult)) {
+            self::$output['response_type'] = esc_html('sheet_exists');
+            self::$output['output'] = "<b>".esc_html__('This Google sheet tab already saved. Try choosing a new one', 'sheetstowptable')."</b>";
+            return self::$output;
+        }
+
         $settings = self::get_table_settings($table_settings);
 
         $data = [
@@ -224,28 +241,75 @@ class SheetCreation {
 
     /**
      * @param  string    $url
-     * @return Boolean
+     * @return boolean
      */
-    public static function check_sheet_url(string $url) {
-        $return_value = true;
-        global $wpdb;
+    public static function isSheetDuplicate(
+        string $url,
+        array $dbResult
+    ): bool {
+        $return_value = false;
         global $gswpts;
-        $table = $wpdb->prefix.'gswpts_tables';
 
-        $fetch_data = $wpdb->get_results("SELECT source_url FROM ".$table."");
-        if (!empty($fetch_data)) {
-            foreach ($fetch_data as $data) {
-                if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
-                    $return_value = false;
+        if (empty($dbResult)) {
+            $return_value = false;
+        }
+
+        // If pro is active & Multiple sheet option is ON then dont consider duplicate sheet
+        if (get_option('multiple_sheet_tab') && $gswpts->isProActive()) {
+            return $return_value;
+        }
+
+        foreach ($dbResult as $data) {
+            if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+                $return_value = true;
+                break;
+            } else {
+                $return_value = false;
+            }
+        }
+
+        return $return_value;
+    }
+
+    /**
+     * @param  string    $url
+     * @param  array     $dbResult
+     * @return boolean
+     */
+    public static function isGridIdDuplicate(
+        string $url,
+        array $dbResult
+    ): bool {
+        $returnValue = false;
+        global $gswpts;
+
+        if (empty($dbResult)) {
+            return $returnValue;
+        }
+
+        if (get_option('multiple_sheet_tab') && $gswpts->isProActive()) {
+            foreach ($dbResult as $data) {
+                if ($gswpts->getGridID($data->source_url) == $gswpts->getGridID($url)) {
+                    $returnValue = true;
                     break;
                 } else {
-                    $return_value = true;
+                    $returnValue = false;
                 }
             }
-        } else {
-            $return_value = true;
         }
-        return $return_value;
+
+        return $returnValue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getURLsFromDB(): array{
+        global $wpdb;
+        $table = $wpdb->prefix.'gswpts_tables';
+        $result = $wpdb->get_results("SELECT source_url FROM ".$table."");
+
+        return $result;
     }
 
     /**

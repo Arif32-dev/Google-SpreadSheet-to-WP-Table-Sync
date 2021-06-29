@@ -77,7 +77,8 @@
                 </div>
 
                 <div class="ui fluid selection dropdown" id="<?php echo esc_attr($input_name); ?>">
-                    <input type="hidden" name="<?php echo esc_attr($input_name); ?>">
+                    <input type="hidden" name="<?php echo esc_attr($input_name); ?>"
+                        value="<?php echo $default_value ? esc_attr($default_value) : null ?>">
                     <i class="dropdown icon"></i>
                     <div class="default text">
                         <?php _e($default_text, 'sheetstowptable')?></div>
@@ -143,4 +144,55 @@
         </div>
     </div>
 </div>
+<?php }?>
+
+<?php if ($type === 'custom-type-1') {?>
+<div class="col-md-4 mt-3 mb-3">
+    <div class="ui cards">
+        <div class="card" style="cursor: pointer;">
+            <div class="content">
+                <?php
+                if (isset($is_pro) && $is_pro) {?>
+                <span class="pro_feature">
+                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+                </span>
+                <?php } elseif (isset($is_upcoming) && $is_upcoming) {?>
+                <span class="pro_feature">
+                    <span style="font-size: 17px;
+                                text-align: center;
+                                text-transform: uppercase;
+                                font-weight: bolder;
+                                color: #2ecc40;
+                                font-style: italic;">
+                        Upcoming
+                    </span>
+                </span>
+                <?php }?>
+                <div class="header"><?php echo $feature_title; ?></div>
+                <div class="description">
+                    <?php echo $feature_desc; ?>
+                </div>
+
+                <div class="tableStyle">
+                    <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Icons/color-circle.svg' ?>" class="chooseStyle"
+                        alt="chooseStyle">
+
+                    <input type="hidden" name="<?php echo esc_attr($input_name); ?>"
+                        id="<?php echo esc_attr($input_name); ?>" value="">
+                </div>
+
+            </div>
+            <?php
+                if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {
+                    load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/promo.php', false, [
+                        'isPro'      => (isset($is_pro) && $is_pro) ? true : false,
+                        'isUpcoming' => (isset($is_upcoming) && $is_upcoming) ? true : false
+                    ]);
+            }?>
+        </div>
+
+    </div>
+
+</div>
+
 <?php }?>

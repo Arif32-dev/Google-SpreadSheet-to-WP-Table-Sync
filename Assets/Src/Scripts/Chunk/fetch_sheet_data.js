@@ -22,6 +22,12 @@ jQuery(document).ready(function ($) {
                 },
                 type: "post",
 
+                beforeSend: () => {
+                    $("#tab1").prop("checked", true);
+
+                    $("#gswpts_tabs ul li:not(:nth-child(1))").addClass("disabled_checkbox");
+                },
+
                 success: (res) => {
                     if (
                         JSON.parse(res).response_type == "invalid_action" ||
@@ -33,6 +39,8 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res).response_type == "success") {
                         this.sheet_details.addClass("mt-4 p-0");
+                        $("#gswpts_tabs ul li:not(:nth-child(1))").removeClass("disabled_checkbox");
+
                         setTimeout(() => {
                             $(".edit_table_name")
                                 .siblings("input[name=table_name]")
@@ -127,7 +135,7 @@ jQuery(document).ready(function ($) {
                                     10
                                 );
                             }
-                        }, 700);
+                        }, 200);
                     }
                 },
             });

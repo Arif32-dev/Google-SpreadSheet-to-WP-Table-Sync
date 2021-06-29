@@ -23,12 +23,23 @@
             overflow-wrap: break-word;
             border: 1px solid #76767647;
         }
+        @media screen and (max-width: 768px) {
+            th,
+            td {
+                max-width: unset;
+            }
+        }
 
         .expanded_style {
             max-width: unset;
             overflow-wrap: unset;
             white-space: nowrap;
             overflow-x: unset;
+            @media screen and (max-width: 768px) {
+                & {
+                    white-space: normal;
+                }
+            }
         }
         .clip_style {
             max-width: 200px;
@@ -42,6 +53,11 @@
             overflow-wrap: break-word;
             white-space: normal;
             overflow-x: unset;
+            @media screen and (max-width: 768px) {
+                & {
+                    max-width: unset;
+                }
+            }
         }
 
         ::-webkit-scrollbar {
@@ -169,9 +185,3 @@
         }
     }
 }
-
-/* Lock this css in free version */
-
-// .gswpts_tables_container.gswpts_resposive {
-//     @include mixin.table_style;
-// }

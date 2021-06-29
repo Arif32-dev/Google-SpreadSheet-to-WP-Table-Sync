@@ -4,14 +4,16 @@ jQuery(document).ready(function ($) {
     class Table_Changes extends Base_Class {
         constructor() {
             super($);
-            this.table_settings = $(".tables_settings");
             this.promo_close_btn = $(".promo_close_btn");
             this.pro_feature_input = $(".pro_feature_input");
+            this.chooseStyle = $(".chooseStyle").parents(".card");
+            this.tableStyleActionBtn = $(".styleModal .svg_icons, .styleModal .actions > .button");
+            this.tableStylesInput = $(".styleModal .body input");
             this.events();
         }
 
         events() {
-            this.table_settings.on("click", (e) => {
+            $(document).on("click", ".tables_settings", (e) => {
                 this.change_btn_text(e);
             });
             this.add_select_box_style();
@@ -25,6 +27,39 @@ jQuery(document).ready(function ($) {
             });
             this.promo_close_btn.on("click", (e) => {
                 this.close_promo_popup(e);
+            });
+            this.chooseStyle.on("click", (e) => {
+                $(".tableStyleModal").addClass("active");
+                $(".styleModal").transition("scale");
+                $(".styleModal").css({
+                    "margin-top": `${$(document).scrollTop() + 100}px`,
+                });
+            });
+            this.tableStyleActionBtn.on("click", (e) => {
+                let target = $(e.currentTarget);
+                $(".tableStyleModal").removeClass("active");
+                $(".styleModal").transition("scale");
+
+                // set data to input value for saving into database
+                if (this.isProPluginActive()) {
+                    if (target.hasClass("selectBtn")) {
+                        let selectedTableStyle = $(".styleModal .body label.active input");
+                        $("#table_style").val(selectedTableStyle.val());
+
+                        // Changing the table style
+                        this.tableStyle(selectedTableStyle.val());
+                    }
+                }
+            });
+            this.tableStylesInput.on("click", (e) => {
+                // activate border color
+                let target = $(e.currentTarget);
+                $(".styleModal .body label").removeClass("active");
+                target.parent().toggleClass("active");
+
+                // activate promo if unlocked
+                $(".styleModal .body label .pro_feature_promo").removeClass("active");
+                target.parent().find(".pro_feature_promo").addClass("active");
             });
         }
 
@@ -66,19 +101,12 @@ jQuery(document).ready(function ($) {
                 "vertical_scrolling" ||
                 "cell_format"
             ) {
-                let dom = `<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
-                    table_settings.searchBar ? "f" : ""
-                }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
-
                 if (this.isProPluginActive()) {
-                    dom = `B<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
-                        table_settings.searchBar ? "f" : ""
-                    }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
-
                     this.export_buttons_row_revealer(table_settings.tableExport);
                     this.changeCellFormat(table_settings.cellFormat, "#spreadsheet_container");
                 }
-                this.table_changer(table_name, table_settings, dom);
+                this.reFormatTable();
+
                 this.swap_filter_inputs(table_settings.swapFilterInputs);
                 this.swap_bottom_options(table_settings.swapBottomOptions);
             }
@@ -93,12 +121,29 @@ jQuery(document).ready(function ($) {
                 this.swap_bottom_options($(e.currentTarget).prop("checked"));
             }
 
-            /* Swaping bottom elemts */
+            // Changing the link redirection type
             if (this.isProPluginActive()) {
                 if ($(e.currentTarget).attr("id") == "redirection_type") {
                     this.changeRedirectionType(table_settings.redirectionType);
                 }
             }
+        }
+
+        reFormatTable() {
+            let table_settings = this.table_settings_obj();
+
+            let dom = `<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
+                table_settings.searchBar ? "f" : ""
+            }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
+
+            if (this.isProPluginActive()) {
+                dom = `B<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
+                    table_settings.searchBar ? "f" : ""
+                }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
+            }
+
+            let table_name = $(".edit_table_name").siblings("input[name=table_name]").val();
+            this.table_changer(table_name, table_settings, dom);
         }
 
         changeRedirectionType(type) {

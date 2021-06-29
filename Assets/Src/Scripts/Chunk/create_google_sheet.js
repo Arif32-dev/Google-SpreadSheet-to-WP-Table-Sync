@@ -13,13 +13,16 @@ jQuery(document).ready(function ($) {
 
         events() {
             this.initDropdownSelect();
+
             this.dropdown_select.on("change", (e) => {
                 this.show_fetch_btn(e);
                 this.show_hidden_input(e);
             });
-            this.fetch_and_save_button.on("click", (e) => {
+
+            $(document).on("click", "#fetch_save_btn", (e) => {
                 this.handle_submit(e);
             });
+
             $(document).on("click", "#sortcode_copy", (e) => {
                 this.copy_shorcode(e);
             });
@@ -47,6 +50,7 @@ jQuery(document).ready(function ($) {
             if ($("#redirection_type").length) {
                 $("#redirection_type").dropdown();
             }
+            $("#table_type").find("input[name=source_type]").val("");
         }
         edit_table_name(e) {
             $(e.currentTarget).siblings("input").select();
@@ -95,16 +99,6 @@ jQuery(document).ready(function ($) {
                 this.call_alert(
                     "Warning &#9888;&#65039;",
                     "<b>Form field is empty. Please fill out the field</b>",
-                    "warning",
-                    3
-                );
-                return;
-            }
-
-            if (this.sheet_url == this.sheet_form.find("input[name=file_input]").val()) {
-                this.call_alert(
-                    "Warning &#9888;&#65039;",
-                    "<b>This SpreadSheet already exists. Try new one</b>",
                     "warning",
                     3
                 );
@@ -209,6 +203,8 @@ jQuery(document).ready(function ($) {
                         this.sheet_url = JSON.parse(res).sheet_url;
                         this.show_create_btn();
                         this.push_parameter(id);
+                        // Add classname as .tables_settings to save table changes
+                        $("#gswpts_tabs ul li").addClass("tables_settings");
                     }
 
                     if (JSON.parse(res).response_type == "updated") {
@@ -297,7 +293,7 @@ jQuery(document).ready(function ($) {
         clear_fields() {
             this.sheet_form.find("input[name=file_input]").val("");
             $(".edit_table_name").attr("disabled", false);
-            $("#table_name").val("");
+            $("#table_name").val("GSWPTS Table");
             $("#table_name").attr("disabled", false);
             $("#tab1").prop("checked", true);
 

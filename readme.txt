@@ -1,10 +1,10 @@
 === Sheets To WP Table Live Sync ===
 Contributors: wppool, azizultex, devdrarif, wpdarkmode
-Tags: google sheets to wordpress, google sheets to wordpress table, google sheets to wp, gutenberg blocks, tables
+Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 2.2.3
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Google Sheets allows you to input data on your Google sheet and show the same data on WordPress as a table effortlessly. Once you update your Google sheet, it automatically updates on WordPress without touching anything. Google Sheets to WP Table is always live sync’d. After setting up, you do not have to edit your WordPress post/or your table to update the new data. You can just add a new row in Google Sheets and the plugin will automatically do the rest of the job.
 
-[youtube https://youtu.be/_LWcaErh8jw]
+[youtube https://youtu.be/ucXSvuy5khQ]
 
  🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
@@ -24,7 +24,7 @@ Google Sheets allows you to input data on your Google sheet and show the same da
  === LEARN MORE ===
 
 
-* [How to Add a New Table in Sheets To WP Table Live Sync](https://youtu.be/wp7y9v2_4wY)
+* [How to Add a New Table in Sheets To WP Table Live Sync](https://youtu.be/Un4ByhNpFRI)
 * [How to Use Shortcode to Display Sheets To WP Table Live Sync](https://youtu.be/uGPO8qLUIq0)
 * [How to Use Sheets To WP Table Live Sync Gutenberg block](https://youtu.be/OYPG_wWHnjc)
 
@@ -68,7 +68,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 11. **Pagination Support:** Sheets to WP Table Live Sync plugin comes with the pagination support option. Order your data with a simple manner of sequential pages which are contextually connected.
 
-12. **Asynchronous Loading:** Enable this feature to load the table in the frontend after loading all content with a preloader. This will help your website load fast. Otherwise, the table will load with the reloading of the browser every time.
+12. **Asynchronous Loading:** Enable this feature to load the table in the frontend after loading all content with a pre-loader. This will help your website load fast. Otherwise, the table will load with the reloading of the browser every time.
 
 13. **Gutenberg Block:** Sheets to WP Table Live Sync also supports Gutenberg blocks. You’ll be able to manage your tables with the Gutenberg block anytime, every time.
 
@@ -79,28 +79,31 @@ After you set up a table, a shortcode is generated automatically. All you need t
 === Pro Features ===
 
 
-💰 Pro features:
+💰 Pro features 💰
 
-1. **All Free Features**
+🢂 **All Free Features**
 
-2. **Responsive Table:** Sheets to WP Table Live Sync plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
+🢂 **Responsive Table:** Sheets to WP Table Live Sync plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
 
-3. **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
+🢂 **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
 
-4. **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
+🢂 **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
 
-5. **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
+🢂 **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
 
-6. **Vetical Scroll/Sticky Header:** This feature allows you to scroll vertically in the table. Activating this feature will allow the table to behave as sticky header.
+🢂 **Vertical Scroll/Sticky Header:** This feature allows you to scroll vertically in the table. Activating this feature will allow the table to behave as sticky header.
 
-7. **Format Table Cell ***(UPCOMING)***:** Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style.
+🢂 **Format Table Cell:** Format the table cell as like google sheet cell formatting. Format your cell as Wrap OR Expanded style.
 
-8. **Rows Highlight ***(UPCOMING)***:** Enable this feature to show highlighted rows of the table in the frontend selected by admin/user
+🢂 **Table/Data Caching:** Enabling this feature would cache the Google sheet data & therefore the table will load faster than before. Also it will load the updated data when there is a change in your Google sheet.
 
-8. **Multiple Spreadsheet Tab ***(UPCOMING)***:** Enabling this feature will allow user/admin to choose & save multiple Google sheet tabs from a single Google spreadsheet
+🢂 **Link Support:** Enable this feauture to import URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text. You can change the link behavior of how to redirect your user when they click on those links.
 
-8. **Table Connection ***(UPCOMING)***:** Enabling this feature will allow user/admin to connect multiple created table in a single page. Each individual table will be shown as like bootstrap tab or accordian design.
+🢂 **Table Styles:** Pre-built amazing table styles. Each individual styles is different from one another. You can select your most liked table styles with just 1 click.
 
+🢂 **Multiple Spreadsheet Tab:** Enabling this feature will allow user/admin to choose & save multiple Google sheet tabs from a single Google spreadsheet.
+
+🢂 **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
 
 
 
@@ -147,7 +150,7 @@ Please visit our [Youtube playlist](https://youtube.com/playlist?list=PLd6WEu38C
 Yes, We have tested this plugin in all modern browsers (Safari, Chrome, Firefox, Edge etc) works without any issue.
 
 = Do I need to know any programming language for using this plugin? =
-No. WP Dark Mode is a very user-friendly and simple plugin. Just download and use it accordingly.
+No. Sheets To WP Table Live Sync is a very user-friendly and simple plugin. Just download and use it accordingly.
 
 = I want a refund for my purchase of the plugin. What is the procedure? =
 We have a 14 days refund policy. Please email us at support@wppool.dev explaining why you would like to get a refund.
@@ -156,32 +159,19 @@ We have a 14 days refund policy. Please email us at support@wppool.dev explainin
 For instant support please send us a message on our Facebook page or you also contact us through https://wppool.dev/contact/.
 
 
-=== Changelog ===
+=== Change Logs ===
 
-
-= 1.0.0 =
-* Initial Release
-
-= 1.0.1 =
-* Fix: Fixed user subscription
-* Fix: Fixed post fetching from WPPOOL
-* Improvement: Improved plugin admin layout
-
-= 1.1.2 =
-* Fix: Fixed spreadsheet data fetching issue for different server
-* Improvement: Added video documention in dashboard page
-
-= 1.2.2 =
-* Fix: Fixed admin page css issue
-* Fix: Fixed Table broken issue
-* Added: Add cell formatting feature as upcoming feature
-* Added: Changed non-developed feature as upcoming feature
-* Improvement: UI/UX improved for users
-* Improvement: Added 20 row fetching from google sheet
-* Improvement: Plugins code structure updated for pro version
-
-= 1.2.3 =
+= 2.3.3 =
 * Fix: Minor bugs fixed for pro plugin
+* Fix: Fixed Elementor page builder exports buttons bug
+* Fix: Notification notice after 7 day of installation
+* Improvement: Moved documentation page
+* Improvement: Improved Plugin UI/UX
+* Added: Multiple Google Sheet\'s Tab in pro version as a new feature
+* Added: Boolean value support in pro version as a new feature
+* Added: Table Caching feature introduced in pro version as a new feature
+* Added: Added new 6 Table Style (Including Default) in pro version
+* Added: Added Custom CSS support for pro version
 
 = 2.2.3 =
 * Fix: Minor bugs fixed for pro plugin
@@ -192,3 +182,27 @@ For instant support please send us a message on our Facebook page or you also co
 * Improvement: Improved Gutenberg Table creation
 * Improvement: Improved table creation with 1 step reduced
 * Improvement: Other minor improvement for pro plugin
+
+= 1.2.3 =
+* Fix: Minor bugs fixed for pro plugin
+
+= 1.2.2 =
+* Fix: Fixed admin page css issue
+* Fix: Fixed Table broken issue
+* Added: Add cell formatting feature as upcoming feature
+* Added: Changed non-developed feature as upcoming feature
+* Improvement: UI/UX improved for users
+* Improvement: Added 20 row fetching from google sheet
+* Improvement: Plugins code structure updated for pro version
+
+= 1.1.2 =
+* Fix: Fixed spreadsheet data fetching issue for different server
+* Improvement: Added video documention in dashboard page
+
+= 1.0.1 =
+* Fix: Fixed user subscription
+* Fix: Fixed post fetching from WPPOOL
+* Improvement: Improved plugin admin layout
+
+= 1.0.0 =
+* Initial Release

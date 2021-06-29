@@ -1,4 +1,4 @@
-import Base_Class from "./../Base/base_class";
+import Base_Class from "../Base/base_class";
 
 jQuery(document).ready(function ($) {
     class Dashboard extends Base_Class {
@@ -12,10 +12,9 @@ jQuery(document).ready(function ($) {
             this.sortcode_copy_btn.on("click", (e) => {
                 this.copy_shorcode(e);
             });
-            if (this.get_slug_parameter("page") == "gswpts-dashboard") {
-                this.retrieve_other_products();
-            }
+
             if (this.get_slug_parameter("page") == "gswpts-documentation") {
+                this.retrieve_other_products();
                 this.retrieve_wppool_post();
             }
             this.form.on("submit", (e) => {

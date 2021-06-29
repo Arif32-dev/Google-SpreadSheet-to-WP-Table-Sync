@@ -36,7 +36,6 @@ export function formatCellValues(isProActive) {
     const values = [];
     if (isProActive) {
         values.push(
-            { key: "clip", value: "clip", text: "Clip Style" },
             { key: "wrap", value: "wrap", text: "Wrap Style" },
             { key: "expand", value: "expand", text: "Expanded Style" }
         );
@@ -50,6 +49,17 @@ export function redirectionValues(isProActive) {
             { key: "_blank", value: "_blank", text: "Blank Type" },
             { key: "_self", value: "_self", text: "Self Type" }
         );
+    }
+    return values;
+}
+export function tableStyles(isProActive, styles) {
+    const values = [];
+    if (isProActive) {
+        if (styles) {
+            for (const style in styles) {
+                values.push({ key: style, value: style, text: styles[style]["label"] });
+            }
+        }
     }
     return values;
 }

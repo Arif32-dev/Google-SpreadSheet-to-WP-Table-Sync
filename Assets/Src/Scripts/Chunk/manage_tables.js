@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
         fetch_data_by_page() {
             if (
                 !this.get_slug_parameter("page") ||
-                this.get_slug_parameter("page") !== "gswpts-tables"
+                this.get_slug_parameter("page") !== "gswpts-dashboard"
             ) {
                 return;
             }
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
                             } else {
                                 this.call_alert(
                                     "Successfull &#128077;",
-                                    "<b>All SpreadSheet Tables Fetched Successfully</b>",
+                                    "<b>All Tables Fetched Successfully</b>",
                                     "success",
                                     3
                                 );
@@ -86,7 +86,6 @@ jQuery(document).ready(function ($) {
         }
 
         toggle_content(e) {
-            console.log($(e.currentTarget).attr("data-show"));
             if ($(e.currentTarget).attr("data-show") == "false") {
                 $("#delete_button").transition("scale");
                 this.check_all_checkbox();

@@ -10,6 +10,7 @@ import {
     rowsPerPage,
     scrollHeights,
     redirectionValues,
+    tableStyles,
 } from "./Parts/selectValues";
 
 export default function editFucntion({ attributes, setAttributes }) {
@@ -202,6 +203,7 @@ export default function editFucntion({ attributes, setAttributes }) {
             verticalScroll: "400",
             cellFormat: "wrap",
             redirectionType: "_self",
+            tableStyle: "default-style",
         };
         return default_settings;
     }
@@ -333,6 +335,14 @@ export default function editFucntion({ attributes, setAttributes }) {
 
             if (ajax_table_settings.redirection_type) {
                 prevSettingObj.redirectionType = ajax_table_settings.redirection_type;
+            }
+
+            // update the table cache input value
+            prevSettingObj.tableCache = ajax_table_settings.table_cache == "true" ? true : false;
+
+            // update the table style input
+            if (ajax_table_settings.redirection_type) {
+                prevSettingObj.tableStyle = ajax_table_settings.table_style;
             }
         }
         setAttributes({ table_settings: prevSettingObj });
@@ -614,6 +624,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                             <PanelRow>
                                 <div class="default_rows">
                                     <h5 class="header">Default rows per page</h5>
+                                    <p>This will show rows per page in the frontend</p>
                                     <Dropdown
                                         placeholder="Default rows per page"
                                         defaultValue={attributes.table_settings.defaultRowsPerPage}
@@ -725,8 +736,13 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 <PanelRow>
                                     <div class="verticall_scrolling">
                                         <h5 class="header">Vertical Scroll/Sticky Header</h5>
+                                        <p>
+                                            Choose the height of the table to scroll vertically.
+                                            Activating this feature will allow the table to behave
+                                            as sticky header
+                                        </p>
                                         <Dropdown
-                                            placeholder="Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header"
+                                            placeholder="Vertical Scroll"
                                             defaultValue={attributes.table_settings.verticalScroll}
                                             fluid
                                             selection
@@ -763,8 +779,13 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 <PanelRow>
                                     <div class="cell_format">
                                         <h5 class="header">Format Table Cell</h5>
+                                        <p>
+                                            Format the table cell as like google sheet cell
+                                            formatting. Format your cell as Wrap or Clip or Expanded
+                                            style
+                                        </p>
                                         <Dropdown
-                                            placeholder="Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style"
+                                            placeholder="Cell Format"
                                             defaultValue={attributes.table_settings.cellFormat}
                                             fluid
                                             selection
@@ -807,10 +828,13 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 <PanelRow>
                                     <div class="redirection_type">
                                         <h5 class="header">Link Redirection Type</h5>
+                                        <p>
+                                            Choose your desired table style for this table. This
+                                            will change the design & color of this table according
+                                            to your selected table design
+                                        </p>
                                         <Dropdown
-                                            placeholder="Choose the redirection type of all the links in this table <br/>
-                                            <b>Blank Type</b> = Opens the links in a new window or tab <br/>
-                                            <b>Self Type</b> = Open links in the same tab (this is default)"
+                                            placeholder="Redirection Type"
                                             defaultValue={attributes.table_settings.redirectionType}
                                             fluid
                                             selection
@@ -890,9 +914,52 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 />
                                 <br />
                             </PanelRow>
+
+                            {isProPluginActive() ? (
+                                <PanelRow>
+                                    <div class="table_style">
+                                        <h5 class="header">Table Style</h5>
+                                        <p>
+                                            Choose your desired table style for this table. This
+                                            will change the design & color of this table according
+                                            to your selected table design
+                                        </p>
+                                        <Dropdown
+                                            placeholder="Choose Style"
+                                            defaultValue={attributes.table_settings.tableStyle}
+                                            fluid
+                                            selection
+                                            options={tableStyles(
+                                                isProPluginActive(),
+                                                gswpts_gutenberg_block.tableStyles
+                                            )}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+
+                                                prevSettingObj.tableStyle = value;
+                                                setAttributes({ table_settings: prevSettingObj });
+
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+
+                                                table_changer(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj
+                                                );
+                                                // changeCellFormat(
+                                                //     prevSettingObj.cellFormat,
+                                                //     attributes.sortcode_id
+                                                // );
+                                            }}
+                                        />
+                                    </div>
+                                    <br />
+                                </PanelRow>
+                            ) : null}
                         </PanelBody>
 
-                        <PanelBody title="Sort and Filter" icon="filter" initialOpen={false}>
+                        <PanelBody title="Sort & Filter" icon="filter" initialOpen={false}>
                             <PanelRow>
                                 <ToggleControl
                                     label="Allow Sorting"
@@ -943,6 +1010,29 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 <br />
                             </PanelRow>
                         </PanelBody>
+
+                        {/* Table Tools */}
+
+                        {isProPluginActive() ? (
+                            <PanelBody title="Table Tools" icon="admin-tools" initialOpen={false}>
+                                <PanelRow>
+                                    <ToggleControl
+                                        label="Table Caching"
+                                        help="Enabling this feature would cache the Google sheet data & therefore the table will load faster than before. Also it will load the updated data when there is a change in your Google sheet. "
+                                        checked={attributes.table_settings.tableCache}
+                                        onChange={() => {
+                                            const prevSettingObj = { ...attributes.table_settings };
+                                            prevSettingObj.tableCache = !prevSettingObj.tableCache;
+                                            setAttributes({ table_settings: prevSettingObj });
+
+                                            saveChanges(attributes.sortcode_id, prevSettingObj);
+                                        }}
+                                    />
+                                    <br />
+                                </PanelRow>
+                            </PanelBody>
+                        ) : null}
+                        {/* End of table tools */}
                     </>
                 ) : (
                     <></>
@@ -951,6 +1041,7 @@ export default function editFucntion({ attributes, setAttributes }) {
         </InspectorControls>,
         <div
             class="gswpts_create_table_container"
+            class={`gswpts_create_table_container gswpts_${attributes.table_settings.tableStyle}`}
             id={attributes.sortcode_id}
             style={{ marginRight: "0" }}
         >

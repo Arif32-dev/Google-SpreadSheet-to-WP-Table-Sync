@@ -1,6 +1,6 @@
 import "../Styles/Backend/admin.scss";
 
-import "./Chunk/dashboard";
+import "./Chunk/documentation";
 import "./Chunk/create_google_sheet";
 import "./Chunk/fetch_sheet_data";
 import "./Chunk/manage_tables";

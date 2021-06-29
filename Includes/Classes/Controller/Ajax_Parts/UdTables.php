@@ -117,6 +117,10 @@ class UdTables {
             ]
         );
         if (is_int($update_response)) {
+            // delete caching related data of this table
+            delete_transient('gswpts_sheet_data_'.$sanitized_data['id'].'');
+            delete_option('gswpts_sheet_updated_time_'.$sanitized_data['id'].'');
+
             self::$output['response_type'] = esc_html('deleted');
             self::$output['output'] = '<b>'.esc_html__('Table deleted successfully', 'sheetstowptable').'</b>';
             return self::$output;

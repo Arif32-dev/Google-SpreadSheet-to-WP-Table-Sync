@@ -97,6 +97,8 @@ registerBlockType("gswpts/google-sheets-to-wp-tables", {
                 verticalScroll: "400",
                 cellFormat: "wrap",
                 redirectionType: "_self",
+                tableCache: false,
+                tableStyle: "default-style",
             },
         },
     },

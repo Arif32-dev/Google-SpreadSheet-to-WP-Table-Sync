@@ -66,11 +66,17 @@ class SheetFetching {
     ) {
         global $gswpts;
 
-        $sheet_response = $gswpts->get_csv_data($url);
+        $tableCache = false;
+
+        if (isset($table_settings['table_cache']) && $table_settings['table_cache'] == 'true' && $gswpts->isProActive()) {
+            $tableCache = true;
+        }
+
+        $sheet_response = $gswpts->loadDataByCondition($table_id, $url, $tableCache);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__(' Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
             return self::$output;
         }
 
