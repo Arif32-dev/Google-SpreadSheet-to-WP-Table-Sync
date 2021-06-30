@@ -1,0 +1,19 @@
+{
+    "name": "user/google-spreadsheet-to-wp-table-sync",
+    "description": "This is a WordPress plugin to synchronize google spreadsheet data into wordpress table",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Arif32-dev",
+            "email": "dragonwarrior062@gmail.com"
+        }
+    ],
+    "require": {
+        "appsero/client": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "GSWPTS\\Includes\\": "Includes/"
+        }
+    }
+}
