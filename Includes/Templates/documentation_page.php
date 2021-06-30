@@ -93,7 +93,7 @@
                 <!-- Latest end start -->
 
                 <!-- Change Logs start -->
-                <div class="col-md-12 p-0 pr-2 mt-3 change_logs">
+                <div class="col-md-12 p-0 pr-2 change_logs">
                     <div class="card p-0 m-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="title">

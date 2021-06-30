@@ -624,16 +624,6 @@ class GlobalClass {
     public function changeLogs() {
 
         $changeLogs = [
-            '2.2.3' => [
-                __('Fix: Minor bugs fixed for pro plugin', 'sheetstowptable'),
-                __('Added: Added Format Table Cell feature in pro plugin', 'sheetstowptable'),
-                __('Added: Added Link Support feature in pro plugin', 'sheetstowptable'),
-                __('Added: Added plugin review reminder option in 1 day after activation', 'sheetstowptable'),
-                __('Added: Removed doc page from dashboard page', 'sheetstowptable'),
-                __('Improvement: Improved Gutenberg Table creation', 'sheetstowptable'),
-                __('Improvement: Improved table creation with 1 step reduced', 'sheetstowptable'),
-                __('Improvement: Other minor improvement for pro plugin', 'sheetstowptable')
-            ],
             '2.3.3' => [
                 __('Fix: Minor bugs fixed for pro plugin', 'sheetstowptable'),
                 __('Fix: Fixed Elementor page builder exports buttons bug', 'sheetstowptable'),
@@ -645,6 +635,10 @@ class GlobalClass {
                 __('Added: Table Caching feature introduced in pro version as a new feature', 'sheetstowptable'),
                 __('Added: Added new 6 Table Style (Including Default) in pro version', 'sheetstowptable'),
                 __('Added: Added Custom CSS support for pro version', 'sheetstowptable')
+            ],
+            '2.3.4' => [
+                __('Fix: Table pagination style fixed', 'sheetstowptable'),
+                __('Fix: Fixed table style image issue', 'sheetstowptable')
             ]
         ];
 
