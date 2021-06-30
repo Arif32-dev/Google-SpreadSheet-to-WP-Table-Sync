@@ -217,25 +217,17 @@ export default class Global_Table_Config {
         };
 
         if (table_settings.swap_bottom_options == "true") {
-            if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style($);
-            } else {
-                this.bottom_option_style($, style, i);
-            }
+            this.bottom_option_style($, style, i);
         } else {
-            if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style($, i);
-            } else {
-                style["flex_direction"] = "row";
+            style["flex_direction"] = "row";
 
-                style.table_info_style["margin_left"] = 0;
-                style.table_info_style["margin_right"] = "auto";
+            style.table_info_style["margin_left"] = 0;
+            style.table_info_style["margin_right"] = "auto";
 
-                style.table_paginate_style["margin_left"] = "auto";
-                style.table_paginate_style["margin_right"] = 0;
+            style.table_paginate_style["margin_left"] = "auto";
+            style.table_paginate_style["margin_right"] = 0;
 
-                this.bottom_option_style($, style, i);
-            }
+            this.bottom_option_style($, style, i);
         }
     }
 

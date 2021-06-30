@@ -4,7 +4,11 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
+<<<<<<< HEAD
 Stable tag: 2.3.3
+=======
+Stable tag: 2.3.4
+>>>>>>> free-development
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,29 +85,30 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 💰 Pro features 💰
 
-🢂 **All Free Features**
+🎉 **All Free Features**
 
-🢂 **Responsive Table:** Sheets to WP Table Live Sync plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
+📱 **Responsive Table:** Sheets to WP Table Live Sync plugin is responsive for any device. The plugin allows collapsing on mobile and tablet screens.
 
-🢂 **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
+📥 **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
 
-🢂 **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
+🔄 **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
 
-🢂 **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
+🚧 **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
 
-🢂 **Vertical Scroll/Sticky Header:** This feature allows you to scroll vertically in the table. Activating this feature will allow the table to behave as sticky header.
+🖱️ **Vertical Scroll/Sticky Header:** This feature allows you to scroll vertically in the table. Activating this feature will allow the table to behave as sticky header.
 
-🢂 **Format Table Cell:** Format the table cell as like google sheet cell formatting. Format your cell as Wrap OR Expanded style.
+📦 **Format Table Cell:** Format the table cell as like google sheet cell formatting. Format your cell as Wrap OR Expanded style.
 
-🢂 **Table/Data Caching:** Enabling this feature would cache the Google sheet data & therefore the table will load faster than before. Also it will load the updated data when there is a change in your Google sheet.
+💽 **Table/Data Caching:** Enabling this feature would cache the Google sheet data & therefore the table will load faster than before. Also it will load the updated data when there is a change in your Google sheet.
 
-🢂 **Link Support:** Enable this feauture to import URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text. You can change the link behavior of how to redirect your user when they click on those links.
+🔗 **Link Support:** Enable this feature to import URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text. You can change the link behavior of how to redirect your user when they click on those links.
 
-🢂 **Table Styles:** Pre-built amazing table styles. Each individual styles is different from one another. You can select your most liked table styles with just 1 click.
+🎨 **Table Styles:** Pre-built amazing table styles. Each individual styles is different from one another. You can select your most liked table styles with just 1 click.
 
-🢂 **Multiple Spreadsheet Tab:** Enabling this feature will allow user/admin to choose & save multiple Google sheet tabs from a single Google spreadsheet.
+✔️ **Multiple Spreadsheet Tab:** Enabling this feature will allow user/admin to choose & save multiple Google sheet tabs from a single Google spreadsheet.
 
-🢂 **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
+🖌️ **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
+>>>>>>> free-development
 
 
 
@@ -160,6 +165,13 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 === Change Logs ===
+<<<<<<< HEAD
+=======
+
+= 2.3.4 =
+* Fix: Table pagination style fixed
+* Fix: Fixed table style image issue
+>>>>>>> free-development
 
 = 2.3.3 =
 * Fix: Minor bugs fixed for pro plugin

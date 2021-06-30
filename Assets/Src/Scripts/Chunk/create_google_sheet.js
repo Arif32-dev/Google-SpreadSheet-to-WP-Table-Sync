@@ -128,9 +128,6 @@ jQuery(document).ready(function ($) {
                         this.btn_changer(submit_button, html, "fetch");
                         this.sheet_container.html(this.html_loader);
                     } else {
-                        if (submit_button.attr("req-type") == "saved") {
-                            $("#shortcode_container").transition("scale");
-                        }
                         let html = `
                                 Saving Table &nbsp;
                                 <div class="ui active mini inline loader"></div>

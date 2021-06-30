@@ -235,26 +235,16 @@ export default class Base_Class {
         };
         if (state) {
             this.bottom_option_style(style);
-
-            if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style();
-            } else {
-                this.bottom_option_style(style);
-            }
         } else {
-            if (pagination_menu.children().length > 5) {
-                this.overflow_menu_style();
-            } else {
-                style["flex_direction"] = "row";
+            style["flex_direction"] = "row";
 
-                style.table_info_style["margin_left"] = 0;
-                style.table_info_style["margin_right"] = "auto";
+            style.table_info_style["margin_left"] = 0;
+            style.table_info_style["margin_right"] = "auto";
 
-                style.table_paginate_style["margin_left"] = "auto";
-                style.table_paginate_style["margin_right"] = 0;
+            style.table_paginate_style["margin_left"] = "auto";
+            style.table_paginate_style["margin_right"] = 0;
 
-                this.bottom_option_style(style);
-            }
+            this.bottom_option_style(style);
         }
     }
 
@@ -411,6 +401,7 @@ export default class Base_Class {
     }
 
     tableStyle(tableStyle) {
+<<<<<<< HEAD
         // let headerCss = {};
 
         // if (tableStyle == "style-1") {
@@ -440,12 +431,15 @@ export default class Base_Class {
         //     };
         // }
 
+=======
+>>>>>>> free-development
         if (file_url.tableStyles) {
             for (const style in file_url.tableStyles) {
                 $("#spreadsheet_container").removeClass(`gswpts_${style}`);
             }
         }
 
+<<<<<<< HEAD
         // if style is default then remove the header style and set ti back to previous style
         // if (tableStyle == "default-style") {
         //     let styleString = $("#spreadsheet_container table thead th").attr("style");
@@ -464,6 +458,8 @@ export default class Base_Class {
         //     }
         // }
 
+=======
+>>>>>>> free-development
         $("#spreadsheet_container").addClass(`gswpts_${tableStyle}`);
     }
 

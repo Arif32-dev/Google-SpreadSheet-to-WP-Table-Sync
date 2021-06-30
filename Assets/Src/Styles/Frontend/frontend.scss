@@ -5,7 +5,6 @@
 .gswpts_tables_container {
     @include mixin.button_style;
     @include mixin.input_style;
-    @include mixin.pagination_style;
     @include mixin.datatable_semantic;
     @include mixin.loader_style;
     margin: 30px 0;
@@ -137,11 +136,43 @@
             }
             #create_tables_paginate {
                 margin-left: auto;
+                padding: 0 5px;
             }
             .pagination.menu {
                 padding: 0 !important;
                 font-size: 14px !important;
                 background: transparent !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                border: none;
+                margin: 0 5px;
+
+                & > * {
+                    padding: 9px 16px;
+                    border: 1px solid #a9a1a13d;
+                    -webkit-box-shadow: 1px 1px 0px 0px rgba(145, 145, 145, 0.48);
+                    box-shadow: 1px 1px 0px 0px rgba(145, 145, 145, 0.48);
+                    &:first-child {
+                        border-radius: 0.28571429rem 0px 0px 0.28571429rem;
+                    }
+                    &:last-child {
+                        border-radius: 0px 0.28571429rem 0.28571429rem 0px 0px;
+                    }
+                    font-weight: bold;
+                    color: rgba(56, 13, 13, 0.787);
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.03);
+                    }
+                }
+                a {
+                    text-decoration: none;
+                }
+                .active {
+                    background-color: #b3b3b35c;
+                }
             }
         }
     }
@@ -164,14 +195,6 @@
                 padding: 0 !important;
             }
         }
-        .bottom_options {
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            div {
-                margin: 10px 0 !important;
-            }
-        }
     }
     @media screen and (max-width: 700px) {
         .dt-buttons {
@@ -183,5 +206,21 @@
                 margin: 10px 0;
             }
         }
+        .bottom_options {
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+
+            .dataTables_info {
+                padding-top: 0 !important;
+                margin: 0 !important;
+            }
+            #create_tables_paginate {
+                margin: 0 !important;
+                margin-top: 8px !important;
+            }
+        }
+        // .pagination.menu {
+        // }
     }
 }
