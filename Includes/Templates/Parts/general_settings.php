@@ -19,9 +19,6 @@
                         data-position="right center" data-inverted="">
                         <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
                     </span>
-                    <span class="<?php echo $is_checked ? 'reveal_btn_rotate' : '' ?> p-0 m-0 reveal_btn">
-                        <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/arrow-up-solid.svg';?>
-                    </span>
                 </h5>
                 <div class="ui toggle checkbox m-0">
                     <input class="<?php echo $class ?>" type="checkbox" <?php echo $is_checked ?>
@@ -30,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="<?php echo $is_checked == 'checked' ? '' : 'transition hidden'; ?> settings_desc">
+        <div class="settings_desc">
             <p>
                 <?php echo $setting_desc ?>
             </p>
