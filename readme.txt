@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,10 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 === Change Logs ===
+
+= 2.3.5 =
+* Improvement: Improved popup design
+* Added: Added table edit link on frontend
 
 = 2.3.4 =
 * Fix: Table pagination style fixed
