@@ -64,7 +64,6 @@ class SheetsToWPTableLiveSyncUninstall {
             'deafaultNoticeInterval',
             'asynchronous_loading',
             'multiple_sheet_tab',
-            'link_support',
             'custom_css',
             'css_code_value',
             'sheet_tab_connection'

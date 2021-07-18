@@ -12,10 +12,29 @@ jQuery(document).ready(function ($) {
             this.fetch_data_by_page();
             $(document).on("click", ".gswpts_sortcode_copy", (e) => {
                 this.copy_shorcode(e);
+                this.higlightSortcodeText(e);
             });
             $(document).on("click", "#manage_tables_checkbox", (e) => {
                 this.toggle_content(e);
             });
+        }
+
+        higlightSortcodeText(e) {
+            // implement plan js to highlight text
+            let node = $(e.currentTarget)[0];
+            if (document.body.createTextRange) {
+                const range = document.body.createTextRange();
+                range.moveToElementText(node);
+                range.select();
+            } else if (window.getSelection) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } else {
+                console.warn("Could not select text in node: Unsupported browser.");
+            }
         }
         fetch_data_by_page() {
             if (
@@ -60,6 +79,7 @@ jQuery(document).ready(function ($) {
                                     orderable: false,
                                 },
                             ],
+                            bInfo: false,
                             order: [],
                         });
 

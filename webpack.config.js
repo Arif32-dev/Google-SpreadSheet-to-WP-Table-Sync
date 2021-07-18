@@ -9,7 +9,7 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 module.exports = {
-    mode: "production",
+    mode: "development",
     entry: {
         admin: {
             import: path.resolve(__dirname, "Assets/Src/Scripts/admin.js"),
@@ -40,12 +40,12 @@ module.exports = {
             {
                 test: /.s?css$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                    },
                     // {
-                    //     loader: "style-loader",
+                    //     loader: MiniCssExtractPlugin.loader,
                     // },
+                    {
+                        loader: "style-loader",
+                    },
                     {
                         loader: "css-loader",
                         options: {
@@ -72,26 +72,26 @@ module.exports = {
         ],
     },
     plugins: [
-        // new BrowserSyncPlugin({
-        //     host: "localhost",
-        //     port: 4040,
-        //     injectChanges: true,
-        //     watch: true,
-        //     reloadOnRestart: true,
-        //     reloadDelay: 300,
-        //     files: ["./**/*.php"],
-        //     watchEvents: ["change", "add", "unlink", "addDir", "unlinkDir"],
-        //     proxy: "http://localhost/wordpress/wp-admin",
+        new BrowserSyncPlugin({
+            host: "localhost",
+            port: 4040,
+            injectChanges: true,
+            watch: true,
+            reloadOnRestart: true,
+            reloadDelay: 300,
+            files: ["./**/*.php"],
+            watchEvents: ["change", "add", "unlink", "addDir", "unlinkDir"],
+            proxy: "http://localhost/wordpress/wp-admin",
+        }),
+        // new PurgecssPlugin({
+        //     paths: glob.sync(
+        //         [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
+        //         { nodir: true }
+        //     ),
         // }),
-        new PurgecssPlugin({
-            paths: glob.sync(
-                [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
-                { nodir: true }
-            ),
-        }),
-        new MiniCssExtractPlugin({
-            filename: "Styles/[name].min.css",
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: "Styles/[name].min.css",
+        // }),
     ],
     devtool: "source-map",
     watch: true,

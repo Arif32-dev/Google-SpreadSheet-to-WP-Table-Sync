@@ -77,7 +77,7 @@ class GlobalClass {
 
                 $tableCache = false;
 
-                if (isset($tableSettings['table_cache']) && $tableSettings['table_cache']) {
+                if (isset($tableSettings['table_cache']) && $tableSettings['table_cache'] == 'true') {
                     $tableCache = true;
                 }
 
@@ -125,7 +125,7 @@ class GlobalClass {
                     if ($cell_value) {
                         $table .= '<th class="'.$this->embedCellFormatClass().'">'.stripslashes(esc_html__($cell_value, 'sheetstowptable')).'</th>';
                     } else {
-                        $table .= '<th class="'.$this->embedCellFormatClass().'">&nbsp;</th>';
+                        $table .= '<th class="'.$this->embedCellFormatClass().'"></th>';
                     }
                 }
                 $table .= '</tr></thead>';
@@ -147,7 +147,7 @@ class GlobalClass {
                     if ($cell_value) {
                         $table .= '<td class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
                     } else {
-                        $table .= '<td class="'.$this->embedCellFormatClass().'">&nbsp;</td>';
+                        $table .= '<td class="'.$this->embedCellFormatClass().'"></td>';
                     }
                 }
                 $table .= '</tr>';
@@ -212,7 +212,7 @@ class GlobalClass {
      */
     public function checkLinkExists(string $string): string {
 
-        if (!get_option('link_support') || !$this->isProActive()) {
+        if (!$this->isProActive()) {
             return $string;
         }
 
@@ -1149,6 +1149,7 @@ class GlobalClass {
      */
     public function generalSettingsArray(): array{
         $optionValues = $this->getOptionValues();
+
         $settingsArray = [
             'asynchronous_loading' => [
                 'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
@@ -1160,17 +1161,6 @@ class GlobalClass {
                                                 This will help your website load fast.
                                                 If you don't want to enable this feature than the table will load with the reloading of browser every time.", 'sheetstowptable'),
                 'is_pro'          => false
-
-            ],
-            'link_support'         => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Link Support', 'sheetstowptable'),
-                'setting_tooltip' => __('Enable this feature for supporting links from google sheet.', 'sheetstowptable'),
-                'is_checked'      => $optionValues['link_support'],
-                'input_name'      => 'link_support',
-                'setting_desc'    => __("Enable this feauture to import URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text.
-                                        You can change the link behavior of how to redirect your user when they click on those links", 'sheetstowptable'),
-                'is_pro'          => true
 
             ],
             'multiple_sheet_tab'   => [
@@ -1239,7 +1229,6 @@ class GlobalClass {
         $generalSettingsOptions = [
             'asynchronous_loading',
             'multiple_sheet_tab',
-            'link_support',
             'custom_css',
             'css_code_value',
             'sheet_tab_connection'

@@ -16,7 +16,15 @@ jQuery(document).ready(function ($) {
                 this.edit_tag_value(e);
             });
             $(document).on("click", ".gswpts_table_delete_btn", (e) => {
-                this.delete_table(e);
+                let popupModal = $(".semntic-popup-modal");
+                popupModal.modal("show");
+
+                // implementing plain javascript for resolving (this) keyword conflict issue
+                document
+                    .querySelector(".semntic-popup-modal .actions > .yes-btn")
+                    .addEventListener("click", () => {
+                        this.delete_table(e);
+                    });
             });
             this.deleteBtn.on("click", (e) => {
                 this.delete_all_table(e);
@@ -112,9 +120,8 @@ jQuery(document).ready(function ($) {
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
                     }
                     if (JSON.parse(res).response_type == "updated") {
-                        // currentTarget.html("Update");
                         currentTarget.html(`
-                            <i class="edit icon"></i>
+                            <img src="${file_url.renameIcon}" width="24px" height="15px" alt="rename-icon"/>
                         `);
                         this.call_alert(
                             "Successfull &#128077;",
@@ -165,10 +172,6 @@ jQuery(document).ready(function ($) {
 
         edit_table_name(e) {
             let currentTarget = $(e.currentTarget);
-            currentTarget.css({
-                "padding-left": "15px",
-                "padding-right": "15px",
-            });
 
             currentTarget.addClass("table_name_save");
             currentTarget.html(`
