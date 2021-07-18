@@ -13,15 +13,45 @@ class GlobalClass {
             return false;
         }
 
-        $sheet_url = "https://www.googleapis.com/drive/v3/files/".$sheetID."?fields=modifiedTime&key=AIzaSyBnJ-9YVp50qmTFdIvY-Ju77VwFcSmAffs";
-        $res = wp_remote_get($sheet_url);
+        $apiKey = $this->randomAPIKey();
+        $sheet_url = "https://www.googleapis.com/drive/v3/files/".$sheetID."?fields=modifiedTime&key=".$apiKey."";
 
-        if (!$res) {
-            return false;
+        try {
+            $res = wp_remote_get($sheet_url);
+
+            if (!$res) {
+                return false;
+            }
+
+            if (isset(json_decode($res['body'])->modifiedTime)) {
+                $lastModifiedTime = json_decode($res['body'])->modifiedTime;
+            } else {
+                return false;
+            }
+
+            return $lastModifiedTime;
+        } catch (\Throwable $th) {
+            throw "Google sheet error: ".$th."";
         }
+    }
 
-        $lastModifiedTime = json_decode($res['body'])->modifiedTime;
+    /**
+     * @return string
+     */
+    public function randomAPIKey(): string {
+        $apiKeys = [
+            'AIzaSyBnJ-9YVp50qmTFdIvY-Ju77VwFcSmAffs',
+            'AIzaSyAJ87KAzxeFjSsmDmxnQJCBJZ3-QKJB96A',
+            'AIzaSyBy2ErW299Hr-We2DT_ZeAJ7qHHhbY8bng',
+            'AIzaSyCw3ibZa-hAwyeKuzQgF0oSLepfzST9-4g',
+            'AIzaSyDSASAJFni_qd004glabvVQTMq8sJZhOQA',
+            'AIzaSyCR8Tlc3vcAvFAUDFYlm1dWauhP3FXNbw4',
+            'AIzaSyAUksW5gIWSSes8v7AA2kIwEA1mB2tTojg',
+            'AIzaSyBjRxEaIyd1_7PzGj8Pt5f7wscYNat7kOY',
+            'AIzaSyBrLiBhxlk99hUVJO4UlHIVNKyIN-bwpTE',
+            'AIzaSyBDWnoXsziG2uQGTTV6oyaorsNnVvygRlA'
+        ];
 
-        return $lastModifiedTime;
+        return $apiKeys[rand(0, 9)];
     }
 }

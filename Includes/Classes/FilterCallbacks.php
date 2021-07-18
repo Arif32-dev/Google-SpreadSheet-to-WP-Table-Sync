@@ -182,7 +182,6 @@ class FilterCallbacks {
             $settingsArray;
         }
 
-        $settingsArray['link_support']['is_pro'] = false;
         $settingsArray['multiple_sheet_tab']['is_pro'] = false;
         $settingsArray['custom_css']['is_pro'] = false;
 
