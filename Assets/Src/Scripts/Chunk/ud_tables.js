@@ -16,20 +16,39 @@ jQuery(document).ready(function ($) {
                 this.edit_tag_value(e);
             });
             $(document).on("click", ".gswpts_table_delete_btn", (e) => {
-                let popupModal = $(".semntic-popup-modal");
-                popupModal.modal("show");
-
-                // implementing plain javascript for resolving (this) keyword conflict issue
-                document
-                    .querySelector(".semntic-popup-modal .actions > .yes-btn")
-                    .addEventListener("click", () => {
-                        this.delete_table(e);
-                    });
+                this.initiatePopup(
+                    {
+                        deleteAll: false,
+                    },
+                    e
+                );
             });
             this.deleteBtn.on("click", (e) => {
-                this.delete_all_table(e);
+                this.initiatePopup(
+                    {
+                        deleteAll: true,
+                    },
+                    e
+                );
             });
         }
+
+        initiatePopup(arg, e) {
+            let popupModal = $(".semntic-popup-modal");
+            popupModal.modal("show");
+
+            // implementing plain javascript for resolving (this) keyword conflict issue
+            document
+                .querySelector(".semntic-popup-modal .actions > .yes-btn")
+                .addEventListener("click", () => {
+                    if (arg.deleteAll) {
+                        this.delete_all_table(e);
+                    } else {
+                        this.delete_table(e);
+                    }
+                });
+        }
+
         update_table_name(e) {
             let table_name = $(e.currentTarget).parent().parent().find(".table_name").text();
 

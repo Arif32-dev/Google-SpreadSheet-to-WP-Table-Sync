@@ -794,28 +794,11 @@ class GlobalClass {
                 'checked'       => false,
                 'type'          => 'checkbox'
             ],
-            'rows_per_page'        => [
-                'feature_title' => __('Default rows per page', 'sheetstowptable'),
-                'feature_desc'  => __('This will show rows per page in the frontend', 'sheetstowptable'),
-                'input_name'    => 'rows_per_page',
-                'type'          => 'select',
-                'values'        => $this->rowsPerPage(),
-                'default_text'  => 'Rows Per Page',
-                'default_value' => 10
-            ],
             'show_info_block'      => [
                 'feature_title' => __('Show info block', 'sheetstowptable'),
                 'feature_desc'  => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
                 'input_name'    => 'info_block',
                 'checked'       => true,
-                'type'          => 'checkbox'
-            ],
-            'responsive_table'     => [
-                'feature_title' => __('Resposive Table', 'sheetstowptable'),
-                'feature_desc'  => __('Allow collapsing on mobile and tablet screen. The table will behave as a block on mobile and tablet device rather than boring scrolling', 'sheetstowptable'),
-                'input_name'    => 'responsive',
-                'checked'       => $this->isProActive() ? true : false,
-                'is_pro'        => true,
                 'type'          => 'checkbox'
             ],
             'show_x_entries'       => [
@@ -831,7 +814,6 @@ class GlobalClass {
                 'input_name'    => 'swap_filter_inputs',
                 'checked'       => false,
                 'type'          => 'checkbox'
-
             ],
             'swap_bottom_elements' => [
                 'feature_title' => __('Swap Bottom Elements', 'sheetstowptable'),
@@ -840,8 +822,25 @@ class GlobalClass {
                 'checked'       => false,
                 'type'          => 'checkbox'
             ],
+            'responsive_table'     => [
+                'feature_title' => __('Resposive Table', 'sheetstowptable'),
+                'feature_desc'  => __('Allow collapsing on mobile and tablet screen. The table will behave as a block on mobile and tablet device rather than boring scrolling', 'sheetstowptable'),
+                'input_name'    => 'responsive',
+                'checked'       => $this->isProActive() ? true : false,
+                'is_pro'        => true,
+                'type'          => 'checkbox'
+            ],
+            'rows_per_page'        => [
+                'feature_title' => __('Rows per page', 'sheetstowptable'),
+                'feature_desc'  => __('This will show rows per page in the frontend', 'sheetstowptable'),
+                'input_name'    => 'rows_per_page',
+                'type'          => 'select',
+                'values'        => $this->rowsPerPage(),
+                'default_text'  => 'Rows Per Page',
+                'default_value' => 10
+            ],
             'vertical_scrolling'   => [
-                'feature_title' => __('Vertical Scroll/Sticky Header', 'sheetstowptable'),
+                'feature_title' => __('Vertical Scroll', 'sheetstowptable'),
                 'feature_desc'  => __('Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header', 'sheetstowptable'),
                 'input_name'    => 'vertical_scrolling',
                 'checked'       => false,
@@ -852,7 +851,7 @@ class GlobalClass {
                 'default_value' => $this->isProActive() ? 'default' : null
             ],
             'cell_format'          => [
-                'feature_title' => __('Format Table Cell', 'sheetstowptable'),
+                'feature_title' => __('Format Cell', 'sheetstowptable'),
                 'feature_desc'  => __('Format the table cell as like google sheet cell formatting. Format your cell as Wrap OR Expanded style', 'sheetstowptable'),
                 'input_name'    => 'cell_format',
                 'checked'       => false,
@@ -861,6 +860,18 @@ class GlobalClass {
                 'values'        => $this->cellFormattingArray(),
                 'default_text'  => 'Cell Format',
                 'default_value' => $this->isProActive() ? 'expand' : null
+            ],
+            'redirection_type'     => [
+                'feature_title' => __('Link Type', 'sheetstowptable'),
+                'feature_desc'  => __('Choose the redirection type of all the links in this table <br/>
+                                        <b>Blank Type</b> = Opens the links in a new window or tab <br/>
+                                        <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable'),
+                'input_name'    => 'redirection_type',
+                'is_pro'        => true,
+                'type'          => 'select',
+                'values'        => $this->redirectionTypeArray(),
+                'default_text'  => 'Redirection Type',
+                'default_value' => $this->isProActive() ? '_self' : null
             ],
             'table_style'          => [
                 'feature_title' => __('Table Style', 'sheetstowptable'),
@@ -872,21 +883,6 @@ class GlobalClass {
                 'default_text'  => 'Choose Style'
             ]
         ];
-
-        if (get_option('link_support')) {
-            $settingsArray['redirection_type'] = [
-                'feature_title' => __('Link Redirection Type', 'sheetstowptable'),
-                'feature_desc'  => __('Choose the redirection type of all the links in this table <br/>
-                                        <b>Blank Type</b> = Opens the links in a new window or tab <br/>
-                                        <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable'),
-                'input_name'    => 'redirection_type',
-                'is_pro'        => true,
-                'type'          => 'select',
-                'values'        => $this->redirectionTypeArray(),
-                'default_text'  => 'Redirection Type',
-                'default_value' => $this->isProActive() ? '_self' : null
-            ];
-        }
 
         $settingsArray = apply_filters('gswpts_display_settings_arr', $settingsArray);
 
@@ -953,27 +949,18 @@ class GlobalClass {
     public function sortAndFilterSettingsArray(): array
     {
         $settingsArray = [
-            'allow_sorting'    => [
+            'allow_sorting' => [
                 'feature_title' => __('Allow Sorting', 'sheetstowptable'),
                 'feature_desc'  => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
                 'input_name'    => 'sorting',
                 'checked'       => true,
                 'type'          => 'checkbox'
             ],
-            'search_bar'       => [
+            'search_bar'    => [
                 'feature_title' => __('Search Bar', 'sheetstowptable'),
                 'feature_desc'  => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
                 'input_name'    => 'search_table',
                 'checked'       => true,
-                'type'          => 'checkbox'
-            ],
-            'rows_higlighting' => [
-                'feature_title' => __('Rows Highlight', 'sheetstowptable'),
-                'feature_desc'  => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheetstowptable'),
-                'input_name'    => 'rows_highlight',
-                'checked'       => false,
-                // 'is_pro'        => true,
-                'is_upcoming'   => true,
                 'type'          => 'checkbox'
             ]
         ];
@@ -1055,7 +1042,7 @@ class GlobalClass {
                 'feature_desc'  => __('Enabling this feature would cache the Google sheet data & therefore the table will load faster than before.
                                         Also it will load the updated data when there is a change in your Google sheet.', 'sheetstowptable'),
                 'input_name'    => 'table_cache',
-                'checked'       => $this->isProActive() ? true : false,
+                'checked'       => false,
                 'is_pro'        => true,
                 'type'          => 'checkbox'
             ]

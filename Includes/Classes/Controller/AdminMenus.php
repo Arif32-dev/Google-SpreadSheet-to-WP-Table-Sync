@@ -28,14 +28,6 @@ class AdminMenus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('Create Table', 'sheetstowptable'),
-            __('Create Table', 'sheetstowptable'),
-            'manage_options',
-            'gswpts-create-tables',
-            [get_called_class(), 'gswpts_create_tables']
-        );
-        add_submenu_page(
-            'gswpts-dashboard',
             __('General Settings', 'sheetstowptable'),
             __('General Settings', 'sheetstowptable'),
             'manage_options',
@@ -52,16 +44,8 @@ class AdminMenus {
         );
     }
 
-    public static function gswpts_dashboard() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/dashboard.php', true);
-    }
-
     public static function gswpts_tables() {
         load_template(GSWPTS_BASE_PATH.'Includes/Templates/manage_tables.php', true);
-    }
-
-    public static function gswpts_create_tables() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/create_tables.php', true);
     }
 
     public static function general_settings() {

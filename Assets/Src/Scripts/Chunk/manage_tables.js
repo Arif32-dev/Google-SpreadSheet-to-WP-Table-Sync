@@ -39,7 +39,8 @@ jQuery(document).ready(function ($) {
         fetch_data_by_page() {
             if (
                 !this.get_slug_parameter("page") ||
-                this.get_slug_parameter("page") !== "gswpts-dashboard"
+                this.get_slug_parameter("page") !== "gswpts-dashboard" ||
+                this.get_slug_parameter("subpage") == "create-table"
             ) {
                 return;
             }

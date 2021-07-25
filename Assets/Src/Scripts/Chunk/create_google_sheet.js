@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
             super($);
             this.fetch_and_save_button = $("#fetch_save_btn");
             this.sheet_url = "";
-            this.dropdown_select = $("#table_type");
+            this.fileInput = $("#file_input");
 
             this.events();
         }
@@ -14,9 +14,9 @@ jQuery(document).ready(function ($) {
         events() {
             this.initDropdownSelect();
 
-            this.dropdown_select.on("change", (e) => {
+            this.fileInput.on("input", (e) => {
                 this.show_fetch_btn(e);
-                this.show_hidden_input(e);
+                // this.show_hidden_input(e);
             });
 
             $(document).on("click", "#fetch_save_btn", (e) => {
@@ -50,44 +50,42 @@ jQuery(document).ready(function ($) {
             if ($("#redirection_type").length) {
                 $("#redirection_type").dropdown();
             }
-            $("#table_type").find("input[name=source_type]").val("");
+            $("#table_type").find("input[name=source_type]").val("spreadsheet");
         }
         edit_table_name(e) {
             $(e.currentTarget).siblings("input").select();
         }
 
         show_fetch_btn(e) {
-            if ($(e.currentTarget).find("input[name=source_type]").val()) {
-                if ($("#fetch_save_btn").hasClass("hidden")) {
-                    $("#fetch_save_btn").transition("scale");
-                }
+            if ($("#fetch_save_btn").hasClass("hidden")) {
+                $("#fetch_save_btn").transition("scale");
             }
         }
 
-        show_hidden_input(e) {
-            if ($(e.currentTarget).find("input[name=source_type]").val() == "spreadsheet") {
-                this.show_file_input();
-                if ($(".browse_input").hasClass("visible")) {
-                    $(".browse_input").transition("scale");
-                }
-            }
-            if ($(e.currentTarget).find("input[name=source_type]").val() == "csv") {
-                this.show_file_input();
-                this.show_browser_input();
-            }
-        }
+        // show_hidden_input(e) {
+        //     if ($(e.currentTarget).find("input[name=source_type]").val() == "spreadsheet") {
+        //         this.show_file_input();
+        //         if ($(".browse_input").hasClass("visible")) {
+        //             $(".browse_input").transition("scale");
+        //         }
+        //     }
+        //     // if ($(e.currentTarget).find("input[name=source_type]").val() == "csv") {
+        //     //     this.show_file_input();
+        //     //     this.show_browser_input();
+        //     // }
+        // }
 
-        show_file_input() {
-            if ($(".file_input").hasClass("hidden")) {
-                $(".file_input").transition("scale");
-            }
-        }
+        // show_file_input() {
+        //     if ($(".file_input").hasClass("hidden")) {
+        //         $(".file_input").transition("scale");
+        //     }
+        // }
 
-        show_browser_input() {
-            if ($(".browse_input").hasClass("hidden")) {
-                $(".browse_input").transition("scale");
-            }
-        }
+        // show_browser_input() {
+        //     if ($(".browse_input").hasClass("hidden")) {
+        //         $(".browse_input").transition("scale");
+        //     }
+        // }
 
         handle_submit(e) {
             e.preventDefault();

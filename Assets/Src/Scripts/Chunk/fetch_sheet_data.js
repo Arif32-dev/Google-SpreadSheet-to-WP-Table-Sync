@@ -120,6 +120,8 @@ jQuery(document).ready(function ($) {
                                 this.export_buttons_row_revealer(table_settings.table_export);
                             }
 
+                            this.show_fetch_btn();
+
                             this.call_alert(
                                 "Successfull &#128077;",
                                 "<b>Google Sheet data fetched successfully</b>",
@@ -139,6 +141,11 @@ jQuery(document).ready(function ($) {
                     }
                 },
             });
+        }
+        show_fetch_btn() {
+            if ($("#fetch_save_btn").hasClass("hidden")) {
+                $("#fetch_save_btn").transition("scale");
+            }
         }
     }
     new Fetch_Sheet_Data();

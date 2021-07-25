@@ -40,9 +40,9 @@ class TableFetch {
                                         <input data-show="false" type="checkbox" name="manage_tables_main_checkbox" id="manage_tables_checkbox">
                                     </th>
                                     <th class="text-center">'.esc_html__('Table ID', 'sheetstowptable').'</th>
-                                    <th class="text-center">'.esc_html__('Table Name', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Type', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Shortcode', 'sheetstowptable').'</th>
+                                    <th class="text-center">'.esc_html__('Table Name', 'sheetstowptable').'</th>
                                     <th class="text-center">'.esc_html__('Delete', 'sheetstowptable').'</th>
                                 </tr>
                             </thead>
@@ -66,11 +66,11 @@ class TableFetch {
                                         <span class="gswpts_sortcode_copy" style="display: flex; align-items: center; white-space: nowrap; margin-right: 12px">[gswpts_table id='.esc_attr($table_data->id).']</span>
                                 </td>
                                  <td class="text-center">
-                                    <div style="height: 100%;" class="d-flex align-content-center">
+                                    <div style="line-height: 38px;">
                                         <a
-                                        style="width: 100%; height: 35px; padding-top: 8px; margin-right: 5px;     white-space: nowrap;"
+                                        style="margin-right: 5px; padding: 5px 15px;white-space: nowrap;"
                                         class="table_name"
-                                        href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.esc_attr($table_data->id).'')).'">
+                                        href="'.esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id='.esc_attr($table_data->id).'')).'">
                                         '.esc_html__($table_data->table_name, 'sheetstowptable').'
                                         </a>
                                         <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1" id="'.esc_attr($table_data->id).'" style="width: 50px;height: 38px;">

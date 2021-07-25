@@ -15,13 +15,15 @@
         min-height: 450px;
         width: 100% !important;
     }
-    .helper_text {
-        height: 0;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translate(-70%, -50%);
-        z-index: 20;
+    .file_input {
+        .helper_text {
+            height: 0;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(-70%, -50%);
+            z-index: 20;
+        }
     }
     #gswpts_tables_container .ui.stackable.grid {
         margin: 0;
@@ -509,16 +511,28 @@
     #display_settings,
     #sort_filter,
     #table_tools {
+        .feature-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: 20px;
+        }
         .card {
             position: relative;
             width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .content {
-            margin-top: 5px;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            width: 100%;
             .ui.dropdown {
-                width: 100%;
-                margin-top: 8px;
+                width: 250px !important;
                 .ui.label {
                     background-color: $link-hover-color;
                     color: #fff;
@@ -538,15 +552,84 @@
                 bottom: 15px;
                 z-index: 20;
             }
-            .header {
+            .card-top-header {
                 text-transform: capitalize;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+
+                & > span {
+                    font-size: 1rem;
+                    font-weight: bolder;
+                    margin-right: 5px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    div {
+                        background: none;
+                        margin-left: 5px !important;
+                    }
+                }
+                .input-tooltip {
+                    position: relative;
+                    margin-right: 10px;
+                    svg {
+                        cursor: pointer;
+                    }
+                    .tooltiptext {
+                        visibility: hidden;
+                        background-color: #000;
+                        color: #fff;
+                        text-align: center;
+                        border-radius: 6px;
+                        padding: 5px;
+                        position: absolute;
+                        z-index: 50;
+                        top: -26%;
+                        left: 200%;
+                        min-height: 200px;
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            margin-top: 10px;
+                            right: 100%;
+                            border-width: 8px;
+                            border-style: solid;
+                            border-color: transparent #000 transparent transparent;
+                        }
+
+                        span {
+                            display: block;
+                            margin-bottom: 8px;
+                            font-style: italic;
+                        }
+
+                        img {
+                            max-width: 500px;
+                        }
+                        @media screen and (max-width: 600px) {
+                            left: -48px;
+                            top: 100%;
+                            margin-top: 15px;
+
+                            &::after {
+                                display: none;
+                            }
+                        }
+                    }
+                    &:hover .tooltiptext {
+                        visibility: visible;
+                    }
+                }
             }
             .tableStyle {
                 display: flex;
                 justify-content: center;
                 flex-wrap: wrap;
                 align-items: center;
-                margin-top: 10px;
                 .label {
                     margin-left: 20px;
                 }
@@ -561,12 +644,13 @@
             justify-content: center;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 8px;
+            margin-right: -10px;
             input {
                 visibility: hidden;
             }
             label {
                 cursor: pointer;
+                margin: 0 !important;
             }
             input:checked ~ .box:before,
             input:checked ~ label:before {
