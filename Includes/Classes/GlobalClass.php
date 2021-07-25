@@ -832,7 +832,7 @@ class GlobalClass {
             ],
             'rows_per_page'        => [
                 'feature_title' => __('Rows per page', 'sheetstowptable'),
-                'feature_desc'  => __('This will show rows per page in the frontend', 'sheetstowptable'),
+                'feature_desc'  => __('This will show rows per page. The feature will allow you how many rows you want to show to your user by default.', 'sheetstowptable'),
                 'input_name'    => 'rows_per_page',
                 'type'          => 'select',
                 'values'        => $this->rowsPerPage(),

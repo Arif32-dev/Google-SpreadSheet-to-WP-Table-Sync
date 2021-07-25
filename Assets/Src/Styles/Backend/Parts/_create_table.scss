@@ -513,7 +513,7 @@
     #table_tools {
         .feature-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             grid-gap: 20px;
         }
         .card {
@@ -579,7 +579,8 @@
                         cursor: pointer;
                     }
                     .tooltiptext {
-                        visibility: hidden;
+                        opacity: 0;
+                        pointer-events: none;
                         background-color: #000;
                         color: #fff;
                         text-align: center;
@@ -590,6 +591,7 @@
                         top: -26%;
                         left: 200%;
                         min-height: 200px;
+                        transition: opacity 500ms ease-in-out;
                         &::after {
                             content: "";
                             position: absolute;
@@ -605,6 +607,7 @@
                             display: block;
                             margin-bottom: 8px;
                             font-style: italic;
+                            padding: 2px;
                         }
 
                         img {
@@ -621,7 +624,8 @@
                         }
                     }
                     &:hover .tooltiptext {
-                        visibility: visible;
+                        opacity: 1;
+                        pointer-events: all;
                     }
                 }
             }

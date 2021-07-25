@@ -31,7 +31,7 @@
             }
         }
         .settings_desc {
-            padding: 10px 15px 15px 15px;
+            padding: 1px 15px 15px 15px;
         }
         i {
             color: $link-hover-color;
@@ -45,6 +45,79 @@
         }
         .reveal_btn_rotate > svg {
             transform: rotate(180deg);
+        }
+
+        h5 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            span {
+                margin: 0 3px;
+            }
+
+            .input-tooltip {
+                margin-top: -2px;
+                position: relative;
+            }
+
+            position: relative;
+            margin-right: 10px;
+            svg {
+                cursor: pointer;
+            }
+            .tooltiptext {
+                opacity: 0;
+                pointer-events: none;
+                background-color: #000;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px;
+                position: absolute;
+                z-index: 50;
+                top: -26%;
+                left: 0%;
+                margin-left: 25px;
+                min-height: 200px;
+                transition: opacity 500ms ease-in-out;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    margin-top: 10px;
+                    right: 100%;
+                    border-width: 8px;
+                    border-style: solid;
+                    border-color: transparent #000 transparent transparent;
+                }
+
+                span {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-style: italic;
+                    padding: 2px;
+                }
+
+                img {
+                    max-width: 500px;
+                    width: 100%;
+                    max-height: 210px;
+                }
+                @media screen and (max-width: 768px) {
+                    left: 0;
+                    top: 150%;
+                    transform: translateX(-30%);
+
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+            &:hover .tooltiptext {
+                opacity: 1;
+                pointer-events: all;
+            }
         }
     }
     .dash_boxes:nth-child(1) {

@@ -101,7 +101,7 @@ class ClassSortcode {
     public function editTableLink(int $tableID) {
 
         if (current_user_can('manage_options')) {
-            return '<a href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.$tableID.'')).'" target="_blank">Customize Table</a>';
+            return '<a href="'.esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id='.$tableID.'')).'" target="_blank">Customize Table</a>';
         } else {
             return null;
         }

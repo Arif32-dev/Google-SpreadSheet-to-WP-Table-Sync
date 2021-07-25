@@ -44,8 +44,10 @@
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
                             <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
-                            <span class="tooltiptext">
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/' ?>" alt="">
+                            <span class="tooltiptext" style="width: 400px; min-height: 65px;">
+                                <span>
+                                    <?php echo $feature_desc ?>
+                                </span>
                             </span>
                         </div>
                     </span>
@@ -81,8 +83,10 @@
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
                             <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
-                            <span class="tooltiptext">
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/' ?>" alt="">
+                            <span class="tooltiptext" style="width: 400px; min-height: 65px;">
+                                <span>
+                                    <?php echo $feature_desc ?>
+                                </span>
                             </span>
                         </div>
                     </span>
@@ -119,7 +123,7 @@
                         <div class="input-tooltip">
                             <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
-                                <?php echo $feature_desc ?>
+                                <span><?php echo $feature_desc ?></span>
                             </span>
                         </div>
                     </span>
