@@ -61,7 +61,6 @@ final class SheetsToWPTableLiveSync {
     public function add_action_links($links) {
         $mylinks = [
             sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-dashboard')), esc_html__('Dashboard', 'sheetstowptable')),
-            sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-create-tables')), esc_html__('Create Table', 'sheetstowptable')),
             sprintf('<a href="%s">%s</a>', esc_url(admin_url('admin.php?page=gswpts-general-settings')), esc_html__('General Settings', 'sheetstowptable'))
         ];
         if (!$this->checkProPluginExists()) {

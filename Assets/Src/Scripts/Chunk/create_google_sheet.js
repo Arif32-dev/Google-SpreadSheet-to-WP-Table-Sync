@@ -16,7 +16,6 @@ jQuery(document).ready(function ($) {
 
             this.fileInput.on("input", (e) => {
                 this.show_fetch_btn(e);
-                // this.show_hidden_input(e);
             });
 
             $(document).on("click", "#fetch_save_btn", (e) => {
@@ -28,6 +27,10 @@ jQuery(document).ready(function ($) {
             });
             $(document).on("click", "#create_button", (e) => {
                 this.clear_fields();
+            });
+            // take user to next settings upon clicking next button
+            $(document).on("click", "#next-setting", (e) => {
+                this.goToNextSetting(e);
             });
             $(".edit_table_name").on("click", (e) => {
                 this.edit_table_name(e);
@@ -61,31 +64,6 @@ jQuery(document).ready(function ($) {
                 $("#fetch_save_btn").transition("scale");
             }
         }
-
-        // show_hidden_input(e) {
-        //     if ($(e.currentTarget).find("input[name=source_type]").val() == "spreadsheet") {
-        //         this.show_file_input();
-        //         if ($(".browse_input").hasClass("visible")) {
-        //             $(".browse_input").transition("scale");
-        //         }
-        //     }
-        //     // if ($(e.currentTarget).find("input[name=source_type]").val() == "csv") {
-        //     //     this.show_file_input();
-        //     //     this.show_browser_input();
-        //     // }
-        // }
-
-        // show_file_input() {
-        //     if ($(".file_input").hasClass("hidden")) {
-        //         $(".file_input").transition("scale");
-        //     }
-        // }
-
-        // show_browser_input() {
-        //     if ($(".browse_input").hasClass("hidden")) {
-        //         $(".browse_input").transition("scale");
-        //     }
-        // }
 
         handle_submit(e) {
             e.preventDefault();
@@ -242,7 +220,11 @@ jQuery(document).ready(function ($) {
                             this.table_object(table_name, defaultRowsPerPage, allowSorting, dom)
                         );
 
-                        this.btn_changer(submit_button, "Save Table", "save");
+                        this.changeBtnOnCondition(submit_button);
+
+                        submit_button.css({
+                            backgroundColor: "#f2711c",
+                        });
 
                         setTimeout(() => {
                             this.call_alert(
@@ -269,6 +251,24 @@ jQuery(document).ready(function ($) {
                     this.sheet_container.html("");
                 },
             });
+        }
+
+        changeBtnOnCondition(submit_button) {
+            if (!this.get_slug_parameter("id")) {
+                this.btn_changer(submit_button, "Next Setting", "next");
+
+                submit_button.css({
+                    backgroundColor: "#f2711c",
+                });
+
+                submit_button.attr("id", "next-setting");
+            } else {
+                this.btn_changer(submit_button, "Save Table", "save");
+            }
+        }
+
+        goToNextSetting(e) {
+            alert("hello");
         }
 
         copy_shorcode(e) {

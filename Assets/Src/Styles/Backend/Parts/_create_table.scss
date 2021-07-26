@@ -45,7 +45,11 @@
         .ui.icon.input {
             width: 100%;
         }
+        .hide-column {
+            display: none;
+        }
     }
+
     #table_type,
     #rows_per_page {
         z-index: 20;
@@ -53,6 +57,10 @@
             color: $link-hover-color;
             margin-right: 5px;
         }
+    }
+
+    #table_type {
+        min-width: 200px;
     }
     #spreadsheet_container .ui.stackable.grid {
         margin: 0;
