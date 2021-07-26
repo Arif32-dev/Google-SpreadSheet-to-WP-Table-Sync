@@ -42,6 +42,14 @@ class AdminMenus {
             'gswpts-documentation',
             [get_called_class(), 'documentationPage']
         );
+        add_submenu_page(
+            'gswpts-dashboard',
+            __('Recommended Plugins', 'sheetstowptable'),
+            __('Recommended Plugins', 'sheetstowptable'),
+            'manage_options',
+            'gswpts-recommendation',
+            [get_called_class(), 'pluginRecommendationPage']
+        );
     }
 
     public static function gswpts_tables() {
@@ -54,5 +62,9 @@ class AdminMenus {
 
     public static function documentationPage() {
         load_template(GSWPTS_BASE_PATH.'Includes/Templates/documentation_page.php', true);
+    }
+
+    public static function pluginRecommendationPage() {
+        load_template(GSWPTS_BASE_PATH.'Includes/Templates/recommendation_page.php', true);
     }
 }

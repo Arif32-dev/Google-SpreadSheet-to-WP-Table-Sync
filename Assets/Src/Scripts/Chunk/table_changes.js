@@ -199,7 +199,13 @@ jQuery(document).ready(function ($) {
 
         pro_feature_popup(e) {
             let target = $(e.currentTarget);
-            let promo = target.parents(".card").find(".pro_feature_promo");
+            let promo = target.parents(".gswpts_create_table_container").find(".promo_large");
+            promo.css({
+                opacity: 1,
+            });
+            promo.find(".popup-box").css({
+                "margin-top": `${$(document).scrollTop() + 50}px`,
+            });
             promo.addClass("active");
             target.prop("checked", false);
         }

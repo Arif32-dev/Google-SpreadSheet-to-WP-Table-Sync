@@ -20,10 +20,9 @@ class EnqueueFiles {
         $get_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : null;
 
         if (($get_page == 'gswpts-dashboard') ||
-            ($get_page == 'gswpts-tables') ||
-            ($get_page == 'gswpts-create-tables') ||
             ($get_page == 'gswpts-general-settings') ||
             ($get_page == 'gswpts-documentation') ||
+            ($get_page == 'gswpts-recommendation') ||
             ($get_page == 'sheets_to_wp_table_live_sync_pro_settings') ||
             ($current_screen->is_block_editor())
         ) {
@@ -55,6 +54,13 @@ class EnqueueFiles {
                 'tableStyles' => $gswpts->tableStylesArray(),
                 'renameIcon'  => GSWPTS_BASE_URL.'Assets/Public/Icons/rename.svg'
             ]);
+        }
+
+        if ($get_page == 'gswpts-general-settings') {
+            wp_enqueue_script('GSWPTS-cssCodeEditor', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/ace.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-modeCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/mode-css.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-workerCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/worker-css.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-vibrantCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/vibrant-ink.js', [], GSWPTS_VERSION, true);
         }
     }
 

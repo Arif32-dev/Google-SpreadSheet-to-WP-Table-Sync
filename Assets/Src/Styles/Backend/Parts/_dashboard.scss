@@ -48,57 +48,11 @@
     }
 }
 
-.latest_table {
-    .details {
-        .ui.label {
-            font-size: 13px;
-        }
-        i {
-            cursor: pointer;
-        }
-        .ui.tag.label {
-            font-size: 10px;
-        }
-    }
-    .card-body {
-        .total_created {
-            span:nth-of-type(1) {
-                font-size: 40px;
-                margin-bottom: 10px;
-            }
-        }
-    }
-}
-
-.change_logs {
-    .info_circle {
-        color: $link-hover-color;
-    }
-}
-
 .card-header {
     .title {
         i {
             color: $link-hover-color;
         }
-    }
-}
-
-.pro_box {
-    .card {
-        background-repeat: no-repeat;
-        background-position: 90% bottom;
-    }
-    li {
-        i {
-            color: $link-color;
-        }
-    }
-}
-
-.subscribe_sec {
-    .ui.cards>.card {
-        width: 100%;
     }
 }
 

@@ -15,7 +15,6 @@ jQuery(document).ready(function ($) {
                 let desc_box = target.parents(".card").find(".settings_desc");
 
                 // remove the restriction of css code editor
-
                 if (target.attr("id") == "custom_css") {
                     this.removeCodeEditorRestriction(target);
                 }
@@ -29,10 +28,8 @@ jQuery(document).ready(function ($) {
                 this.close_promo(e);
             });
 
-            if (this.isProPluginActive()) {
-                if (this.get_slug_parameter("page") == "gswpts-general-settings") {
-                    this.initiateCodeEditor();
-                }
+            if (this.get_slug_parameter("page") == "gswpts-general-settings") {
+                this.initiateCodeEditor();
             }
         }
 
@@ -97,6 +94,9 @@ jQuery(document).ready(function ($) {
             this.changeButtonTextLinks(e);
             let promo = target.parents(".dash_boxes").find(".promo_large");
             promo.addClass("active");
+            promo.css({
+                opacity: 1,
+            });
         }
 
         changeButtonTextLinks(e) {
@@ -113,6 +113,9 @@ jQuery(document).ready(function ($) {
             let target = $(e.currentTarget);
             let promo = target.parents(".promo_large");
             promo.removeClass("active");
+            promo.css({
+                opacity: 0,
+            });
         }
     }
     new General_settings();

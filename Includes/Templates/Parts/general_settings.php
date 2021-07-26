@@ -48,12 +48,12 @@
 
             <textarea name="css_code_value" id="css_code_value"><?php echo get_option('css_code_value'); ?></textarea>
 
-            <?php if ((isset($is_pro) && !$is_pro) && $gswpts->isProActive()) {?>
             <div id="gswptsCSSeditor"
-                style="min-height: 70px;<?php echo !get_option('custom_css') ? "opacity: 0.5; pointer-events: none;" : null ?>">
+                style="min-height: 75px;<?php echo !get_option('custom_css') && !$gswpts->isProActive() ? "opacity: 0.5; pointer-events: none;" : null ?>">
             </div>
+
             <?php }?>
-            <?php }?>
+
         </div>
     </div>
 

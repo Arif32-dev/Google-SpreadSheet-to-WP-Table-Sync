@@ -302,6 +302,30 @@
         pointer-events: all;
         background: rgba(0, 0, 0, 0.52);
     }
+
+    .promo_large {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 99%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 99;
+        background: #00000085;
+        position: absolute;
+        transition: opacity 300ms ease-in-out;
+
+        & > div {
+            justify-content: flex-start;
+        }
+    }
+    .promo_large.active {
+        opacity: 1;
+        pointer-events: all;
+    }
 }
 
 #gswpts_tabs {

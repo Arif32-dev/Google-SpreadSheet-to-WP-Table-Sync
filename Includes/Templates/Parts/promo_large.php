@@ -27,7 +27,7 @@
 ?>
 
 
-<div class="promo_large">
+<div class="promo_large" style="opacity: 0">
     <div class="promo_inner">
 
         <div class="popup-box">
