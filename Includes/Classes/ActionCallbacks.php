@@ -40,19 +40,6 @@ class ActionCallbacks {
         wp_enqueue_style('GSWPTS-table-responsive', GSWPTS_PRO_BASE_URL.'Assets/Public/Styles/frontend.min.css', [], GSWPTS_PRO_VERSION, 'all');
     }
 
-    /**
-     * @param $get_page
-     */
-    public function codeEditor($get_page) {
-
-        if ($get_page == 'gswpts-general-settings') {
-            wp_enqueue_script('GSWPTS-cssCodeEditor', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/ace.js', [], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-modeCSS', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/mode-css.js', [], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-workerCSS', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/worker-css.js', [], GSWPTS_PRO_VERSION, true);
-            wp_enqueue_script('GSWPTS-vibrantCSS', GSWPTS_PRO_BASE_URL.'Assets/Public/Common/vibrant-ink.js', [], GSWPTS_PRO_VERSION, true);
-        }
-    }
-
     public function printCss() {
 
         $customCSS = get_option('custom_css') == 'on' ? get_option('css_code_value') : null;

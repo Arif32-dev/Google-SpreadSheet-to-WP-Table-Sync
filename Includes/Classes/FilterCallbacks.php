@@ -199,9 +199,7 @@ class FilterCallbacks {
         }
 
         $redirectionTypes = array_map(function ($types) {
-            if (get_option('link_support')) {
-                $types['isPro'] = false;
-            }
+            $types['isPro'] = false;
             return $types;
         }, $redirectionTypes);
 

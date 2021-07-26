@@ -86,13 +86,11 @@ final class SheetsToWPTableLiveSyncPro {
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
             add_option('gswpts_activation_pro_redirect', true);
-            update_option('link_support', true);
             update_option('multiple_sheet_tab', true);
             flush_rewrite_rules();
         });
         register_deactivation_hook(__FILE__, function () {
             flush_rewrite_rules();
-            update_option('link_support', false);
             update_option('multiple_sheet_tab', false);
             update_option('custom_css', false);
         });
@@ -129,6 +127,8 @@ final class SheetsToWPTableLiveSyncPro {
         // IF license is not valid then show notice or elese return true
         if (!$client->license()->is_valid()) {
             add_action('admin_notices', [$this, 'licenseNotice']);
+            update_option('multiple_sheet_tab', false);
+            update_option('custom_css', false);
             return false;
         } else {
             return true;
