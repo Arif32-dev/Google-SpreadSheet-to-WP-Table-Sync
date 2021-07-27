@@ -16,6 +16,11 @@ jQuery(document).ready(function ($) {
             $(document).on("click", ".tables_settings", (e) => {
                 this.change_btn_text(e);
             });
+
+            $(document).on("click", "#gswpts_tabs .tabs > input", (e) => {
+                this.changeBtnOnCondition(e);
+            });
+
             this.add_select_box_style();
 
             this.settings_field.on("change", (e) => {
@@ -61,6 +66,40 @@ jQuery(document).ready(function ($) {
                 $(".styleModal .body label .pro_feature_promo").removeClass("active");
                 target.parent().find(".pro_feature_promo").addClass("active");
             });
+        }
+
+        changeBtnOnCondition(e) {
+            if (!this.get_slug_parameter("id")) {
+                if ($(e.currentTarget).attr("id") == "tab4") {
+                    this.btnAttAndTextChanger({
+                        selector: "#next-setting",
+                        btnText: "Save Table",
+                        btnAttribute: "save",
+                        btnBackgroundColor: "#6435c9",
+                        btnId: "fetch_save_btn",
+                    });
+                } else {
+                    this.btnAttAndTextChanger({
+                        selector: "#fetch_save_btn",
+                        btnText: "Next Setting",
+                        btnAttribute: "next",
+                        btnBackgroundColor: "#f2711c",
+                        btnId: "next-setting",
+                    });
+                }
+            }
+        }
+
+        btnAttAndTextChanger(arg) {
+            let target = $(arg.selector);
+
+            this.btn_changer(target, arg.btnText, arg.btnAttribute);
+
+            target.css({
+                backgroundColor: arg.btnBackgroundColor,
+            });
+
+            target.attr("id", arg.btnId);
         }
 
         change_btn_text(e) {

@@ -118,7 +118,7 @@ class GlobalClass {
 
         while (!feof($stream)) {
 
-            if ($i == 0) {
+            if ($i <= 0) {
                 $table .= '<thead><tr>';
                 foreach (fgetcsv($stream) as $cell_value) {
 

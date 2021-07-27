@@ -11,14 +11,23 @@ jQuery(document).ready(function ($) {
             $(document).on("click", ".gswpts_edit_table", (e) => {
                 this.edit_table_name(e);
             });
+
             $(document).on("click", ".table_name_save", (e) => {
                 this.update_table_name(e);
                 this.edit_tag_value(e);
             });
+
+            $(document).on("click", ".semntic-popup-modal .actions > .yes-btn", (e) => {
+                let id = $(e.currentTarget).attr("data-id");
+                this.delete_table(id);
+            });
+
             $(document).on("click", ".gswpts_table_delete_btn", (e) => {
+                let id = $(e.currentTarget).attr("data-id");
                 this.initiatePopup(
                     {
                         deleteAll: false,
+                        id,
                     },
                     e
                 );
@@ -37,14 +46,16 @@ jQuery(document).ready(function ($) {
             let popupModal = $(".semntic-popup-modal");
             popupModal.modal("show");
 
+            if (arg.deleteAll == false) {
+                $(".semntic-popup-modal .actions > .yes-btn").attr("data-id", arg.id);
+            }
+
             // implementing plain javascript for resolving (this) keyword conflict issue
             document
                 .querySelector(".semntic-popup-modal .actions > .yes-btn")
                 .addEventListener("click", () => {
                     if (arg.deleteAll) {
                         this.delete_all_table(e);
-                    } else {
-                        this.delete_table(e);
                     }
                 });
         }
@@ -61,12 +72,13 @@ jQuery(document).ready(function ($) {
             this.ajax_request(data, e);
         }
 
-        delete_table(e) {
+        delete_table(id) {
             let data = {
                 reqType: "delete",
-                table_id: $(e.currentTarget).attr("id"),
+                table_id: id,
             };
-            this.ajax_request(data, e);
+
+            this.ajax_request(data);
         }
 
         delete_all_table(e) {
@@ -83,11 +95,7 @@ jQuery(document).ready(function ($) {
 
             data.table_ids = table_ids;
             if (data.table_ids.length > 0) {
-                if (confirm("Are you sure you want to delete selected tables ?")) {
-                    this.ajax_request(data, e);
-                } else {
-                    return;
-                }
+                this.ajax_request(data, e);
             } else {
                 this.call_alert(
                     "Warning &#9888;&#65039;",
@@ -99,8 +107,14 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        ajax_request(data, e) {
-            let currentTarget = $(e.currentTarget);
+        ajax_request(data, e = null) {
+            let currentTarget;
+            if (e == null) {
+                currentTarget = $(`#table-${data.table_id}`);
+            } else {
+                currentTarget = $(e.currentTarget);
+            }
+
             $.ajax({
                 url: file_url.admin_ajax,
 
@@ -112,18 +126,18 @@ jQuery(document).ready(function ($) {
 
                 beforeSend: () => {
                     if (data.reqType == "update") {
-                        $(e.currentTarget).html(`
+                        currentTarget.html(`
                         <div class="ui active mini inline loader"></div>
                     `);
                     }
                     if (data.reqType == "delete") {
-                        $(e.currentTarget).html(`
+                        currentTarget.html(`
                         Deleting &nbsp;
                         <div class="ui active mini inline loader"></div>
                     `);
                     }
                     if (data.reqType == "deleteAll") {
-                        $(e.currentTarget).html(`
+                        currentTarget.html(`
                         Deleting &nbsp;
                         <div class="ui active mini inline loader"></div>
                     `);

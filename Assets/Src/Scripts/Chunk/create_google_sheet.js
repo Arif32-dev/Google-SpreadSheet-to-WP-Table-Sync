@@ -121,7 +121,6 @@ jQuery(document).ready(function ($) {
                 },
 
                 success: (res) => {
-                    console.log(res);
                     if (
                         JSON.parse(res).response_type == "invalid_action" ||
                         JSON.parse(res).response_type == "invalid_request"
@@ -174,7 +173,8 @@ jQuery(document).ready(function ($) {
                         let id = Object.values(JSON.parse(res).id)[0];
                         this.show_shortcode(id);
                         this.sheet_url = JSON.parse(res).sheet_url;
-                        this.show_create_btn();
+                        $("#create_button").addClass("visible");
+
                         this.push_parameter(id);
                         // Add classname as .tables_settings to save table changes
                         $("#gswpts_tabs ul li").addClass("tables_settings");
@@ -268,7 +268,24 @@ jQuery(document).ready(function ($) {
         }
 
         goToNextSetting(e) {
-            alert("hello");
+            let target = $(e.currentTarget);
+            let tabInputs = $("#gswpts_tabs .tabs > input:checked");
+
+            if (tabInputs.attr("id") == "tab3") {
+                tabInputs.prop("checked", false);
+                tabInputs.next().prop("checked", true);
+
+                this.btn_changer(target, "Save Table", "save");
+
+                target.css({
+                    backgroundColor: "#6435c9",
+                });
+
+                target.attr("id", "fetch_save_btn");
+            } else {
+                tabInputs.prop("checked", false);
+                tabInputs.next().prop("checked", true);
+            }
         }
 
         copy_shorcode(e) {
@@ -279,12 +296,6 @@ jQuery(document).ready(function ($) {
             this.call_alert("Copied &#128077;", "Sortcode copied successfully", "info", 2);
         }
 
-        show_create_btn() {
-            if (!$("#create_button").hasClass("visible")) {
-                $("#create_button").transition("scale");
-            }
-        }
-
         clear_fields() {
             this.sheet_form.find("input[name=file_input]").val("");
             $(".edit_table_name").attr("disabled", false);
@@ -293,13 +304,14 @@ jQuery(document).ready(function ($) {
             $("#tab1").prop("checked", true);
 
             /* add the disable button atrributes and class */
-            $(".tables_settings").addClass("disabled_checkbox");
+            $("#gswpts_tabs ul li:not(:nth-child(1))").addClass("disabled_checkbox");
             $(".tables_settings").unbind("click");
             $(".secondary_inputs").attr("disabled", true);
 
             $("#sheet_ui_card").transition("scale");
             $("#create_tables_wrapper").transition("scale");
-            this.btn_changer(this.fetch_and_save_button, "Fetch Data", "fetch");
+            this.btn_changer($("#fetch_save_btn"), "Fetch Data", "fetch");
+            this.deleteParameter();
             setTimeout(() => {
                 this.sheet_details.transition("scale");
                 $("#sheet_ui_card").remove();
@@ -308,8 +320,14 @@ jQuery(document).ready(function ($) {
         }
 
         push_parameter(id) {
-            const url = new URL(window.location);
+            let url = new URL(window.location);
             url.searchParams.set("id", id);
+            window.history.pushState({}, "", url);
+        }
+
+        deleteParameter() {
+            let url = new URL(window.location);
+            url.searchParams.set("id", "");
             window.history.pushState({}, "", url);
         }
     }

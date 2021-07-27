@@ -78,7 +78,7 @@ class TableFetch {
                                         </button>
                                     </div>
                                 </td>
-                                <td class="text-center"><button id="'.esc_attr($table_data->id).'" class="negative ui button gswpts_table_delete_btn">'.esc_html__('Delete', 'sheetstowptable').'</button></td>
+                                <td class="text-center"><button data-id="'.esc_attr($table_data->id).'" id="table-'.esc_attr($table_data->id).'" class="negative ui button gswpts_table_delete_btn">'.esc_html__('Delete', 'sheetstowptable').'</button></td>
                             </tr>';
             }
         }
