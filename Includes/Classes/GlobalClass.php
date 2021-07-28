@@ -116,11 +116,16 @@ class GlobalClass {
         fwrite($stream, $sheet_response);
         rewind($stream);
 
+        $tableHeadValues = [];
+
         while (!feof($stream)) {
 
             if ($i <= 0) {
                 $table .= '<thead><tr>';
+
                 foreach (fgetcsv($stream) as $cell_value) {
+
+                    array_push($tableHeadValues, $cell_value);
 
                     if ($cell_value) {
                         $table .= '<th class="'.$this->embedCellFormatClass().'">'.stripslashes(esc_html__($cell_value, 'sheetstowptable')).'</th>';
@@ -143,9 +148,11 @@ class GlobalClass {
                 }
 
                 $table .= '<tr>';
-                foreach (fgetcsv($stream) as $cell_value) {
+
+                foreach (fgetcsv($stream) as $key => $cell_value) {
+
                     if ($cell_value) {
-                        $table .= '<td class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
+                        $table .= '<td data-content="'.$tableHeadValues[$key].' &#x0003A;" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
                     } else {
                         $table .= '<td class="'.$this->embedCellFormatClass().'"></td>';
                     }

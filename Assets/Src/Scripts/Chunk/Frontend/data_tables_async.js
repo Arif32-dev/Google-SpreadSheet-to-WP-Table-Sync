@@ -115,7 +115,6 @@ if (front_end_data.isProActive) {
                         type: "post",
 
                         success: (res) => {
-                            console.log(JSON.parse(res));
                             if (JSON.parse(res).response_type == "success") {
                                 let table_settings = JSON.parse(
                                     JSON.parse(res).table_data.table_settings

@@ -4,7 +4,6 @@
 
 .gswpts_tables_container {
     @include mixin.button_style;
-    @include mixin.input_style;
     @include mixin.datatable_semantic;
     @include mixin.loader_style;
     margin: 30px 0;
@@ -21,6 +20,7 @@
             min-width: 90px;
             overflow-wrap: break-word;
             border: 1px solid #76767647;
+            min-height: 25px;
         }
         @media screen and (max-width: 768px) {
             th,
@@ -40,13 +40,7 @@
                 }
             }
         }
-        .clip_style {
-            max-width: 200px;
-            overflow-wrap: unset;
-            white-space: nowrap;
-            overflow-x: overlay;
-            height: 30px;
-        }
+
         .wrap_style {
             max-width: 200px;
             overflow-wrap: break-word;
@@ -220,7 +214,5 @@
                 margin-top: 8px !important;
             }
         }
-        // .pagination.menu {
-        // }
     }
 }
