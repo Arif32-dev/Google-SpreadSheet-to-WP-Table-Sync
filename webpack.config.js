@@ -83,12 +83,12 @@ module.exports = {
         //     watchEvents: ["change", "add", "unlink", "addDir", "unlinkDir"],
         //     proxy: "http://localhost/wordpress/wp-admin",
         // }),
-        // new PurgecssPlugin({
-        //     paths: glob.sync(
-        //         [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
-        //         { nodir: true }
-        //     ),
-        // }),
+        new PurgecssPlugin({
+            paths: glob.sync(
+                [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
+                { nodir: true }
+            ),
+        }),
         new MiniCssExtractPlugin({
             filename: "Styles/[name].min.css",
         }),
