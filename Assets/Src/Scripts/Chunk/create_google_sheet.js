@@ -312,6 +312,11 @@ jQuery(document).ready(function ($) {
             $("#create_tables_wrapper").transition("scale");
             this.btn_changer($("#fetch_save_btn"), "Fetch Data", "fetch");
             this.deleteParameter();
+
+            // reveal table name input
+            $(".input_fields > div:nth-child(2)").removeClass("hide-column");
+            $(".input_fields > div:nth-child(2) > div").removeClass("hidden");
+            $(".input_fields > div:nth-child(3)").removeClass("col-md-9").addClass("col-md-6");
             setTimeout(() => {
                 this.sheet_details.transition("scale");
                 $("#sheet_ui_card").remove();

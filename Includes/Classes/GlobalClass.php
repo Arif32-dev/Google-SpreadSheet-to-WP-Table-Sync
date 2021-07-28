@@ -152,7 +152,7 @@ class GlobalClass {
                 foreach (fgetcsv($stream) as $key => $cell_value) {
 
                     if ($cell_value) {
-                        $table .= '<td data-content="'.$tableHeadValues[$key].' &#x0003A;" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
+                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
                     } else {
                         $table .= '<td class="'.$this->embedCellFormatClass().'"></td>';
                     }
@@ -171,6 +171,18 @@ class GlobalClass {
             'count' => $i
         ];
         return $response;
+    }
+
+    /**
+     * @param  $headerData
+     * @return mixed
+     */
+    public function addTableHeaderToCell($headerData) {
+        if ($headerData) {
+            return $headerData.'&#x0003A';
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -847,7 +859,7 @@ class GlobalClass {
                 'default_value' => 10
             ],
             'vertical_scrolling'   => [
-                'feature_title' => __('Vertical Scroll', 'sheetstowptable'),
+                'feature_title' => __('Table Height', 'sheetstowptable'),
                 'feature_desc'  => __('Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header', 'sheetstowptable'),
                 'input_name'    => 'vertical_scrolling',
                 'checked'       => false,

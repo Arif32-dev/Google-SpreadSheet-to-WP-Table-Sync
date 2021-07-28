@@ -822,7 +822,7 @@
 #gswpts_tabs #sort_filter .feature-container,
 #gswpts_tabs #table_tools .feature-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 20px;
 }
 #gswpts_tabs #display_settings .card,
@@ -895,7 +895,7 @@
 #gswpts_tabs #display_settings .content .card-top-header > span,
 #gswpts_tabs #sort_filter .content .card-top-header > span,
 #gswpts_tabs #table_tools .content .card-top-header > span {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bolder;
   margin-right: 5px;
   display: -webkit-box;
@@ -940,8 +940,11 @@
   padding: 5px;
   position: absolute;
   z-index: 50;
-  top: -26%;
-  left: 200%;
+  top: 130%;
+  left: 0%;
+  -webkit-transform: translateX(-30%);
+      -ms-transform: translateX(-30%);
+          transform: translateX(-30%);
   min-height: 200px;
   -webkit-transition: opacity 500ms ease-in-out;
   -o-transition: opacity 500ms ease-in-out;
@@ -952,12 +955,11 @@
 #gswpts_tabs #table_tools .content .card-top-header .input-tooltip .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 0;
-  margin-top: 10px;
-  right: 100%;
+  top: -15px;
+  right: 65%;
   border-width: 8px;
   border-style: solid;
-  border-color: transparent #000 transparent transparent;
+  border-color: transparent transparent #000 transparent;
 }
 #gswpts_tabs #display_settings .content .card-top-header .input-tooltip .tooltiptext span,
 #gswpts_tabs #sort_filter .content .card-top-header .input-tooltip .tooltiptext span,

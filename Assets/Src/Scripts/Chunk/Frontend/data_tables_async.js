@@ -65,6 +65,8 @@ if (front_end_data.isProActive) {
                                     table_name,
                                     table_settings
                                 );
+
+                                tableClass.clearOverflow();
                             } else {
                                 $(elem)
                                     .find(".gswpts_tables_content")
@@ -141,6 +143,8 @@ if (front_end_data.isProActive) {
                                     table_name,
                                     table_settings
                                 );
+
+                                tableClass.clearOverflow();
                             } else {
                                 $(elem)
                                     .find(".gswpts_tables_content")
