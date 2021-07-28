@@ -86,12 +86,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "Styles/[name].min.css",
         }),
-        // new PurgecssPlugin({
-        //     paths: glob.sync(
-        //         [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
-        //         { nodir: true }
-        //     ),
-        // }),
+        new PurgecssPlugin({
+            paths: glob.sync(
+                [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
+                { nodir: true }
+            ),
+        }),
     ],
     devtool: "source-map",
     watch: true,
