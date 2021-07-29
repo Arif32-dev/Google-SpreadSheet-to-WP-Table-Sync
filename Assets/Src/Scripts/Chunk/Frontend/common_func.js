@@ -284,9 +284,15 @@ export default class Global_Table_Config {
 
                 if (tableScrollBody) {
                     tableScrollBody.forEach((element) => {
-                        element.style.overflow = "unset";
-                        element.style.height = "unset";
-                        element.style.maxHeight = "unset";
+                        if (
+                            element.parentElement.parentElement.parentElement.parentElement.classList.contains(
+                                "collapse_style"
+                            )
+                        ) {
+                            element.style.overflow = "unset";
+                            element.style.height = "unset";
+                            element.style.maxHeight = "unset";
+                        }
                     });
                 }
             }

@@ -1281,6 +1281,11 @@
   -o-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
 }
+.gswpts_general_settings_container .promo_large .popup-box {
+  -webkit-transform: scale(0.75) !important;
+      -ms-transform: scale(0.75) !important;
+          transform: scale(0.75) !important;
+}
 .gswpts_general_settings_container .promo_large.active {
   opacity: 1;
   z-index: 5;

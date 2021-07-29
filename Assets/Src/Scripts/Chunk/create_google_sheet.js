@@ -53,6 +53,9 @@ jQuery(document).ready(function ($) {
             if ($("#redirection_type").length) {
                 $("#redirection_type").dropdown();
             }
+            if ($("#responsive_style").length) {
+                $("#responsive_style").dropdown();
+            }
             $("#table_type").find("input[name=source_type]").val("spreadsheet");
         }
         edit_table_name(e) {

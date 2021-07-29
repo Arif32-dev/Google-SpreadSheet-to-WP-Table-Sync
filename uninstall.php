@@ -65,8 +65,7 @@ class SheetsToWPTableLiveSyncUninstall {
             'asynchronous_loading',
             'multiple_sheet_tab',
             'custom_css',
-            'css_code_value',
-            'sheet_tab_connection'
+            'css_code_value'
         ];
 
         foreach ($savedOptions as $option) {

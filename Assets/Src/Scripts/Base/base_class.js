@@ -146,7 +146,9 @@ export default class Base_Class {
         };
 
         if (this.isProPluginActive()) {
-            settings.responsiveTable = $("#responsive").prop("checked");
+            settings.responsiveStyle = $("#responsive_style")
+                .find("input[name=responsive_style]")
+                .val();
             settings.tableExport = $("#table_exporting").val().split(",") || null;
             settings.verticalScroll = $("#vertical_scrolling")
                 .find("input[name=vertical_scrolling]")
@@ -381,7 +383,7 @@ export default class Base_Class {
         $("#search_table").prop("checked", settings.search_bar == "true" ? true : false);
 
         if (this.isProPluginActive()) {
-            $("#responsive").prop("checked", settings.responsive_table == "true" ? true : false);
+            $("#responsive_style").dropdown("set selected", settings.responsive_style);
             $("#vertical_scrolling").dropdown("set selected", settings.vertical_scroll);
             if (settings.table_export != "empty" && settings.table_export) {
                 settings.table_export.forEach((export_type) => {

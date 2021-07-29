@@ -38,9 +38,10 @@ if (front_end_data.isProActive) {
                                 );
 
                                 if (tableClass.isProPluginActive()) {
-                                    if (table_settings.responsive_table == "true") {
-                                        $(elem).addClass("gswpts_responsive");
+                                    if (table_settings.responsive_style) {
+                                        $(elem).addClass(table_settings.responsive_style);
                                     }
+
                                     $(elem).addClass(
                                         `gswpts_${
                                             table_settings.table_style
@@ -122,8 +123,8 @@ if (front_end_data.isProActive) {
                                     JSON.parse(res).table_data.table_settings
                                 );
 
-                                if (table_settings.responsive_table == "true") {
-                                    $(elem).addClass("gswpts_responsive");
+                                if (table_settings.responsive_style) {
+                                    $(elem).addClass(table_settings.responsive_style);
                                 }
 
                                 if (table_settings.table_title == "true") {

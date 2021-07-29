@@ -73,7 +73,8 @@ class ClassSortcode {
         $table = $respond['table']['table'];
 
         $table_settings = $respond['table_settings'];
-        $responsive = isset($table_settings['responsive_table']) && $table_settings['responsive_table'] == 'true' ? 'gswpts_responsive' : null;
+
+        $responsive = isset($table_settings['responsive_style']) && $table_settings['responsive_style'] ? $table_settings['responsive_style'] : null;
         $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_'.$table_settings['table_style'].'' : null;
 
         $output = '<

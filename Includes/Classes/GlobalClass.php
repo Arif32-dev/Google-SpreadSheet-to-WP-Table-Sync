@@ -841,13 +841,15 @@ class GlobalClass {
                 'checked'       => false,
                 'type'          => 'checkbox'
             ],
-            'responsive_table'     => [
-                'feature_title' => __('Resposive Table', 'sheetstowptable'),
-                'feature_desc'  => __('Allow collapsing on mobile and tablet screen. The table will behave as a block on mobile and tablet device rather than boring scrolling', 'sheetstowptable'),
-                'input_name'    => 'responsive',
-                'checked'       => $this->isProActive() ? true : false,
+            'responsive_style'     => [
+                'feature_title' => __('Resposive Style', 'sheetstowptable'),
+                'feature_desc'  => __('Allow the table to collapse or scroll on mobile and tablet screen.', 'sheetstowptable'),
+                'input_name'    => 'responsive_style',
                 'is_pro'        => true,
-                'type'          => 'checkbox'
+                'type'          => 'select',
+                'values'        => $this->responsiveStyle(),
+                'default_text'  => 'Collapsible Table',
+                'default_value' => 'default_style'
             ],
             'rows_per_page'        => [
                 'feature_title' => __('Rows per page', 'sheetstowptable'),
@@ -906,6 +908,30 @@ class GlobalClass {
         $settingsArray = apply_filters('gswpts_display_settings_arr', $settingsArray);
 
         return $settingsArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function responsiveStyle() {
+        $responsiveStyles = [
+            'default_style'  => [
+                'val'   => 'Default Style',
+                'isPro' => false
+            ],
+            'collapse_style' => [
+                'val'   => 'Collapsible Style',
+                'isPro' => true
+            ],
+            'scroll_style'   => [
+                'val'   => 'Scrollable Style',
+                'isPro' => true
+            ]
+        ];
+
+        $responsiveStyles = apply_filters('gswpts_responsive_styles', $responsiveStyles);
+
+        return $responsiveStyles;
     }
 
     /**
@@ -1188,18 +1214,18 @@ class GlobalClass {
                 'setting_desc'    => __("Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
                                         Activate the Pro extension to enable custom CSS option", 'sheetstowptable'),
                 'is_pro'          => true
-            ],
-            'sheet_tab_connection' => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Table Connection', 'sheetstowptable'),
-                'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
-                'is_checked'      => $optionValues['sheet_tab_connection'],
-                'input_name'      => 'sheet_tab_connection',
-                'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
-                                        Each individual table will be shown as like bootstrap tab or accordian design", 'sheetstowptable'),
-                // 'is_pro'          => true,
-                'is_upcoming'     => true
             ]
+            // 'sheet_tab_connection' => [
+            //     'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+            //     'setting_title'   => __('Table Connection', 'sheetstowptable'),
+            //     'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
+            //     'is_checked'      => $optionValues['sheet_tab_connection'],
+            //     'input_name'      => 'sheet_tab_connection',
+            //     'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
+            //                             Each individual table will be shown as like bootstrap tab or accordian design", 'sheetstowptable'),
+            //     // 'is_pro'          => true,
+            //     'is_upcoming'     => true
+            // ]
 
         ];
 

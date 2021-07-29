@@ -131,7 +131,7 @@ jQuery(document).ready(function ($) {
 
             if (
                 $(e.currentTarget).attr("id") == "show_title" ||
-                "responsive" ||
+                "responsive_style" ||
                 "search_table" ||
                 "rows_per_page" ||
                 "sorting" ||

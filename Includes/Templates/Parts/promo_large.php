@@ -27,7 +27,7 @@
 ?>
 
 
-<div class="promo_large" style="opacity: 0">
+<div class="promo_large" style="opacity: 0; transition: all 0.5s ease-in-out;">
     <div class="promo_inner">
 
         <div class="popup-box">

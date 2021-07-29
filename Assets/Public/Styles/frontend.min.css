@@ -3944,6 +3944,7 @@
   max-width: 200px;
   word-wrap: break-word;
   white-space: normal;
+  vertical-align: middle;
   overflow-x: unset;
 }
 @media screen and (max-width: 768px) {
