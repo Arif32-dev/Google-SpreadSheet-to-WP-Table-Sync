@@ -61,7 +61,7 @@
         color: #fff;
     }
 
-    &.gswpts_responsive {
+    &.collapse_style {
         @include sorting-icon;
 
         @include mobile-tablet-table($border-radius);

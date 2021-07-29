@@ -78,13 +78,11 @@ class FilterCallbacks {
      * @return array
      */
     public function displaySettingsArray(array $settingsArray): array{
-        $settingsArray['responsive_table']['is_pro'] = false;
+        $settingsArray['responsive_style']['is_pro'] = false;
         $settingsArray['vertical_scrolling']['is_pro'] = false;
         $settingsArray['cell_format']['is_pro'] = false;
         $settingsArray['table_style']['is_pro'] = false;
-        if (get_option('link_support')) {
-            $settingsArray['redirection_type']['is_pro'] = false;
-        }
+        $settingsArray['redirection_type']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -109,7 +107,7 @@ class FilterCallbacks {
         array $settings,
         array $table_settings
     ): array{
-        $settings['responsive_table'] = $table_settings['responsiveTable'];
+        $settings['responsive_style'] = $table_settings['responsiveStyle'];
         $settings['vertical_scroll'] = $table_settings['verticalScroll'];
         $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
         $settings['cell_format'] = $table_settings['cellFormat'];
@@ -126,7 +124,7 @@ class FilterCallbacks {
     public function scrollHeightArray(array $scrollHeights): array{
 
         $scrollHeights['default'] = [
-            'val'   => 'Default Style',
+            'val'   => 'Default Height',
             'isPro' => true
         ];
 
@@ -277,4 +275,15 @@ class FilterCallbacks {
         return $stylesArray;
     }
 
+    /**
+     * @param  array   $responsiveStyles
+     * @return array
+     */
+    public function responsiveStyle(array $responsiveStyles): array{
+
+        $responsiveStyles['collapse_style']['isPro'] = false;
+        $responsiveStyles['scroll_style']['isPro'] = false;
+
+        return $responsiveStyles;
+    }
 }

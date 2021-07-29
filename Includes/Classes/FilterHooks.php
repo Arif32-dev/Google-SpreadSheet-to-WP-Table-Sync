@@ -24,5 +24,6 @@ class FilterHooks extends FilterCallbacks {
         add_filter('gswpts_table_styles', [$this, 'tableStylesArray'], 10);
         add_filter('gswpts_table_styles', [$this, 'tableStylesArray'], 10);
         add_filter('gswpts_table_styles_path', [$this, 'tableStylesCssFile'], 10);
+        add_filter('gswpts_responsive_styles', [$this, 'responsiveStyle'], 10);
     }
 }
