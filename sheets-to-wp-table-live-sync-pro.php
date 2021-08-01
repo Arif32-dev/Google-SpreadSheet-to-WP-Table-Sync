@@ -18,7 +18,8 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable-pro'));
 
 if (!defined('GSWPTS_PRO_VERSION')) {
-    define('GSWPTS_PRO_VERSION', '2.2.3');
+    // define('GSWPTS_PRO_VERSION', '2.2.3');
+    define('GSWPTS_PRO_VERSION', time());
 }
 
 if (!defined('GSWPTS_PRO_BASE_PATH')) {
