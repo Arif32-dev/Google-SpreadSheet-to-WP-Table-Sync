@@ -122,10 +122,12 @@ class EnqueueFiles {
         $this->tableStylesCss();
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
-            'admin_ajax'    => esc_url(admin_url('admin-ajax.php')),
-            'table_details' => $gswpts->fetch_gswpts_tables(),
-            'isProActive'   => $gswpts->isProActive(),
-            'tableStyles'   => $gswpts->tableStylesArray()
+            'admin_ajax'       => esc_url(admin_url('admin-ajax.php')),
+            'table_details'    => $gswpts->fetch_gswpts_tables(),
+            'isProActive'      => $gswpts->isProActive(),
+            'tableStyles'      => $gswpts->tableStylesArray(),
+            'scrollHeights'    => $gswpts->scrollHeightArray(),
+            'responsiveStyles' => $gswpts->responsiveStyle()
         ]);
     }
 

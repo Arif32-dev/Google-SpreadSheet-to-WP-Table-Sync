@@ -11,6 +11,7 @@ import {
     scrollHeights,
     redirectionValues,
     tableStyles,
+    responsiveStyles,
 } from "./Parts/selectValues";
 
 export default function editFucntion({ attributes, setAttributes }) {
@@ -200,7 +201,7 @@ export default function editFucntion({ attributes, setAttributes }) {
             swapBottomOptions: false,
             allowSorting: true,
             searchBar: true,
-            verticalScroll: "400",
+            verticalScroll: "",
             cellFormat: "wrap",
             redirectionType: "_self",
             tableStyle: "default-style",
@@ -322,8 +323,9 @@ export default function editFucntion({ attributes, setAttributes }) {
         prevSettingObj.searchBar = ajax_table_settings.search_bar == "true" ? true : false;
 
         if (isProPluginActive()) {
-            prevSettingObj.responsiveTable =
-                ajax_table_settings.responsive_table == "true" ? true : false;
+            if (ajax_table_settings.responsive_style) {
+                prevSettingObj.responsiveStyle = ajax_table_settings.responsive_style;
+            }
 
             if (ajax_table_settings.vertical_scroll) {
                 prevSettingObj.verticalScroll = ajax_table_settings.vertical_scroll;
@@ -686,22 +688,33 @@ export default function editFucntion({ attributes, setAttributes }) {
 
                             {isProPluginActive() ? (
                                 <PanelRow>
-                                    <ToggleControl
-                                        label="Resposive table"
-                                        help="Allow collapsing on mobile and tablet screen"
-                                        checked={attributes.table_settings.responsiveTable}
-                                        onChange={() => {
-                                            const prevSettingObj = {
-                                                ...attributes.table_settings,
-                                            };
-                                            prevSettingObj.responsiveTable =
-                                                !prevSettingObj.responsiveTable;
+                                    <div class="responsive_style">
+                                        <h5 class="header">Resposive Style</h5>
+                                        <p>
+                                            Allow the table to collapse or scroll on mobile and
+                                            tablet screen.
+                                        </p>
+                                        <Dropdown
+                                            placeholder="Resposive Style"
+                                            defaultValue={attributes.table_settings.responsiveStyle}
+                                            fluid
+                                            selection
+                                            options={responsiveStyles(
+                                                isProPluginActive(),
+                                                gswpts_gutenberg_block.responsiveStyles
+                                            )}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
 
-                                            saveChanges(attributes.sortcode_id, prevSettingObj);
+                                                prevSettingObj.responsiveStyle = value;
+                                                setAttributes({ table_settings: prevSettingObj });
 
-                                            setAttributes({ table_settings: prevSettingObj });
-                                        }}
-                                    />{" "}
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+                                            }}
+                                        />
+                                    </div>
                                     <br />
                                 </PanelRow>
                             ) : null}
@@ -735,7 +748,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                             {isProPluginActive() ? (
                                 <PanelRow>
                                     <div class="verticall_scrolling">
-                                        <h5 class="header">Vertical Scroll/Sticky Header</h5>
+                                        <h5 class="header">Table Height</h5>
                                         <p>
                                             Choose the height of the table to scroll vertically.
                                             Activating this feature will allow the table to behave
@@ -746,7 +759,10 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             defaultValue={attributes.table_settings.verticalScroll}
                                             fluid
                                             selection
-                                            options={scrollHeights(isProPluginActive())}
+                                            options={scrollHeights(
+                                                isProPluginActive(),
+                                                gswpts_gutenberg_block.scrollHeights
+                                            )}
                                             onChange={(e, { value }) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,

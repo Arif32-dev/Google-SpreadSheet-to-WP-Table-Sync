@@ -295,6 +295,8 @@ export default class Global_Table_Config {
                         }
                     });
                 }
+
+                // this.hideEmptyCell();
             }
         }
     }
@@ -313,5 +315,17 @@ export default class Global_Table_Config {
         } else {
             return "Unknown";
         }
+    }
+
+    hideEmptyCell() {
+        let tableCells = document.querySelectorAll(".gswpts_tables_container td");
+        if (!tableCells) return;
+
+        tableCells.forEach((element) => {
+            if (element.innerText == "") {
+                // element.style.display = "none";
+                // element.innerText = "No data";
+            }
+        });
     }
 }

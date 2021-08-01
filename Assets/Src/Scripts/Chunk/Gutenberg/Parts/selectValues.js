@@ -15,20 +15,14 @@ export function rowsPerPage(isProActive) {
     }
     return values;
 }
-export function scrollHeights(isProActive) {
+export function scrollHeights(isProActive, heights) {
     const values = [];
     if (isProActive) {
-        values.push(
-            { key: "200", value: "200", text: "200px" },
-            { key: "400", value: "400", text: "400px" },
-            { key: "500", value: "500", text: "500px" },
-            { key: "600", value: "600", text: "600px" },
-            { key: "700", value: "700", text: "700px" },
-            { key: "800", value: "800", text: "800px" },
-            { key: "900", value: "900", text: "900px" },
-            { key: "1000", value: "1000", text: "1000px" },
-            { key: "default", value: "default", text: "Default Style" }
-        );
+        if (heights) {
+            for (const height in heights) {
+                values.push({ key: height, value: height, text: heights[height]["val"] });
+            }
+        }
     }
     return values;
 }
@@ -58,6 +52,17 @@ export function tableStyles(isProActive, styles) {
         if (styles) {
             for (const style in styles) {
                 values.push({ key: style, value: style, text: styles[style]["label"] });
+            }
+        }
+    }
+    return values;
+}
+export function responsiveStyles(isProActive, styles) {
+    const values = [];
+    if (isProActive) {
+        if (styles) {
+            for (const style in styles) {
+                values.push({ key: style, value: style, text: styles[style]["val"] });
             }
         }
     }

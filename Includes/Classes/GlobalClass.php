@@ -154,7 +154,7 @@ class GlobalClass {
                     if ($cell_value) {
                         $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
                     } else {
-                        $table .= '<td class="'.$this->embedCellFormatClass().'"></td>';
+                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'"></td>';
                     }
                 }
                 $table .= '</tr>';
@@ -179,7 +179,7 @@ class GlobalClass {
      */
     public function addTableHeaderToCell($headerData) {
         if ($headerData) {
-            return $headerData.'&#x0003A';
+            return $headerData.'&#x0003A &nbsp;';
         } else {
             return null;
         }

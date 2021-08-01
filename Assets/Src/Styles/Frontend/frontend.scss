@@ -34,11 +34,6 @@
             overflow-wrap: unset;
             white-space: nowrap;
             overflow-x: unset;
-            @media screen and (max-width: 768px) {
-                & {
-                    white-space: normal;
-                }
-            }
         }
 
         .wrap_style {
@@ -135,7 +130,7 @@
             }
             .pagination.menu {
                 padding: 0 !important;
-                font-size: 14px !important;
+                font-size: 14px;
                 background: transparent !important;
                 display: flex;
                 justify-content: center;
@@ -213,6 +208,14 @@
             #create_tables_paginate {
                 margin: 0 !important;
                 margin-top: 8px !important;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        &.collapse_style {
+            table .expanded_style {
+                white-space: normal;
             }
         }
     }

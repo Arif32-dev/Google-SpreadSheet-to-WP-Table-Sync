@@ -46,7 +46,7 @@ if (front_end_data.isProActive) {
                                         `gswpts_${
                                             table_settings.table_style
                                                 ? table_settings.table_style
-                                                : null
+                                                : "default-style"
                                         }`
                                     );
                                 }

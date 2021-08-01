@@ -8,7 +8,9 @@ jQuery(document).ready(function ($) {
             this.sheet_url = "";
             this.fileInput = $("#file_input");
 
-            this.events();
+            if (this.get_slug_parameter("subpage") == "create-table") {
+                this.events();
+            }
         }
 
         events() {
