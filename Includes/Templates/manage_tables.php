@@ -1,3 +1,6 @@
+<?php if (isset($_GET['subpage']) && sanitize_text_field($_GET['subpage']) == 'create-table') {?>
+<?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/create_tables.php')?>
+<?php } else {?>
 <div class="gswpts_manage_table_container">
 
 
@@ -30,10 +33,6 @@
                         <?php _e('Delete Selected', 'sheetstowptable');?>
                     </span>
                 </button>
-                <a class="positive ui button mr-2 float-right" style="font-size: 1.03rem;"
-                    href="<?php echo esc_url(admin_url('admin.php?page=gswpts-create-tables')); ?>">
-                    <?php _e('Create Table', 'sheetstowptable');?>
-                </a>
             </div>
         </div>
 
@@ -53,9 +52,41 @@
 
             </div>
 
+            <!-- Start create table button -->
+            <a class="positive ui button mr-2 float-left" style="font-size: 1.03rem; position: relative;top: -55px;"
+                href="<?php echo esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table')); ?>">
+                <?php _e('Create Table', 'sheetstowptable');?>
+            </a>
+            <!-- End of create table button -->
+
+            <!-- Start popup modal -->
+            <div class="ui mini modal semntic-popup-modal" style="height: 180px;
+                                                                position: absolute;
+                                                                top: 40%;
+                                                                left: 50%;
+                                                                margin: -50px 0 0 -190px;">
+                <div class="header">
+                    Delete Your Table
+                </div>
+                <div class="content">
+                    <p>Are you sure you want to delete your this table ?</p>
+                </div>
+                <div class="actions">
+                    <div class="ui negative button cancel-btn">
+                        No
+                    </div>
+                    <div class="ui positive button yes-btn">
+                        Yes
+                    </div>
+                </div>
+            </div>
+
+            <!-- End of popup modal-->
+
         </div>
 
     </div>
 
 
 </div>
+<?php }?>

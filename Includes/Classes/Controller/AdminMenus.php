@@ -28,14 +28,6 @@ class AdminMenus {
         );
         add_submenu_page(
             'gswpts-dashboard',
-            __('Create Table', 'sheetstowptable'),
-            __('Create Table', 'sheetstowptable'),
-            'manage_options',
-            'gswpts-create-tables',
-            [get_called_class(), 'gswpts_create_tables']
-        );
-        add_submenu_page(
-            'gswpts-dashboard',
             __('General Settings', 'sheetstowptable'),
             __('General Settings', 'sheetstowptable'),
             'manage_options',
@@ -50,18 +42,18 @@ class AdminMenus {
             'gswpts-documentation',
             [get_called_class(), 'documentationPage']
         );
-    }
-
-    public static function gswpts_dashboard() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/dashboard.php', true);
+        add_submenu_page(
+            'gswpts-dashboard',
+            __('Recommended Plugins', 'sheetstowptable'),
+            __('Recommended Plugins', 'sheetstowptable'),
+            'manage_options',
+            'gswpts-recommendation',
+            [get_called_class(), 'pluginRecommendationPage']
+        );
     }
 
     public static function gswpts_tables() {
         load_template(GSWPTS_BASE_PATH.'Includes/Templates/manage_tables.php', true);
-    }
-
-    public static function gswpts_create_tables() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/create_tables.php', true);
     }
 
     public static function general_settings() {
@@ -70,5 +62,9 @@ class AdminMenus {
 
     public static function documentationPage() {
         load_template(GSWPTS_BASE_PATH.'Includes/Templates/documentation_page.php', true);
+    }
+
+    public static function pluginRecommendationPage() {
+        load_template(GSWPTS_BASE_PATH.'Includes/Templates/recommendation_page.php', true);
     }
 }

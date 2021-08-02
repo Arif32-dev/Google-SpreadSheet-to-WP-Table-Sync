@@ -61,7 +61,10 @@ class SettingsApi {
         }
 
         foreach ($settingsArray as $setting) {
-            load_template($setting['template_path'], false, $setting);
+
+            if (isset($setting['template_path'])) {
+                load_template($setting['template_path'], false, $setting);
+            }
         }
 
     }

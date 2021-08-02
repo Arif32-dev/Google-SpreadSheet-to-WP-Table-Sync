@@ -77,7 +77,7 @@ class GlobalClass {
 
                 $tableCache = false;
 
-                if (isset($tableSettings['table_cache']) && $tableSettings['table_cache']) {
+                if (isset($tableSettings['table_cache']) && $tableSettings['table_cache'] == 'true') {
                     $tableCache = true;
                 }
 
@@ -116,16 +116,21 @@ class GlobalClass {
         fwrite($stream, $sheet_response);
         rewind($stream);
 
+        $tableHeadValues = [];
+
         while (!feof($stream)) {
 
-            if ($i == 0) {
+            if ($i <= 0) {
                 $table .= '<thead><tr>';
+
                 foreach (fgetcsv($stream) as $cell_value) {
+
+                    array_push($tableHeadValues, $cell_value);
 
                     if ($cell_value) {
                         $table .= '<th class="'.$this->embedCellFormatClass().'">'.stripslashes(esc_html__($cell_value, 'sheetstowptable')).'</th>';
                     } else {
-                        $table .= '<th class="'.$this->embedCellFormatClass().'">&nbsp;</th>';
+                        $table .= '<th class="'.$this->embedCellFormatClass().'"></th>';
                     }
                 }
                 $table .= '</tr></thead>';
@@ -143,11 +148,13 @@ class GlobalClass {
                 }
 
                 $table .= '<tr>';
-                foreach (fgetcsv($stream) as $cell_value) {
+
+                foreach (fgetcsv($stream) as $key => $cell_value) {
+
                     if ($cell_value) {
-                        $table .= '<td class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
+                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
                     } else {
-                        $table .= '<td class="'.$this->embedCellFormatClass().'">&nbsp;</td>';
+                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'"></td>';
                     }
                 }
                 $table .= '</tr>';
@@ -164,6 +171,18 @@ class GlobalClass {
             'count' => $i
         ];
         return $response;
+    }
+
+    /**
+     * @param  $headerData
+     * @return mixed
+     */
+    public function addTableHeaderToCell($headerData) {
+        if ($headerData) {
+            return $headerData.'&#x0003A &nbsp;';
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -212,7 +231,7 @@ class GlobalClass {
      */
     public function checkLinkExists(string $string): string {
 
-        if (!get_option('link_support') || !$this->isProActive()) {
+        if (!$this->isProActive()) {
             return $string;
         }
 
@@ -792,45 +811,34 @@ class GlobalClass {
                 'feature_desc'  => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheetstowptable'),
                 'input_name'    => 'show_title',
                 'checked'       => false,
-                'type'          => 'checkbox'
-            ],
-            'rows_per_page'        => [
-                'feature_title' => __('Default rows per page', 'sheetstowptable'),
-                'feature_desc'  => __('This will show rows per page in the frontend', 'sheetstowptable'),
-                'input_name'    => 'rows_per_page',
-                'type'          => 'select',
-                'values'        => $this->rowsPerPage(),
-                'default_text'  => 'Rows Per Page',
-                'default_value' => 10
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
             ],
             'show_info_block'      => [
                 'feature_title' => __('Show info block', 'sheetstowptable'),
                 'feature_desc'  => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
                 'input_name'    => 'info_block',
                 'checked'       => true,
-                'type'          => 'checkbox'
-            ],
-            'responsive_table'     => [
-                'feature_title' => __('Resposive Table', 'sheetstowptable'),
-                'feature_desc'  => __('Allow collapsing on mobile and tablet screen. The table will behave as a block on mobile and tablet device rather than boring scrolling', 'sheetstowptable'),
-                'input_name'    => 'responsive',
-                'checked'       => $this->isProActive() ? true : false,
-                'is_pro'        => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'show_x_entries'       => [
                 'feature_title' => __('Show X entries', 'sheetstowptable'),
                 'feature_desc'  => __('<i>Show X entries</i> per page dropdown', 'sheetstowptable'),
                 'input_name'    => 'show_entries',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'swap_filters'         => [
                 'feature_title' => __('Swap Filters', 'sheetstowptable'),
                 'feature_desc'  => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheetstowptable'),
                 'input_name'    => 'swap_filter_inputs',
                 'checked'       => false,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
 
             ],
             'swap_bottom_elements' => [
@@ -838,10 +846,35 @@ class GlobalClass {
                 'feature_desc'  => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheetstowptable'),
                 'input_name'    => 'swap_bottom_options',
                 'checked'       => false,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
+            ],
+            'responsive_style'     => [
+                'feature_title' => __('Resposive Style', 'sheetstowptable'),
+                'feature_desc'  => __('Allow the table to collapse or scroll on mobile and tablet screen.', 'sheetstowptable'),
+                'input_name'    => 'responsive_style',
+                'is_pro'        => true,
+                'type'          => 'select',
+                'values'        => $this->responsiveStyle(),
+                'default_text'  => 'Collapsible Table',
+                'default_value' => 'default_style',
+                'show_tooltip'  => true
+
+            ],
+            'rows_per_page'        => [
+                'feature_title' => __('Rows per page', 'sheetstowptable'),
+                'feature_desc'  => __('This will show rows per page. The feature will allow you how many rows you want to show to your user by default.', 'sheetstowptable'),
+                'input_name'    => 'rows_per_page',
+                'type'          => 'select',
+                'values'        => $this->rowsPerPage(),
+                'default_text'  => 'Rows Per Page',
+                'default_value' => 10,
+                'show_tooltip'  => true
+
             ],
             'vertical_scrolling'   => [
-                'feature_title' => __('Vertical Scroll/Sticky Header', 'sheetstowptable'),
+                'feature_title' => __('Table Height', 'sheetstowptable'),
                 'feature_desc'  => __('Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header', 'sheetstowptable'),
                 'input_name'    => 'vertical_scrolling',
                 'checked'       => false,
@@ -849,10 +882,11 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->scrollHeightArray(),
                 'default_text'  => 'Choose Height',
-                'default_value' => $this->isProActive() ? 'default' : null
+                'default_value' => $this->isProActive() ? 'default' : null,
+                'show_tooltip'  => false
             ],
             'cell_format'          => [
-                'feature_title' => __('Format Table Cell', 'sheetstowptable'),
+                'feature_title' => __('Format Cell', 'sheetstowptable'),
                 'feature_desc'  => __('Format the table cell as like google sheet cell formatting. Format your cell as Wrap OR Expanded style', 'sheetstowptable'),
                 'input_name'    => 'cell_format',
                 'checked'       => false,
@@ -860,7 +894,21 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->cellFormattingArray(),
                 'default_text'  => 'Cell Format',
-                'default_value' => $this->isProActive() ? 'expand' : null
+                'default_value' => $this->isProActive() ? 'expand' : null,
+                'show_tooltip'  => true
+
+            ],
+            'redirection_type'     => [
+                'feature_title' => __('Link Type', 'sheetstowptable'),
+                'feature_desc'  => __('Choose the redirection type of all the links in this table.', 'sheetstowptable'),
+                'input_name'    => 'redirection_type',
+                'is_pro'        => true,
+                'type'          => 'select',
+                'values'        => $this->redirectionTypeArray(),
+                'default_text'  => 'Redirection Type',
+                'default_value' => $this->isProActive() ? '_self' : null,
+                'show_tooltip'  => true
+
             ],
             'table_style'          => [
                 'feature_title' => __('Table Style', 'sheetstowptable'),
@@ -869,28 +917,39 @@ class GlobalClass {
                 'checked'       => false,
                 'is_pro'        => true,
                 'type'          => 'custom-type-1',
-                'default_text'  => 'Choose Style'
+                'default_text'  => 'Choose Style',
+                'show_tooltip'  => false
+
             ]
         ];
-
-        if (get_option('link_support')) {
-            $settingsArray['redirection_type'] = [
-                'feature_title' => __('Link Redirection Type', 'sheetstowptable'),
-                'feature_desc'  => __('Choose the redirection type of all the links in this table <br/>
-                                        <b>Blank Type</b> = Opens the links in a new window or tab <br/>
-                                        <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable'),
-                'input_name'    => 'redirection_type',
-                'is_pro'        => true,
-                'type'          => 'select',
-                'values'        => $this->redirectionTypeArray(),
-                'default_text'  => 'Redirection Type',
-                'default_value' => $this->isProActive() ? '_self' : null
-            ];
-        }
 
         $settingsArray = apply_filters('gswpts_display_settings_arr', $settingsArray);
 
         return $settingsArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function responsiveStyle() {
+        $responsiveStyles = [
+            'default_style'  => [
+                'val'   => 'Default Style',
+                'isPro' => false
+            ],
+            'collapse_style' => [
+                'val'   => 'Collapsible Style',
+                'isPro' => true
+            ],
+            'scroll_style'   => [
+                'val'   => 'Scrollable Style',
+                'isPro' => true
+            ]
+        ];
+
+        $responsiveStyles = apply_filters('gswpts_responsive_styles', $responsiveStyles);
+
+        return $responsiveStyles;
     }
 
     /**
@@ -953,28 +1012,22 @@ class GlobalClass {
     public function sortAndFilterSettingsArray(): array
     {
         $settingsArray = [
-            'allow_sorting'    => [
+            'allow_sorting' => [
                 'feature_title' => __('Allow Sorting', 'sheetstowptable'),
                 'feature_desc'  => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
                 'input_name'    => 'sorting',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
             ],
-            'search_bar'       => [
+            'search_bar'    => [
                 'feature_title' => __('Search Bar', 'sheetstowptable'),
                 'feature_desc'  => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
                 'input_name'    => 'search_table',
                 'checked'       => true,
-                'type'          => 'checkbox'
-            ],
-            'rows_higlighting' => [
-                'feature_title' => __('Rows Highlight', 'sheetstowptable'),
-                'feature_desc'  => __('Enable this feature to show highlighted rows of the table in the frontend selected by admin/user', 'sheetstowptable'),
-                'input_name'    => 'rows_highlight',
-                'checked'       => false,
-                // 'is_pro'        => true,
-                'is_upcoming'   => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ]
         ];
 
@@ -1048,16 +1101,20 @@ class GlobalClass {
                 'is_pro'        => true,
                 'type'          => 'multi-select',
                 'values'        => $this->tableExportValues(),
-                'default_text'  => 'Choose Type'
+                'default_text'  => 'Choose Type',
+                'show_tooltip'  => true
+
             ],
             'table_cache'  => [
                 'feature_title' => __('Table Caching', 'sheetstowptable'),
                 'feature_desc'  => __('Enabling this feature would cache the Google sheet data & therefore the table will load faster than before.
                                         Also it will load the updated data when there is a change in your Google sheet.', 'sheetstowptable'),
                 'input_name'    => 'table_cache',
-                'checked'       => $this->isProActive() ? true : false,
+                'checked'       => false,
                 'is_pro'        => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ]
         ];
 
@@ -1149,6 +1206,7 @@ class GlobalClass {
      */
     public function generalSettingsArray(): array{
         $optionValues = $this->getOptionValues();
+
         $settingsArray = [
             'asynchronous_loading' => [
                 'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
@@ -1160,17 +1218,6 @@ class GlobalClass {
                                                 This will help your website load fast.
                                                 If you don't want to enable this feature than the table will load with the reloading of browser every time.", 'sheetstowptable'),
                 'is_pro'          => false
-
-            ],
-            'link_support'         => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Link Support', 'sheetstowptable'),
-                'setting_tooltip' => __('Enable this feature for supporting links from google sheet.', 'sheetstowptable'),
-                'is_checked'      => $optionValues['link_support'],
-                'input_name'      => 'link_support',
-                'setting_desc'    => __("Enable this feauture to import URL/Links from google sheet. All the URL's/Links will be shown as link in table instead of text.
-                                        You can change the link behavior of how to redirect your user when they click on those links", 'sheetstowptable'),
-                'is_pro'          => true
 
             ],
             'multiple_sheet_tab'   => [
@@ -1192,18 +1239,18 @@ class GlobalClass {
                 'setting_desc'    => __("Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
                                         Activate the Pro extension to enable custom CSS option", 'sheetstowptable'),
                 'is_pro'          => true
-            ],
-            'sheet_tab_connection' => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Table Connection', 'sheetstowptable'),
-                'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
-                'is_checked'      => $optionValues['sheet_tab_connection'],
-                'input_name'      => 'sheet_tab_connection',
-                'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
-                                        Each individual table will be shown as like bootstrap tab or accordian design", 'sheetstowptable'),
-                // 'is_pro'          => true,
-                'is_upcoming'     => true
             ]
+            // 'sheet_tab_connection' => [
+            //     'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+            //     'setting_title'   => __('Table Connection', 'sheetstowptable'),
+            //     'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
+            //     'is_checked'      => $optionValues['sheet_tab_connection'],
+            //     'input_name'      => 'sheet_tab_connection',
+            //     'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
+            //                             Each individual table will be shown as like bootstrap tab or accordian design", 'sheetstowptable'),
+            //     // 'is_pro'          => true,
+            //     'is_upcoming'     => true
+            // ]
 
         ];
 
@@ -1239,7 +1286,6 @@ class GlobalClass {
         $generalSettingsOptions = [
             'asynchronous_loading',
             'multiple_sheet_tab',
-            'link_support',
             'custom_css',
             'css_code_value',
             'sheet_tab_connection'

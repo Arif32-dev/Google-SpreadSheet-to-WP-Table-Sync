@@ -73,13 +73,13 @@ class ClassSortcode {
         $table = $respond['table']['table'];
 
         $table_settings = $respond['table_settings'];
-        $responsive = isset($table_settings['responsive_table']) && $table_settings['responsive_table'] == 'true' ? 'gswpts_responsive' : null;
+
+        $responsive = isset($table_settings['responsive_style']) && $table_settings['responsive_style'] ? $table_settings['responsive_style'] : null;
         $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_'.$table_settings['table_style'].'' : null;
 
-        $output = '<div
-                                    class="gswpts_tables_container '.esc_attr($responsive).' '.esc_attr($tableStyle).'" id="'.esc_attr($atts['id']).'"
-                                    data-table_name="'.esc_attr($respond['table_name']).'"
-                                    data-table_settings='.json_encode($table_settings).'>';
+        $output = '<div class="gswpts_tables_container '.esc_attr($responsive).' '.esc_attr($tableStyle).'" id="'.esc_attr($atts['id']).'"
+                        data-table_name="'.esc_attr($respond['table_name']).'"
+                        data-table_settings='.json_encode($table_settings).'>';
 
         $output .= $table_name;
 
@@ -88,6 +88,7 @@ class ClassSortcode {
         $output .= $table;
 
         $output .= '</div>';
+        $output .= '<br/>';
         $output .= $this->editTableLink(intval($atts['id']));
         $output .= '</div>';
         $output .= '<br><br>';
@@ -101,7 +102,7 @@ class ClassSortcode {
     public function editTableLink(int $tableID) {
 
         if (current_user_can('manage_options')) {
-            return '<br><a href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.$tableID.'')).'" target="_blank">Customize Table</a>';
+            return '<a style="position: relative; top: 20px;" href="'.esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id='.$tableID.'')).'" target="_blank">Customize Table</a>';
         } else {
             return null;
         }

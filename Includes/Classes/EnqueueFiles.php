@@ -20,10 +20,9 @@ class EnqueueFiles {
         $get_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : null;
 
         if (($get_page == 'gswpts-dashboard') ||
-            ($get_page == 'gswpts-tables') ||
-            ($get_page == 'gswpts-create-tables') ||
             ($get_page == 'gswpts-general-settings') ||
             ($get_page == 'gswpts-documentation') ||
+            ($get_page == 'gswpts-recommendation') ||
             ($get_page == 'sheets_to_wp_table_live_sync_pro_settings') ||
             ($current_screen->is_block_editor())
         ) {
@@ -52,8 +51,16 @@ class EnqueueFiles {
                 'admin_ajax'  => esc_url(admin_url('admin-ajax.php')),
                 'iconsURL'    => $iconsURLs,
                 'isProActive' => $gswpts->isProActive(),
-                'tableStyles' => $gswpts->tableStylesArray()
+                'tableStyles' => $gswpts->tableStylesArray(),
+                'renameIcon'  => GSWPTS_BASE_URL.'Assets/Public/Icons/rename.svg'
             ]);
+        }
+
+        if ($get_page == 'gswpts-general-settings') {
+            wp_enqueue_script('GSWPTS-cssCodeEditor', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/ace.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-modeCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/mode-css.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-workerCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/worker-css.js', [], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-vibrantCSS', GSWPTS_BASE_URL.'Assets/Public/Common/Editor/vibrant-ink.js', [], GSWPTS_VERSION, true);
         }
     }
 
@@ -115,10 +122,12 @@ class EnqueueFiles {
         $this->tableStylesCss();
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
-            'admin_ajax'    => esc_url(admin_url('admin-ajax.php')),
-            'table_details' => $gswpts->fetch_gswpts_tables(),
-            'isProActive'   => $gswpts->isProActive(),
-            'tableStyles'   => $gswpts->tableStylesArray()
+            'admin_ajax'       => esc_url(admin_url('admin-ajax.php')),
+            'table_details'    => $gswpts->fetch_gswpts_tables(),
+            'isProActive'      => $gswpts->isProActive(),
+            'tableStyles'      => $gswpts->tableStylesArray(),
+            'scrollHeights'    => $gswpts->scrollHeightArray(),
+            'responsiveStyles' => $gswpts->responsiveStyle()
         ]);
     }
 
