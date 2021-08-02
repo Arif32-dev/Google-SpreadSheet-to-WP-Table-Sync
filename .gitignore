@@ -5,6 +5,6 @@
 /package-lock.json
 /webpack.config.js
 /webpack.gutenberg.js
-**/Src
+/Assets/Src
 *.map
 gutenberg.min.js.LICENSE.txt
