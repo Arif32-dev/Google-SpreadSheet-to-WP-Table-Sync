@@ -1,1 +1,10 @@
 /node_modules/
+/composer.json
+/composer.lock
+/package.json
+/package-lock.json
+/webpack.config.js
+/webpack.gutenberg.js
+**/Src
+*.map
+gutenberg.min.js.LICENSE.txt
