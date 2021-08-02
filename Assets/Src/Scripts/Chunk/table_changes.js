@@ -6,6 +6,7 @@ jQuery(document).ready(function ($) {
             super($);
             this.promo_close_btn = $(".promo_close_btn");
             this.pro_feature_input = $(".pro_feature_input");
+            this.proInputSelect = $(".pro_input_select");
             this.chooseStyle = $(".chooseStyle").parents(".card");
             this.tableStyleActionBtn = $(".styleModal .svg_icons, .styleModal .actions > .button");
             this.tableStylesInput = $(".styleModal .body input");
@@ -30,6 +31,11 @@ jQuery(document).ready(function ($) {
             this.pro_feature_input.on("click", (e) => {
                 this.pro_feature_popup(e);
             });
+
+            this.proInputSelect.on("click", (e) => {
+                this.revertBacktoInitialValue(e);
+            });
+
             this.promo_close_btn.on("click", (e) => {
                 this.close_promo_popup(e);
             });
@@ -252,6 +258,22 @@ jQuery(document).ready(function ($) {
             let target = $(e.currentTarget);
             let promo = target.parents(".card").find(".pro_feature_promo");
             promo.removeClass("active");
+        }
+
+        revertBacktoInitialValue(e) {
+            let target = $(e.currentTarget);
+            let parentTarget = target.parents(".selection.dropdown");
+            let previousValue = parentTarget.find("input").val();
+            let defaultTextValue = parentTarget.find(".text").text();
+            setTimeout(() => {
+                if (previousValue) {
+                    parentTarget.dropdown("set selected", previousValue);
+                } else {
+                    parentTarget.find("input").val("");
+                    parentTarget.find(".text").addClass("default").html(defaultTextValue);
+                    parentTarget.dropdown();
+                }
+            }, 100);
         }
     }
 

@@ -642,6 +642,8 @@
 
                         img {
                             max-width: 500px;
+                            min-width: 350px;
+                            width: 100%;
                         }
                         @media screen and (max-width: 600px) {
                             left: -48px;

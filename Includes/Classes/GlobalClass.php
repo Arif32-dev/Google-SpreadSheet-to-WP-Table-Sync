@@ -811,35 +811,44 @@ class GlobalClass {
                 'feature_desc'  => __('Enable this to show the table title in <i>h3</i> tag above the table in your website front-end', 'sheetstowptable'),
                 'input_name'    => 'show_title',
                 'checked'       => false,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
             ],
             'show_info_block'      => [
                 'feature_title' => __('Show info block', 'sheetstowptable'),
                 'feature_desc'  => __('Show <i>Showing X to Y of Z entries</i>block below the table', 'sheetstowptable'),
                 'input_name'    => 'info_block',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'show_x_entries'       => [
                 'feature_title' => __('Show X entries', 'sheetstowptable'),
                 'feature_desc'  => __('<i>Show X entries</i> per page dropdown', 'sheetstowptable'),
                 'input_name'    => 'show_entries',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'swap_filters'         => [
                 'feature_title' => __('Swap Filters', 'sheetstowptable'),
                 'feature_desc'  => __('Swap the places of <i> X entries</i> dropdown & search filter input', 'sheetstowptable'),
                 'input_name'    => 'swap_filter_inputs',
                 'checked'       => false,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'swap_bottom_elements' => [
                 'feature_title' => __('Swap Bottom Elements', 'sheetstowptable'),
                 'feature_desc'  => __('Swap the places of <i>Showing X to Y of Z entries</i> with table pagination filter', 'sheetstowptable'),
                 'input_name'    => 'swap_bottom_options',
                 'checked'       => false,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ],
             'responsive_style'     => [
                 'feature_title' => __('Resposive Style', 'sheetstowptable'),
@@ -849,7 +858,9 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->responsiveStyle(),
                 'default_text'  => 'Collapsible Table',
-                'default_value' => 'default_style'
+                'default_value' => 'default_style',
+                'show_tooltip'  => true
+
             ],
             'rows_per_page'        => [
                 'feature_title' => __('Rows per page', 'sheetstowptable'),
@@ -858,7 +869,9 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->rowsPerPage(),
                 'default_text'  => 'Rows Per Page',
-                'default_value' => 10
+                'default_value' => 10,
+                'show_tooltip'  => true
+
             ],
             'vertical_scrolling'   => [
                 'feature_title' => __('Table Height', 'sheetstowptable'),
@@ -869,7 +882,8 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->scrollHeightArray(),
                 'default_text'  => 'Choose Height',
-                'default_value' => $this->isProActive() ? 'default' : null
+                'default_value' => $this->isProActive() ? 'default' : null,
+                'show_tooltip'  => false
             ],
             'cell_format'          => [
                 'feature_title' => __('Format Cell', 'sheetstowptable'),
@@ -880,19 +894,21 @@ class GlobalClass {
                 'type'          => 'select',
                 'values'        => $this->cellFormattingArray(),
                 'default_text'  => 'Cell Format',
-                'default_value' => $this->isProActive() ? 'expand' : null
+                'default_value' => $this->isProActive() ? 'expand' : null,
+                'show_tooltip'  => true
+
             ],
             'redirection_type'     => [
                 'feature_title' => __('Link Type', 'sheetstowptable'),
-                'feature_desc'  => __('Choose the redirection type of all the links in this table <br/>
-                                        <b>Blank Type</b> = Opens the links in a new window or tab <br/>
-                                        <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable'),
+                'feature_desc'  => __('Choose the redirection type of all the links in this table.', 'sheetstowptable'),
                 'input_name'    => 'redirection_type',
                 'is_pro'        => true,
                 'type'          => 'select',
                 'values'        => $this->redirectionTypeArray(),
                 'default_text'  => 'Redirection Type',
-                'default_value' => $this->isProActive() ? '_self' : null
+                'default_value' => $this->isProActive() ? '_self' : null,
+                'show_tooltip'  => true
+
             ],
             'table_style'          => [
                 'feature_title' => __('Table Style', 'sheetstowptable'),
@@ -901,7 +917,9 @@ class GlobalClass {
                 'checked'       => false,
                 'is_pro'        => true,
                 'type'          => 'custom-type-1',
-                'default_text'  => 'Choose Style'
+                'default_text'  => 'Choose Style',
+                'show_tooltip'  => false
+
             ]
         ];
 
@@ -999,14 +1017,17 @@ class GlobalClass {
                 'feature_desc'  => __('Enable this feature to sort table data for frontend.', 'sheetstowptable'),
                 'input_name'    => 'sorting',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
             ],
             'search_bar'    => [
                 'feature_title' => __('Search Bar', 'sheetstowptable'),
                 'feature_desc'  => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable'),
                 'input_name'    => 'search_table',
                 'checked'       => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ]
         ];
 
@@ -1080,7 +1101,9 @@ class GlobalClass {
                 'is_pro'        => true,
                 'type'          => 'multi-select',
                 'values'        => $this->tableExportValues(),
-                'default_text'  => 'Choose Type'
+                'default_text'  => 'Choose Type',
+                'show_tooltip'  => true
+
             ],
             'table_cache'  => [
                 'feature_title' => __('Table Caching', 'sheetstowptable'),
@@ -1089,7 +1112,9 @@ class GlobalClass {
                 'input_name'    => 'table_cache',
                 'checked'       => false,
                 'is_pro'        => true,
-                'type'          => 'checkbox'
+                'type'          => 'checkbox',
+                'show_tooltip'  => true
+
             ]
         ];
 

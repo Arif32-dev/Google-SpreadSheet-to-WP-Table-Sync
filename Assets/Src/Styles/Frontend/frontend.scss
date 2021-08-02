@@ -4,6 +4,7 @@
 
 .gswpts_tables_container {
     @include mixin.button_style;
+    @include mixin.input_style;
     @include mixin.datatable_semantic;
     @include mixin.loader_style;
     margin: 30px 0;

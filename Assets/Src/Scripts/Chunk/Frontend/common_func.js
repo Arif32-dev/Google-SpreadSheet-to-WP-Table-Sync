@@ -296,7 +296,7 @@ export default class Global_Table_Config {
                     });
                 }
 
-                // this.hideEmptyCell();
+                this.hideEmptyCell();
             }
         }
     }
@@ -324,7 +324,7 @@ export default class Global_Table_Config {
         tableCells.forEach((element) => {
             if (element.innerText == "") {
                 // element.style.display = "none";
-                // element.innerText = "No data";
+                element.innerText = "No data";
             }
         });
     }

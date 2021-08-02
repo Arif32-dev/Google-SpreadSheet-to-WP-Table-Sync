@@ -20,7 +20,7 @@
                         </div>
                     </span>
                     <div class="ui toggle checkbox">
-                        <input <?php echo $checked ? 'checked' : '' ?> type="checkbox"
+                        <input                               <?php echo $checked ? 'checked' : '' ?> type="checkbox"
                             class="<?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'pro_feature_input' : '' ?>"
                             name="<?php echo esc_attr($input_name); ?>" id="<?php echo esc_attr($input_name); ?>">
                         <label for="<?php echo esc_attr($input_name); ?>"></label>
@@ -48,6 +48,11 @@
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
+
+                                <?php if ($show_tooltip) {?>
+                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                    height="200" alt="<?php echo esc_attr($input_name) ?>">
+                                <?php }?>
                             </span>
                         </div>
                     </span>
@@ -75,7 +80,7 @@
 <?php if ($type === 'multi-select') {?>
 <div class="">
     <div class="ui cards">
-        <div class="card">
+        <div class="card" style="height: unset; min-height: 60px; max-height: 110px;">
             <div class="content">
 
                 <div class="card-top-header">
@@ -87,6 +92,8 @@
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
+                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                    height="200" alt="<?php echo esc_attr($input_name) ?>">
                             </span>
                         </div>
                     </span>
