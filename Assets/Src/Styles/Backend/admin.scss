@@ -1,0 +1,32 @@
+@import "./Parts/loader";
+@import "./Parts/variable";
+@import "./Parts/dashboard";
+@import "./Parts/manage_table";
+@import "./Parts/create_table";
+@import "./Parts/general_settings";
+@import "./Parts/promo_large";
+@import "./layout.scss";
+body {
+    background-color: #f1f1f1 !important;
+    [contenteditable]:focus {
+        outline: 2px solid $link-hover-color;
+    }
+    .child_container {
+        width: 100%;
+        padding: 20px;
+    }
+    @media screen and (min-width: 1200px) {
+        .child_container {
+            width: 90%;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1550px;
+        }
+    }
+}
+#toplevel_page_gswpts-dashboard > ul > li:nth-child(6) > a {
+    color: #ff3b00 !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    letter-spacing: 1.2px !important;
+}
