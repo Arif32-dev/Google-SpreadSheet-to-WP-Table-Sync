@@ -18,6 +18,7 @@
         tbody tr td {
             padding-left: 50%;
             position: relative;
+            word-break: break-all;
 
             &::before {
                 content: attr(data-content);
