@@ -235,7 +235,8 @@ class GlobalClass {
             return $string;
         }
 
-        $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        // $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
 
         if (preg_match_all($pattern, $string, $matches)) {
             if ($matches) {
@@ -259,7 +260,7 @@ class GlobalClass {
         $replacedString = $string;
         // replace all the occurances until no match left
         foreach ($matchedLink as $key => $singleLink) {
-            $replacedString = str_replace($singleLink, '<a href="'.$this->checkHttpsInString($singleLink).'" target="_self">'.$this->checkHttpsInString($singleLink).'</a>', $replacedString);
+            $replacedString = str_replace($singleLink, '<a href="'.$this->checkHttpsInString($singleLink, true).'" target="_self">'.$this->checkHttpsInString($singleLink).'</a>', $replacedString);
         }
         return $replacedString;
     }
@@ -268,11 +269,15 @@ class GlobalClass {
      * @param  string  $string
      * @return array
      */
-    public function checkHttpsInString(string $string): string {
+    public function checkHttpsInString(string $string, $addHttp = false): string {
 
         $pattern = '/((https|ftp|file)):\/\//i';
         if (!preg_match_all($pattern, $string, $matches)) {
-            return 'http://'.$string;
+            if ($addHttp) {
+                return 'http://'.$string;
+            } else {
+                return $string;
+            }
         } else {
             return $string;
         }

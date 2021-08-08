@@ -112,6 +112,8 @@ jQuery(document).ready(function ($) {
                                 )
                             );
 
+                            this.addDraggingAbility();
+
                             this.swap_filter_inputs(swap_filter_inputs);
 
                             this.swap_bottom_options(swap_bottom_options);

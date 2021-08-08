@@ -67,6 +67,12 @@ if (front_end_data.isProActive) {
                                     table_settings
                                 );
 
+                                let scrollerContainer = $(elem).find(".dataTables_scroll");
+                                let scrollerElement = $(elem).find(".dataTables_scrollBody");
+                                // add functionality of scolling the table
+                                tableClass.bindDragScroll(scrollerContainer, scrollerElement);
+                                tableClass.addGrabCursonOnMouseDown($(elem).find("#create_tables"));
+
                                 tableClass.clearOverflow();
                             } else {
                                 $(elem)

@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,9 +105,19 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🖌️ **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
 
+🤚 **Horizontall Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
+
 
 
 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
+
+
+=== 🔥 More Awesome Plugins === 
+If you like Sheets To WP Table Live Sync, then consider checking out our other awesome projects:
+
+🌓 **[WP Dark Mode](https://wordpress.org/plugins/wp-dark-mode/)**  - Use WP Dark Mode plugin to create a stunning dark version for your WordPress website. WP Dark Mode works automatically without going into any complicated settings.
+
+🎥 **[Easy Video Reviews](https://wordpress.org/plugins/easy-video-reviews/)**  - Easy Video Reviews is the best and easiest video review plugin for WordPress. Your customers can record and send video testimonials right from their browser, and you can manage and showcase anywhere on your WordPress website.
 
 
 
@@ -159,7 +169,12 @@ We have a 14 days refund policy. Please email us at support@wppool.dev explainin
 For instant support please send us a message on our Facebook page or you also contact us through https://wppool.dev/contact/.
 
 
-=== Change Logs ===
+== Changelog ==
+
+= 2.4.0 =
+* New: Horizontall drag feature for pro.
+* Improvement: Link support feature.
+* Improvement: Minor code improvement
 
 = 2.4.0 =
 * Improvement: Improved admin UI/UX

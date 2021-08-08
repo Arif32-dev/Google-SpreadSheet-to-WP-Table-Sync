@@ -79,7 +79,7 @@ class EnqueueFiles {
         wp_enqueue_script(
             'GSWPTS-frontend-js',
             GSWPTS_BASE_URL.'Assets/Public/Scripts/Frontend/frontend.min.js',
-            ['jquery'],
+            ['jquery', 'jquery-ui-draggable'],
             GSWPTS_VERSION,
             true
         );

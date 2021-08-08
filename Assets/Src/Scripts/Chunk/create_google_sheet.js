@@ -225,6 +225,8 @@ jQuery(document).ready(function ($) {
                             this.table_object(table_name, defaultRowsPerPage, allowSorting, dom)
                         );
 
+                        this.addDraggingAbility();
+
                         this.changeBtnOnCondition(submit_button);
 
                         submit_button.css({

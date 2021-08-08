@@ -24,6 +24,14 @@ if (front_end_data.isProActive) {
                     let table_obj = new Global_Table_Config();
 
                     table_obj.table_configuration($, i, elem, table_name, table_settings);
+
+                    let scrollerContainer = $(elem).find(".dataTables_scroll");
+                    let scrollerElement = $(elem).find(".dataTables_scrollBody");
+                    // add functionality of scolling the table
+                    table_obj.bindDragScroll(scrollerContainer, scrollerElement);
+                    table_obj.addGrabCursonOnMouseDown($(elem).find("#create_tables"));
+
+                    table_obj.clearOverflow();
                 });
             }
         }
@@ -54,6 +62,8 @@ if (front_end_data.isProActive) {
                     let table_obj = new Global_Table_Config();
 
                     table_obj.table_configuration($, i, elem, table_name, table_settings);
+
+                    table_obj.clearOverflow();
                 });
             }
         }

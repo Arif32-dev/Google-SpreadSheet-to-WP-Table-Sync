@@ -72,6 +72,10 @@ jQuery(document).ready(function ($) {
                 $(".styleModal .body label .pro_feature_promo").removeClass("active");
                 target.parent().find(".pro_feature_promo").addClass("active");
             });
+
+            $("#redirection_type > input:nth-child(1)").on("change", (e) => {
+                this.update_table_by_changes(e);
+            });
         }
 
         changeBtnOnCondition(e) {
@@ -125,7 +129,6 @@ jQuery(document).ready(function ($) {
         }
 
         update_table_by_changes(e) {
-            let table_name = $(".edit_table_name").siblings("input[name=table_name]").val();
             let table_settings = this.table_settings_obj();
 
             if ($(e.currentTarget).attr("id") == "table_exporting" && this.isProPluginActive()) {
@@ -168,10 +171,12 @@ jQuery(document).ready(function ($) {
 
             // Changing the link redirection type
             if (this.isProPluginActive()) {
-                if ($(e.currentTarget).attr("id") == "redirection_type") {
+                if ($(e.currentTarget).attr("name") == "redirection_type") {
                     this.changeRedirectionType(table_settings.redirectionType);
                 }
             }
+            // add dragging ability to table
+            this.addDraggingAbility();
         }
 
         reFormatTable() {
@@ -191,6 +196,7 @@ jQuery(document).ready(function ($) {
             this.table_changer(table_name, table_settings, dom);
         }
 
+        // Change the link attribute target value to either _blank || _self
         changeRedirectionType(type) {
             let links = $("#create_tables a");
             if (!links.length) return;
@@ -212,34 +218,6 @@ jQuery(document).ready(function ($) {
                     return;
                 }
             }
-        }
-
-        set_default() {
-            let default_settings = this.default_settings();
-
-            $.each(this.settings, function (index, value) {
-                if ($(value).attr("id") == "show_title") {
-                    $(value).prop("checked", default_settings.table_title);
-                }
-                if ($(value).attr("id") == "responsive") {
-                    $(value).prop("checked", default_settings.responsiveTable);
-                }
-                if ($(value).attr("id") == "search_table") {
-                    $(value).prop("checked", default_settings.searchBar);
-                }
-                if ($(value).attr("id") == "show_entries") {
-                    $(value).prop("checked", default_settings.showXEntries);
-                }
-                if ($(value).attr("id") == "info_block") {
-                    $(value).prop("checked", default_settings.showInfoBlock);
-                }
-                if ($(value).attr("id") == "swap_filter_inputs") {
-                    $(value).prop("checked", default_settings.swapFilterInputs);
-                }
-                if ($(value).attr("id") == "swap_bottom_options") {
-                    $(value).prop("checked", default_settings.swapBottomOptions);
-                }
-            });
         }
 
         pro_feature_popup(e) {
