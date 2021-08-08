@@ -105,7 +105,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🖌️ **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
 
-🤚 **Horizontall Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
+🤚 **Horizontal Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
 
 
 
@@ -172,7 +172,7 @@ For instant support please send us a message on our Facebook page or you also co
 == Changelog ==
 
 = 2.4.1 =
-* New: Horizontall drag feature for pro.
+* New: Horizontal drag feature for pro.
 * Improvement: Link support feature.
 * Improvement: Minor code improvement
 
