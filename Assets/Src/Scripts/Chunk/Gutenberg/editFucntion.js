@@ -66,27 +66,41 @@ export default function editFucntion({ attributes, setAttributes }) {
 
             success: (res) => {
                 console.log(res);
+
+                let response = res ? JSON.parse(res) : "";
+
+                console.log(response);
+
+                if (!res) return;
+
                 if (
-                    JSON.parse(res).response_type == "invalid_action" ||
-                    JSON.parse(res).response_type == "invalid_request"
+                    response.response_type == "invalid_action" ||
+                    response.response_type == "invalid_request"
                 ) {
-                    callAlert("Error &#128683;", JSON.parse(res).output, "error", 4);
+                    callAlert("Error &#128683;", response.output, "error", 4);
 
                     setAttributes({ req_type: "fetch" });
                     setAttributes({ btn_text: "Fetch Data" });
                     setAttributes({ show_settings: false });
-                    setAttributes({ innerHTML: JSON.parse(res).output });
+                    setAttributes({ innerHTML: response.output });
                 }
 
-                if (JSON.parse(res).response_type == "empty_field") {
-                    callAlert("Warning &#9888;&#65039;", JSON.parse(res).output, "warning", 3);
+                if (response.response_type == "empty_field") {
+                    callAlert("Warning &#9888;&#65039;", response.output, "warning", 3);
                 }
 
-                if (JSON.parse(res).response_type == "success") {
+                if (response.response_type == "success") {
                     setAttributes({ req_type: "save" });
                     setAttributes({ btn_text: "Save Table" });
                     setAttributes({ innerHTML: JSON.parse(res).output });
                     setAttributes({ show_settings: true });
+
+                    let tableColumns = response.tableColumns;
+                    let formattedColumnValues = constructColumnValues(tableColumns);
+
+                    // Set the column header values in tableColumns attribute
+                    setAttributes({ tableColumns: formattedColumnValues });
+
                     immidiateSaveTable(url);
                 }
             },
@@ -143,7 +157,6 @@ export default function editFucntion({ attributes, setAttributes }) {
             },
 
             success: (res) => {
-                console.log(res);
                 if (
                     JSON.parse(res).response_type == "invalid_action" ||
                     JSON.parse(res).response_type == "invalid_request"
@@ -246,6 +259,13 @@ export default function editFucntion({ attributes, setAttributes }) {
                 if (JSON.parse(res).response_type == "success") {
                     setAttributes({ innerHTML: JSON.parse(res).output });
                     setAttributes({ show_settings: true });
+
+                    let tableColumns = JSON.parse(res).tableColumns;
+                    let formattedColumnValues = constructColumnValues(tableColumns);
+
+                    // Set the column header values in tableColumns attribute
+                    setAttributes({ tableColumns: formattedColumnValues });
+
                     callAlert(
                         "Successfull &#128077;",
                         "<b>Google Sheet data fetched successfully</b>",
@@ -267,6 +287,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                         JSON.parse(res.responseText).table_data.table_settings
                     );
 
+                    console.log(table_settings);
+
                     let table_name = JSON.parse(res.responseText).table_data.table_name;
 
                     let dom = `<"#filtering_input"${
@@ -280,6 +302,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     let verticalScroll = table_settings.vertical_scroll;
                     let cellFormat = table_settings.cell_format;
                     let redirectionType = table_settings.redirection_type;
+                    let hideColumn = table_settings.hide_column;
 
                     setAttributes({ table_name: table_name });
 
@@ -289,8 +312,15 @@ export default function editFucntion({ attributes, setAttributes }) {
                             changeRedirectionType(redirectionType, id);
                         }
 
+                        // Intitiale the data table feature in gutenberg table
                         $("#" + id + " #create_tables").DataTable(
-                            table_object(defaultRowsPerPage, allowSorting, dom, verticalScroll)
+                            table_object(
+                                defaultRowsPerPage,
+                                allowSorting,
+                                dom,
+                                verticalScroll,
+                                hideColumn
+                            )
                         );
 
                         update_default_attibutes(table_settings);
@@ -306,6 +336,22 @@ export default function editFucntion({ attributes, setAttributes }) {
                 }
             },
         });
+    }
+
+    function constructColumnValues(columns) {
+        let columnValues = [];
+
+        if (!columns) return columnValues;
+
+        columns.forEach((column, i) => {
+            columnValues.push({
+                key: i,
+                value: i,
+                text: column,
+            });
+        });
+
+        return columnValues;
     }
 
     function update_default_attibutes(ajax_table_settings) {
@@ -346,6 +392,11 @@ export default function editFucntion({ attributes, setAttributes }) {
             if (ajax_table_settings.redirection_type) {
                 prevSettingObj.tableStyle = ajax_table_settings.table_style;
             }
+
+            // Update the Hide column values to show it in input field
+            if (ajax_table_settings.hide_column) {
+                prevSettingObj.hideColumn = ajax_table_settings.hide_column;
+            }
         }
         setAttributes({ table_settings: prevSettingObj });
     }
@@ -360,7 +411,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                     prevSettingObj.defaultRowsPerPage,
                     prevSettingObj.allowSorting,
                     dom,
-                    prevSettingObj.verticalScroll
+                    prevSettingObj.verticalScroll,
+                    prevSettingObj.hideColumn
                 )
             );
         } else {
@@ -369,7 +421,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                     prevSettingObj.defaultRowsPerPage,
                     prevSettingObj.allowSorting,
                     dom,
-                    prevSettingObj.verticalScroll
+                    prevSettingObj.verticalScroll,
+                    prevSettingObj.hideColumn
                 )
             );
         }
@@ -489,7 +542,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     </div>
                 `;
 
-    function table_object(pageLength, ordering, dom, verticalScroll) {
+    function table_object(pageLength, ordering, dom, verticalScroll, hideColumn) {
         let obj = {
             dom: dom,
             order: [],
@@ -516,7 +569,49 @@ export default function editFucntion({ attributes, setAttributes }) {
             }
         }
 
+        if (screenSize() === "desktop") {
+            if (hideColumn?.desktopValues) {
+                obj.columnDefs = hideColumnByScreen(hideColumn.desktopValues);
+            }
+        } else {
+            if (hideColumn?.mobileValues) {
+                obj.columnDefs = hideColumnByScreen(hideColumn.mobileValues);
+            }
+        }
+
         return obj;
+    }
+
+    // Return an array that will define the columns to hide
+    function hideColumnByScreen(arrayValues) {
+        return [
+            {
+                targets: convertArrayStringToInteger(arrayValues),
+                visible: false,
+                searchable: false,
+            },
+        ];
+    }
+
+    // convert string to integer from arrays
+    function convertArrayStringToInteger(arr) {
+        if (!arr) return [];
+        return arr.map((val) => parseInt(val));
+    }
+    // convert string to integer from arrays
+    function convertArrayIntegerToString(arr) {
+        if (!arr) return [];
+        return arr.map((val) => `${val}`);
+    }
+
+    // get the current screen size of user if greater than 740 return desktop or return mobile
+    function screenSize() {
+        // Desktop screen size
+        if (screen.width > 740) {
+            return "desktop";
+        } else {
+            return "mobile";
+        }
     }
 
     function isProPluginActive() {
@@ -1044,6 +1139,100 @@ export default function editFucntion({ attributes, setAttributes }) {
                                             saveChanges(attributes.sortcode_id, prevSettingObj);
                                         }}
                                     />
+                                    <br />
+                                </PanelRow>
+
+                                {/* Column hide feature in desktop */}
+                                <PanelRow>
+                                    <div class="hide_column">
+                                        <h5 class="header">Hide Columns In Desktop Screen:</h5>
+                                        <p>Hide your table columns on desktop screen size.</p>
+                                        <Dropdown
+                                            placeholder=""
+                                            defaultValue={
+                                                attributes.table_settings.hideColumn?.desktopValues
+                                                    ? convertArrayStringToInteger(
+                                                          attributes.table_settings.hideColumn
+                                                              .desktopValues
+                                                      )
+                                                    : ""
+                                            }
+                                            fluid
+                                            selection
+                                            multiple
+                                            options={attributes.tableColumns}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+                                                prevSettingObj.hideColumn.desktopValues =
+                                                    convertArrayIntegerToString(value);
+
+                                                setAttributes({ table_settings: prevSettingObj });
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+
+                                                table_changer(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj
+                                                );
+                                                swap_input_filter(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapFilterInputs
+                                                );
+                                                swap_bottom_options(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapBottomOptions
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                    <br />
+                                </PanelRow>
+
+                                {/* Column hide feature in mobile */}
+                                <PanelRow>
+                                    <div class="hide_column">
+                                        <h5 class="header">Hide Columns In Mobile Screen:</h5>
+                                        <p>Hide your table columns on mobile screen size.</p>
+                                        <Dropdown
+                                            placeholder=""
+                                            defaultValue={
+                                                attributes.table_settings.hideColumn
+                                                    ?.mobileValues != null
+                                                    ? convertArrayStringToInteger(
+                                                          attributes.table_settings.hideColumn
+                                                              .mobileValues
+                                                      )
+                                                    : ""
+                                            }
+                                            fluid
+                                            selection
+                                            multiple
+                                            options={attributes.tableColumns}
+                                            onChange={(e, { value }) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+                                                prevSettingObj.hideColumn.mobileValues =
+                                                    convertArrayIntegerToString(value);
+                                                setAttributes({ table_settings: prevSettingObj });
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
+
+                                                table_changer(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj
+                                                );
+                                                swap_input_filter(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapFilterInputs
+                                                );
+                                                swap_bottom_options(
+                                                    attributes.sortcode_id,
+                                                    prevSettingObj.swapBottomOptions
+                                                );
+                                            }}
+                                        />
+                                    </div>
                                     <br />
                                 </PanelRow>
                             </PanelBody>

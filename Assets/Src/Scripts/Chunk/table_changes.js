@@ -5,11 +5,14 @@ jQuery(document).ready(function ($) {
         constructor() {
             super($);
             this.promo_close_btn = $(".promo_close_btn");
-            this.pro_feature_input = $(".pro_feature_input");
+
             this.proInputSelect = $(".pro_input_select");
-            this.chooseStyle = $(".chooseStyle").parents(".card");
+            this.modalHandler = $(".modal-handler").parents(".card");
             this.tableStyleActionBtn = $(".styleModal .svg_icons, .styleModal .actions > .button");
             this.tableStylesInput = $(".styleModal .body input");
+            this.hideColumnActionBtns = $(
+                ".gswpts-hide-modal .svg_icons, .gswpts-hide-modal .actions > .button"
+            );
             this.events();
         }
 
@@ -28,7 +31,7 @@ jQuery(document).ready(function ($) {
                 this.update_table_by_changes(e);
             });
 
-            this.pro_feature_input.on("click", (e) => {
+            $(document).on("click", ".pro_feature_input", (e) => {
                 this.pro_feature_popup(e);
             });
 
@@ -39,13 +42,21 @@ jQuery(document).ready(function ($) {
             this.promo_close_btn.on("click", (e) => {
                 this.close_promo_popup(e);
             });
-            this.chooseStyle.on("click", (e) => {
-                $(".tableStyleModal").addClass("active");
-                $(".styleModal").transition("scale");
-                $(".styleModal").css({
-                    "margin-top": `${$(document).scrollTop() + 100}px`,
-                });
+
+            this.modalHandler.on("click", (e) => {
+                let input = $(e.currentTarget).find("input");
+
+                // Activate table style popup modal in to the page
+                if (input.attr("id") === "table_style") {
+                    this.handleStyleModal();
+                }
+
+                // Activate hide column popup modal in to the page
+                if (input.attr("id") === "hide_column") {
+                    this.handleHideModal();
+                }
             });
+
             this.tableStyleActionBtn.on("click", (e) => {
                 let target = $(e.currentTarget);
                 $(".tableStyleModal").removeClass("active");
@@ -62,6 +73,7 @@ jQuery(document).ready(function ($) {
                     }
                 }
             });
+
             this.tableStylesInput.on("click", (e) => {
                 // activate border color
                 let target = $(e.currentTarget);
@@ -71,6 +83,10 @@ jQuery(document).ready(function ($) {
                 // activate promo if unlocked
                 $(".styleModal .body label .pro_feature_promo").removeClass("active");
                 target.parent().find(".pro_feature_promo").addClass("active");
+            });
+
+            this.hideColumnActionBtns.on("click", (e) => {
+                this.hideColumnActionCallback(e);
             });
 
             $("#redirection_type > input:nth-child(1)").on("change", (e) => {
@@ -192,7 +208,7 @@ jQuery(document).ready(function ($) {
                 }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
             }
 
-            let table_name = $(".edit_table_name").siblings("input[name=table_name]").val();
+            let table_name = $("#table_name").val();
             this.table_changer(table_name, table_settings, dom);
         }
 
@@ -243,6 +259,7 @@ jQuery(document).ready(function ($) {
             let parentTarget = target.parents(".selection.dropdown");
             let previousValue = parentTarget.find("input").val();
             let defaultTextValue = parentTarget.find(".text").text();
+
             setTimeout(() => {
                 if (previousValue) {
                     parentTarget.dropdown("set selected", previousValue);
@@ -251,7 +268,54 @@ jQuery(document).ready(function ($) {
                     parentTarget.find(".text").addClass("default").html(defaultTextValue);
                     parentTarget.dropdown();
                 }
-            }, 100);
+            }, 200);
+        }
+
+        handleStyleModal() {
+            $(".tableStyleModal").addClass("active");
+            $(".styleModal").transition("scale");
+            $(".styleModal").css({
+                "margin-top": `${$(document).scrollTop() + 100}px`,
+            });
+        }
+
+        handleHideModal() {
+            $(".hide-column-modal-wrapper").addClass("active");
+            $(".gswpts-hide-modal").transition("scale");
+            $(".gswpts-hide-modal").css({
+                "margin-top": `${$(document).scrollTop() + 100}px`,
+            });
+        }
+
+        hideColumnActionCallback(e) {
+            let target = $(e.currentTarget);
+            $(".hide-column-modal-wrapper").removeClass("active");
+            $(".gswpts-hide-modal").transition("scale");
+
+            // set data to input value for saving into database
+            if (this.isProPluginActive()) {
+                if (target.hasClass("selectBtn")) {
+                    let desktopColumnInput = $("#desktop-hide-columns");
+                    let mobileColumnInput = $("#mobile-hide-columns");
+
+                    let desktopHideColumns = desktopColumnInput.find("input").val()
+                        ? desktopColumnInput.find("input").val().split(",")
+                        : null;
+                    let modbleHideColumns = mobileColumnInput.find("input").val()
+                        ? mobileColumnInput.find("input").val().split(",")
+                        : null;
+
+                    let hideColumnValues = {
+                        desktopValues: desktopHideColumns,
+                        mobileValues: modbleHideColumns,
+                    };
+
+                    $("#hide_column").val(JSON.stringify(hideColumnValues));
+
+                    this.reFormatTable();
+                    this.addDraggingAbility();
+                }
+            }
         }
     }
 

@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
                 $("#redirection_type").dropdown();
             }
             if ($("#responsive_style").length) {
-                $("#responsive_style").dropdown();
+                $("#responsive_style").dropdown("set selected", "collapse_style");
             }
             $("#table_type").find("input[name=source_type]").val("spreadsheet");
         }
@@ -161,6 +161,7 @@ jQuery(document).ready(function ($) {
                         this.sheet_details.transition("scale");
                         this.sheet_container.parent().removeClass("mt-4").addClass("mt-3");
                         this.sheet_container.html(JSON.parse(res).output);
+                        this.insertColumnValueToInput(JSON.parse(res).tableColumns);
                     }
 
                     if (JSON.parse(res).response_type == "saved") {
@@ -222,7 +223,7 @@ jQuery(document).ready(function ($) {
                         }
 
                         $("#create_tables").DataTable(
-                            this.table_object(table_name, defaultRowsPerPage, allowSorting, dom)
+                            this.table_object(table_name, dom, default_settings)
                         );
 
                         this.addDraggingAbility();

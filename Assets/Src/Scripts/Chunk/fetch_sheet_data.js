@@ -29,36 +29,42 @@ jQuery(document).ready(function ($) {
                 },
 
                 success: (res) => {
+                    let parsedResponse = JSON.parse(res);
+
+                    console.log(parsedResponse);
+
                     if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
+                        parsedResponse.response_type == "invalid_action" ||
+                        parsedResponse.response_type == "invalid_request"
                     ) {
                         this.sheet_container.html("");
-                        this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
+                        this.call_alert("Error &#128683;", parsedResponse.output, "error", 4);
                     }
 
-                    if (JSON.parse(res).response_type == "success") {
+                    if (parsedResponse.response_type == "success") {
                         this.sheet_details.addClass("mt-4 p-0");
                         $("#gswpts_tabs ul li:not(:nth-child(1))").removeClass("disabled_checkbox");
 
                         setTimeout(() => {
                             $(".edit_table_name")
                                 .siblings("input[name=table_name]")
-                                .val(JSON.parse(res).table_data.table_name);
+                                .val(parsedResponse.table_data.table_name);
                             $(".edit_table_name").parent().transition("fade up");
                             $("#table_type").dropdown(
                                 "set selected",
-                                JSON.parse(res).table_data.source_type
+                                parsedResponse.table_data.source_type
                             );
                             this.sheet_form
                                 .find("input[name=file_input]")
-                                .val(JSON.parse(res).table_data.source_url);
-                            this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
+                                .val(parsedResponse.table_data.source_url);
+                            this.sheet_details.html(this.sheet_details_html(parsedResponse));
                             this.sheet_details.transition("scale");
                             this.show_shortcode(this.get_slug_parameter("id"));
                         }, 400);
 
-                        this.sheet_container.html(JSON.parse(res).output);
+                        this.sheet_container.html(parsedResponse.output);
+                        // insert the column value to input field and make a drop
+                        this.insertColumnValueToInput(parsedResponse.tableColumns);
                     }
                 },
 
@@ -102,14 +108,27 @@ jQuery(document).ready(function ($) {
                         );
 
                         setTimeout(() => {
+                            let tableSettings = {
+                                allowSorting: table_settings.allow_sorting || "",
+                                cellFormat: table_settings.cell_format || "",
+                                defaultRowsPerPage: table_settings.default_rows_per_page || "",
+                                hideColumn: table_settings.hide_column || "",
+                                redirectionType: table_settings.redirection_type || "",
+                                responsiveStyle: table_settings.responsive_style || "",
+                                searchBar: table_settings.search_bar || "",
+                                showInfoBlock: table_settings.show_info_block || "",
+                                showXEntries: table_settings.show_x_entries || "",
+                                swapBottomOptions: table_settings.swap_bottom_options || "",
+                                swapFilterInputs: table_settings.swap_filter_inputs || "",
+                                tableCache: table_settings.table_cache || "",
+                                tableExport: table_settings.table_export || "",
+                                tableStyle: table_settings.table_style || "",
+                                tableTitle: table_settings.table_title || "",
+                                verticalScroll: table_settings.vertical_scroll || "",
+                            };
+
                             $("#create_tables").DataTable(
-                                this.table_object(
-                                    table_name,
-                                    table_settings.default_rows_per_page,
-                                    table_settings.allow_sorting == "true" ? true : false,
-                                    dom,
-                                    table_settings.vertical_scroll
-                                )
+                                this.table_object(table_name, dom, tableSettings)
                             );
 
                             this.addDraggingAbility();

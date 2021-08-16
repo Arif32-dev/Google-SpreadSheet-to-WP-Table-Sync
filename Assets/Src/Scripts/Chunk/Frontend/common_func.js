@@ -156,9 +156,50 @@ export default class Global_Table_Config {
             if (table_object.scrollY != "default") {
                 table_object.scrollY = `${table_settings.vertical_scroll}px`;
             }
+
+            if (this.screenSize() === "desktop") {
+                if (table_settings.hide_column) {
+                    table_object.columnDefs = this.hideColumnByScreen(
+                        table_settings.hide_column.desktopValues
+                    );
+                }
+            } else {
+                if (table_settings.hide_column) {
+                    table_object.columnDefs = this.hideColumnByScreen(
+                        table_settings.hide_column.mobileValues
+                    );
+                }
+            }
         }
 
         return table_object;
+    }
+
+    // Return an array that will define the columns to hide
+    hideColumnByScreen(arrayValues) {
+        return [
+            {
+                targets: this.convertArrayStringToInteger(arrayValues),
+                visible: false,
+                searchable: false,
+            },
+        ];
+    }
+
+    // get the current screen size of user if greater than 740 return desktop or return mobile
+    screenSize() {
+        // Desktop screen size
+        if (screen.width > 740) {
+            return "desktop";
+        } else {
+            return "mobile";
+        }
+    }
+
+    // convert string to integer from arrays
+    convertArrayStringToInteger(arr) {
+        if (!arr) return [];
+        return arr.map((val) => parseInt(val));
     }
 
     reveal_export_btns($, elem, table_settings) {
@@ -202,8 +243,6 @@ export default class Global_Table_Config {
     }
 
     swap_bottom_options($, i, table_settings) {
-        let pagination_menu = $(".bottom_options_" + i + " .pagination.menu");
-
         let style = {
             flex_direction: "row-reverse",
             table_info_style: {
@@ -229,16 +268,6 @@ export default class Global_Table_Config {
 
             this.bottom_option_style($, style, i);
         }
-    }
-
-    overflow_menu_style($, i) {
-        $(".bottom_options_" + i + "").css("flex-direction", "column");
-        $(".bottom_options_" + i + " > #create_tables_info").css({
-            margin: "5px auto",
-        });
-        $(".bottom_options_" + i + " > #create_tables_paginate").css({
-            margin: "5px auto",
-        });
     }
 
     bottom_option_style($, $arg, i) {

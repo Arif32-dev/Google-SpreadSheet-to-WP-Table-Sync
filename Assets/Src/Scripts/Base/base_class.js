@@ -18,7 +18,8 @@ export default class Base_Class {
                 #table_exporting, 
                 #vertical_scrolling,
                 #cell_format,
-                #table_style
+                #table_style,
+                #hide_column
                 `
             );
         } else {
@@ -131,7 +132,7 @@ export default class Base_Class {
 
     table_settings_obj() {
         let settings = {
-            table_title: $("#show_title").prop("checked"),
+            tableTitle: $("#show_title").prop("checked"),
             defaultRowsPerPage:
                 $("#rows_per_page").find("input[name=rows_per_page]").val() == "all"
                     ? -1
@@ -158,13 +159,16 @@ export default class Base_Class {
                 .val();
             settings.tableCache = $("#table_cache").prop("checked");
             settings.tableStyle = $("#table_style").val();
+            settings.hideColumn = $("#hide_column").val()
+                ? JSON.parse($("#hide_column").val())
+                : "";
         }
         return settings;
     }
 
     default_settings() {
         let default_settings = {
-            table_title: false,
+            tableTitle: false,
             defaultRowsPerPage: 10,
             showInfoBlock: true,
             responsiveTable: false,
@@ -174,25 +178,18 @@ export default class Base_Class {
             allowSorting: true,
             searchBar: true,
             tableExport: null,
-            verticalScroll: 400,
-            cellFormat: "wrap",
+            verticalScroll: null,
+            cellFormat: "expanded",
             tableCache: false,
             tableStyle: null,
+            hideColumn: null,
         };
 
         return default_settings;
     }
 
     table_changer(table_name, table_settings, dom) {
-        $("#create_tables").DataTable(
-            this.table_object(
-                table_name,
-                table_settings.defaultRowsPerPage,
-                table_settings.allowSorting,
-                dom,
-                table_settings.verticalScroll
-            )
-        );
+        $("#create_tables").DataTable(this.table_object(table_name, dom, table_settings));
     }
 
     swap_filter_inputs(state) {
@@ -287,7 +284,7 @@ export default class Base_Class {
         }
     }
 
-    table_object(table_name, pageLength, ordering, dom, verticalScroll) {
+    table_object(table_name, dom, table_settings) {
         let obj = {
             dom: dom,
             order: [],
@@ -296,9 +293,9 @@ export default class Base_Class {
                 [1, 5, 10, 15],
                 [1, 5, 10, 15],
             ],
-            pageLength: parseInt(pageLength),
+            pageLength: parseInt(table_settings.defaultRowsPerPage),
             lengthChange: true,
-            ordering: ordering,
+            ordering: table_settings.allowSorting,
             destroy: true,
             scrollX: true,
         };
@@ -354,11 +351,52 @@ export default class Base_Class {
                 [1, 5, 10, 15, 25, 50, 100, "All"],
             ];
 
-            if (verticalScroll != "default") {
-                obj.scrollY = `${verticalScroll}px`;
+            if (table_settings.verticalScroll != "default") {
+                obj.scrollY = `${table_settings.verticalScroll}px`;
+            }
+
+            if (this.screenSize() === "desktop") {
+                if (table_settings.hideColumn) {
+                    obj.columnDefs = this.hideColumnByScreen(
+                        table_settings.hideColumn.desktopValues
+                    );
+                }
+            } else {
+                if (table_settings.hideColumn) {
+                    obj.columnDefs = this.hideColumnByScreen(
+                        table_settings.hideColumn.mobileValues
+                    );
+                }
             }
         }
         return obj;
+    }
+
+    // Return an array that will define the columns to hide
+    hideColumnByScreen(arrayValues) {
+        return [
+            {
+                targets: this.convertArrayStringToInteger(arrayValues),
+                visible: false,
+                searchable: false,
+            },
+        ];
+    }
+
+    // get the current screen size of user if greater than 740 return desktop or return mobile
+    screenSize() {
+        // Desktop screen size
+        if (screen.width > 740) {
+            return "desktop";
+        } else {
+            return "mobile";
+        }
+    }
+
+    // convert string to integer from arrays
+    convertArrayStringToInteger(arr) {
+        if (!arr) return [];
+        return arr.map((val) => parseInt(val));
     }
 
     /* This function will reconfigure tables fields based on data */
@@ -381,6 +419,7 @@ export default class Base_Class {
         $("#sorting").prop("checked", settings.allow_sorting == "true" ? true : false);
         $("#search_table").prop("checked", settings.search_bar == "true" ? true : false);
 
+        // Integrate all the pro feature if the pro plugin is active
         if (this.isProPluginActive()) {
             $("#responsive_style").dropdown("set selected", settings.responsive_style);
             $("#vertical_scrolling").dropdown("set selected", settings.vertical_scroll);
@@ -397,6 +436,25 @@ export default class Base_Class {
                 $("#table_style").val(settings.table_style);
                 $(".styleWrapper").find(`label[for=${settings.table_style}]`).addClass("active");
                 this.tableStyle(settings.table_style);
+            }
+
+            // if hide column value is saved to db and not empty set the hide column input field value & also the select field values
+            if (settings.hide_column) {
+                $("#hide_column").val(JSON.stringify(settings.hide_column));
+
+                // Set the desktop column values in desktop select input
+                if (settings.hide_column.desktopValues) {
+                    settings.hide_column.desktopValues.forEach((export_type) => {
+                        $("#desktop-hide-columns").dropdown("set selected", export_type);
+                    });
+                }
+
+                // Set the mobile column values in mobile select input
+                if (settings.hide_column.mobileValues) {
+                    settings.hide_column.mobileValues.forEach((export_type) => {
+                        $("#mobile-hide-columns").dropdown("set selected", export_type);
+                    });
+                }
             }
         }
     }
@@ -423,13 +481,6 @@ export default class Base_Class {
                 });
                 break;
 
-            case "clip":
-                $.each(tableCell, function (i, cell) {
-                    $(cell).removeClass("wrap_style");
-                    $(cell).removeClass("expanded_style");
-                    $(cell).addClass("clip_style");
-                });
-                break;
             case "expand":
                 $.each(tableCell, function (i, cell) {
                     $(cell).removeClass("clip_style");
@@ -553,5 +604,33 @@ export default class Base_Class {
             this.bindDragScroll(scrollerContainer, scrollerElement);
             this.addGrabCursonOnMouseDown($("#create_tables"));
         }
+    }
+
+    // Insert column value from sheet to input box for column hiding
+    insertColumnValueToInput(columns) {
+        let desktopColumnInput = $("#desktop-hide-columns");
+        let mobileColumnInput = $("#mobile-hide-columns");
+
+        $.each([desktopColumnInput, mobileColumnInput], function (index, value) {
+            let menu = $(value).find(".menu");
+            if (columns) {
+                columns.forEach((column, columIndex) => {
+                    if (file_url.isProActive) {
+                        menu.append(`
+                            <div class="item" data-value="${columIndex}">
+                                ${column ? column : "&nbsp;"}
+                            </div>
+                         `);
+                    } else {
+                        menu.append(`
+                            <div class="item pro_feature_input pro_column_select" data-value="${columIndex}">
+                                ${column ? column : "&nbsp;"}
+                            </div>
+                        `);
+                    }
+                });
+            }
+            $(value).dropdown();
+        });
     }
 }

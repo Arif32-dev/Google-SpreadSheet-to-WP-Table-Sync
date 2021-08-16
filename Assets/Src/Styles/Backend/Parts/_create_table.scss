@@ -309,6 +309,83 @@
         background: rgba(0, 0, 0, 0.52);
     }
 
+    .hide-column-modal-wrapper {
+        transition: background 0.5s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 99;
+        margin-right: 20px;
+        .gswpts-hide-modal {
+            position: absolute;
+            margin: auto 20%;
+            padding: 15px;
+            width: 30%;
+
+            background-color: #fff;
+            border-radius: 4px;
+            -webkit-box-shadow: 0px 1px 18px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 1px 18px 4px rgba(0, 0, 0, 0.3);
+
+            @media screen and (max-width: 1000px) {
+                width: 95%;
+            }
+            .header {
+                margin-bottom: 15px;
+            }
+
+            .svg_icons {
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+                margin-right: 7px;
+                margin-top: 7px;
+            }
+
+            .body {
+                min-height: 150px;
+
+                & > div {
+                    margin: 10px 0;
+                    .text {
+                        padding-left: 5px;
+                    }
+                    .ui.label {
+                        background-color: $link-hover-color;
+                        color: #fff;
+                    }
+                }
+
+                div > span {
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    text-transform: capitalize;
+                }
+            }
+
+            .actions {
+                display: flex;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+                .button {
+                    margin: 5px;
+                }
+            }
+        }
+    }
+
+    .hide-column-modal-wrapper.active {
+        pointer-events: all;
+        background: rgba(0, 0, 0, 0.52);
+    }
+
     .promo_large {
         display: flex;
         justify-content: center;
@@ -545,6 +622,10 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
             grid-gap: 20px;
+
+            @media screen and (max-width: 512px) {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
         }
         .card {
             position: relative;

@@ -99,7 +99,18 @@ registerBlockType("gswpts/google-sheets-to-wp-tables", {
                 redirectionType: "_self",
                 tableCache: false,
                 tableStyle: "default-style",
+                // Hold the column value to hide the columns
+                hideColumn: {
+                    desktopValues: null,
+                    mobileValues: null,
+                },
             },
+        },
+
+        // Column Header values of table that will set on the run
+        tableColumns: {
+            type: "object",
+            default: null,
         },
     },
 

@@ -167,8 +167,9 @@ class GlobalClass {
         $table .= '</table>';
 
         $response = [
-            'table' => $table,
-            'count' => $i
+            'table'        => $table,
+            'count'        => $i,
+            'tableColumns' => $tableHeadValues
         ];
         return $response;
     }
@@ -235,8 +236,8 @@ class GlobalClass {
             return $string;
         }
 
-        // $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
-        $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
+        $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        // $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
 
         if (preg_match_all($pattern, $string, $matches)) {
             if ($matches) {
@@ -282,20 +283,6 @@ class GlobalClass {
             return $string;
         }
         return $string;
-    }
-
-    /**
-     * @param  $url
-     * @return array
-     */
-    public function getJsonData($url) {
-        $sheet_id = $this->get_sheet_id($url);
-        if (!$sheet_id) {
-            return;
-        }
-        $sheet_url = "https://spreadsheets.google.com/feeds/cells/".$sheet_id."/1/public/full?alt=json";
-
-        return json_decode(wp_remote_get($sheet_url)['body'], true)['feed'];
     }
 
     /**
@@ -538,37 +525,6 @@ class GlobalClass {
     }
 
     /**
-     * @param  $data
-     * @return mixed
-     */
-    public function sheet_details($data) {
-        $sheet_details = false;
-        if (isset($_GET['id']) && !empty($_GET['id'])) {
-
-            $sheet_details = '
-                    <div id="sheet_ui_card" class="ui card" style="width: 60%; min-width: 400px;">
-                            <div class="content">
-                                <div class="row">
-                                    <div id="shortcode_container" class="col-12 d-flex mt-3 align-items-center justify-content-start">
-                                        <h6 class="m-0">Table Shortcode: </h6>
-                                        <h6 class="m-0 ml-2">
-                                            <div class="ui action input">
-                                                <input id="sortcode_value" type="text" class="copyInput" value="[gswpts_table id='.esc_html__(esc_attr($data['id']), 'sheetstowptable').']">
-                                                <button id="sortcode_copy" type="button" name="copyToken" value="copy" class="copyToken ui right icon button">
-                                                    <i class="clone icon"></i>
-                                                </button>
-                                            </div>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-            ';
-            return $sheet_details;
-        }
-    }
-
-    /**
      * @param  int     $id
      * @return mixed
      */
@@ -596,102 +552,6 @@ class GlobalClass {
         } else {
             return null;
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function latest_table_details() {
-        $db_result = $this->fetch_gswpts_tables();
-        $last_table_id = $this->get_last_table_id($db_result);
-        $latest_table_info = [
-            'total_table_count' => $db_result != false ? count($db_result) : 0,
-            'last_table_name'   => $db_result != false ? $db_result[(count($db_result) - 1)]->table_name : null,
-            'last_table_id'     => $last_table_id
-        ];
-        return $latest_table_info;
-    }
-
-    /**
-     * @param  $db_result
-     * @return int|null
-     */
-    public function get_last_table_id($db_result) {
-        $last_table = null;
-        if ($db_result != false) {
-            $last_table = $db_result[(count($db_result) - 1)]->id;
-        }
-        return $last_table;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function get_first_table_details() {
-        $table_details = null;
-        $db_result = $this->fetch_gswpts_tables();
-        if ($db_result) {
-            $table_details = [
-                'id'             => $db_result[0]->id,
-                'table_name'     => $db_result[0]->table_name,
-                'source_url'     => $db_result[0]->source_url,
-                'source_type'    => $db_result[0]->source_type,
-                'table_settings' => $db_result[0]->table_settings
-            ];
-        }
-        return $table_details;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function changeLogs() {
-
-        $changeLogs = [
-            '2.3.4' => [
-                __('Fix: Table pagination style fixed', 'sheetstowptable'),
-                __('Fix: Fixed table style image issue', 'sheetstowptable')
-            ],
-            '2.3.5' => [
-                __('Improvement: Improved popup design', 'sheetstowptable'),
-                __('Added: Added table edit link on frontend', 'sheetstowptable')
-            ]
-        ];
-
-        krsort($changeLogs);
-
-        $html = '';
-
-        foreach ($changeLogs as $key => $logs) {
-
-            $html .= "<div class='col-12 mt-4 flex-column'>
-                        <strong>Version: ".esc_html__($key)."</strong>
-                        ".$this->innerLogs($logs)."
-                </div>";
-        }
-
-        return $html;
-    }
-
-    /**
-     * @param  $logs
-     * @return mixed
-     */
-    public function innerLogs($logs) {
-        $logsHtml = '';
-        foreach ($logs as $log) {
-            $logsHtml .= "<div class='d-flex mt-2'>
-                            <div class='col-1 p-0 info_circle text-center'>
-                            <svg class='svg_icons' width='15px' height='15px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='info-circle' class='svg-inline--fa fa-info-circle fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='currentColor' d='M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z'></path></svg>
-                            </div>
-                            <div class='col-11 p-0'>
-                                <ul class='p-0 m-0'>
-                                    ".sprintf('<li>%s</li>', $log)."
-                                </ul>
-                            </div>
-                        </div>";
-        }
-        return $logsHtml;
     }
 
     /**
@@ -856,7 +716,7 @@ class GlobalClass {
 
             ],
             'responsive_style'     => [
-                'feature_title' => __('Resposive Style', 'sheetstowptable'),
+                'feature_title' => __('Responsive Style', 'sheetstowptable'),
                 'feature_desc'  => __('Allow the table to collapse or scroll on mobile and tablet screen.', 'sheetstowptable'),
                 'input_name'    => 'responsive_style',
                 'is_pro'        => true,
@@ -1059,44 +919,6 @@ class GlobalClass {
     /**
      * @return array
      */
-    public function docButtonsArray(): array
-    {
-        $docArray = [
-            'displayDocButton'       => [
-                'btnText' => 'Display Documention',
-                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg'
-            ],
-            'sortAndFilterDocButton' => [
-                'btnText' => 'Sorting Documention',
-                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg'
-            ],
-            'tableToolsDocButton'    => [
-                'btnText' => 'Table Tools Doc',
-                'iconURL' => GSWPTS_BASE_PATH.'Assets/Public/Icons/tools-solid.svg'
-            ]
-        ];
-        return $docArray;
-    }
-
-    /**
-     * @param  null   $key
-     * @return null
-     */
-    public function tabDocButtons($key = null) {
-        $docArray = $this->docButtonsArray();
-        if (!$docArray) {
-            return;
-        }
-
-        if ($key == null) {
-            return;
-        }
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/tab_page_button.php', false, $docArray[$key]);
-    }
-
-    /**
-     * @return array
-     */
     public function tableToolsArray(): array{
         $settingsArray = [
             'table_export' => [
@@ -1108,7 +930,6 @@ class GlobalClass {
                 'values'        => $this->tableExportValues(),
                 'default_text'  => 'Choose Type',
                 'show_tooltip'  => true
-
             ],
             'table_cache'  => [
                 'feature_title' => __('Table Caching', 'sheetstowptable'),
@@ -1119,7 +940,16 @@ class GlobalClass {
                 'is_pro'        => true,
                 'type'          => 'checkbox',
                 'show_tooltip'  => true
-
+            ],
+            'hide_column'  => [
+                'feature_title' => __('Hide Column', 'sheetstowptable'),
+                'feature_desc'  => __('Hide your table columns based on multiple screen sizes.', 'sheetstowptable'),
+                'input_name'    => 'hide_column',
+                'checked'       => false,
+                'is_pro'        => true,
+                'type'          => 'custom-type-2',
+                'default_text'  => 'Hide Column',
+                'show_tooltip'  => false
             ]
         ];
 
@@ -1179,33 +1009,6 @@ class GlobalClass {
         }
     }
 
-    public function showCreatedTables() {
-        $createdTables = $this->fetch_gswpts_tables();
-        if ($createdTables) {
-            krsort($createdTables);
-            foreach ($createdTables as $table_data) {
-                echo '
-                    <div class="col-md-6 col-12">
-                        <div class="col-12 pl-0">
-                            <a
-                                href="'.esc_url(admin_url('admin.php?page=gswpts-create-tables&id='.esc_attr($table_data->id).'')).'">
-                                '.esc_html__($table_data->table_name, 'sheetstowptable').'
-                            </a>
-                        </div>
-                        <div class="ui label mt-2 mb-2">
-                            <i class="clone icon dashboard_sortcode_copy_btn"></i>
-                            <input type="hidden" name="sortcode"
-                                value="[gswpts_table id='.esc_attr($table_data->id).']">
-                            [gswpts_table id='.esc_attr($table_data->id).']
-                        </div>
-                    </div>
-                   ';
-            }
-        } else {
-            echo '<div class="ui label" style="align-self:center;">'.__('Empty', 'sheetstowptable').'</div>';
-        }
-    }
-
     /**
      * @return array
      */
@@ -1245,18 +1048,6 @@ class GlobalClass {
                                         Activate the Pro extension to enable custom CSS option", 'sheetstowptable'),
                 'is_pro'          => true
             ]
-            // 'sheet_tab_connection' => [
-            //     'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
-            //     'setting_title'   => __('Table Connection', 'sheetstowptable'),
-            //     'setting_tooltip' => __('This feature will let you connect multiple table in a single page with Tabs/Acordian', 'sheetstowptable'),
-            //     'is_checked'      => $optionValues['sheet_tab_connection'],
-            //     'input_name'      => 'sheet_tab_connection',
-            //     'setting_desc'    => __("Enabling this feature will allow user/admin to connect multiple created table in a single page.
-            //                             Each individual table will be shown as like bootstrap tab or accordian design", 'sheetstowptable'),
-            //     // 'is_pro'          => true,
-            //     'is_upcoming'     => true
-            // ]
-
         ];
 
         $settingsArray = apply_filters('gswpts_general_settings', $settingsArray);
@@ -1292,8 +1083,7 @@ class GlobalClass {
             'asynchronous_loading',
             'multiple_sheet_tab',
             'custom_css',
-            'css_code_value',
-            'sheet_tab_connection'
+            'css_code_value'
         ];
         return $generalSettingsOptions;
     }
