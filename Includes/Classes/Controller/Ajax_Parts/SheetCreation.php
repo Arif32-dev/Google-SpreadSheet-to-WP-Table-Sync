@@ -53,9 +53,7 @@ class SheetCreation {
                     'source_type' => sanitize_text_field($_POST['source_type'])
                 ];
 
-                $table_settings = array_map(function ($setting) {
-                    return sanitize_text_field($setting);
-                }, $_POST['table_settings']);
+                $table_settings = self::sanitizeData($_POST['table_settings']);
 
                 echo json_encode(self::save_table(
                     $data,
@@ -67,9 +65,7 @@ class SheetCreation {
 
             if (sanitize_text_field($_POST['type']) == 'save_changes') {
 
-                $table_settings = array_map(function ($setting) {
-                    return sanitize_text_field($setting);
-                }, $_POST['table_settings']);
+                $table_settings = self::sanitizeData($_POST['table_settings']);
 
                 echo json_encode(self::update_changes(
                     sanitize_text_field($_POST['id']),
@@ -87,9 +83,7 @@ class SheetCreation {
 
             $file_input = sanitize_text_field($parsed_data['file_input']);
 
-            $table_settings = array_map(function ($setting) {
-                return $setting;
-            }, $_POST['table_settings']);
+            $table_settings = self::sanitizeData($_POST['table_settings']);
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'], 'gswpts_sheet_nonce_action')) {
                 self::$output['response_type'] = esc_html('invalid_request');
@@ -162,6 +156,8 @@ class SheetCreation {
         $response = $gswpts->get_table(true, $sheet_response);
         self::$output['response_type'] = esc_html('success');
         self::$output['output'] = "".$response['table']."";
+        self::$output['tableColumns'] = $response['tableColumns'];
+
         return self::$output;
     }
 
@@ -181,6 +177,24 @@ class SheetCreation {
         }, $authorData);
 
         return $escapedData;
+    }
+
+    /**
+     * @param  array   $authorData
+     * @return array
+     */
+    public static function sanitizeData(array $unSanitizedData) {
+        $sanitizedData = null;
+
+        $sanitizedData = array_map(function ($data) {
+            if (gettype($data) == 'array') {
+                return self::sanitizeData($data);
+            } else {
+                return sanitize_text_field($data);
+            }
+        }, $unSanitizedData);
+
+        return $sanitizedData;
     }
 
     /**

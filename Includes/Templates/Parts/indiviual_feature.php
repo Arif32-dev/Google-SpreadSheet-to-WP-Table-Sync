@@ -20,7 +20,7 @@
                         </div>
                     </span>
                     <div class="ui toggle checkbox">
-                        <input                               <?php echo $checked ? 'checked' : '' ?> type="checkbox"
+                        <input <?php echo $checked ? 'checked' : '' ?> type="checkbox"
                             class="<?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'pro_feature_input' : '' ?>"
                             name="<?php echo esc_attr($input_name); ?>" id="<?php echo esc_attr($input_name); ?>">
                         <label for="<?php echo esc_attr($input_name); ?>"></label>
@@ -118,7 +118,7 @@
 </div>
 <?php }?>
 
-<?php if ($type === 'custom-type-1') {?>
+<?php if ($type === 'custom-type-1' || $type === 'custom-type-2') {?>
 <div class="">
     <div class="ui cards">
         <div class="card" style="cursor: pointer;">
@@ -134,8 +134,8 @@
                             </span>
                         </div>
                     </span>
-                    <div class="tableStyle">
-                        <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Icons/color-circle.svg' ?>"
+                    <div class="modal-handler">
+                        <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Icons/'.$input_name.'.svg' ?>"
                             class="chooseStyle" alt="chooseStyle">
 
                         <input type="hidden" name="<?php echo esc_attr($input_name); ?>"

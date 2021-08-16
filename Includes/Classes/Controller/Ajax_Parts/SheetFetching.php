@@ -92,6 +92,7 @@ class SheetFetching {
             'table_settings' => json_encode(self::escapeData($table_settings))
         ];
         self::$output['output'] = "".$response['table']."";
+        self::$output['tableColumns'] = $response['tableColumns'];
         return self::$output;
     }
 

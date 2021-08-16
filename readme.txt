@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.4.1
+Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,7 +105,9 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🖌️ **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
 
-🤚 **Horizontal Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
+🤚 **Horizontall Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
+
+🙈 **Hide column:** Hide you google sheet table column on desktop screen OR mobile screens. Protect you data if you don't want to publish everything in the web.
 
 
 
@@ -171,8 +173,13 @@ For instant support please send us a message on our Facebook page or you also co
 
 == Changelog ==
 
+= 2.5.0 =
+* New: Added custom column hide feature for pro.
+* Fixed: Fixed link feature bug.
+* Improvement: Minor code improvements
+
 = 2.4.1 =
-* New: Horizontal drag feature for pro.
+* New: Horizontall drag feature for pro.
 * Improvement: Link support feature.
 * Improvement: Minor code improvement
 
