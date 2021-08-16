@@ -114,6 +114,7 @@ class FilterCallbacks {
         $settings['redirection_type'] = $table_settings['redirectionType'];
         $settings['table_cache'] = $table_settings['tableCache'];
         $settings['table_style'] = $table_settings['tableStyle'];
+        $settings['hide_column'] = $table_settings['hideColumn'];
         return $settings;
     }
 
