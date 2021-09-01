@@ -6,13 +6,13 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'
 
 class GlobalClass {
     public function data_table_styles() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
     }
 
     public function data_table_scripts() {
-        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
 
     /**
@@ -27,13 +27,13 @@ class GlobalClass {
     }
 
     public function semantic_files() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL.'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
     public function frontend_tables_assets() {
-        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
-        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL.'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
     /**
@@ -128,9 +128,9 @@ class GlobalClass {
                     array_push($tableHeadValues, $cell_value);
 
                     if ($cell_value) {
-                        $table .= '<th class="'.$this->embedCellFormatClass().'">'.stripslashes(esc_html__($cell_value, 'sheetstowptable')).'</th>';
+                        $table .= '<th class="' . $this->embedCellFormatClass() . '">' . stripslashes(esc_html__($cell_value, 'sheetstowptable')) . '</th>';
                     } else {
-                        $table .= '<th class="'.$this->embedCellFormatClass().'"></th>';
+                        $table .= '<th class="' . $this->embedCellFormatClass() . '"></th>';
                     }
                 }
                 $table .= '</tr></thead>';
@@ -152,9 +152,9 @@ class GlobalClass {
                 foreach (fgetcsv($stream) as $key => $cell_value) {
 
                     if ($cell_value) {
-                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'">'.__(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable').'</td>';
+                        $table .= '<td data-content="' . $this->addTableHeaderToCell($tableHeadValues[$key]) . '" class="' . $this->embedCellFormatClass() . '">' . __(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable') . '</td>';
                     } else {
-                        $table .= '<td data-content="'.$this->addTableHeaderToCell($tableHeadValues[$key]).'" class="'.$this->embedCellFormatClass().'"></td>';
+                        $table .= '<td data-content="' . $this->addTableHeaderToCell($tableHeadValues[$key]) . '" class="' . $this->embedCellFormatClass() . '"></td>';
                     }
                 }
                 $table .= '</tr>';
@@ -180,7 +180,7 @@ class GlobalClass {
      */
     public function addTableHeaderToCell($headerData) {
         if ($headerData) {
-            return $headerData.'&#x0003A &nbsp;';
+            return $headerData . '&#x0003A &nbsp;';
         } else {
             return null;
         }
@@ -236,10 +236,43 @@ class GlobalClass {
             return $string;
         }
 
-        $pattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        // Link text and link pattern combined
+        $pattern = '/(\[.+\]).*(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
         // $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
 
         if (preg_match_all($pattern, $string, $matches)) {
+            if ($matches) {
+
+                $transformedLinks = '';
+
+                foreach ($matches[0] as $key => $singleMatch) {
+                    // This is only link pattern
+                    $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+
+                    if (preg_match_all($linkPattern, $singleMatch, $linkMatch)) {
+                        // link text with bracket
+                        $holderText = $matches[1][$key];
+                        $linkText = '';
+
+                        if ($matches[1] && $matches[1][$key]) {
+                            $linkText = $this->extractBracketText($matches[1][$key])[0];
+                        }
+
+                        if ($key > 0) {
+                            $transformedLinks = $this->transformLinks($linkMatch[0], $transformedLinks, $linkText, $holderText);
+                        } else {
+                            $transformedLinks = $this->transformLinks($linkMatch[0], $string, $linkText, $holderText);
+                        }
+
+                    }
+                }
+
+                return $transformedLinks;
+
+            } else {
+                return $string;
+            }
+        } elseif (preg_match_all('/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i', $string, $matches)) {
             if ($matches) {
                 return $this->transformLinks($matches[0], $string);
             } else {
@@ -251,18 +284,60 @@ class GlobalClass {
     }
 
     /**
+     * Extract the text only inside the brackets
+     * @param $string
+     */
+    public function extractBracketText($string) {
+        $textOutside = [];
+        $textInside = [];
+        $t = "";
+        for ($i = 0; $i < strlen($string); $i++) {
+            if ($string[$i] == '[') {
+                $textOutside[] = $t;
+                $t = "";
+                $t1 = "";
+                $i++;
+                while ($string[$i] != ']') {
+                    $t1 .= $string[$i];
+                    $i++;
+                }
+                $textInside[] = $t1;
+
+            } else {
+                if ($string[$i] != ']') {
+                    $t .= $string[$i];
+                } else {
+                    continue;
+                }
+
+            }
+        }
+        if ($t != "") {
+            $textOutside[] = $t;
+        }
+
+        return $textInside;
+    }
+
+    /**
      * @param  array    $string
      * @return string
      */
     public function transformLinks(
         array $matchedLink,
-        string $string
+        string $string,
+        $linkText = '',
+        $holderText = ''
     ): string {
         $replacedString = $string;
-        // replace all the occurances until no match left
-        foreach ($matchedLink as $key => $singleLink) {
-            $replacedString = str_replace($singleLink, '<a href="'.$this->checkHttpsInString($singleLink, true).'" target="_self">'.$this->checkHttpsInString($singleLink).'</a>', $replacedString);
+
+        // if linktext is emply load default link as link text
+        if ($linkText == '') {
+            $linkText = $this->checkHttpsInString($matchedLink[0], true);
         }
+        $replacedString = str_replace($holderText, "", $replacedString);
+        $replacedString = str_replace($matchedLink[0], '<a href="' . $this->checkHttpsInString($matchedLink[0], true) . '" target="_self">' . $linkText . '</a>', $replacedString);
+
         return $replacedString;
     }
 
@@ -275,7 +350,7 @@ class GlobalClass {
         $pattern = '/((https|ftp|file)):\/\//i';
         if (!preg_match_all($pattern, $string, $matches)) {
             if ($addHttp) {
-                return 'http://'.$string;
+                return 'http://' . $string;
             } else {
                 return $string;
             }
@@ -358,12 +433,12 @@ class GlobalClass {
             return false;
         }
 
-        if (get_option('gswpts_sheet_updated_time_'.$tableID.'')) {
-            if (get_option('gswpts_sheet_updated_time_'.$tableID.'') !== $lastUpdatedTimestamp) {
-                update_option('gswpts_sheet_updated_time_'.$tableID.'', $lastUpdatedTimestamp);
+        if (get_option('gswpts_sheet_updated_time_' . $tableID . '')) {
+            if (get_option('gswpts_sheet_updated_time_' . $tableID . '') !== $lastUpdatedTimestamp) {
+                update_option('gswpts_sheet_updated_time_' . $tableID . '', $lastUpdatedTimestamp);
             }
         } else {
-            add_option('gswpts_sheet_updated_time_'.$tableID.'', $lastUpdatedTimestamp);
+            add_option('gswpts_sheet_updated_time_' . $tableID . '', $lastUpdatedTimestamp);
         }
     }
 
@@ -383,7 +458,7 @@ class GlobalClass {
             return false;
         }
 
-        if ($lastUpdatedTimestamp !== get_option('gswpts_sheet_updated_time_'.$tableID.'')) {
+        if ($lastUpdatedTimestamp !== get_option('gswpts_sheet_updated_time_' . $tableID . '')) {
             $isUpdated = true;
         }
 
@@ -400,7 +475,7 @@ class GlobalClass {
     ) {
         $sheetData = null;
 
-        $sheetData = get_transient('gswpts_sheet_data_'.$tableID.'') ? get_transient('gswpts_sheet_data_'.$tableID.'') : null;
+        $sheetData = get_transient('gswpts_sheet_data_' . $tableID . '') ? get_transient('gswpts_sheet_data_' . $tableID . '') : null;
 
         if (!$sheetData) {
             $sheetData = $this->get_csv_data($url);
@@ -421,7 +496,7 @@ class GlobalClass {
         int $tableID,
         $sheetResponse
     ) {
-        set_transient('gswpts_sheet_data_'.$tableID.'', $sheetResponse, (time() + 86400 * 30), '/');
+        set_transient('gswpts_sheet_data_' . $tableID . '', $sheetResponse, (time() + 86400 * 30), '/');
     }
 
     /**
@@ -465,9 +540,9 @@ class GlobalClass {
         $constructedURL = '';
 
         if ($constructorArray['gID'] && get_option('multiple_sheet_tab') && $this->isProActive()) {
-            $constructedURL = "https://docs.google.com/spreadsheets/d/".$constructorArray['sheetID']."/export?format=csv&id=".$constructorArray['sheetID']."&gid=".$constructorArray['gID']."";
+            $constructedURL = "https://docs.google.com/spreadsheets/d/" . $constructorArray['sheetID'] . "/export?format=csv&id=" . $constructorArray['sheetID'] . "&gid=" . $constructorArray['gID'] . "";
         } else {
-            $constructedURL = "https://docs.google.com/spreadsheets/d/".$constructorArray['sheetID']."/export?format=csv&id=".$constructorArray['sheetID']."";
+            $constructedURL = "https://docs.google.com/spreadsheets/d/" . $constructorArray['sheetID'] . "/export?format=csv&id=" . $constructorArray['sheetID'] . "";
         }
 
         return $constructedURL;
@@ -488,7 +563,7 @@ class GlobalClass {
         if (preg_match_all($pattern, $url, $matches)) {
             $matchedID = $matches[1][0];
             if ($matchedID || $matchedID == '0') {
-                $gID = ''.$matchedID.'';
+                $gID = '' . $matchedID . '';
             }
         }
         return $gID;
@@ -500,9 +575,9 @@ class GlobalClass {
      */
     public function fetch_db_by_id($id) {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
-        $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$table." WHERE id=%d", sanitize_text_field($id)));
+        $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . " WHERE id=%d", sanitize_text_field($id)));
         if (!empty($result)) {
             return $result;
         } else {
@@ -515,8 +590,8 @@ class GlobalClass {
      */
     public function fetch_gswpts_tables() {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
-        $result = $wpdb->get_results("SELECT * FROM ".$table."");
+        $table = $wpdb->prefix . 'gswpts_tables';
+        $result = $wpdb->get_results("SELECT * FROM " . $table . "");
         if (!empty($result)) {
             return $result;
         } else {
@@ -548,7 +623,7 @@ class GlobalClass {
     public function output_table_by_condition($db_result) {
         $table_settings = unserialize($db_result[0]->table_settings);
         if ($table_settings['table_title'] == 'true') {
-            return '<h3>'.esc_html__($db_result[0]->table_name, 'sheetstowptable').'</h3>';
+            return '<h3>' . esc_html__($db_result[0]->table_name, 'sheetstowptable') . '</h3>';
         } else {
             return null;
         }
@@ -619,7 +694,7 @@ class GlobalClass {
         if (!$values) {
             return;
         }
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/select_values.php', false, $values);
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/select_values.php', false, $values);
     }
 
     /**
@@ -867,7 +942,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -912,7 +987,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -1005,7 +1080,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -1017,7 +1092,7 @@ class GlobalClass {
 
         $settingsArray = [
             'asynchronous_loading' => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
                 'setting_title'   => __('Asynchronous Loading', 'sheetstowptable'),
                 'setting_tooltip' => __('Enable this feature for loading table asynchronously', 'sheetstowptable'),
                 'is_checked'      => $optionValues['asynchronous_loading'],
@@ -1029,7 +1104,7 @@ class GlobalClass {
 
             ],
             'multiple_sheet_tab'   => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
                 'setting_title'   => __('Multiple Google Sheet\'s Tab', 'sheetstowptable'),
                 'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
                 'is_checked'      => $optionValues['multiple_sheet_tab'],
@@ -1039,7 +1114,7 @@ class GlobalClass {
                 'is_pro'          => true
             ],
             'custom_css'           => [
-                'template_path'   => GSWPTS_BASE_PATH.'Includes/Templates/Parts/general_settings.php',
+                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
                 'setting_title'   => __('Custom CSS', 'sheetstowptable'),
                 'setting_tooltip' => __('Write your own custom CSS to design the table.', 'sheetstowptable'),
                 'is_checked'      => $optionValues['custom_css'],
@@ -1094,42 +1169,42 @@ class GlobalClass {
     public function tableStylesArray(): array{
         $stylesArray = [
             'default-style' => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/default-style.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/default-style.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => false,
                 'isChecked' => $this->isProActive() ? false : true,
                 'label'     => 'Default Style'
             ],
             'style-1'       => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/style-2.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-2.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 1'
             ],
             'style-2'       => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/style-3.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-3.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 2'
             ],
             'style-3'       => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/style-4.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-4.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 3'
             ],
             'style-4'       => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/style-1.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-1.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 4'
             ],
             'style-5'       => [
-                'imgUrl'    => GSWPTS_BASE_URL.'Assets/Public/Images/TableStyle/style-5.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-5.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
@@ -1146,7 +1221,7 @@ class GlobalClass {
         $stylesArray = $this->tableStylesArray();
 
         foreach ($stylesArray as $key => $style) {
-            load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/table_style_template.php', false, [
+            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/table_style_template.php', false, [
                 'isPro' => $style['isPro'],
                 'style' => $style,
                 'key'   => $key
