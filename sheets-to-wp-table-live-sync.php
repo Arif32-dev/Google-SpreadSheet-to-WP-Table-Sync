@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           2.5.0
+ * Version:           2.5.1
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '2.5.0');
+    define('GSWPTS_VERSION', '2.5.1');
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -33,18 +33,18 @@ if (!defined('PlUGIN_NAME')) {
     define('PlUGIN_NAME', 'Sheets To WP Table Live Sync');
 }
 
-if (!file_exists(GSWPTS_BASE_PATH.'vendor/autoload.php')) {
+if (!file_exists(GSWPTS_BASE_PATH . 'vendor/autoload.php')) {
     return;
 }
 
-require_once GSWPTS_BASE_PATH.'vendor/autoload.php';
+require_once GSWPTS_BASE_PATH . 'vendor/autoload.php';
 
 final class SheetsToWPTableLiveSync {
     /**
      * @return null
      */
     public function __construct() {
-        require_once ABSPATH.'wp-admin/includes/plugin.php';
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
         if ($this->version_check() == 'version_low') {
             return;
@@ -77,7 +77,7 @@ final class SheetsToWPTableLiveSync {
 
     public function appseroInit() {
         if (!class_exists('Appsero\Client')) {
-            require_once __DIR__.'/appsero/src/Client.php';
+            require_once __DIR__ . '/appsero/src/Client.php';
         }
 
         $client = new Appsero\Client('e8bb9069-1a77-457b-b1e3-a961ce950e2f', 'Sheets To WP Table Live Sync', __FILE__);
@@ -103,7 +103,7 @@ final class SheetsToWPTableLiveSync {
     public function plugins_check() {
         if (is_plugin_active(plugin_basename(__FILE__))) {
             add_action('plugins_loaded', [$this, 'include_file']);
-            add_filter('plugin_action_links_'.plugin_basename(__FILE__), [$this, 'add_action_links']);
+            add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'add_action_links']);
             $this->reviewNoticeByCondition();
         }
     }
@@ -171,7 +171,7 @@ final class SheetsToWPTableLiveSync {
      * @return null
      */
     public function showReviewNotice() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/review_notice.php');
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/review_notice.php');
         return;
     }
 
