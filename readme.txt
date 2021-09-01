@@ -174,8 +174,7 @@ For instant support please send us a message on our Facebook page or you also co
 == Changelog ==
 
 = 2.5.1 =
-* Fixed: Fixed link feature.
-* Added: Added pretty link support.
+* New: Added pretty link support.
 
 = 2.5.0 =
 * New: Added custom column hide feature for pro.
