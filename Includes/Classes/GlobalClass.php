@@ -138,7 +138,7 @@ class GlobalClass {
 
                 $allowRowFetching = apply_filters('gswpts_allow_sheet_rows_fetching', [
                     'unlimited' => false,
-                    'totalRows' => 21
+                    'totalRows' => 51
                 ]);
 
                 if (!$allowRowFetching['unlimited']) {
@@ -238,6 +238,8 @@ class GlobalClass {
 
         // Link text and link pattern combined
         $pattern = '/(\[.+\]).*(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+
         // $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
 
         if (preg_match_all($pattern, $string, $matches)) {
@@ -247,7 +249,6 @@ class GlobalClass {
 
                 foreach ($matches[0] as $key => $singleMatch) {
                     // This is only link pattern
-                    $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
 
                     if (preg_match_all($linkPattern, $singleMatch, $linkMatch)) {
                         // link text with bracket
@@ -272,7 +273,7 @@ class GlobalClass {
             } else {
                 return $string;
             }
-        } elseif (preg_match_all('/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i', $string, $matches)) {
+        } elseif (preg_match_all($linkPattern, $string, $matches)) {
             if ($matches) {
                 return $this->transformLinks($matches[0], $string);
             } else {
@@ -284,7 +285,7 @@ class GlobalClass {
     }
 
     /**
-     * Extract the text only inside the brackets
+     * Extract the text only from inside the brackets
      * @param $string
      */
     public function extractBracketText($string) {
