@@ -10,12 +10,12 @@ class FilterCallbacks {
      */
     public function loadIconsUrl(): array{
         $iconUrls = [
-            'curlyBrackets' => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/brackets-curly.svg'),
-            'copySolid'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/copy-solid.svg'),
-            'fileCSV'       => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-csv-solid.svg'),
-            'fileExcel'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-excel-solid.svg'),
-            'filePdf'       => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/file-pdf-solid.svg'),
-            'printIcon'     => esc_url(GSWPTS_PRO_BASE_URL.'Assets/Public/Icons/ExportIcons/print-solid.svg')
+            'curlyBrackets' => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/brackets-curly.svg'),
+            'copySolid'     => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/copy-solid.svg'),
+            'fileCSV'       => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/file-csv-solid.svg'),
+            'fileExcel'     => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/file-excel-solid.svg'),
+            'filePdf'       => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/file-pdf-solid.svg'),
+            'printIcon'     => esc_url(GSWPTS_PRO_BASE_URL . 'Assets/Public/Icons/ExportIcons/print-solid.svg')
         ];
 
         return $iconUrls;
@@ -94,6 +94,7 @@ class FilterCallbacks {
     public function tableToolsArray(array $settingsArray): array{
         $settingsArray['table_export']['is_pro'] = false;
         $settingsArray['table_cache']['is_pro'] = false;
+        $settingsArray['hide_rows']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -107,14 +108,15 @@ class FilterCallbacks {
         array $settings,
         array $table_settings
     ): array{
-        $settings['responsive_style'] = $table_settings['responsiveStyle'];
-        $settings['vertical_scroll'] = $table_settings['verticalScroll'];
+        $settings['responsive_style'] = isset($table_settings['responsiveStyle']) ? $table_settings['responsiveStyle'] : '';
+        $settings['vertical_scroll'] = isset($table_settings['verticalScroll']) ? $table_settings['verticalScroll'] : '';
         $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
-        $settings['cell_format'] = $table_settings['cellFormat'];
-        $settings['redirection_type'] = $table_settings['redirectionType'];
-        $settings['table_cache'] = $table_settings['tableCache'];
-        $settings['table_style'] = $table_settings['tableStyle'];
-        $settings['hide_column'] = $table_settings['hideColumn'];
+        $settings['cell_format'] = isset($table_settings['cellFormat']) ? $table_settings['cellFormat'] : '';
+        $settings['redirection_type'] = isset($table_settings['redirectionType']) ? $table_settings['redirectionType'] : '';
+        $settings['table_cache'] = isset($table_settings['tableCache']) ? $table_settings['tableCache'] : '';
+        $settings['table_style'] = isset($table_settings['tableStyle']) ? $table_settings['tableStyle'] : '';
+        $settings['hide_column'] = isset($table_settings['hideColumn']) ? $table_settings['hideColumn'] : '';
+        $settings['hide_rows'] = isset($table_settings['hideRows']) ? $table_settings['hideRows'] : '';
         return $settings;
     }
 
@@ -269,8 +271,8 @@ class FilterCallbacks {
         }
 
         foreach ($stylesArray as $key => $style) {
-            $stylesArray[$key]['cssURL'] = GSWPTS_PRO_BASE_URL.'Assets/Public/Styles/'.$key.'.min.css';
-            $stylesArray[$key]['cssPath'] = GSWPTS_PRO_BASE_PATH.'Assets/Public/Styles/'.$key.'.min.css';
+            $stylesArray[$key]['cssURL'] = GSWPTS_PRO_BASE_URL . 'Assets/Public/Styles/' . $key . '.min.css';
+            $stylesArray[$key]['cssPath'] = GSWPTS_PRO_BASE_PATH . 'Assets/Public/Styles/' . $key . '.min.css';
         }
 
         return $stylesArray;
