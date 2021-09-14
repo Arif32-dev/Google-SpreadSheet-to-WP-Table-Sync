@@ -125,6 +125,7 @@ jQuery(document).ready(function ($) {
                                 tableStyle: table_settings.table_style || "",
                                 tableTitle: table_settings.table_title || "",
                                 verticalScroll: table_settings.vertical_scroll || "",
+                                hideRows: table_settings.hide_rows || "",
                             };
 
                             $("#create_tables").DataTable(
@@ -136,6 +137,8 @@ jQuery(document).ready(function ($) {
                             this.swap_filter_inputs(swap_filter_inputs);
 
                             this.swap_bottom_options(swap_bottom_options);
+
+                            this.manageHiddenRows(tableSettings.hideRows);
 
                             if (table_settings.table_export != "empty") {
                                 this.export_buttons_row_revealer(table_settings.table_export);
@@ -163,9 +166,19 @@ jQuery(document).ready(function ($) {
                 },
             });
         }
+
         show_fetch_btn() {
             if ($("#fetch_save_btn").hasClass("hidden")) {
                 $("#fetch_save_btn").transition("scale");
+            }
+        }
+
+        manageHiddenRows(hiddenRows) {
+            if (this.isProPluginActive()) {
+                if (!hiddenRows) return;
+                hiddenRows.forEach((rowIndex) => {
+                    this.insertHiddenRowsToSelectBox(rowIndex);
+                });
             }
         }
     }

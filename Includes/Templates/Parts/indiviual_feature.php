@@ -9,12 +9,12 @@
                     <span>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
                             <span class="tooltiptext">
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="200" alt="<?php echo esc_attr($input_name) ?>">
                             </span>
                         </div>
@@ -43,14 +43,14 @@
                     <span>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
 
                                 <?php if ($show_tooltip) {?>
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="200" alt="<?php echo esc_attr($input_name) ?>">
                                 <?php }?>
                             </span>
@@ -87,12 +87,12 @@
                     <span>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="200" alt="<?php echo esc_attr($input_name) ?>">
                             </span>
                         </div>
@@ -128,14 +128,14 @@
                     <span>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span><?php echo $feature_desc ?></span>
                             </span>
                         </div>
                     </span>
                     <div class="modal-handler">
-                        <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Icons/'.$input_name.'.svg' ?>"
+                        <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Icons/' . ($input_name == 'hide_rows' ? 'hide_column' : $input_name) . '.svg' ?>"
                             class="chooseStyle" alt="chooseStyle">
 
                         <input type="hidden" name="<?php echo esc_attr($input_name); ?>"

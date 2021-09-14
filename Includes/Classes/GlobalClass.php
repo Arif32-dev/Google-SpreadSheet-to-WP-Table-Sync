@@ -63,13 +63,14 @@ class GlobalClass {
     public function get_table(
         $ajax_req = false,
         $sheet_response = null,
-        $table_id = null
+        $table_id = null,
+        $hiddenRows = [],
+        $db_result = []
     ) {
         if ($ajax_req && $sheet_response) {
-            return $this->the_table($sheet_response);
+            return $this->the_table($sheet_response, $hiddenRows);
         }
         if (isset($table_id) && $table_id !== '') {
-            $db_result = $this->fetch_db_by_id($table_id);
 
             if ($db_result) {
 
@@ -87,7 +88,7 @@ class GlobalClass {
                     return false;
                 }
 
-                $table = $this->the_table($sheet_response);
+                $table = $this->the_table($sheet_response, $hiddenRows);
 
                 $output = [
                     'id'             => $table_id,
@@ -106,7 +107,7 @@ class GlobalClass {
      * @param  $sheet_response
      * @return mixed
      */
-    public function the_table($sheet_response) {
+    public function the_table($sheet_response, $hiddenRows) {
 
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
@@ -147,7 +148,7 @@ class GlobalClass {
                     }
                 }
 
-                $table .= '<tr>';
+                $table .= '<tr class="gswpts_rows row_' . $i . '" data-index="' . $i . '" style="' . $this->hideRows($hiddenRows, $i) . '">';
 
                 foreach (fgetcsv($stream) as $key => $cell_value) {
 
@@ -172,6 +173,27 @@ class GlobalClass {
             'tableColumns' => $tableHeadValues
         ];
         return $response;
+    }
+
+    /**
+     * @param array $savedHiddenRows
+     * @param int   $rowIndex
+     */
+    public function hideRows(array $savedHiddenRows, int $rowIndex): string {
+
+        if (!$this->isProActive()) {
+            return '';
+        }
+
+        if (!$savedHiddenRows) {
+            return '';
+        }
+
+        if (in_array($rowIndex, $savedHiddenRows)) {
+            return 'display: none;';
+        }
+
+        return '';
     }
 
     /**
@@ -238,6 +260,7 @@ class GlobalClass {
 
         // Link text and link pattern combined
         $pattern = '/(\[.+\]).*(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
+        // This is only link pattern
         $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
 
         // $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
@@ -248,7 +271,6 @@ class GlobalClass {
                 $transformedLinks = '';
 
                 foreach ($matches[0] as $key => $singleMatch) {
-                    // This is only link pattern
 
                     if (preg_match_all($linkPattern, $singleMatch, $linkMatch)) {
                         // link text with bracket
@@ -1025,6 +1047,16 @@ class GlobalClass {
                 'is_pro'        => true,
                 'type'          => 'custom-type-2',
                 'default_text'  => 'Hide Column',
+                'show_tooltip'  => false
+            ],
+            'hide_rows'    => [
+                'feature_title' => __('Hide Rows', 'sheetstowptable'),
+                'feature_desc'  => __('Hide your table rows based on your custom selection', 'sheetstowptable'),
+                'input_name'    => 'hide_rows',
+                'checked'       => false,
+                'is_pro'        => true,
+                'type'          => 'custom-type-2',
+                'default_text'  => 'Hide Rows',
                 'show_tooltip'  => false
             ]
         ];

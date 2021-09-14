@@ -13,14 +13,14 @@ class SheetFetching {
     public function sheet_fetch() {
         if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_fetch') {
             self::$output['response_type'] = esc_html('invalid_action');
-            self::$output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Action is invalid', 'sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
         $ID = sanitize_text_field($_POST['id']);
         if (empty($ID) || $ID == null || $ID == "") {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
@@ -38,7 +38,7 @@ class SheetFetching {
         $db_result = $gswpts->fetch_db_by_id($id);
         if (!$db_result) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
             return self::$output;
         }
         $source_url = $db_result[0]->source_url;
@@ -76,11 +76,13 @@ class SheetFetching {
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('The spreadsheet is restricted.', 'sheetstowptable') . '<br/>' . esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable') . '</b>';
             return self::$output;
         }
 
-        $response = $gswpts->get_table(true, $sheet_response);
+        $hiddenRows = $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [];
+
+        $response = $gswpts->get_table(true, $sheet_response, null, $hiddenRows);
 
         self::$output['response_type'] = esc_html('success');
 
@@ -91,7 +93,7 @@ class SheetFetching {
             'source_type'    => esc_html__($source_type, 'sheetstowptable'),
             'table_settings' => json_encode(self::escapeData($table_settings))
         ];
-        self::$output['output'] = "".$response['table']."";
+        self::$output['output'] = "" . $response['table'] . "";
         self::$output['tableColumns'] = $response['tableColumns'];
         return self::$output;
     }

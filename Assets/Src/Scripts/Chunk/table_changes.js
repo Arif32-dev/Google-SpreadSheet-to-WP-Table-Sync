@@ -11,8 +11,13 @@ jQuery(document).ready(function ($) {
             this.tableStyleActionBtn = $(".styleModal .svg_icons, .styleModal .actions > .button");
             this.tableStylesInput = $(".styleModal .body input");
             this.hideColumnActionBtns = $(
-                ".gswpts-hide-modal .svg_icons, .gswpts-hide-modal .actions > .button"
+                ".hide-column-modal-wrapper .gswpts-hide-modal .svg_icons, .hide-column-modal-wrapper .gswpts-hide-modal .actions > .button"
             );
+            this.hideRowsActionBtns = $(
+                ".hide-rows-modal-wrapper .gswpts-hide-modal .svg_icons, .hide-rows-modal-wrapper .gswpts-hide-modal .actions > .button"
+            );
+            this.hideRowsActivator = $("#active_hide_rows");
+            this.hiddenRowsInput = $("#hidden_rows");
             this.events();
         }
 
@@ -48,12 +53,23 @@ jQuery(document).ready(function ($) {
 
                 // Activate table style popup modal in to the page
                 if (input.attr("id") === "table_style") {
-                    this.handleStyleModal();
+                    let wrapper = $(".tableStyleModal");
+                    let modal = $(".styleModal");
+                    this.handleModal(wrapper, modal);
                 }
 
                 // Activate hide column popup modal in to the page
                 if (input.attr("id") === "hide_column") {
-                    this.handleHideModal();
+                    let wrapper = $(".hide-column-modal-wrapper");
+                    let modal = $(".hide-column-modal-wrapper .gswpts-hide-modal");
+                    this.handleModal(wrapper, modal);
+                }
+
+                // Activate hide rows popup modal in to the page
+                if (input.attr("id") === "hide_rows") {
+                    let wrapper = $(".hide-rows-modal-wrapper");
+                    let modal = $(".hide-rows-modal-wrapper .gswpts-hide-modal");
+                    this.handleModal(wrapper, modal);
                 }
             });
 
@@ -85,12 +101,30 @@ jQuery(document).ready(function ($) {
                 target.parent().find(".pro_feature_promo").addClass("active");
             });
 
+            // Hide Column modal action buttons for managing popup modal
             this.hideColumnActionBtns.on("click", (e) => {
                 this.hideColumnActionCallback(e);
             });
 
+            // Hide row modal action buttons for managing popup modal
+            this.hideRowsActionBtns.on("click", (e) => {
+                this.hideRowsActionCallback(e);
+            });
+
             $("#redirection_type > input:nth-child(1)").on("change", (e) => {
                 this.update_table_by_changes(e);
+            });
+
+            this.hideRowsActivator.on("click", (e) => {
+                this.hideRowsActionCallback(e);
+            });
+
+            this.hiddenRowsInput.on("click", (e) => {
+                this.handleRowsVisibility(e);
+            });
+
+            $(document).on("click", ".ui.stackable.pagination.menu .paginate_button", (e) => {
+                this.showTableRows(e);
             });
         }
 
@@ -248,6 +282,7 @@ jQuery(document).ready(function ($) {
             promo.addClass("active");
             target.prop("checked", false);
         }
+
         close_promo_popup(e) {
             let target = $(e.currentTarget);
             let promo = target.parents(".card").find(".pro_feature_promo");
@@ -271,18 +306,10 @@ jQuery(document).ready(function ($) {
             }, 200);
         }
 
-        handleStyleModal() {
-            $(".tableStyleModal").addClass("active");
-            $(".styleModal").transition("scale");
-            $(".styleModal").css({
-                "margin-top": `${$(document).scrollTop() + 100}px`,
-            });
-        }
-
-        handleHideModal() {
-            $(".hide-column-modal-wrapper").addClass("active");
-            $(".gswpts-hide-modal").transition("scale");
-            $(".gswpts-hide-modal").css({
+        handleModal(wrapper, modal) {
+            wrapper.addClass("active");
+            modal.transition("scale");
+            modal.css({
                 "margin-top": `${$(document).scrollTop() + 100}px`,
             });
         }
@@ -290,7 +317,7 @@ jQuery(document).ready(function ($) {
         hideColumnActionCallback(e) {
             let target = $(e.currentTarget);
             $(".hide-column-modal-wrapper").removeClass("active");
-            $(".gswpts-hide-modal").transition("scale");
+            $(".hide-column-modal-wrapper .gswpts-hide-modal").transition("scale");
 
             // set data to input value for saving into database
             if (this.isProPluginActive()) {
@@ -316,6 +343,94 @@ jQuery(document).ready(function ($) {
                     this.addDraggingAbility();
                 }
             }
+        }
+
+        // Handle hide rows modal popup action
+        hideRowsActionCallback(e) {
+            let target = $(e.currentTarget);
+            $(".hide-rows-modal-wrapper").removeClass("active");
+            $(".hide-rows-modal-wrapper .gswpts-hide-modal").transition("scale");
+
+            // set data to input value for saving into database
+            if (this.isProPluginActive()) {
+                if (target.hasClass("selectBtn")) {
+                    let tableBody = $(".dataTables_scrollBody table tbody"),
+                        tableRows = $(".dataTables_scrollBody table tr");
+
+                    if (target.prop("checked")) {
+                        // if checkbox is on add row hidding feature and class with cursor changing
+
+                        tableBody.addClass("hiding_active");
+                        tableRows.addClass("gswpts_rows");
+
+                        $(document).on(
+                            "click",
+                            ".dataTables_scrollBody table .gswpts_rows",
+                            (e) => {
+                                let target = $(e.currentTarget),
+                                    rowIndex = target.attr("data-index");
+                                this.insertHiddenRowsToSelectBox(rowIndex);
+                                this.insertHiddenRowsToInputBox(rowIndex);
+                                target.hide(300);
+                            }
+                        );
+                    } else {
+                        tableBody.removeClass("hiding_active");
+                        tableRows.removeClass("gswpts_rows");
+                    }
+                }
+            }
+        }
+
+        // On remove of hidden rows from dropdown display the selected rows in table and also delete it from menu
+        handleRowsVisibility(e) {
+            let target = $(e.currentTarget);
+            let visibleRowsValue = target.find(".menu .item:not(.active)");
+            if (!visibleRowsValue) return;
+
+            $.each(visibleRowsValue, function (indexInArray, valueOfElement) {
+                let indexValue = $(valueOfElement).attr("data-value");
+                $(`.dataTables_scrollBody table tbody .row_${indexValue}`).show(300);
+
+                // Remove the the hidden row value from hidden input in order to save into database
+                let hiddenRows = [],
+                    jsonFormatData,
+                    hiddenRowValues = $("#hide_rows");
+
+                if (hiddenRowValues.val()) {
+                    hiddenRows = JSON.parse(hiddenRowValues.val());
+
+                    let rowIndexPositionInArray = hiddenRows.indexOf(indexValue);
+
+                    if (rowIndexPositionInArray != -1) {
+                        hiddenRows.splice(rowIndexPositionInArray, 1);
+
+                        jsonFormatData = JSON.stringify(hiddenRows);
+
+                        hiddenRowValues.val(jsonFormatData);
+                    }
+                }
+
+                setTimeout(() => {
+                    target.find(`.menu [data-value=${indexValue}]`).remove();
+                }, 200);
+            });
+        }
+
+        // On clicking of pagination link show the hideen table rows if those rows are not in hidden rows dropdown
+        showTableRows(e) {
+            let tableRows = $(".dataTables_scrollBody table .gswpts_rows");
+
+            if (!tableRows) return;
+
+            $.each(tableRows, function (indexInArray, valueOfElement) {
+                let rowIndex = $(valueOfElement).attr("data-index"),
+                    selectedLables = $(`#hidden_rows > [data-value=${rowIndex}]`);
+
+                if (selectedLables.length == 0) {
+                    $(valueOfElement).show(300);
+                }
+            });
         }
     }
 

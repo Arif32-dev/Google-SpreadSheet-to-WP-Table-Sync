@@ -120,15 +120,6 @@ export default class Base_Class {
             return false;
         }
     }
-    export_to_json(e, target) {
-        target.tableHTMLExport({ type: "json", filename: "sample.json" });
-    }
-    export_to_csv(e, target) {
-        target.tableHTMLExport({ type: "csv", filename: "sample.csv" });
-    }
-    export_to_pdf(e, target) {
-        target.tableHTMLExport({ type: "pdf", filename: "sample.pdf" });
-    }
 
     table_settings_obj() {
         let settings = {
@@ -162,6 +153,11 @@ export default class Base_Class {
             settings.hideColumn = $("#hide_column").val()
                 ? JSON.parse($("#hide_column").val())
                 : "";
+            settings.hideRows = $("#hide_rows").val()
+                ? JSON.parse($("#hide_rows").val()).length
+                    ? JSON.parse($("#hide_rows").val())
+                    : ""
+                : "";
         }
         return settings;
     }
@@ -183,6 +179,7 @@ export default class Base_Class {
             tableCache: false,
             tableStyle: null,
             hideColumn: null,
+            hideRows: null,
         };
 
         return default_settings;
@@ -399,7 +396,7 @@ export default class Base_Class {
         return arr.map((val) => parseInt(val));
     }
 
-    /* This function will reconfigure tables fields based on data */
+    /* This function will reconfigure tables settings fields based on saved data */
     reconfigure_input_fields(settings) {
         $("#show_title").prop("checked", settings.table_title == "true" ? true : false);
         $("#rows_per_page").dropdown(
@@ -455,6 +452,16 @@ export default class Base_Class {
                         $("#mobile-hide-columns").dropdown("set selected", export_type);
                     });
                 }
+            }
+
+            // if hidden row values saved to db then hide table rows and also update the settings with hidden row values
+            if (settings.hide_rows) {
+                $("#hide_rows").val(JSON.stringify(settings.hide_rows));
+
+                // Set the desktop column values in desktop select input
+                settings.hide_rows.forEach((rowIndex) => {
+                    $("#hidden_rows").dropdown("set selected", rowIndex);
+                });
             }
         }
     }
@@ -632,5 +639,43 @@ export default class Base_Class {
             }
             $(value).dropdown();
         });
+    }
+
+    // Insert hidden row values from sheet to input box for row hiding
+    insertHiddenRowsToSelectBox(rowIndex) {
+        let hiddenRows = $("#hidden_rows");
+        let menu = hiddenRows.find(".menu");
+        if (rowIndex) {
+            if (this.isProPluginActive()) {
+                let prevMenuList = menu.find(`[data-value=${rowIndex}]`);
+                if (!prevMenuList.length) {
+                    menu.append(`
+                        <div class="item" data-value="${rowIndex}">
+                            Row ${rowIndex ? `#${rowIndex}` : "&nbsp;"}
+                        </div>
+                    `);
+                }
+                setTimeout(() => {
+                    hiddenRows.dropdown("set selected", rowIndex);
+                }, 400);
+            }
+        }
+    }
+
+    // Add the values to hidden input value as an json object for saving in database
+    insertHiddenRowsToInputBox(rowIndex) {
+        let hiddenRows = [],
+            jsonFormatData,
+            hiddenRowValues = $("#hide_rows");
+        if (hiddenRowValues.val()) {
+            hiddenRows = JSON.parse(hiddenRowValues.val());
+            hiddenRows.push(rowIndex);
+            jsonFormatData = JSON.stringify(hiddenRows);
+            hiddenRowValues.val(jsonFormatData);
+        } else {
+            hiddenRows.push(rowIndex);
+            jsonFormatData = JSON.stringify(hiddenRows);
+            hiddenRowValues.val(jsonFormatData);
+        }
     }
 }
