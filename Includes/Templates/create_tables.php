@@ -1,6 +1,6 @@
 <?php
-    global $gswpts;
-    $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GET['id']) : null;
+global $gswpts;
+$table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GET['id']) : null;
 ?>
 <div class="gswpts_create_table_container dt-buttons">
 
@@ -20,7 +20,7 @@
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-iteml-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
@@ -66,7 +66,7 @@
                             data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch'); ?>">
                             <label for="tab1" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/archive-solid.svg';?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg';?>
                                 </span>
                                 <span><?php _e('Data Source', 'sheetstowptable');?></span>
                             </label>
@@ -78,7 +78,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab2" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/cogs-solid.svg';?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg';?>
                                 </span>
                                 <span><?php _e('Display Settings', 'sheetstowptable');?></span>
                             </label>
@@ -90,7 +90,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab3" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
                                 </span>
                                 <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
                             </label>
@@ -102,7 +102,7 @@
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab4" role="button">
                                 <span>
-                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/tools-solid.svg';?>
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg';?>
                                 </span>
                                 <span><?php _e('Table Tools', 'sheetstowptable');?></span>
                             </label>
@@ -159,7 +159,7 @@
                                                 <span class="ui icon button p-0 m-0 helper_text"
                                                     data-tooltip="Share your sheet publicly. Publish the sheet to web & click the share button at the top of your spreadsheet"
                                                     data-position="left center" data-inverted="">
-                                                    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
                                                 </span>
                                             </div>
                                         </div>
@@ -228,80 +228,12 @@
 
     </div>
 
-    <!-- Popup modal for table style -->
-    <div class="tableStyleModal">
-        <div class="styleModal transition hidden">
-            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/times-circle-solid.svg'?>
-            <div class="header">
-                <h4>Choose Table Style</h4>
-            </div>
-
-            <div class="body">
-                <?php $gswpts->tableStylesHtml();?>
-            </div>
-
-            <div class="actions">
-                <div class="ui black deny button cancelBtn">
-                    Cancel
-                </div>
-                <div class="ui positive button selectBtn">
-                    Select
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End of table style popup modal -->
-    <!-- Popup modal for table style -->
-    <div class="hide-column-modal-wrapper">
-        <div class="gswpts-hide-modal transition hidden">
-            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/times-circle-solid.svg'?>
-            <div class="header">
-                <h4>Choose Column To Hide</h4>
-            </div>
-
-            <div class="body">
-                <!-- Column values to hide in desktop mode -->
-                <div class="desktop-column">
-                    <span>Hide columns in desktop:</span>
-                    <div class="ui fluid multiple selection dropdown mt-2" id="desktop-hide-columns">
-                        <input type="hidden" name="desktop-hide-column-input" id="desktop-hide-column-input">
-                        <i class="dropdown icon"></i>
-                        <div class="default text"><?php esc_html_e('Choose Column', 'sheetstowptable')?></div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                </div>
-                <!-- End of desktop column -->
-
-                <!-- Column values to hide in mobile mode -->
-                <div class="mobile-column">
-                    <span>Hide columns in mobile:</span>
-                    <div class="ui fluid multiple selection dropdown mt-2" id="mobile-hide-columns">
-                        <input type="hidden" name="mobile-hide-column-input" id="mobile-hide-column-input">
-                        <i class="dropdown icon"></i>
-                        <div class="default text"><?php esc_html_e('Choose Column', 'sheetstowptable')?></div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                </div>
-                <!-- End of mobile column -->
-
-            </div>
-
-            <div class="actions">
-                <div class="ui black deny button cancelBtn">
-                    Cancel
-                </div>
-                <div class="ui positive button selectBtn">
-                    Select
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End of table style popup modal -->
+    <!-- Load all the modals here -->
+    <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/popup_modals.php')?>
+    <!-- End of all modals -->
 
     <!-- Popup modal for pro feature -->
-    <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/promo_large.php')?>
+    <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo_large.php')?>
     <!-- End of pro feature popup modal -->
 
 </div>

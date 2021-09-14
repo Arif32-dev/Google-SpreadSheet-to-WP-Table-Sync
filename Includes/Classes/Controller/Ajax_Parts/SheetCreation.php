@@ -17,7 +17,7 @@ class SheetCreation {
 
         if (sanitize_text_field($_POST['action']) != 'gswpts_sheet_create') {
             self::$output['response_type'] = esc_html('invalid_action');
-            self::$output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Action is invalid', 'sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
@@ -29,7 +29,7 @@ class SheetCreation {
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
-                    self::$output['output'] = '<b>'.esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable').'</b>';
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -43,7 +43,7 @@ class SheetCreation {
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
-                    self::$output['output'] = '<b>'.esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable').'</b>';
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -87,7 +87,7 @@ class SheetCreation {
 
             if (!isset($parsed_data['gswpts_sheet_nonce']) || !wp_verify_nonce($parsed_data['gswpts_sheet_nonce'], 'gswpts_sheet_nonce_action')) {
                 self::$output['response_type'] = esc_html('invalid_request');
-                self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+                self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             }
@@ -96,7 +96,7 @@ class SheetCreation {
 
                 if (!$file_input || $file_input == "") {
                     self::$output['response_type'] = esc_html('empty_field');
-                    self::$output['output'] = '<b>'.esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable').'</b>';
+                    self::$output['output'] = '<b>' . esc_html__('Form field is empty. Please fill out the field', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 }
@@ -126,7 +126,7 @@ class SheetCreation {
         }
 
         self::$output['response_type'] = esc_html('invalid_request');
-        self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+        self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
         echo json_encode(self::$output);
         wp_die();
     }
@@ -141,7 +141,7 @@ class SheetCreation {
 
         if (get_option('multiple_sheet_tab') && $hasGID === false && $gswpts->isProActive()) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.__('Copy the Google sheet URL from browser URL bar that includes <i>gid</i> parameter', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . __('Copy the Google sheet URL from browser URL bar that includes <i>gid</i> parameter', 'sheetstowptable') . '</b>';
             return self::$output;
         }
 
@@ -149,13 +149,13 @@ class SheetCreation {
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('The spreadsheet is restricted.', 'sheetstowptable').'<br/>'.esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('The spreadsheet is restricted.', 'sheetstowptable') . '<br/>' . esc_html__('Please make it public by clicking on share button at the top of spreadsheet', 'sheetstowptable') . '</b>';
             return self::$output;
         }
 
         $response = $gswpts->get_table(true, $sheet_response);
         self::$output['response_type'] = esc_html('success');
-        self::$output['output'] = "".$response['table']."";
+        self::$output['output'] = "" . $response['table'] . "";
         self::$output['tableColumns'] = $response['tableColumns'];
 
         return self::$output;
@@ -208,19 +208,19 @@ class SheetCreation {
         array $table_settings
     ) {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $dbResult = self::getURLsFromDB();
 
         if (self::isSheetDuplicate($parsed_data['file_input'], $dbResult)) {
             self::$output['response_type'] = esc_html('sheet_exists');
-            self::$output['output'] = "<b>".esc_html__('This Google sheet already saved. Try creating a new one', 'sheetstowptable')."</b>";
+            self::$output['output'] = "<b>" . esc_html__('This Google sheet already saved. Try creating a new one', 'sheetstowptable') . "</b>";
             return self::$output;
         }
 
         if (self::isGridIdDuplicate($parsed_data['file_input'], $dbResult)) {
             self::$output['response_type'] = esc_html('sheet_exists');
-            self::$output['output'] = "<b>".esc_html__('This Google sheet tab already saved. Try choosing a new one', 'sheetstowptable')."</b>";
+            self::$output['output'] = "<b>" . esc_html__('This Google sheet tab already saved. Try choosing a new one', 'sheetstowptable') . "</b>";
             return self::$output;
         }
 
@@ -245,10 +245,10 @@ class SheetCreation {
             self::$output['response_type'] = esc_html('saved');
             self::$output['id'] = $wpdb->get_results("SELECT LAST_INSERT_ID();")[0];
             self::$output['sheet_url'] = esc_url($parsed_data['file_input']);
-            self::$output['output'] = '<b>'.esc_html__('Table saved successfully', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table saved successfully', 'sheetstowptable') . '</b>';
         } else {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = "<b>".esc_html__("Table couldn't be saved. Please try again", 'sheetstowptable')."</b>";
+            self::$output['output'] = "<b>" . esc_html__("Table couldn't be saved. Please try again", 'sheetstowptable') . "</b>";
         }
         return self::$output;
     }
@@ -320,8 +320,8 @@ class SheetCreation {
      */
     public static function getURLsFromDB(): array{
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
-        $result = $wpdb->get_results("SELECT source_url FROM ".$table."");
+        $table = $wpdb->prefix . 'gswpts_tables';
+        $result = $wpdb->get_results("SELECT source_url FROM " . $table . "");
 
         return $result;
     }
@@ -335,7 +335,7 @@ class SheetCreation {
         array $settings
     ) {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $settings = self::get_table_settings($settings);
 
@@ -356,11 +356,11 @@ class SheetCreation {
         );
         if (is_int($update_response)) {
             self::$output['response_type'] = esc_html('updated');
-            self::$output['output'] = '<b>'.esc_html__('Table changes updated successfully', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table changes updated successfully', 'sheetstowptable') . '</b>';
             return self::$output;
         } else {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('Table changes could not be updated', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table changes could not be updated', 'sheetstowptable') . '</b>';
             return self::$output;
         }
     }
@@ -371,7 +371,7 @@ class SheetCreation {
      */
     public static function get_table_settings(array $table_settings) {
         $settings = [
-            'table_title'           => $table_settings['table_title'],
+            'table_title'           => $table_settings['tableTitle'],
             'default_rows_per_page' => $table_settings['defaultRowsPerPage'],
             'show_info_block'       => $table_settings['showInfoBlock'],
             'show_x_entries'        => $table_settings['showXEntries'],

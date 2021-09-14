@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.5.2
+Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,8 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🙈 **Hide column:** Hide you google sheet table column on desktop screen OR mobile screens. Protect you data if you don't want to publish everything in the web.
 
+🙈 **Hide Row:** Hide you google sheet table rows based on your custom row selection. Hide those rows if you don't want to show those secret rows in your table.
+
 
 
 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
@@ -120,6 +122,8 @@ If you like Sheets To WP Table Live Sync, then consider checking out our other a
 🌓 **[WP Dark Mode](https://wordpress.org/plugins/wp-dark-mode/)**  - Use WP Dark Mode plugin to create a stunning dark version for your WordPress website. WP Dark Mode works automatically without going into any complicated settings.
 
 🎥 **[Easy Video Reviews](https://wordpress.org/plugins/easy-video-reviews/)**  - Easy Video Reviews is the best and easiest video review plugin for WordPress. Your customers can record and send video testimonials right from their browser, and you can manage and showcase anywhere on your WordPress website.
+
+💬 **[Chat Widgets for Multivendor Marketplaces](https://wordpress.org/plugins/chat-widgets-for-multivendor-marketplaces/)**  - This chat widget plugin makes it very easy for you to connect with your potential customers via their favorite social media channels like Facebook, Messenger, WhatsApp, Viber, Telegram, Slack, TikTok, and more.
 
 
 
@@ -172,6 +176,10 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.6.0 =
+* New: Added row hiding feature.
+* Improvement: Minor code improvements
 
 = 2.5.2 =
 * Updated: Updated 20 row sync to 50 row sync.

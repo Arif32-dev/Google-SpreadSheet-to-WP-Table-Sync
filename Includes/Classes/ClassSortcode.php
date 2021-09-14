@@ -22,12 +22,12 @@ class ClassSortcode {
         if (defined('ELEMENTOR_VERSION') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
             return $this->gswpts_sortcodes($atts);
         } else {
-            $output = "<h5><b>".__('No table data found', 'sheetstowptable')."</b></h5> <br>";
+            $output = "<h5><b>" . __('No table data found', 'sheetstowptable') . "</b></h5> <br>";
             if (!is_int(intval($atts['id']))) {
                 return $output;
             }
 
-            $output = '<div class="gswpts_tables_container" id="'.esc_attr($atts['id']).'">';
+            $output = '<div class="gswpts_tables_container" id="' . esc_attr($atts['id']) . '">';
             $output .= '<h3></h3>';
 
             $output .= '<div class="gswpts_tables_content">';
@@ -35,7 +35,7 @@ class ClassSortcode {
             $output .= '
                  <div class="ui segment gswpts_table_loader">
                             <div class="ui active inverted dimmer">
-                                <div class="ui large text loader">'.__('Loading', 'sheetstowptable').'</div>
+                                <div class="ui large text loader">' . __('Loading', 'sheetstowptable') . '</div>
                             </div>
                             <p></p>
                             <p></p>
@@ -57,13 +57,18 @@ class ClassSortcode {
      * @return HTML
      */
     public function gswpts_sortcodes($atts) {
-        $output = "<h5><b>".__('No table data found', 'sheetstowptable')."</b></h5><br>";
+        $output = "<h5><b>" . __('No table data found', 'sheetstowptable') . "</b></h5><br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;
         }
 
-        $respond = $gswpts->get_table(false, null, $atts['id']);
+        $dbResult = $gswpts->fetch_db_by_id($atts['id']);
+
+        $table_settings = unserialize($dbResult[0]->table_settings);
+        $hiddenRows = $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [];
+
+        $respond = $gswpts->get_table(false, null, $atts['id'], $hiddenRows, $dbResult);
 
         if ($respond === false) {
             return $output;
@@ -72,14 +77,12 @@ class ClassSortcode {
         $table_name = $gswpts->input_values($atts['id'])['table_name'];
         $table = $respond['table']['table'];
 
-        $table_settings = $respond['table_settings'];
-
         $responsive = isset($table_settings['responsive_style']) && $table_settings['responsive_style'] ? $table_settings['responsive_style'] : null;
-        $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_'.$table_settings['table_style'].'' : null;
+        $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_' . $table_settings['table_style'] . '' : null;
 
-        $output = '<div class="gswpts_tables_container '.esc_attr($responsive).' '.esc_attr($tableStyle).'" id="'.esc_attr($atts['id']).'"
-                        data-table_name="'.esc_attr($respond['table_name']).'"
-                        data-table_settings='.json_encode($table_settings).'>';
+        $output = '<div class="gswpts_tables_container ' . esc_attr($responsive) . ' ' . esc_attr($tableStyle) . '" id="' . esc_attr($atts['id']) . '"
+                        data-table_name="' . esc_attr($respond['table_name']) . '"
+                        data-table_settings=' . json_encode($table_settings) . '>';
 
         $output .= $table_name;
 
@@ -102,7 +105,7 @@ class ClassSortcode {
     public function editTableLink(int $tableID) {
 
         if (current_user_can('manage_options')) {
-            return '<a style="position: relative; top: 20px;" href="'.esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id='.$tableID.'')).'" target="_blank">Customize Table</a>';
+            return '<a style="position: relative; top: 20px;" href="' . esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id=' . $tableID . '')) . '" target="_blank">Customize Table</a>';
         } else {
             return null;
         }
