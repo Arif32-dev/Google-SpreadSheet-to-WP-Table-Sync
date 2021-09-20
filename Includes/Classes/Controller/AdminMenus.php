@@ -16,7 +16,7 @@ class AdminMenus {
             'manage_options',
             'gswpts-dashboard',
             [get_called_class(), 'gswpts_tables'],
-            GSWPTS_BASE_URL.'Assets/Public/Images/logo_20_20.svg'
+            GSWPTS_BASE_URL . 'Assets/Public/Images/logo_20_20.svg'
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -50,21 +50,50 @@ class AdminMenus {
             'gswpts-recommendation',
             [get_called_class(), 'pluginRecommendationPage']
         );
+
+        if (!$this->checkProPluginExists()) {
+            add_submenu_page(
+                'gswpts-dashboard',
+                __('Sheets To WP Table Live Sync Pro', 'sheetstowptable'),
+                __('<span style="color: #ff3b00; font-weight: 900; font-size: 14px; letter-spacing: 1.2px">Upgrade To Pro</span>', 'sheetstowptable'),
+                'manage_options',
+                'https://go.wppool.dev/fu4'
+            );
+        }
+    }
+
+    /**
+     * @return boolean
+     */
+    public function checkProPluginExists(): bool {
+        $isProExits = false;
+        $plugins = get_plugins();
+        if (!$plugins) {
+            return false;
+        }
+
+        foreach ($plugins as $plugin) {
+            if ($plugin['TextDomain'] == 'sheetstowptable-pro') {
+                $isProExits = true;
+                break;
+            }
+        }
+        return $isProExits;
     }
 
     public static function gswpts_tables() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/manage_tables.php', true);
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php', true);
     }
 
     public static function general_settings() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/general_settings.php', true);
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/general_settings.php', true);
     }
 
     public static function documentationPage() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/documentation_page.php', true);
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/documentation_page.php', true);
     }
 
     public static function pluginRecommendationPage() {
-        load_template(GSWPTS_BASE_PATH.'Includes/Templates/recommendation_page.php', true);
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/recommendation_page.php', true);
     }
 }

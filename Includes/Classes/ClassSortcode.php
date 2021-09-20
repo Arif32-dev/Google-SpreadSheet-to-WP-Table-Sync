@@ -27,7 +27,7 @@ class ClassSortcode {
                 return $output;
             }
 
-            $output = '<div class="gswpts_tables_container" id="' . esc_attr($atts['id']) . '">';
+            $output = '<div class="gswpts_tables_container gswpts_table_' . esc_attr($atts['id']) . '" id="' . esc_attr($atts['id']) . '">';
             $output .= '<h3></h3>';
 
             $output .= '<div class="gswpts_tables_content">';
@@ -80,7 +80,7 @@ class ClassSortcode {
         $responsive = isset($table_settings['responsive_style']) && $table_settings['responsive_style'] ? $table_settings['responsive_style'] : null;
         $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_' . $table_settings['table_style'] . '' : null;
 
-        $output = '<div class="gswpts_tables_container ' . esc_attr($responsive) . ' ' . esc_attr($tableStyle) . '" id="' . esc_attr($atts['id']) . '"
+        $output = '<div class="gswpts_tables_container gswpts_table_' . esc_attr($atts['id']) . ' ' . esc_attr($responsive) . ' ' . esc_attr($tableStyle) . '" id="' . esc_attr($atts['id']) . '"
                         data-table_name="' . esc_attr($respond['table_name']) . '"
                         data-table_settings=' . json_encode($table_settings) . '>';
 

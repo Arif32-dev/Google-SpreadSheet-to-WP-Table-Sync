@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Google Sheets allows you to input data on your Google sheet and show the same da
 
 [youtube https://youtu.be/ucXSvuy5khQ]
 
- 🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
+ 🚀  [Get The PRO Version](https://go.wppool.dev/Dpv) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 
@@ -52,7 +52,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 3. **Table Title:** Enable this to show the table title in the h3 tag above the table in your website front-end. Rename your tables as you want. You will get an option to turn it On or Off.
 
-4. **Data Fetching:** Create a table and fetch up to 15-row data from your targeted table in the free version. You can show more data in the pro version.
+4. **Data Fetching:** Create a table and fetch up to 50 row data from your targeted table in the free version. You can show more data in the pro version.
 
 5. **Show Info block:** Show Showing X to Y of Z entries block below the table. With this feature, you will get the idea of the data sequence of your table at a glance. The plugin also has an On/Off button on the backend for this feature. 
 
@@ -107,13 +107,13 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🤚 **Horizontall Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
 
-🙈 **Hide column:** Hide you google sheet table column on desktop screen OR mobile screens. Protect you data if you don't want to publish everything in the web.
+🙈 **Hide column:** Hide your google sheet table column on desktop screen OR mobile screens. Protect you data if you don’t want to publish everything in the web.
 
-🙈 **Hide Row:** Hide you google sheet table rows based on your custom row selection. Hide those rows if you don't want to show those secret rows in your table.
+👀 **Hide Row:** Hide your google sheet table rows based on your custom row selection. Hide those rows if you don’t want to show those secret rows in your table.
 
 
 
-🚀  [Get The PRO Version](https://wppool.dev/sheets-to-wp-table-live-sync/) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
+🚀  [Get The PRO Version](https://go.wppool.dev/Sae) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
 
 
 === 🔥 More Awesome Plugins === 
@@ -177,9 +177,16 @@ For instant support please send us a message on our Facebook page or you also co
 
 == Changelog ==
 
+= 2.6.1 =
+* Added: Added new menu for free plugin.
+* Update: Updated pro links.
+* Fixed: Multiple sheet table fetching issue fixed.
+* Changed: Added other minor code changes.
+
+
 = 2.6.0 =
 * New: Added row hiding feature.
-* Improvement: Minor code improvements
+* Improvement: Minor code improvements.
 
 = 2.5.2 =
 * Updated: Updated 20 row sync to 50 row sync.

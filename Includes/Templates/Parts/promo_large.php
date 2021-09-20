@@ -1,28 +1,28 @@
 <?php
 
-    $url = 'https://wppool.dev/?action=wp_dark_mode_get_offer_json';
+$url = 'https://wppool.dev/?action=wp_dark_mode_get_offer_json';
 
-    $res = wp_remote_get($url);
+$res = wp_remote_get($url);
 
-    if (!is_wp_error($res)) {
-        $json = wp_remote_retrieve_body($res);
+if (!is_wp_error($res)) {
+    $json = wp_remote_retrieve_body($res);
 
-        $data = (array) json_decode($json);
+    $data = (array) json_decode($json);
 
-        if (array_key_exists('data', $data)) {
-            $date = date('Y-m-d-H-i', strtotime($data['data']->counter_time));
+    if (array_key_exists('data', $data)) {
+        $date = date('Y-m-d-H-i', strtotime($data['data']->counter_time));
 
-            $date_parts = explode('-', $date);
+        $date_parts = explode('-', $date);
 
-            $countdown_time = [
-                'year'   => $date_parts[0],
-                'month'  => $date_parts[1],
-                'day'    => $date_parts[2],
-                'hour'   => $date_parts[3],
-                'minute' => $date_parts[4]
-            ];
-        }
+        $countdown_time = [
+            'year'   => $date_parts[0],
+            'month'  => $date_parts[1],
+            'day'    => $date_parts[2],
+            'hour'   => $date_parts[3],
+            'minute' => $date_parts[4]
+        ];
     }
+}
 
 ?>
 
@@ -33,15 +33,15 @@
         <div class="popup-box">
 
             <span class="large_promo_close">
-                <?php require GSWPTS_BASE_PATH.'Assets/Public/Images/promo-close.svg'?>
+                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Images/promo-close.svg'?>
             </span>
 
             <div class="popup-header"
-                style="background-image: url(<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/header-bg.svg' ?>)">
+                style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/header-bg.svg' ?>)">
                 <h2>- <span>50</span> %</h2>
             </div>
             <div class="popup-body">
-                <img class="layer-image" src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/body-bg.svg' ?>"
+                <img class="layer-image" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/body-bg.svg' ?>"
                     alt="alternate image" />
 
                 <div class="offer">
@@ -69,7 +69,7 @@
                     </ul>
                 </div>
 
-                <a href="https://wppool.dev/sheets-to-wp-table-live-sync/" target="_blank" class="popup-button">Buy
+                <a href="https://go.wppool.dev/DoC" target="_blank" class="popup-button">Buy
                     Now</a>
             </div>
         </div>
@@ -78,7 +78,7 @@
 
 <style>
 #offer_limit ul li {
-    background-image: url(<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/timer-background.svg' ?>)
+    background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/timer-background.svg' ?>)
 }
 </style>
 

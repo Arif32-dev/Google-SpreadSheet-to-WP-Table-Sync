@@ -244,7 +244,7 @@ jQuery(document).ready(function ($) {
                             if (!this.isProPluginActive()) {
                                 this.call_alert(
                                     "Warning &#9888;&#65039;",
-                                    "<b>Live sync is limited to 20 rows.<br/><a target='blank' href='https://wppool.dev/sheets-to-wp-table-live-sync/'>Upgrade to Pro</a> for showing full google sheet.</b>",
+                                    "<b>Live sync is limited to 50 rows.<br/><a target='blank' href='https://go.wppool.dev/DoC'>Upgrade to Pro</a> for showing full google sheet.</b>",
                                     "warning",
                                     10
                                 );

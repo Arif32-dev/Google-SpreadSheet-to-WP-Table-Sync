@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           2.6.0
+ * Version:           2.6.1
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '2.6.0');
+    define('GSWPTS_VERSION', '2.6.1');
 }
 
 if (!defined('GSWPTS_BASE_PATH')) {
@@ -69,7 +69,7 @@ final class SheetsToWPTableLiveSync {
                                             font-style: italic;"
                                             href="%s"
                                             target="blank">%s</a>',
-                esc_url('https://wppool.dev/sheets-to-wp-table-live-sync/'), esc_html__('Get Pro', 'sheetstowptable')));
+                esc_url('https://go.wppool.dev/Si6'), esc_html__('Get Pro', 'sheetstowptable')));
         }
 
         return array_merge($links, $mylinks);
