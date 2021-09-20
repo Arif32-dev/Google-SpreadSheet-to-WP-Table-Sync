@@ -304,8 +304,11 @@ class SheetCreation {
         if (get_option('multiple_sheet_tab') && $gswpts->isProActive()) {
             foreach ($dbResult as $data) {
                 if ($gswpts->getGridID($data->source_url) == $gswpts->getGridID($url)) {
-                    $returnValue = true;
-                    break;
+                    // if both gid is same than we have to check if current sheet id is same with saved sheet id
+                    if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+                        $returnValue = true;
+                        break;
+                    }
                 } else {
                     $returnValue = false;
                 }
