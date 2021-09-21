@@ -29,9 +29,9 @@ class TableSettings {
             ],
             'responsive'          => [
                 'label'       => __('Resposive Table', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Allow collapsing on mobile and tablet screen', 'sheetstowptable-pro'),
-                'default'     => 'no'
+                'type'        => \Elementor\Controls_Manager::SELECT,
+                'description' => __('Allow the table to collapse or scroll on mobile and tablet screen.', 'sheetstowptable-pro'),
+                'options'     => $this->responsiveStyle()
             ],
             'show_entries'        => [
                 'label'       => __('Show X Entries', 'sheetstowptable-pro'),
@@ -80,6 +80,27 @@ class TableSettings {
     /**
      * @return mixed
      */
+    public function responsiveStyle() {
+        global $gswpts;
+
+        $responsiveStyles = $gswpts->responsiveStyle();
+
+        $options = [];
+
+        if (!$responsiveStyles) {
+            return;
+        }
+
+        foreach ($responsiveStyles as $key => $value) {
+            $options[$key] = $value['val'];
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return mixed
+     */
     public function sortFilterSettings(): array{
         $sortFilterSettings = [
             'sorting'      => [
@@ -103,10 +124,19 @@ class TableSettings {
      * @return array
      */
     protected function redirectionTypeArray() {
-        $options = [
-            '_blank' => 'Blank Type',
-            '_self'  => 'Self Type'
-        ];
+        global $gswpts;
+
+        $redirectionTypeArray = $gswpts->redirectionTypeArray();
+
+        $options = [];
+
+        if (!$redirectionTypeArray) {
+            return;
+        }
+
+        foreach ($redirectionTypeArray as $key => $value) {
+            $options[$key] = $value['val'];
+        }
 
         return $options;
     }
@@ -115,11 +145,20 @@ class TableSettings {
      * @return array
      */
     protected function cellFormattingArray() {
-        $options = [
-            'clip'   => 'Clip Style',
-            'wrap'   => 'Wrap Style',
-            'expand' => 'Expanded Style'
-        ];
+
+        global $gswpts;
+
+        $cellFormattingArray = $gswpts->cellFormattingArray();
+
+        $options = [];
+
+        if (!$cellFormattingArray) {
+            return;
+        }
+
+        foreach ($cellFormattingArray as $key => $value) {
+            $options[$key] = $value['val'];
+        }
 
         return $options;
     }
@@ -147,16 +186,19 @@ class TableSettings {
      * @return array
      */
     protected function rowsPerPage() {
-        $options = [
-            '1'   => '1',
-            '5'   => '5',
-            '10'  => '10',
-            '15'  => '15',
-            '25'  => '25',
-            '50'  => '50',
-            '100' => '100',
-            'all' => 'All'
-        ];
+        global $gswpts;
+
+        $rowsPerPage = $gswpts->rowsPerPage();
+
+        $options = [];
+
+        if (!$rowsPerPage) {
+            return;
+        }
+
+        foreach ($rowsPerPage as $key => $value) {
+            $options[$key] = $value['val'];
+        }
 
         return $options;
     }
