@@ -5,201 +5,133 @@ namespace GSWPTS_PRO\Includes\Classes\Elementor\Includes;
 class TableSettings {
 
     /**
-     * @return array
+     * @return null
      */
-    public function displaySettings(): array{
-        $displaySettings = [
-            'table_title'         => [
-                'label'       => __('Table Title', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Enable this to show the table title in h3 tag above the table in your website front-end', 'sheetstowptable-pro'),
-                'default'     => 'no'
-            ],
-            'rows_per_page'       => [
-                'label'       => __('Default Rows Per Page', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SELECT,
-                'description' => __('This will show rows per page in the frontend', 'sheetstowptable-pro'),
-                'options'     => $this->rowsPerPage()
-            ],
-            'info_block'          => [
-                'label'       => __('Show Info Block', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Show Showing X to Y of Z entriesblock below the table', 'sheetstowptable-pro'),
-                'default'     => 'yes'
-            ],
-            'responsive'          => [
-                'label'       => __('Resposive Table', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SELECT,
-                'description' => __('Allow the table to collapse or scroll on mobile and tablet screen.', 'sheetstowptable-pro'),
-                'options'     => $this->responsiveStyle()
-            ],
-            'show_entries'        => [
-                'label'       => __('Show X Entries', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Show X entries per page dropdown', 'sheetstowptable-pro'),
-                'default'     => 'yes'
-            ],
-            'swap_filter_inputs'  => [
-                'label'       => __('Swap Filters', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Swap the places of X entries dropdown & search filter input', 'sheetstowptable-pro'),
-                'default'     => 'no'
-            ],
-            'swap_bottom_options' => [
-                'label'       => __('Swap Bottom Elements', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Swap the places of Showing X to Y of Z entries with table pagination filter', 'sheetstowptable-pro'),
-                'default'     => 'no'
-            ],
-            'vertical_scrolling'  => [
-                'label'       => __('Vertical Scroll/Sticky Header', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SELECT,
-                'description' => __('Choose the height of the table to scroll vertically. Activating this feature will allow the table to behave as sticky header', 'sheetstowptable-pro'),
-                'options'     => $this->scrollHeightArray(),
-                'default'     => 'default'
-            ],
-            'cell_format'         => [
-                'label'       => __('Format Table Cell', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SELECT,
-                'description' => __('Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded style', 'sheetstowptable-pro'),
-                'options'     => $this->cellFormattingArray()
-            ],
-            'redirection_type'    => [
-                'label'       => __('Link Redirection Type', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SELECT,
-                'description' => __('Choose the redirection type of all the links in this table <br/>
-                                    <b>Blank Type</b> = Opens the links in a new window or tab <br/>
-                                    <b>Self Type</b> = Open links in the same tab (this is default)', 'sheetstowptable-pro'),
-                'options'     => $this->redirectionTypeArray()
-            ]
-        ];
+    public function displaySettings() {
+        global $gswpts;
 
-        return $displaySettings;
+        $displaySettingsArray = $gswpts->displaySettingsArray();
+
+        if (!is_array($displaySettingsArray)) {
+            return;
+        }
+
+        foreach ($displaySettingsArray as $key => $setting) {
+            echo $this->individualSettings($setting);
+        }
     }
 
     /**
+     * @return null
+     */
+    public function sortAndFilterSettings() {
+        global $gswpts;
+
+        $sortAndFilterSettingsArray = $gswpts->sortAndFilterSettingsArray();
+
+        if (!is_array($sortAndFilterSettingsArray)) {
+            return;
+        }
+
+        foreach ($sortAndFilterSettingsArray as $key => $setting) {
+            echo $this->individualSettings($setting);
+        }
+    }
+
+    /**
+     * @return null
+     */
+    public function tableToolsSettings() {
+        global $gswpts;
+
+        $tableToolsArray = $gswpts->tableToolsArray();
+
+        if (!is_array($tableToolsArray)) {
+            return;
+        }
+
+        foreach ($tableToolsArray as $key => $setting) {
+            echo $this->individualSettings($setting);
+        }
+    }
+
+    /**
+     * @param $setting
+     */
+    public function individualSettings($setting) {
+        if ($setting['type'] == 'checkbox') {
+            return '
+            <div class="card_container">
+                <div class="ui cards">
+                    <div class="card">
+                        <div class="content">
+                            <div class="card-top-header">
+                                <span>
+                                    ' . $setting['feature_title'] . '
+                                </span>
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox"
+                                        name="' . $setting['input_name'] . '" id="' . $setting['input_name'] . '">
+                                    <label for="' . $setting['input_name'] . '"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+        }
+
+        if ($setting['type'] === 'select') {
+            return '
+            <div class="card_container">
+                <div class="ui cards">
+                    <div class="card">
+                        <div class="content">
+
+                            <div class="card-top-header">
+                                <span>
+                                    ' . $setting['feature_title'] . '
+                                </span>
+                                <select id="' . $setting['input_name'] . '">
+                                    ' . $this->selectValues($setting['values'], $setting['default_value']) . '
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+        }
+    }
+
+    /**
+     * @param  $values
      * @return mixed
      */
-    public function responsiveStyle() {
-        global $gswpts;
-
-        $responsiveStyles = $gswpts->responsiveStyle();
-
-        $options = [];
-
-        if (!$responsiveStyles) {
-            return;
+    public function selectValues($values, $defaultValue) {
+        if (!is_array($values)) {
+            return '';
         }
 
-        foreach ($responsiveStyles as $key => $value) {
-            $options[$key] = $value['val'];
-        }
+        $htmlValues = '';
 
-        return $options;
+        foreach ($values as $key => $value) {
+            $htmlValues .= '<option value="' . $key . '" ' . $this->setSeletedValue($defaultValue, $key) . '>' . $value['val'] . '</option>';
+        }
+        return $htmlValues;
     }
 
     /**
-     * @return mixed
+     * @param $defaultValue
+     * @param $key
      */
-    public function sortFilterSettings(): array{
-        $sortFilterSettings = [
-            'sorting'      => [
-                'label'       => __('Allow Sorting', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Enable this feature to sort table data for frontend.', 'sheetstowptable-pro'),
-                'default'     => 'no'
-            ],
-            'search_table' => [
-                'label'       => __('Search Bar', 'sheetstowptable-pro'),
-                'type'        => \Elementor\Controls_Manager::SWITCHER,
-                'description' => __('Enable this feature to show a search bar in for the table. It will help user to search data in the table', 'sheetstowptable-pro'),
-                'default'     => 'no'
-            ]
-        ];
-
-        return $sortFilterSettings;
+    public function setSeletedValue($defaultValue, $key) {
+        if ($defaultValue == $key) {
+            return 'selected';
+        } else {
+            return '';
+        }
     }
 
-    /**
-     * @return array
-     */
-    protected function redirectionTypeArray() {
-        global $gswpts;
-
-        $redirectionTypeArray = $gswpts->redirectionTypeArray();
-
-        $options = [];
-
-        if (!$redirectionTypeArray) {
-            return;
-        }
-
-        foreach ($redirectionTypeArray as $key => $value) {
-            $options[$key] = $value['val'];
-        }
-
-        return $options;
-    }
-
-    /**
-     * @return array
-     */
-    protected function cellFormattingArray() {
-
-        global $gswpts;
-
-        $cellFormattingArray = $gswpts->cellFormattingArray();
-
-        $options = [];
-
-        if (!$cellFormattingArray) {
-            return;
-        }
-
-        foreach ($cellFormattingArray as $key => $value) {
-            $options[$key] = $value['val'];
-        }
-
-        return $options;
-    }
-
-    /**
-     * @return array
-     */
-    protected function scrollHeightArray() {
-        $options = [
-            '200'     => '200px',
-            '400'     => '400px',
-            '500'     => '500px',
-            '600'     => '600px',
-            '700'     => '700px',
-            '800'     => '800px',
-            '900'     => '900px',
-            '1000'    => '1000px',
-            'default' => 'Default Style'
-        ];
-
-        return $options;
-    }
-
-    /**
-     * @return array
-     */
-    protected function rowsPerPage() {
-        global $gswpts;
-
-        $rowsPerPage = $gswpts->rowsPerPage();
-
-        $options = [];
-
-        if (!$rowsPerPage) {
-            return;
-        }
-
-        foreach ($rowsPerPage as $key => $value) {
-            $options[$key] = $value['val'];
-        }
-
-        return $options;
-    }
 }
