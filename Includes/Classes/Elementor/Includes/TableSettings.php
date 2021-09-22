@@ -93,7 +93,7 @@ class TableSettings {
                                 <span>
                                     ' . $setting['feature_title'] . '
                                 </span>
-                                <select id="' . $setting['input_name'] . '">
+                                <select id="' . $setting['input_name'] . '" style="width: 150px;">
                                     ' . $this->selectValues($setting['values'], $setting['default_value']) . '
                                 </select>
                             </div>

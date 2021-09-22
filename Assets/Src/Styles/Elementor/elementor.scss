@@ -4,7 +4,7 @@
 @import url("./card.min.css");
 
 .gswpts_create_table_container {
-    margin: 30px 0;
+    margin: 80px 0;
 
     .gswpts_table_loader {
         min-height: 450px;
@@ -14,10 +14,23 @@
     table {
         th,
         td {
-            max-width: 200px;
-            min-width: 90px;
-            overflow-wrap: break-word;
             border: 1px solid #76767647;
+        }
+        .expanded_style {
+            max-width: unset !important;
+            overflow-wrap: unset !important;
+            white-space: nowrap !important;
+            overflow-x: unset !important;
+        }
+        .wrap_style {
+            max-width: 200px;
+            overflow-wrap: break-word;
+            white-space: normal;
+            overflow-x: unset;
+        }
+
+        th:focus {
+            outline: none;
         }
 
         th:focus {
@@ -53,20 +66,6 @@
     #spreadsheet_container {
         #create_tables_wrapper {
             width: 100% !important;
-        }
-
-        table {
-            width: 100%;
-
-            th,
-            td {
-                max-width: 200px;
-                overflow-wrap: break-word;
-            }
-
-            th:focus {
-                outline: none;
-            }
         }
 
         #create_tables_paginate > div {
@@ -150,9 +149,22 @@
             }
         }
     }
+}
+
+.gswpts_create_table_container,
+.gswpts_tables_container {
+    @include mixin.datatable_semantic;
+    @include mixin.loader_style;
+
+    .gswpts_table_title {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
 
     // Design the hidden popup
-
     .modal_wrapper {
         position: absolute;
         width: 100%;
@@ -602,10 +614,4 @@
             pointer-events: all;
         }
     }
-}
-
-.gswpts_create_table_container,
-.gswpts_tables_container {
-    @include mixin.datatable_semantic;
-    @include mixin.loader_style;
 }

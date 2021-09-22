@@ -30,9 +30,15 @@ class TemplateContent {
     let mainContainer =
     $($('#elementor-preview-iframe')[0].contentWindow.document.querySelector(`.gswpts_table_${settings.choose_table}`));
 
+    if(JSON.parse(response.table_data.table_settings).table_title == 'true'){
+    mainContainer.prepend(`<h3 class="gswpts_table_title.active">${response.table_data.table_name}</h3>`)
+    }else{
+    mainContainer.prepend(`<h3 class="gswpts_table_title">${response.table_data.table_name}</h3>`)
+    }
+
     mainContainer.append(`
-    <div class="gswpts_table_settings" data-id="${settings.choose_table}">
-        <button>Table Settings</button>
+    <div>
+        <button class="gswpts_table_settings" data-id="${settings.choose_table}">Table Settings</button>
     </div>
     `);
     <!-- Append the settings modal -->
@@ -41,6 +47,7 @@ class TemplateContent {
     sheet_container.html(response.output);
     openTableSettings();
     changeSettingsValues(mainContainer, JSON.parse(response.table_data.table_settings));
+    udpateTableByChanges(mainContainer);
     return;
     }
     },
@@ -88,19 +95,151 @@ class TemplateContent {
             <!-- Open settings popup -->
             function openTableSettings(){
             let settingsBtn =
-            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelector(".gswpts_table_settings"));
+            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".gswpts_table_settings"));
             let promoCloseBtn =
-            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelector(".large_promo_close"));
+            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".large_promo_close"));
             $(settingsBtn).on('click', (e) => {
             let target = $(e.currentTarget);
             let tableID = target.attr("data-id");
-            target.siblings('.modal_wrapper').addClass('active');
+            target.parent().siblings('.modal_wrapper').addClass('active');
             })
             $(promoCloseBtn).on('click', (e) => {
             let target = $(e.currentTarget);
             target.parents('.modal_wrapper').removeClass('active');
             })
             }
+
+            function grabElements(mainSelector){
+
+            let tableTitle = mainSelector.find('#show_title'),
+            infoBlock = mainSelector.find('#info_block'),
+            showEntries = mainSelector.find('#show_entries'),
+            swapFilters = mainSelector.find('#swap_filter_inputs'),
+            swapBottomElements = mainSelector.find('#swap_bottom_options'),
+            responsiveStyles = mainSelector.find('#responsive_style'),
+            rowsPerPage = mainSelector.find('#rows_per_page'),
+            tableHeight = mainSelector.find('#vertical_scrolling'),
+            cellFormat = mainSelector.find('#cell_format'),
+            redirectionType = mainSelector.find('#redirection_type'),
+            allowSorting = mainSelector.find('#sorting'),
+            searchTable = mainSelector.find('#search_table'),
+            tableCache = mainSelector.find('#table_cache');
+
+            return [
+            tableTitle,
+            infoBlock,
+            showEntries,
+            swapFilters,
+            swapBottomElements,
+            responsiveStyles,
+            rowsPerPage,
+            tableHeight,
+            cellFormat,
+            redirectionType,
+            allowSorting,
+            searchTable,
+            tableCache
+            ];
+
+            }
+
+            <!-- Change the table settings when tables loads from database -->
+            function changeSettingsValues(mainSelector, settings){
+
+            let [
+            tableTitle,
+            infoBlock,
+            showEntries,
+            swapFilters,
+            swapBottomElements,
+            responsiveStyles,
+            rowsPerPage,
+            tableHeight,
+            cellFormat,
+            redirectionType,
+            allowSorting,
+            searchTable,
+            tableCache
+            ] = grabElements(mainSelector);
+
+
+            <!-- Change the input values according to saved values from databse -->
+            tableTitle.prop("checked", settings.table_title == "true" ? true : false);
+            infoBlock.prop("checked", settings.show_info_block == "true" ? true : false);
+            showEntries.prop("checked", settings.show_x_entries == "true" ? true : false);
+            swapFilters.prop("checked", settings.swap_filter_inputs == "true" ? true : false);
+            swapBottomElements.prop("checked",settings.swap_bottom_options == "true" ? true : false);
+            responsiveStyles.val(settings.responsive_style).change();
+            rowsPerPage.val(settings.default_rows_per_page == "-1" ? "all" : settings.default_rows_per_page).change();
+            tableHeight.val(settings.vertical_scroll).change();
+            cellFormat.val(settings.cell_format).change();
+            redirectionType.val(settings.redirection_type).change();
+            allowSorting.prop("checked", settings.allow_sorting == "true" ? true : false);
+            searchTable.prop("checked", settings.search_bar == "true" ? true : false);
+            tableCache.prop("checked", settings.table_cache == "true" ? true : false);
+            }
+
+            <!-- Grab all settings value as an object -->
+            function tableSettingsObject(mainSelector){
+
+            let [
+            tableTitle,
+            infoBlock,
+            showEntries,
+            swapFilters,
+            swapBottomElements,
+            responsiveStyles,
+            rowsPerPage,
+            tableHeight,
+            cellFormat,
+            redirectionType,
+            allowSorting,
+            searchTable,
+            tableCache
+            ] = grabElements(mainSelector);
+
+
+            let settings = {
+            'tableTitle': tableTitle.prop("checked"),
+            'defaultRowsPerPage': rowsPerPage.val() == "all" ? -1 : rowsPerPage.val(),
+            'showInfoBlock': infoBlock.prop("checked"),
+            'showXEntries': showEntries.prop("checked"),
+            'swapFilterInputs': swapFilters.prop("checked"),
+            'swapBottomOptions': swapBottomElements.prop("checked"),
+            'allowSorting': allowSorting.prop("checked"),
+            'searchBar': searchTable.prop("checked"),
+            'responsiveStyle': responsiveStyles.val(),
+            'verticalScroll': tableHeight.val(),
+            'cellFormat': cellFormat.val(),
+            'redirectionType': redirectionType.val(),
+            'tableCache': tableCache.prop("checked")
+            };
+
+            return settings;
+
+            }
+
+            <!-- update the table when table settings changes -->
+            function udpateTableByChanges(mainSelector){
+            grabElements(mainSelector).forEach(element => {
+            element.on('change', (e) => {
+            let target = $(e.currentTarget),
+            inputValue = target.val(),
+            inputID = target.attr('id'),
+            tableSettings = tableSettingsObject(mainSelector);
+            console.log(tableSettings);
+
+            if(inputID == 'show_title' && target.prop('checked')){
+            mainSelector.find('.gswpts_table_title').addClass('active');
+            }else{
+            mainSelector.find('.gswpts_table_title').removeClass('active');
+            }
+
+            })
+            });
+            }
+
+
 
             <!-- Settings modal -->
             function settingsModal(){
@@ -175,37 +314,7 @@ class TemplateContent {
             `;
             }
 
-            function changeSettingsValues(mainSelector, settings){
 
-            let tableTitle = mainSelector.find('#show_title');
-            infoBlock = mainSelector.find('#info_block'),
-            showEntries = mainSelector.find('#show_entries'),
-            swapFilters = mainSelector.find('#swap_filter_inputs'),
-            swapBottomElements = mainSelector.find('#swap_bottom_options'),
-            responsiveStyles = mainSelector.find('#responsive_style'),
-            rowsPerPage = mainSelector.find('#rows_per_page'),
-            tableHeight = mainSelector.find('#vertical_scrolling'),
-            cellFormat = mainSelector.find('#cell_format'),
-            redirectionType = mainSelector.find('#redirection_type'),
-            allowSorting = mainSelector.find('#sorting'),
-            searchTable = mainSelector.find('#search_table'),
-            tableCache = mainSelector.find('#table_cache');
-
-            <!-- Change the input values according to saved values from databse -->
-            tableTitle.prop("checked", settings.table_title == "true" ? true : false);
-            infoBlock.prop("checked", settings.show_info_block == "true" ? true : false);
-            showEntries.prop("checked", settings.show_x_entries == "true" ? true : false);
-            swapFilters.prop("checked", settings.swap_filter_inputs == "true" ? true : false);
-            swapBottomElements.prop("checked",settings.swap_bottom_options == "true" ? true : false);
-            responsiveStyles.val(settings.responsive_style).change();
-            rowsPerPage.val(settings.default_rows_per_page == "-1" ? "all" : settings.default_rows_per_page).change();
-            tableHeight.val(settings.vertical_scroll).change();
-            cellFormat.val(settings.cell_format).change();
-            redirectionType.val(settings.redirection_type).change();
-            allowSorting.prop("checked", settings.allow_sorting == "true" ? true : false);
-            searchTable.prop("checked", settings.search_bar == "true" ? true : false);
-            tableCache.prop("checked", settings.table_cache == "true" ? true : false);
-            }
 
             })
 
