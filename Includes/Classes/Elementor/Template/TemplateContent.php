@@ -30,10 +30,18 @@ class TemplateContent {
     let mainContainer =
     $($('#elementor-preview-iframe')[0].contentWindow.document.querySelector(`.gswpts_table_${settings.choose_table}`));
 
+    if(mainContainer.find('h3').length == 0){
     if(JSON.parse(response.table_data.table_settings).table_title == 'true'){
     mainContainer.prepend(`<h3 class="gswpts_table_title.active">${response.table_data.table_name}</h3>`)
     }else{
     mainContainer.prepend(`<h3 class="gswpts_table_title">${response.table_data.table_name}</h3>`)
+    }
+    }else{
+    if(JSON.parse(response.table_data.table_settings).table_title == 'true'){
+    mainContainer.find('h3').addClass('gswpts_table_title active');
+    }else{
+    mainContainer.find('h3').removeClass('active');
+    }
     }
 
     mainContainer.append(`
@@ -42,10 +50,10 @@ class TemplateContent {
     </div>
     `);
     <!-- Append the settings modal -->
-    mainContainer.append(settingsModal());
+    mainContainer.append(settingsModal(settings.choose_table));
     <!-- Append the table data into the container -->
     sheet_container.html(response.output);
-    openTableSettings();
+    openTableSettings(mainContainer);
     changeSettingsValues(mainContainer, JSON.parse(response.table_data.table_settings));
     udpateTableByChanges(mainContainer);
     return;
@@ -93,20 +101,51 @@ class TemplateContent {
             });
 
             <!-- Open settings popup -->
-            function openTableSettings(){
+            function openTableSettings(mainContainer){
             let settingsBtn =
             $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".gswpts_table_settings"));
             let promoCloseBtn =
             $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".large_promo_close"));
+
+            let tableID;
+
             $(settingsBtn).on('click', (e) => {
             let target = $(e.currentTarget);
-            let tableID = target.attr("data-id");
+            tableID = target.attr("data-id");
             target.parent().siblings('.modal_wrapper').addClass('active');
             })
             $(promoCloseBtn).on('click', (e) => {
             let target = $(e.currentTarget);
             target.parents('.modal_wrapper').removeClass('active');
+            saveSettings(mainContainer, tableID);
             })
+            }
+
+            function saveSettings(mainSelector, tableID){
+            let settings = tableSettingsObject(mainSelector),
+            tableName = mainSelector.find('.gswpts_table_title').text();
+            $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php') ?>",
+
+            data: {
+            action: "gswpts_sheet_create",
+            table_name: tableName,
+            table_settings: settings,
+            id: tableID,
+            type: 'save_changes',
+            gutenberg_req: true
+            },
+
+            type: "post",
+
+            success: (res) => {
+            console.log(JSON.parse(res));
+            },
+            error: (err) => {
+            console.log(err);
+            alert("Something went wrong. Check developer console");
+            },
+            });
             }
 
             function grabElements(mainSelector){
@@ -229,142 +268,327 @@ class TemplateContent {
             tableSettings = tableSettingsObject(mainSelector);
             console.log(tableSettings);
 
+            <!-- Show the table title on elementor page -->
             if(inputID == 'show_title' && target.prop('checked')){
             mainSelector.find('.gswpts_table_title').addClass('active');
-            }else{
+            }
+
+            <!-- Hide the table title on elementor page -->
+            if(inputID == 'show_title' && !target.prop('checked')){
             mainSelector.find('.gswpts_table_title').removeClass('active');
             }
 
+            if (
+            inputID == "show_title" ||
+            inputID == "responsive_style" ||
+            inputID == "search_table" ||
+            inputID == "rows_per_page" ||
+            inputID == "sorting" ||
+            inputID == "show_entries" ||
+            inputID == "info_block" ||
+            inputID == "vertical_scrolling" ||
+            inputID == "cell_format"
+            ) {
+
+            changeCellFormat(tableSettings.cellFormat, mainSelector);
+
+            reFormatTable(mainSelector, tableSettings);
+
+            swap_filter_inputs(tableSettings.swapFilterInputs, mainSelector);
+            swap_bottom_options(tableSettings.swapBottomOptions, mainSelector);
+            }
+
+            <!-- Swaping Filter Inputs  -->
+            if (inputID == "swap_filter_inputs") {
+            swap_filter_inputs(target.prop("checked"), mainSelector);
+            }
+
+            <!-- Swaping bottom elements -->
+            if (inputID == "swap_bottom_options") {
+            swap_bottom_options(target.prop("checked"), mainSelector);
+            }
+
+            <!-- Changing the link redirection type -->
+            if (inputID == "redirection_type") {
+            changeRedirectionType(tableSettings.redirectionType, mainSelector);
+            }
             })
             });
             }
 
+            function reFormatTable(mainSelector, tableSettings) {
+
+            let dom = `B<"filtering_input"${tableSettings.showXEntries ? "l" : "" }${ tableSettings.searchBar ? "f" : ""
+                }>rt<"bottom_options"${tableSettings.showInfoBlock ? "i" : "" }p>`;
+
+                    let table_name = mainSelector.find('.gswpts_table_title').text();
+                    table_changer(table_name, tableSettings, dom, mainSelector);
+                    }
 
 
-            <!-- Settings modal -->
-            function settingsModal(){
+                    <!-- Change the cell format in table -->
+                    function changeCellFormat(formatStyle, mainSelector) {
+                    let tableCell = mainSelector.find('table th, td');
 
-            <?php $settingsClass = new TableSettings();?>
-            return `
-            <div class="modal_wrapper">
-                <div class="modal_container">
+                    switch (formatStyle) {
+                    case "wrap":
+                    $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("expanded_style");
+                    $(cell).addClass("wrap_style");
+                    });
+                    break;
 
-                    <div class="settings_container">
-                        <span class="large_promo_close">
-                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Images/promo-close.svg'?>
-                        </span>
-                        <div class="tabs">
+                    case "expand":
+                    $.each(tableCell, function (i, cell) {
+                    $(cell).removeClass("clip_style");
+                    $(cell).removeClass("wrap_style");
+                    $(cell).addClass("expanded_style");
+                    });
+                    break;
 
-                            <input type="radio" id="tab1" name="tab-control" checked>
-                            <input type="radio" id="tab2" name="tab-control">
-                            <input type="radio" id="tab3" name="tab-control">
-                            <ul>
-                                <li title="Display Settings">
-                                    <label for="tab1" role="button">
-                                        <span>
-                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg';?>
-                                        </span>
-                                        <span><?php _e('Display Settings', 'sheetstowptable-pro');?></span>
-                                    </label>
-                                </li>
-                                <li title="Sort & Filter">
-                                    <label for="tab2" role="button">
-                                        <span>
-                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
-                                        </span>
-                                        <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
-                                    </label>
-                                </li>
-                                <li title="Table Tools">
-                                    <label for="tab3" role="button">
-                                        <span>
-                                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg';?>
-                                        </span>
-                                        <span><?php _e('Table Tools', 'sheetstowptable');?></span>
-                                    </label>
-                                </li>
-                            </ul>
+                    default:
+                    break;
+                    }
+                    }
 
-                            <div class="slider">
-                                <div class="indicator"></div>
+                    <!-- Swap the place of filter input -->
+                    function swap_filter_inputs(state, mainSelector) {
+                    if (state) {
+                    mainSelector.find('.filtering_input').css("flex-direction", "row-reverse");
+                    mainSelector.find('#create_tables_length').css({
+                    "margin-right": "0",
+                    "margin-left": "auto",
+                    });
+                    mainSelector.find('#create_tables_filter').css({
+                    "margin-left": "0",
+                    "margin-right": "auto",
+                    });
+                    } else {
+                    mainSelector.find('.filtering_input').css("flex-direction", "row");
+                    mainSelector.find('#create_tables_length').css({
+                    "margin-right": "auto",
+                    "margin-left": "0",
+                    });
+                    mainSelector.find('#create_tables_filter').css({
+                    "margin-left": "auto",
+                    "margin-right": "0",
+                    });
+                    }
+                    }
+
+                    <!-- Swap the places of botttom elements -->
+                    function swap_bottom_options(state, mainSelector) {
+                    let style = {
+                    flex_direction: "row-reverse",
+                    table_info_style: {
+                    margin_right: 0,
+                    margin_left: "auto",
+                    },
+                    table_paginate_style: {
+                    margin_right: "auto",
+                    margin_left: 0,
+                    },
+                    };
+                    if (state) {
+                    bottom_option_style(style, mainSelector);
+                    } else {
+                    style["flex_direction"] = "row";
+
+                    style.table_info_style["margin_left"] = 0;
+                    style.table_info_style["margin_right"] = "auto";
+
+                    style.table_paginate_style["margin_left"] = "auto";
+                    style.table_paginate_style["margin_right"] = 0;
+
+                    bottom_option_style(style, mainSelector);
+                    }
+                    }
+
+                    <!-- Swap the bottom options by changing css style -->
+                    function bottom_option_style($arg, mainSelector) {
+                    mainSelector.find('.bottom_options').css("flex-direction", $arg["flex_direction"]);
+                    mainSelector.find('#create_tables_info').css({
+                    "margin-left": $arg["table_info_style"]["margin_left"],
+                    "margin-right": $arg["table_info_style"]["margin_right"],
+                    });
+                    mainSelector.find('#create_tables_paginate').css({
+                    "margin-left": $arg["table_paginate_style"]["margin_left"],
+                    "margin-right": $arg["table_paginate_style"]["margin_right"],
+                    });
+                    }
+
+                    <!-- Change the redirection type of links that are in inside table cell -->
+                    function changeRedirectionType(type, mainSelector) {
+                    let links = mainSelector.find('#create_tables a');
+                    if (!links.length) return;
+                    $.each(links, function (i, link) {
+                    $(link).attr("target", type);
+                    });
+                    }
+
+
+                    function table_changer(table_name, table_settings, dom, mainSelector) {
+                    mainSelector.find('#create_tables').DataTable(table_object(table_name, dom, table_settings));
+                    }
+
+
+                    function table_object(table_name, dom, table_settings) {
+                    let obj = {
+                    dom: dom,
+                    order: [],
+                    responsive: true,
+                    lengthMenu: [
+                    [1, 5, 10, 15],
+                    [1, 5, 10, 15],
+                    ],
+                    pageLength: parseInt(table_settings.defaultRowsPerPage),
+                    lengthChange: true,
+                    ordering: table_settings.allowSorting,
+                    destroy: true,
+                    scrollX: true,
+                    };
+
+                    obj.lengthMenu = [
+                    [1, 5, 10, 15, 25, 50, 100, -1],
+                    [1, 5, 10, 15, 25, 50, 100, "All"],
+                    ];
+
+                    if (table_settings.verticalScroll != "default") {
+                    obj.scrollY = `${table_settings.verticalScroll}px`;
+                    }
+
+                    return obj;
+                    }
+
+
+
+                    <!-- Settings modal -->
+                    function settingsModal(tableID){
+
+                    <?php $settingsClass = new TableSettings();?>
+                    return `
+                    <div class="modal_wrapper">
+                        <div class="modal_container">
+
+                            <div class="settings_container">
+                                <span class="large_promo_close">
+                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Images/promo-close.svg'?>
+                                </span>
+                                <div class="tabs">
+
+                                    <input type="radio" id="tab1" name="tab-control" checked>
+                                    <input type="radio" id="tab2" name="tab-control">
+                                    <input type="radio" id="tab3" name="tab-control">
+                                    <ul>
+                                        <li title="Display Settings">
+                                            <label for="tab1" role="button">
+                                                <span>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg';?>
+                                                </span>
+                                                <span><?php _e('Display Settings', 'sheetstowptable-pro');?></span>
+                                            </label>
+                                        </li>
+                                        <li title="Sort & Filter">
+                                            <label for="tab2" role="button">
+                                                <span>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
+                                                </span>
+                                                <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
+                                            </label>
+                                        </li>
+                                        <li title="Table Tools">
+                                            <label for="tab3" role="button">
+                                                <span>
+                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg';?>
+                                                </span>
+                                                <span><?php _e('Table Tools', 'sheetstowptable');?></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+
+                                    <div class="slider">
+                                        <div class="indicator"></div>
+                                    </div>
+                                    <div class="content">
+                                        <section class="display_settings">
+                                            <div class="feature-container">
+                                                <?php $settingsClass->displaySettings()?>
+                                            </div>
+                                        </section>
+                                        <section class="sort_filter">
+                                            <div class="feature-container">
+                                                <?php $settingsClass->sortAndFilterSettings()?>
+                                            </div>
+                                        </section>
+                                        <section class="table_tools">
+                                            <div class="feature-container">
+                                                <?php $settingsClass->tableToolsSettings()?>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="content">
-                                <section class="display_settings">
-                                    <div class="feature-container">
-                                        <?php $settingsClass->displaySettings()?>
-                                    </div>
-                                </section>
-                                <section class="sort_filter">
-                                    <div class="feature-container">
-                                        <?php $settingsClass->sortAndFilterSettings()?>
-                                    </div>
-                                </section>
-                                <section class="table_tools">
-                                    <div class="feature-container">
-                                        <?php $settingsClass->tableToolsSettings()?>
-                                    </div>
-                                </section>
-                            </div>
+
                         </div>
-
                     </div>
-
-                </div>
-            </div>
-            `;
-            }
+                    `;
+                    }
 
 
 
-            })
+                    })
 
 
-            #>
-            <?php }
+                    #>
+                    <?php }
 
     public function table_container() {
         ?>
-            <div class="gswpts_create_table_container gswpts_table_{{{ settings.choose_table }}}"
-                id="{{{ settings.choose_table }}}"
-                class="col-12 d-flex justify-content-center align-content-center p-relative p-0 position-relative">
-                <div id="spreadsheet_container">
-                    <div class="ui segment gswpts_table_loader" style="z-index: -1;">
-                        <div class="ui active inverted dimmer">
-                            <div class="ui large text loader">Loading</div>
+                    <div class="gswpts_create_table_container gswpts_table_{{{ settings.choose_table }}}"
+                        id="{{{ settings.choose_table }}}"
+                        class="col-12 d-flex justify-content-center align-content-center p-relative p-0 position-relative">
+                        <div id="spreadsheet_container">
+                            <div class="ui segment gswpts_table_loader" style="z-index: -1;">
+                                <div class="ui active inverted dimmer">
+                                    <div class="ui large text loader">Loading</div>
+                                </div>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </div>
                         </div>
-                        <p></p>
-                        <p></p>
-                        <p></p>
                     </div>
-                </div>
-            </div>
-            <?php
+                    <?php
 }
 
     public function init_content() {
         ?>
-            <div class="gswpts_create_table_container" style="margin-right: 0px;">
-                <div class="block_initializer">
-                    <div class="ui green message"
-                        style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any saved
-                        table
-                        to load data</div>
-                </div>
-            </div>
-            <?php
+                    <div class="gswpts_create_table_container" style="margin-right: 0px;">
+                        <div class="block_initializer">
+                            <div class="ui green message"
+                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any
+                                saved
+                                table
+                                to load data</div>
+                        </div>
+                    </div>
+                    <?php
 }
 
     public function showTableSettings() {
         ?>
-            <div class="gswpts_table_settings" style="margin-right: 0px;">
-                <div class="block_initializer">
-                    <div class="ui green message"
-                        style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any saved
-                        table
-                        to load data</div>
-                </div>
-            </div>
-            <?php
+                    <div class="gswpts_table_settings" style="margin-right: 0px;">
+                        <div class="block_initializer">
+                            <div class="ui green message"
+                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any
+                                saved
+                                table
+                                to load data</div>
+                        </div>
+                    </div>
+                    <?php
 }
 
 }
