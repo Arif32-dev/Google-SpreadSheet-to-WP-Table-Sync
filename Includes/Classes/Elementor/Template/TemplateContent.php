@@ -30,32 +30,37 @@ class TemplateContent {
     let mainContainer =
     $($('#elementor-preview-iframe')[0].contentWindow.document.querySelector(`.gswpts_table_${settings.choose_table}`));
 
+    let tableSettings = JSON.parse(response.table_data.table_settings);
+
     if(mainContainer.find('h3').length == 0){
-    if(JSON.parse(response.table_data.table_settings).table_title == 'true'){
+    if(tableSettings.table_title == 'true'){
     mainContainer.prepend(`<h3 class="gswpts_table_title.active">${response.table_data.table_name}</h3>`)
     }else{
     mainContainer.prepend(`<h3 class="gswpts_table_title">${response.table_data.table_name}</h3>`)
     }
     }else{
-    if(JSON.parse(response.table_data.table_settings).table_title == 'true'){
+    if(tableSettings.table_title == 'true'){
     mainContainer.find('h3').addClass('gswpts_table_title active');
     }else{
     mainContainer.find('h3').removeClass('active');
     }
     }
 
+    if(mainContainer.find('.gswpts_table_settings').length == 0) {
+
     mainContainer.append(`
     <div>
         <button class="gswpts_table_settings" data-id="${settings.choose_table}">Table Settings</button>
     </div>
     `);
-    <!-- Append the settings modal -->
-    mainContainer.append(settingsModal(settings.choose_table));
-    <!-- Append the table data into the container -->
+    }
+
     sheet_container.html(response.output);
-    openTableSettings(mainContainer);
-    changeSettingsValues(mainContainer, JSON.parse(response.table_data.table_settings));
-    udpateTableByChanges(mainContainer);
+
+    changeCellFormat(tableSettings.cell_format, mainContainer)
+
+    openTableSettings(mainContainer, tableSettings);
+
     return;
     }
     },
@@ -100,26 +105,46 @@ class TemplateContent {
             }
             });
 
+
             <!-- Open settings popup -->
-            function openTableSettings(mainContainer){
-            let settingsBtn =
-            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".gswpts_table_settings"));
-            let promoCloseBtn =
-            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".large_promo_close"));
+            function openTableSettings(mainContainer, table_settings){
 
             let tableID;
 
-            $(settingsBtn).on('click', (e) => {
+            mainContainer.find('.gswpts_table_settings').on('click', (e) => {
             let target = $(e.currentTarget);
             tableID = target.attr("data-id");
+
+            mainContainer = target.parent().parent();
+
+            if(mainContainer.find('.modal_wrapper').length==0){
+            <!-- Append the settings modal -->
+            mainContainer.append(settingsModal(settings.choose_table));
+            <!-- Append the table data into the container -->
+
+            changeSettingsValues(mainContainer, table_settings);
+
             target.parent().siblings('.modal_wrapper').addClass('active');
-            })
-            $(promoCloseBtn).on('click', (e) => {
-            let target = $(e.currentTarget);
+
+            let promoCloseBtn =
+            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".large_promo_close"));
+
+            $(promoCloseBtn).on('click', (event) => {
+            target = $(event.currentTarget);
             target.parents('.modal_wrapper').removeClass('active');
             saveSettings(mainContainer, tableID);
+            mainContainer.find('.modal_wrapper').remove();
+
             })
+
+            udpateTableByChanges(mainContainer);
+
             }
+
+            })
+
+            }
+
 
             function saveSettings(mainSelector, tableID){
             let settings = tableSettingsObject(mainSelector),
@@ -209,7 +234,8 @@ class TemplateContent {
             swapFilters.prop("checked", settings.swap_filter_inputs == "true" ? true : false);
             swapBottomElements.prop("checked",settings.swap_bottom_options == "true" ? true : false);
             responsiveStyles.val(settings.responsive_style).change();
-            rowsPerPage.val(settings.default_rows_per_page == "-1" ? "all" : settings.default_rows_per_page).change();
+            rowsPerPage.val(settings.default_rows_per_page == "-1" ? "all" :
+            settings.default_rows_per_page).change();
             tableHeight.val(settings.vertical_scroll).change();
             cellFormat.val(settings.cell_format).change();
             redirectionType.val(settings.redirection_type).change();
@@ -269,18 +295,15 @@ class TemplateContent {
             console.log(tableSettings);
 
             <!-- Show the table title on elementor page -->
-            if(inputID == 'show_title' && target.prop('checked')){
-            mainSelector.find('.gswpts_table_title').addClass('active');
+            if(inputID == 'show_title' && target.prop('checked') == true){
+            mainSelector.find('h3')[0].style.display = 'block';
             }
-
             <!-- Hide the table title on elementor page -->
-            if(inputID == 'show_title' && !target.prop('checked')){
-            mainSelector.find('.gswpts_table_title').removeClass('active');
+            if(inputID == 'show_title' && target.prop('checked') == false){
+            mainSelector.find('h3')[0].style.display = 'none';
             }
 
             if (
-            inputID == "show_title" ||
-            inputID == "responsive_style" ||
             inputID == "search_table" ||
             inputID == "rows_per_page" ||
             inputID == "sorting" ||
@@ -293,9 +316,6 @@ class TemplateContent {
             changeCellFormat(tableSettings.cellFormat, mainSelector);
 
             reFormatTable(mainSelector, tableSettings);
-
-            swap_filter_inputs(tableSettings.swapFilterInputs, mainSelector);
-            swap_bottom_options(tableSettings.swapBottomOptions, mainSelector);
             }
 
             <!-- Swaping Filter Inputs  -->
@@ -429,7 +449,8 @@ class TemplateContent {
 
 
                     function table_changer(table_name, table_settings, dom, mainSelector) {
-                    mainSelector.find('#create_tables').DataTable(table_object(table_name, dom, table_settings));
+                    mainSelector.find('#create_tables').DataTable(table_object(table_name, dom,
+                    table_settings));
                     }
 
 
@@ -568,7 +589,8 @@ class TemplateContent {
                     <div class="gswpts_create_table_container" style="margin-right: 0px;">
                         <div class="block_initializer">
                             <div class="ui green message"
-                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any
+                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose
+                                any
                                 saved
                                 table
                                 to load data</div>
@@ -582,7 +604,8 @@ class TemplateContent {
                     <div class="gswpts_table_settings" style="margin-right: 0px;">
                         <div class="block_initializer">
                             <div class="ui green message"
-                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose any
+                                style="width:70%; margin: 0 auto;text-align: center; font-weight: bold;">Choose
+                                any
                                 saved
                                 table
                                 to load data</div>
