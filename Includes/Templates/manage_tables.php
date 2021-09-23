@@ -1,5 +1,14 @@
+<script>
+// @see https://docs.headwayapp.co/widget for more configuration options.
+var HW_config = {
+    selector: "#gswpts_changelogs", // CSS selector where to inject the badge
+    account: "7kPL5J"
+}
+</script>
+<script async src="https://cdn.headwayapp.co/widget.js"></script>
+
 <?php if (isset($_GET['subpage']) && sanitize_text_field($_GET['subpage']) == 'create-table') {?>
-<?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/create_tables.php')?>
+<?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/create_tables.php')?>
 <?php } else {?>
 <div class="gswpts_manage_table_container">
 
@@ -17,11 +26,12 @@
 
         <div class="row heading_row">
             <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg') ?>"
+                <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') ?>"
                     alt="sheets-logo">
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
+                <span id="gswpts_changelogs"></span>
             </div>
         </div>
 

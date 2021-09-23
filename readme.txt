@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,12 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.6.2 =
+* New: Added changelog viewer in dashboard.
+* Fixed: Fixed no data text in empty cell.
+* Fixed: Updated table settings saving sync with other page builders.
+* Improvement: Modified Elementor widget.
 
 = 2.6.1 =
 * Added: Added new menu for free plugin.

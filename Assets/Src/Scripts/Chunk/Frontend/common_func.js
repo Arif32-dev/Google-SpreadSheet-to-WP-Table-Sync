@@ -325,7 +325,7 @@ export default class Global_Table_Config {
                     });
                 }
 
-                this.hideEmptyCell();
+                // this.hideEmptyCell();
             }
         }
     }

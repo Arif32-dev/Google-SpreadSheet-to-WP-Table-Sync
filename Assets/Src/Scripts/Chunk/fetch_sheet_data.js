@@ -109,21 +109,25 @@ jQuery(document).ready(function ($) {
 
                         setTimeout(() => {
                             let tableSettings = {
-                                allowSorting: table_settings.allow_sorting || "",
+                                allowSorting: table_settings.allow_sorting == "true" ? true : false,
                                 cellFormat: table_settings.cell_format || "",
                                 defaultRowsPerPage: table_settings.default_rows_per_page || "",
                                 hideColumn: table_settings.hide_column || "",
                                 redirectionType: table_settings.redirection_type || "",
                                 responsiveStyle: table_settings.responsive_style || "",
-                                searchBar: table_settings.search_bar || "",
-                                showInfoBlock: table_settings.show_info_block || "",
-                                showXEntries: table_settings.show_x_entries || "",
-                                swapBottomOptions: table_settings.swap_bottom_options || "",
-                                swapFilterInputs: table_settings.swap_filter_inputs || "",
-                                tableCache: table_settings.table_cache || "",
+                                searchBar: table_settings.search_bar == "true" ? true : false,
+                                showInfoBlock:
+                                    table_settings.show_info_block == "true" ? true : false,
+                                showXEntries:
+                                    table_settings.show_x_entries == "true" ? true : false,
+                                swapBottomOptions:
+                                    table_settings.swap_bottom_options == "true" ? true : false,
+                                swapFilterInputs:
+                                    table_settings.swap_filter_inputs == "true" ? true : false,
+                                tableCache: table_settings.table_cache == "true" ? true : false,
                                 tableExport: table_settings.table_export || "",
                                 tableStyle: table_settings.table_style || "",
-                                tableTitle: table_settings.table_title || "",
+                                tableTitle: table_settings.table_title == "true" ? true : false,
                                 verticalScroll: table_settings.vertical_scroll || "",
                                 hideRows: table_settings.hide_rows || "",
                             };

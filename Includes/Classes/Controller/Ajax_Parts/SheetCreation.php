@@ -338,14 +338,23 @@ class SheetCreation {
         array $settings
     ) {
         global $wpdb;
+        global $gswpts;
         $table = $wpdb->prefix . 'gswpts_tables';
 
         $settings = self::get_table_settings($settings);
 
+        $previousSettings = unserialize($gswpts->fetch_db_by_id($table_id)[0]->table_settings);
+
+        foreach ($settings as $key => $value) {
+            if ($value) {
+                $previousSettings[$key] = $value;
+            }
+        }
+
         $update_response = $wpdb->update(
             $table,
             [
-                'table_settings' => serialize($settings)
+                'table_settings' => serialize($previousSettings)
             ],
             [
                 'id' => intval(sanitize_text_field($table_id))
