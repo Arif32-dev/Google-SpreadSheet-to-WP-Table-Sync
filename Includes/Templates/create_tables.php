@@ -24,6 +24,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
+                <span id="gswpts_changelogs"></span>
             </div>
         </div>
         <div class="row mt-3">
