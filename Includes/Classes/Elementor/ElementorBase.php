@@ -95,6 +95,7 @@ class ElementorBase {
 
         // Register widget
         \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new ElementorWidget());
+
     }
 
     /**

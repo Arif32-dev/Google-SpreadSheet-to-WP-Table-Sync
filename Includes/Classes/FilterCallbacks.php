@@ -94,6 +94,7 @@ class FilterCallbacks {
     public function tableToolsArray(array $settingsArray): array{
         $settingsArray['table_export']['is_pro'] = false;
         $settingsArray['table_cache']['is_pro'] = false;
+        $settingsArray['hide_column']['is_pro'] = false;
         $settingsArray['hide_rows']['is_pro'] = false;
 
         return $settingsArray;
@@ -108,15 +109,35 @@ class FilterCallbacks {
         array $settings,
         array $table_settings
     ): array{
-        $settings['responsive_style'] = isset($table_settings['responsiveStyle']) ? $table_settings['responsiveStyle'] : '';
-        $settings['vertical_scroll'] = isset($table_settings['verticalScroll']) ? $table_settings['verticalScroll'] : '';
-        $settings['table_export'] = isset($table_settings['tableExport']) && $table_settings['tableExport'] != null && $table_settings['tableExport'] != false ? $table_settings['tableExport'] : 'empty';
-        $settings['cell_format'] = isset($table_settings['cellFormat']) ? $table_settings['cellFormat'] : '';
-        $settings['redirection_type'] = isset($table_settings['redirectionType']) ? $table_settings['redirectionType'] : '';
-        $settings['table_cache'] = isset($table_settings['tableCache']) ? $table_settings['tableCache'] : '';
-        $settings['table_style'] = isset($table_settings['tableStyle']) ? $table_settings['tableStyle'] : '';
-        $settings['hide_column'] = isset($table_settings['hideColumn']) ? $table_settings['hideColumn'] : '';
-        $settings['hide_rows'] = isset($table_settings['hideRows']) ? $table_settings['hideRows'] : '';
+        if (isset($table_settings['responsiveStyle'])) {
+            $settings['responsive_style'] = $table_settings['responsiveStyle'];
+        }
+        if (isset($table_settings['verticalScroll'])) {
+            $settings['vertical_scroll'] = $table_settings['verticalScroll'];
+        }
+        if (isset($table_settings['tableExport']) &&
+            $table_settings['tableExport'] != null &&
+            $table_settings['tableExport'] != false) {
+            $settings['table_export'] = $table_settings['tableExport'];
+        }
+        if (isset($table_settings['cellFormat'])) {
+            $settings['cell_format'] = $table_settings['cellFormat'];
+        }
+        if (isset($table_settings['redirectionType'])) {
+            $settings['redirection_type'] = $table_settings['redirectionType'];
+        }
+        if (isset($table_settings['tableCache'])) {
+            $settings['table_cache'] = $table_settings['tableCache'];
+        }
+        if (isset($table_settings['tableStyle'])) {
+            $settings['table_style'] = $table_settings['tableStyle'];
+        }
+        if (isset($table_settings['hideColumn'])) {
+            $settings['hide_column'] = $table_settings['hideColumn'];
+        }
+        if (isset($table_settings['hideRows'])) {
+            $settings['hide_rows'] = $table_settings['hideRows'];
+        }
         return $settings;
     }
 

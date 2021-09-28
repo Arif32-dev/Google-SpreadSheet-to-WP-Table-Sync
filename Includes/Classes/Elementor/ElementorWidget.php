@@ -38,7 +38,7 @@ class ElementorWidget extends \Elementor\Widget_Base {
                     margin-left: calc(50% - 15px);
                 }
             </style>';
-        wp_enqueue_style('GSWPTS-elementor-table', GSWPTS_PRO_BASE_URL . 'Assets/Public/Styles/elementor.min.css');
+        wp_enqueue_style('GSWPTS-elementor-table', GSWPTS_PRO_BASE_URL . 'Assets/Public/Styles/elementor.min.css', [], GSWPTS_PRO_VERSION, 'all');
 
         global $gswpts;
         $gswpts->data_table_scripts();

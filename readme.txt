@@ -11,6 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
 
+= 2.7.0 =
+* Fixed: Fixed some error's
+
 = 2.6.0 =
 * Improvement: Improved Elementor widget
 
