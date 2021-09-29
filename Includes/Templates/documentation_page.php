@@ -1,7 +1,14 @@
 <?php
-    global $gswpts;
+global $gswpts;
 ?>
 
+<script>
+var HW_config = {
+    selector: ".gswpts_changelogs",
+    account: "7kPL5J"
+}
+</script>
+<script async src="https://cdn.headwayapp.co/widget.js"></script>
 
 <div class="gswpts_dashboard_container" id="toplevel_page_gswpts-dashboard">
 
@@ -17,82 +24,182 @@
 
     <div class="child_container mt-4 dashboard_content transition hidden">
 
-        <div class="row heading_row">
-            <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
-                <span class="ml-2">
-                    <strong><?php echo PlUGIN_NAME; ?></strong>
-                </span>
-            </div>
+        <div class="row heading_row mr-0 ml-0 mb-3">
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
-                <h3 class="m-0">
-                    <?php _e('Documentation', 'sheetstowptable');?>
-                </h3>
+                <div class="d-flex justify-content-start p-0 align-items-center">
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
+                    <span class="ml-2">
+                        <strong><?php echo PlUGIN_NAME; ?></strong>
+                    </span>
+                    <span class="gswpts_changelogs"></span>
+                </div>
                 <span>
                     <a class="ui violet button m-0" href="https://swptls.wppool.dev/" target="_blank">
-                        <?php _e('View Demo', 'sheetstowptable');?> <span
-                            class="ml-2"><?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?></span>
+                        <?php _e('View Demo', 'sheetstowptable');?>
+                        <span class="ml-2"><i class="fas fa-eye"></i></span>
                     </a>
                 </span>
             </div>
         </div>
 
-        <div class="row mt-3 dash_boxes pt-3 pb-3 pl-2 pr-2">
+        <div class="gswpts_grid_container">
 
-            <div class="col-md-6 col-12" style="display: flex; justify-content: center; flex-direction: column">
-                <?php printf('<h2 class="p-0 m-t-0 m-b-4">%s %s</h2', __('Welcome to', 'sheetstowptable'), PlUGIN_NAME);?>
-                <p><?php _e('Congratulations! You are about to use the most powerful Google spreadsheet data synchronization', 'sheetstowptable');?>
+            <!-- Start video section -->
+            <div class="video_box dash_boxes" style="display: flex; justify-content: center; flex-direction: column">
+                <?php printf('<h2 class="p-0 m-t-0 m-b-4">%s <i>%s</i></h2', __('Welcome to', 'sheetstowptable'), PlUGIN_NAME);?>
+                <p>
                 </p>
-
-                <iframe style="width: 100%;" height="370" src="https://www.youtube.com/embed/BW3urHKzNP0"
+                <iframe style="width: 100%; border-radius: 8px;" height="370"
+                    src="https://www.youtube.com/embed/BW3urHKzNP0"
                     title="How to install and use Google Spreadsheets to WP Table Live Sync" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
-
             </div>
+            <!-- End of video section -->
 
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-
-                <!-- Start help center -->
-                <div class="card p-0 m-0" style="height: 90%; width: 100%">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <div class="title">
-                            <span>
-                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/people-carry-solid.svg';?>
-                            </span>
-                            <span class="ml-2"><?php _e('Help Center', 'sheetstowptable');?></span>
-                        </div>
-                        <a target="blank" href="<?php echo esc_url('https://wppool.dev/contact/'); ?>"
-                            class="ui inverted green button">
-                            <?php _e('Get Help', 'sheetstowptable');?>
-                        </a>
+            <!-- Start help center -->
+            <div class="gswpts_help_center dash_boxes">
+                <div class="help_container">
+                    <div class="first_col">
+                        <span>Need more help ?</span>
+                        <p>
+                            We provide professional support to all our users via our ticketing system.
+                        </p>
+                        <a href="https://wppool.dev/google-sheets-to-wordpress-table-live-sync/" target="_blank">Get
+                            Help</a>
                     </div>
-                    <div class="card-body" style="background-image: url(<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/need_help.svg'); ?>);
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        background-position: 85px;
-                        ">
-                        <div class="col-12 d-flex p-0">
-                            <div class="col-6">
-                                <h4 class="">
-                                    <?php _e('Need some help', 'sheetstowptable');?>
-                                </h4>
-                                <p>
-                                    <?php _e('We provide professional support to all our users via our ticketing system', 'sheetstowptable');?>.
-                                </p>
-                                <a href="<?php echo esc_url('https://wppool.dev/contact/'); ?>" target="_blank">
-                                    <?php _e('Visit Support Center', 'sheetstowptable');?>
-                                </a>
-                            </div>
-
-                        </div>
+                    <div class="second_col">
+                        <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg') ?>"
+                            alt="need-help">
                     </div>
                 </div>
+            </div>
+            <!-- End of help center -->
 
-                <!-- End of help center -->
+            <?php if (!$gswpts->checkProPluginExists()) {?>
+
+            <!-- Start Get Pro section -->
+            <div class="gswpts_pro_box dash_boxes">
+
+                <div class="col-12 p-0 pt-4 m-0 d-flex">
+                    <h2 class="pro_title"><?php _e('Get Pro ✨', 'sheetstowptable');?></h2>
+                    <h5>
+                        <?php _e('Get the most out of the plugin. Go Pro!', 'sheetstowptable');?>
+                    </h5>
+                    <div class="col-12 d-flex p-0 info_wrapper">
+                        <div class="col-md-12 col-lg-6 p-0">
+
+                            <br>
+                            <ul class="p-0 m-0">
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Responsive table. The plugin allows collapsing on mobile and tablet screens', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Data Caching feature cache the sheet data & therefore the table will load faster.', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Link Support to import links from sheet. All the URL\'s will be shown as link in table.', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Table Styles. Pre-built amazing table styles. Each styles is different from one another.', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Hide your google sheet table column on desktop screen OR mobile screens.', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Hide Row. Hide your google sheet table rows based on your custom row selection.', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('Unlimited Row Sync. Fetch unlimited rows from Google spreadsheet', 'sheetstowptable');?></span>
+                                </li>
+
+                                <li class="d-flex align-items-center mb-3">
+                                    <span class="mr-3">
+                                        <i class="fas fa-check-square" style="color: #2ecc40; font-size: 18px"></i>
+                                    </span>
+                                    <span
+                                        style="font-size: 15px; margin-top: -5px;"><?php _e('And much more. <a href="https://wordpress.org/plugins/sheets-to-wp-table-live-sync/" target="_blank">All Pro features</a>', 'sheetstowptable');?></span>
+                                </li>
+
+                            </ul>
+
+                            <div class="col-12 pl-0 pb-5 pt-4">
+                                <a class="ui get_pro_btn  m-0" href="https://wppool.dev/sheets-to-wp-table-live-sync/"
+                                    target="blank">
+                                    <?php _e('Buy Now', 'sheetstowptable');?>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 p-0 m-0 d-flex align-items-center premium_svg">
+                            <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg'); ?>"
+                                alt="premium">
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
+            <!-- End of Get Pro section -->
+            <?php }?>
+
+            <!-- Made by section  -->
+            <div class="made_by">
+                <div class="made_by_container">
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/made-by.svg') ?>" alt="">
+                    <div class="extras">
+                        <span>
+                            <a href="https://wppool.dev/" target="_blank">wppool.dev</a>
+                            <span>|</span>
+                        </span>
+                        <span>
+                            <a href="https://www.youtube.com/watch?v=_LWcaErh8jw&list=PLd6WEu38CQSyY-1rzShSfsHn4ZVmiGNLP"
+                                target="_blank">Documentation</a>
+                            <span>|</span>
+                        </span>
+                        <span>
+                            <a href="https://wppool.dev/google-sheets-to-wordpress-table-live-sync/"
+                                target="_blank">Support Center</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End of made by section  -->
 
         </div>
 

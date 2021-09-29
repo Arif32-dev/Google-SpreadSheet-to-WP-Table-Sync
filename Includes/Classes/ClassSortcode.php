@@ -22,7 +22,7 @@ class ClassSortcode {
         if (defined('ELEMENTOR_VERSION') && \Elementor\Plugin::$instance->editor->is_edit_mode()) {
             return $this->gswpts_sortcodes($atts);
         } else {
-            $output = "<h5><b>" . __('No table data found', 'sheetstowptable') . "</b></h5> <br>";
+            $output = "<h5><b>" . __('Table maybe deleted or can\'t be loaded.', 'sheetstowptable') . "</b></h5> <br>";
             if (!is_int(intval($atts['id']))) {
                 return $output;
             }
@@ -57,13 +57,17 @@ class ClassSortcode {
      * @return HTML
      */
     public function gswpts_sortcodes($atts) {
-        $output = "<h5><b>" . __('No table data found', 'sheetstowptable') . "</b></h5><br>";
+        $output = "<h5><b>" . __('Table maybe deleted or can\'t be loaded.', 'sheetstowptable') . "</b></h5><br>";
         global $gswpts;
         if (!is_int(intval($atts['id']))) {
             return $output;
         }
 
         $dbResult = $gswpts->fetch_db_by_id($atts['id']);
+
+        if (!$dbResult) {
+            return $output;
+        }
 
         $table_settings = unserialize($dbResult[0]->table_settings);
         $hiddenRows = $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [];

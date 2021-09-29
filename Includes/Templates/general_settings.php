@@ -1,6 +1,13 @@
 <?php
-    settings_errors();
+settings_errors();
 ?>
+<script>
+var HW_config = {
+    selector: ".gswpts_changelogs",
+    account: "7kPL5J"
+}
+</script>
+<script async src="https://cdn.headwayapp.co/widget.js"></script>
 <style>
 .notice {
     padding: 5px 15px;
@@ -27,11 +34,13 @@ table {
 
             <div class="row heading_row">
                 <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                    <img src="<?php echo esc_url(GSWPTS_BASE_URL.'Assets/Public/Images/logo_30_30.svg'); ?>"
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>"
                         alt="sheets-logo">
                     <span class="ml-2">
                         <strong><?php echo PlUGIN_NAME; ?></strong>
                     </span>
+                    <span class="gswpts_changelogs"></span>
+
                 </div>
                 <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                     <h4 class="m-0">
@@ -41,9 +50,7 @@ table {
                         <button type="submit" name="submit" id="submit" class="button ui violet m-0"
                             value="Save Changes">
                             <?php _e('Save Changes', 'sheetstowptable');?>
-                            <span class="ml-2">
-                                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/file-alt-solid.svg';?>
-                            </span>
+                            &nbsp; <i class='fas fa-save'></i>
                         </button>
                     </span>
                 </div>
@@ -62,7 +69,7 @@ table {
 
                 </div>
 
-                <?php load_template(GSWPTS_BASE_PATH.'Includes/Templates/Parts/promo_large.php', true);?>
+                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo_large.php', true);?>
 
             </div>
         </form>

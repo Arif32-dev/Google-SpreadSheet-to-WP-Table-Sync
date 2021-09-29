@@ -2,6 +2,7 @@
 global $gswpts;
 $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GET['id']) : null;
 ?>
+
 <div class="gswpts_create_table_container dt-buttons">
 
 
@@ -24,25 +25,31 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
-                <span id="gswpts_changelogs"></span>
+                <span class="gswpts_changelogs" style="margin-top: -5px;"></span>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-12 p-0 d-flex align-items-center">
 
                 <a class="ui violet button" href="<?php echo admin_url('admin.php?page=gswpts-dashboard') ?>">
-                    <?php _e('Go Back', 'sheetstowptable');?>
+                    <?php _e('<i class="fas fa-angle-double-left"></i> &nbsp;Back', 'sheetstowptable');?>
                 </a>
 
                 <div class="col p-0 d-flex align-items-center justify-content-end">
                     <button id="create_button"
                         class="positive ui transition button m-0 mr-2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <?php echo isset($table_id) && !empty($table_id) ? '' : 'transition hidden' ?>"
                         style="padding-left: 30px;">
-                        <?php _e('Create New', 'sheetstowptable');?> &nbsp; <i class="plus icon"></i>
+                        <?php _e('Create New', 'sheetstowptable');?> &nbsp; <i class="fas fa-plus"></i>
                     </button>
-                    <button class="ui violet button m-0 transition hidden" type="button" id="fetch_save_btn"
+                    <button class="ui violet button m-0 transition hidden fetch_save_btn" type="button"
                         req-type="<?php echo isset($table_id) && !empty($table_id) ? 'save' : 'fetch' ?>">
-                        <?php echo isset($table_id) && !empty($table_id) ? __('Save Table', 'sheetstowptable') : __('Fetch Data', 'sheetstowptable'); ?>
+                        <span class="btn_text">
+                            <?php echo isset($table_id) && !empty($table_id) ? __('Save Table', 'sheetstowptable') : __('Fetch Data', 'sheetstowptable'); ?>
+                        </span>
+                        &nbsp;
+                        <?php if (isset($table_id) && !empty($table_id)) {?>
+                        <i class='fas fa-save'></i>
+                        <?php }?>
                     </button>
                 </div>
 
@@ -66,9 +73,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             data-btn-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('Save Table') : esc_attr('Fetch Data') ?>"
                             data-attr-text="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('save') : esc_attr('fetch'); ?>">
                             <label for="tab1" role="button">
-                                <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/archive-solid.svg';?>
-                                </span>
+                                <i class="fas fa-box-open"></i>
                                 <span><?php _e('Data Source', 'sheetstowptable');?></span>
                             </label>
                         </li>
@@ -78,21 +83,17 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             data-btn-text="<?php echo esc_attr('Save Changes'); ?>"
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab2" role="button">
-                                <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg';?>
-                                </span>
+                                <i class="fas fa-cogs"></i>
                                 <span><?php _e('Display Settings', 'sheetstowptable');?></span>
                             </label>
                         </li>
 
-                        <li title="<?php echo esc_attr('Delivery Contents'); ?>"
+                        <li title="<?php echo esc_attr('Sort & Filter'); ?>"
                             class="<?php echo isset($table_id) && !empty($table_id) ? esc_attr('tables_settings') : esc_attr('disabled_checkbox'); ?>"
                             data-btn-text="<?php echo esc_attr('Save Changes'); ?>"
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab3" role="button">
-                                <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
-                                </span>
+                                <i class="fas fa-sort-amount-up-alt"></i>
                                 <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
                             </label>
                         </li>
@@ -102,9 +103,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                             data-btn-text="<?php echo esc_attr('Save Changes'); ?>"
                             data-attr-text="<?php echo esc_attr('save_changes'); ?>">
                             <label for="tab4" role="button">
-                                <span>
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg';?>
-                                </span>
+                                <i class="fas fa-tools"></i>
                                 <span><?php _e('Table Tools', 'sheetstowptable');?></span>
                             </label>
                         </li>
@@ -160,7 +159,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
                                                 <span class="ui icon button p-0 m-0 helper_text"
                                                     data-tooltip="Share your sheet publicly. Publish the sheet to web & click the share button at the top of your spreadsheet"
                                                     data-position="left center" data-inverted="">
-                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
+                                                    <i class="fas fa-info-circle" style="font-size: 15.5px;"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -224,6 +223,19 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
 
             </div>
+
+            <?php if (!isset($table_id) && empty($table_id)) {?>
+            <div class="bottom_next_btn">
+                <button class="ui orange button m-0 transition hidden next-setting bottom_btn" type="button"
+                    req-type="<?php echo isset($table_id) && !empty($table_id) ? 'save' : 'fetch' ?>">
+                    <span class="btn_text">
+                        Next
+                    </span>
+                    &nbsp;<i class='fas fa-angle-double-right'></i>
+                </button>
+            </div>
+            <?php }?>
+
         </div>
 
 

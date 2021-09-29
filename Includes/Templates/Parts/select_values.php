@@ -9,7 +9,7 @@
     data-value="<?php echo esc_attr($key); ?>">
     <span><?php _e($value['val'], 'sheetstowptable');?></span>
 
-    <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/medal-solid.svg';?>
+    <i class="fas fa-star pro_star_icon"></i>
 </div>
 <?php }?>
 <?php }?>

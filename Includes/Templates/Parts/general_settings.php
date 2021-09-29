@@ -10,21 +10,26 @@
 
 <div class="ui cards settings_row">
 
-    <div class="card">
+    <div
+        class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>">
         <div class="content">
             <div class="description d-flex justify-content-between align-items-center">
                 <h5 class="m-0">
-                    <span><?php echo $setting_title ?></span>
-
+                    <span>
+                        <?php if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {?>
+                        <i class="fas fa-star pro_star_icon mr-2"></i>
+                        <?php }?>
+                        <?php echo $setting_title ?>
+                    </span>
                     <span>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <i class="fas fa-info-circle"></i>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <?php if (isset($is_upcoming) && $is_upcoming) {?>
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="150" alt="<?php echo esc_attr($input_name) ?>">
                                 <?php } else {?>
-                                <img src="<?php echo GSWPTS_BASE_URL.'Assets/Public/Images/feature-gif/'.$input_name.'.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     alt="<?php echo esc_attr($input_name) ?>">
                                 <?php }?>
                             </span>
@@ -49,7 +54,7 @@
             <textarea name="css_code_value" id="css_code_value"><?php echo get_option('css_code_value'); ?></textarea>
 
             <div id="gswptsCSSeditor"
-                style="min-height: 75px;<?php echo !get_option('custom_css') && !$gswpts->isProActive() ? "opacity: 0.5; pointer-events: none;" : null ?>">
+                style="min-height: 110px;<?php echo !get_option('custom_css') && !$gswpts->isProActive() ? "opacity: 0.5; pointer-events: none;" : null ?>">
             </div>
 
             <?php }?>
