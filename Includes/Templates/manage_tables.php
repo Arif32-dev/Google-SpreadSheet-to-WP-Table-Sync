@@ -1,7 +1,6 @@
 <script>
-// @see https://docs.headwayapp.co/widget for more configuration options.
 var HW_config = {
-    selector: "#gswpts_changelogs", // CSS selector where to inject the badge
+    selector: ".gswpts_changelogs",
     account: "7kPL5J"
 }
 </script>
@@ -31,7 +30,7 @@ var HW_config = {
                 <span class="ml-2">
                     <strong><?php echo PlUGIN_NAME; ?></strong>
                 </span>
-                <span id="gswpts_changelogs"></span>
+                <span class="gswpts_changelogs"></span>
             </div>
         </div>
 
@@ -40,9 +39,16 @@ var HW_config = {
                 <button id="delete_button" class="negative ui button mr-0 float-right transition hidden"
                     data-show="false">
                     <span>
-                        <?php _e('Delete Selected', 'sheetstowptable');?>
+                        <?php _e('Delete Selected', 'sheetstowptable');?> &nbsp; <i class="fas fa-trash-alt"></i>
                     </span>
                 </button>
+
+                <button id="unselect_btn" class="ui violet button mr-2 float-right transition hidden">
+                    <span>
+                        <?php _e('Clear Selection', 'sheetstowptable');?> &nbsp; <i class="fas fa-minus"></i>
+                    </span>
+                </button>
+
             </div>
         </div>
 
@@ -65,7 +71,7 @@ var HW_config = {
             <!-- Start create table button -->
             <a class="positive ui button mr-2 float-left" style="font-size: 1.03rem; position: relative;top: -55px;"
                 href="<?php echo esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table')); ?>">
-                <?php _e('Create Table', 'sheetstowptable');?>
+                <?php _e('Create Table', 'sheetstowptable');?> &nbsp; <i class="fas fa-plus"></i>
             </a>
             <!-- End of create table button -->
 
@@ -74,19 +80,20 @@ var HW_config = {
                                                                 position: absolute;
                                                                 top: 40%;
                                                                 left: 50%;
-                                                                margin: -50px 0 0 -190px;">
+                                                                margin: -50px 0 0 -190px;
+                                                                ">
                 <div class="header">
                     Delete Your Table
                 </div>
                 <div class="content">
-                    <p>Are you sure you want to delete your this table ?</p>
+                    <p><b class="gswpts_popup_content"></b></p>
                 </div>
                 <div class="actions">
-                    <div class="ui negative button cancel-btn">
-                        No
-                    </div>
-                    <div class="ui positive button yes-btn">
+                    <div class="ui negative button yes-btn">
                         Yes
+                    </div>
+                    <div class="ui positive button cancel-btn">
+                        No
                     </div>
                 </div>
             </div>
@@ -100,3 +107,9 @@ var HW_config = {
 
 </div>
 <?php }?>
+
+<style>
+.ui.dimmer.modals {
+    background: none !important;
+}
+</style>

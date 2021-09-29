@@ -4,7 +4,6 @@ jQuery(document).ready(function ($) {
     class Google_Sheets_Creation extends Base_Class {
         constructor() {
             super($);
-            this.fetch_and_save_button = $("#fetch_save_btn");
             this.sheet_url = "";
             this.fileInput = $("#file_input");
 
@@ -20,7 +19,7 @@ jQuery(document).ready(function ($) {
                 this.show_fetch_btn(e);
             });
 
-            $(document).on("click", "#fetch_save_btn", (e) => {
+            $(document).on("click", ".fetch_save_btn", (e) => {
                 this.handle_submit(e);
             });
 
@@ -31,7 +30,7 @@ jQuery(document).ready(function ($) {
                 this.clear_fields();
             });
             // take user to next settings upon clicking next button
-            $(document).on("click", "#next-setting", (e) => {
+            $(document).on("click", ".next-setting", (e) => {
                 this.goToNextSetting(e);
             });
             $(".edit_table_name").on("click", (e) => {
@@ -65,8 +64,8 @@ jQuery(document).ready(function ($) {
         }
 
         show_fetch_btn(e) {
-            if ($("#fetch_save_btn").hasClass("hidden")) {
-                $("#fetch_save_btn").transition("scale");
+            if ($(".fetch_save_btn").hasClass("hidden")) {
+                $(".fetch_save_btn").transition("scale");
             }
         }
 
@@ -188,7 +187,7 @@ jQuery(document).ready(function ($) {
 
                     if (JSON.parse(res).response_type == "updated") {
                         let html = `
-                                Save Changes
+                                Save Changes &nbsp; <i class='fas fa-save'></i>
                             `;
                         this.btn_changer(submit_button, html, "save_changes");
                         this.call_alert(
@@ -206,7 +205,11 @@ jQuery(document).ready(function ($) {
                             "warning",
                             3
                         );
-                        this.btn_changer(submit_button, "Save Table", "save");
+                        this.btn_changer(
+                            submit_button,
+                            "Save Table &nbsp;<i class='fas fa-save'></i>",
+                            "save"
+                        );
                     }
                 },
 
@@ -263,36 +266,54 @@ jQuery(document).ready(function ($) {
 
         changeBtnOnCondition(submit_button) {
             if (!this.get_slug_parameter("id")) {
-                this.btn_changer(submit_button, "Next Setting", "next");
+                this.btn_changer(
+                    submit_button,
+                    "Next&nbsp;<i class='fas fa-angle-double-right'></i>",
+                    "next"
+                );
 
                 submit_button.css({
                     backgroundColor: "#f2711c",
                 });
 
-                submit_button.attr("id", "next-setting");
+                submit_button.removeClass("fetch_save_btn");
+                submit_button.addClass("next-setting");
+
+                // Show the bottom next button
+                $(".bottom_next_btn .next-setting").transition("scale");
             } else {
                 this.btn_changer(submit_button, "Save Table", "save");
             }
         }
 
         goToNextSetting(e) {
-            let target = $(e.currentTarget);
+            let currentTarget = $(e.currentTarget);
+            let target = $(".next-setting");
             let tabInputs = $("#gswpts_tabs .tabs > input:checked");
 
             if (tabInputs.attr("id") == "tab3") {
                 tabInputs.prop("checked", false);
                 tabInputs.next().prop("checked", true);
 
-                this.btn_changer(target, "Save Table", "save");
+                this.btn_changer(target, "Save Table &nbsp;<i class='fas fa-save'></i>", "save");
 
                 target.css({
                     backgroundColor: "#6435c9",
                 });
 
-                target.attr("id", "fetch_save_btn");
+                target.removeClass("next-setting");
+                target.addClass("fetch_save_btn");
             } else {
                 tabInputs.prop("checked", false);
                 tabInputs.next().prop("checked", true);
+            }
+
+            if (currentTarget.hasClass("bottom_btn")) {
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                });
             }
         }
 

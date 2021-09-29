@@ -60,12 +60,14 @@ class SettingsApi {
             return;
         }
 
+        echo '<div class="general_cards_container">';
         foreach ($settingsArray as $setting) {
 
             if (isset($setting['template_path'])) {
                 load_template($setting['template_path'], false, $setting);
             }
         }
+        echo '</div>';
 
     }
 }

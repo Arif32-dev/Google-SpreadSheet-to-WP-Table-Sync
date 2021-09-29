@@ -172,8 +172,8 @@ jQuery(document).ready(function ($) {
         }
 
         show_fetch_btn() {
-            if ($("#fetch_save_btn").hasClass("hidden")) {
-                $("#fetch_save_btn").transition("scale");
+            if ($(".fetch_save_btn").hasClass("hidden")) {
+                $(".fetch_save_btn").transition("scale");
             }
         }
 

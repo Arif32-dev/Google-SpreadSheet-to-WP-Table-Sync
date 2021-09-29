@@ -28,6 +28,7 @@ jQuery(document).ready(function ($) {
                     {
                         deleteAll: false,
                         id,
+                        contentText: "Are you sure you want to delete your this table ?",
                     },
                     e
                 );
@@ -36,6 +37,7 @@ jQuery(document).ready(function ($) {
                 this.initiatePopup(
                     {
                         deleteAll: true,
+                        contentText: "Are you sure you want to delete your selected tables ?",
                     },
                     e
                 );
@@ -45,6 +47,8 @@ jQuery(document).ready(function ($) {
         initiatePopup(arg, e) {
             let popupModal = $(".semntic-popup-modal");
             popupModal.modal("show");
+
+            popupModal.find(".gswpts_popup_content").text(arg.contentText);
 
             if (arg.deleteAll == false) {
                 $(".semntic-popup-modal .actions > .yes-btn").attr("data-id", arg.id);
@@ -232,6 +236,11 @@ jQuery(document).ready(function ($) {
             link_tag.focusout();
             link_tag.blur();
             link_tag.bind("click");
+        }
+
+        // Clear all the selected table that are meant to be deleted.
+        clearSelection(e) {
+            $(".manage_tables_checkbox").prop("checked", false);
         }
     }
     new UD_tables();

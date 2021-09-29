@@ -3,13 +3,17 @@
 <?php if ($type === 'checkbox') {?>
 <div class="">
     <div class="ui cards">
-        <div class="card">
+        <div
+            class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>">
             <div class="content">
                 <div class="card-top-header">
                     <span>
+                        <?php if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {?>
+                        <i class="fas fa-star pro_star_icon mr-2"></i>
+                        <?php }?>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <i class="fas fa-info-circle" style="font-size: 15.5px;"></i>
                             <span class="tooltiptext">
                                 <span>
                                     <?php echo $feature_desc ?>
@@ -36,14 +40,18 @@
 <?php if ($type === 'select') {?>
 <div class="">
     <div class="ui cards">
-        <div class="card">
+        <div
+            class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>">
             <div class="content">
 
                 <div class="card-top-header">
                     <span>
+                        <?php if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {?>
+                        <i class="fas fa-star pro_star_icon mr-2"></i>
+                        <?php }?>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <i class="fas fa-info-circle" style="font-size: 15.5px;"></i>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span>
                                     <?php echo $feature_desc ?>
@@ -80,14 +88,18 @@
 <?php if ($type === 'multi-select') {?>
 <div class="">
     <div class="ui cards">
-        <div class="card" style="height: unset; min-height: 60px; max-height: 110px;">
+        <div class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>"
+            style="height: unset; min-height: 60px; max-height: 110px;">
             <div class="content">
 
                 <div class="card-top-header">
                     <span>
+                        <?php if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {?>
+                        <i class="fas fa-star pro_star_icon mr-2"></i>
+                        <?php }?>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <i class="fas fa-info-circle" style="font-size: 15.5px;"></i>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span>
                                     <?php echo $feature_desc ?>
@@ -121,14 +133,18 @@
 <?php if ($type === 'custom-type-1' || $type === 'custom-type-2') {?>
 <div class="">
     <div class="ui cards">
-        <div class="card" style="cursor: pointer;">
+        <div class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>"
+            style="cursor: pointer;">
             <div class="content">
 
                 <div class="card-top-header">
                     <span>
+                        <?php if ((isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming)) {?>
+                        <i class="fas fa-star pro_star_icon mr-2"></i>
+                        <?php }?>
                         <?php echo $feature_title; ?>
                         <div class="input-tooltip">
-                            <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/info-circle-solid.svg';?>
+                            <i class="fas fa-info-circle" style="font-size: 15.5px;"></i>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <span><?php echo $feature_desc ?></span>
                             </span>

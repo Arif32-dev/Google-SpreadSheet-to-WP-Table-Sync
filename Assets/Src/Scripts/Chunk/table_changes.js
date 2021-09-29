@@ -132,26 +132,27 @@ jQuery(document).ready(function ($) {
             if (!this.get_slug_parameter("id")) {
                 if ($(e.currentTarget).attr("id") == "tab4") {
                     this.btnAttAndTextChanger({
-                        selector: "#next-setting",
-                        btnText: "Save Table",
+                        selector: "next-setting",
+                        btnText: "Save Table &nbsp;<i class='fas fa-save'></i>",
                         btnAttribute: "save",
                         btnBackgroundColor: "#6435c9",
-                        btnId: "fetch_save_btn",
-                    });
-                } else {
-                    this.btnAttAndTextChanger({
-                        selector: "#fetch_save_btn",
-                        btnText: "Next Setting",
-                        btnAttribute: "next",
-                        btnBackgroundColor: "#f2711c",
-                        btnId: "next-setting",
+                        btnClass: "fetch_save_btn",
                     });
                 }
+                // else {
+                //     this.btnAttAndTextChanger({
+                //         selector: ".next-setting",
+                //         btnText: "Next&nbsp;<i class='fas fa-angle-double-right'></i>",
+                //         btnAttribute: "next",
+                //         btnBackgroundColor: "#f2711c",
+                //         btnClass: "next-setting",
+                //     });
+                // }
             }
         }
 
         btnAttAndTextChanger(arg) {
-            let target = $(arg.selector);
+            let target = $(`.${arg.selector}`);
 
             this.btn_changer(target, arg.btnText, arg.btnAttribute);
 
@@ -159,14 +160,15 @@ jQuery(document).ready(function ($) {
                 backgroundColor: arg.btnBackgroundColor,
             });
 
-            target.attr("id", arg.btnId);
+            target.removeClass(arg.selector);
+            target.addClass(arg.btnClass);
         }
 
         change_btn_text(e) {
             let btn_text_value = $(e.currentTarget).attr("data-btn-text");
             let btn_attr_value = $(e.currentTarget).attr("data-attr-text");
-            $("#fetch_save_btn").html(btn_text_value);
-            $("#fetch_save_btn").attr("req-type", btn_attr_value);
+            $(".fetch_save_btn").html(btn_text_value + " &nbsp; <i class='fas fa-save'></i>");
+            $(".fetch_save_btn").attr("req-type", btn_attr_value);
         }
 
         add_select_box_style() {

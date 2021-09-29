@@ -439,6 +439,13 @@
         opacity: 1;
         pointer-events: all;
     }
+
+    .bottom_next_btn {
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 #gswpts_tabs {
@@ -665,6 +672,12 @@
             justify-content: center;
             align-items: center;
         }
+
+        .gswpts_pro_card {
+            border: 3px solid #ffa500ad;
+            box-shadow: none;
+        }
+
         .content {
             position: relative;
             display: flex;
@@ -713,6 +726,11 @@
                         margin-left: 5px !important;
                     }
                 }
+
+                .pro_star_icon {
+                    color: #ffa500ad;
+                }
+
                 .input-tooltip {
                     position: relative;
                     margin-right: 10px;

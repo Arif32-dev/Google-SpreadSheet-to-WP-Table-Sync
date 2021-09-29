@@ -346,9 +346,7 @@ class SheetCreation {
         $previousSettings = unserialize($gswpts->fetch_db_by_id($table_id)[0]->table_settings);
 
         foreach ($settings as $key => $value) {
-            if ($value) {
-                $previousSettings[$key] = $value;
-            }
+            $previousSettings[$key] = $value;
         }
 
         $update_response = $wpdb->update(

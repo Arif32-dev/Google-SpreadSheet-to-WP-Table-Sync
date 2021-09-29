@@ -5,6 +5,7 @@ jQuery(document).ready(function ($) {
         constructor() {
             super($);
             this.table_container = $("#gswpts_tables_container");
+            this.unSelectBtn = $("#unselect_btn");
             this.checkbox_switcher = false;
             this.events();
         }
@@ -16,6 +17,10 @@ jQuery(document).ready(function ($) {
             });
             $(document).on("click", "#manage_tables_checkbox", (e) => {
                 this.toggle_content(e);
+            });
+
+            this.unSelectBtn.on("click", (e) => {
+                this.clearSelection();
             });
         }
 
@@ -109,22 +114,35 @@ jQuery(document).ready(function ($) {
         toggle_content(e) {
             if ($(e.currentTarget).attr("data-show") == "false") {
                 $("#delete_button").transition("scale");
+                $("#unselect_btn").transition("scale");
                 this.check_all_checkbox();
                 this.checkbox_switcher = true;
             }
             if ($(e.currentTarget).attr("data-show") == "true") {
                 $("#delete_button").transition("scale");
-                setTimeout(() => {}, 300);
+                $("#unselect_btn").transition("scale");
                 this.uncheck_all_checkbox();
                 this.checkbox_switcher = false;
             }
             $(e.currentTarget).attr("data-show", "" + this.checkbox_switcher + "");
         }
+
         check_all_checkbox() {
             $(".manage_tables_checkbox").prop("checked", true);
         }
+
         uncheck_all_checkbox() {
             $(".manage_tables_checkbox").prop("checked", false);
+        }
+
+        // Clear all the selected table that are meant to be deleted.
+        clearSelection(e) {
+            $("#manage_tables_checkbox").prop("checked", false);
+            $("#manage_tables_checkbox").attr("data-show", false);
+            $("#delete_button").transition("scale");
+            $("#unselect_btn").transition("scale");
+            this.uncheck_all_checkbox();
+            this.checkbox_switcher = false;
         }
     }
     new Manage_Tables();

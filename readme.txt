@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.6.2
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 📥 **Export table:** Table exporting via ***CSV***, ***Excel***, ***PDF***, ***JSON***, ***Print***, ***Copy*** is easy on this plugin.
 
-🔄 **Unlimited Row Sync From Google sheet:** Fetch as many row data you want to show it as WordPress table.
+🔄 **Unlimited Row Sync From Google sheet:** Fetch as many rows as you want to show it as WordPress table.
 
 🚧 **Elementor Widget Support:** Sheets to WP Table Live Sync supports Elementor widget. Organize your table data effortlessly than ever.
 
@@ -176,6 +176,10 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.7.0 =
+* Improvement: Improved UI of sheet plugin.
+* Fixed: Fixed row hiding issue & other minor bug fixed.
 
 = 2.6.2 =
 * New: Added changelog viewer in dashboard.

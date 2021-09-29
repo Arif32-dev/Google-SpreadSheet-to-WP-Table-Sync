@@ -666,6 +666,25 @@ class GlobalClass {
     }
 
     /**
+     * @return boolean
+     */
+    public function checkProPluginExists(): bool {
+        $isProExits = false;
+        $plugins = get_plugins();
+        if (!$plugins) {
+            return false;
+        }
+
+        foreach ($plugins as $plugin) {
+            if ($plugin['TextDomain'] == 'sheetstowptable-pro') {
+                $isProExits = true;
+                break;
+            }
+        }
+        return $isProExits;
+    }
+
+    /**
      * @return array
      */
     public function rowsPerPage(): array{
@@ -1138,7 +1157,7 @@ class GlobalClass {
             ],
             'multiple_sheet_tab'   => [
                 'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Multiple Google Sheet\'s Tab', 'sheetstowptable'),
+                'setting_title'   => __('Multiple Sheet\'s Tab', 'sheetstowptable'),
                 'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
                 'is_checked'      => $optionValues['multiple_sheet_tab'],
                 'input_name'      => 'multiple_sheet_tab',
