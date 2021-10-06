@@ -64,11 +64,11 @@ class GlobalClass {
         $ajax_req = false,
         $sheet_response = null,
         $table_id = null,
-        $hiddenRows = [],
+        $hiddenValues = [],
         $db_result = []
     ) {
         if ($ajax_req && $sheet_response) {
-            return $this->the_table($sheet_response, $hiddenRows);
+            return $this->the_table($sheet_response, $hiddenValues);
         }
         if (isset($table_id) && $table_id !== '') {
 
@@ -88,7 +88,7 @@ class GlobalClass {
                     return false;
                 }
 
-                $table = $this->the_table($sheet_response, $hiddenRows);
+                $table = $this->the_table($sheet_response, $hiddenValues);
 
                 $output = [
                     'id'             => $table_id,
@@ -107,7 +107,7 @@ class GlobalClass {
      * @param  $sheet_response
      * @return mixed
      */
-    public function the_table($sheet_response, $hiddenRows) {
+    public function the_table($sheet_response, $hiddenValues) {
 
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
@@ -148,14 +148,34 @@ class GlobalClass {
                     }
                 }
 
-                $table .= '<tr class="gswpts_rows row_' . $i . '" data-index="' . $i . '" style="' . $this->hideRows($hiddenRows, $i) . '">';
+                $hiddenRows = isset($hiddenValues['hiddenRows']) && !empty($hiddenValues['hiddenRows']) ? $hiddenValues['hiddenRows'] : [];
+                $hiddenCells = isset($hiddenValues['hiddenCells']) && !empty($hiddenValues['hiddenCells']) ? $hiddenValues['hiddenCells'] : [];
 
-                foreach (fgetcsv($stream) as $key => $cell_value) {
+                $table .= '<tr class="gswpts_rows row_' . $i . '" data-index="' . $i . '"
+                                style="' . $this->hideRows($hiddenRows, $i) . '">';
 
+                foreach (fgetcsv($stream) as $columnIndex => $cell_value) {
+                    $convertedValue = '';
+                    $cellIndex = '[' . ($columnIndex + 1) . ',' . $i . ']';
                     if ($cell_value) {
-                        $table .= '<td data-content="' . $this->addTableHeaderToCell($tableHeadValues[$key]) . '" class="' . $this->embedCellFormatClass() . '">' . __(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable') . '</td>';
+                        // Convert the cell value to use inside td tag
+                        $convertedValue = __(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable');
+                        $table .= '<td data-index="' . $cellIndex . '"
+                                        data-content="' . $this->addTableHeaderToCell($tableHeadValues[$columnIndex]) . '"
+                                        class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
+                                            <div class="cell_div"
+                                                 style="' . $this->hideCells($hiddenCells, $cellIndex) . '">
+                                                    ' . $convertedValue . '
+                                            </div>
+                                    </td>';
                     } else {
-                        $table .= '<td data-content="' . $this->addTableHeaderToCell($tableHeadValues[$key]) . '" class="' . $this->embedCellFormatClass() . '"></td>';
+                        $table .= '<td data-index="' . $cellIndex . '"
+                                    data-content="' . $this->addTableHeaderToCell($tableHeadValues[$columnIndex]) . '"
+                                    class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
+                                        <div class="cell_div"
+                                            style="' . $this->hideCells($hiddenCells, $cellIndex) . '">
+                                        </div>
+                                    </td>';
                     }
                 }
                 $table .= '</tr>';
@@ -190,6 +210,26 @@ class GlobalClass {
         }
 
         if (in_array($rowIndex, $savedHiddenRows)) {
+            return 'display: none;';
+        }
+
+        return '';
+    }
+
+    /**
+     * @param array $savedHiddenRows
+     */
+    public function hideCells(array $savedHiddenCells, $cellIndex): string {
+
+        if (!$this->isProActive()) {
+            return '';
+        }
+
+        if (!$savedHiddenCells) {
+            return '';
+        }
+
+        if (in_array($cellIndex, $savedHiddenCells)) {
             return 'display: none;';
         }
 
@@ -898,10 +938,10 @@ class GlobalClass {
                 'input_name'    => 'table_style',
                 'checked'       => false,
                 'is_pro'        => true,
-                'type'          => 'custom-type-1',
+                'type'          => 'custom-type',
                 'default_text'  => 'Choose Style',
-                'show_tooltip'  => false
-
+                'show_tooltip'  => false,
+                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/table_style.svg'
             ]
         ];
 
@@ -1009,7 +1049,6 @@ class GlobalClass {
                 'checked'       => true,
                 'type'          => 'checkbox',
                 'show_tooltip'  => true
-
             ]
         ];
 
@@ -1064,19 +1103,32 @@ class GlobalClass {
                 'input_name'    => 'hide_column',
                 'checked'       => false,
                 'is_pro'        => true,
-                'type'          => 'custom-type-2',
+                'type'          => 'custom-type',
                 'default_text'  => 'Hide Column',
-                'show_tooltip'  => false
+                'show_tooltip'  => false,
+                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
             ],
             'hide_rows'    => [
-                'feature_title' => __('Hide Rows', 'sheetstowptable'),
+                'feature_title' => __('Hide Row\'s', 'sheetstowptable'),
                 'feature_desc'  => __('Hide your table rows based on your custom selection', 'sheetstowptable'),
                 'input_name'    => 'hide_rows',
                 'checked'       => false,
                 'is_pro'        => true,
-                'type'          => 'custom-type-2',
-                'default_text'  => 'Hide Rows',
-                'show_tooltip'  => false
+                'type'          => 'custom-type',
+                'default_text'  => 'Hide Row',
+                'show_tooltip'  => false,
+                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
+            ],
+            'hide_cell'    => [
+                'feature_title' => __('Hide Cell', 'sheetstowptable'),
+                'feature_desc'  => __('Hide your specific table cell that is not going to visibile to your user\'s.', 'sheetstowptable'),
+                'input_name'    => 'hide_cell',
+                'checked'       => false,
+                'is_pro'        => true,
+                'type'          => 'custom-type',
+                'default_text'  => 'Hide Cell',
+                'show_tooltip'  => false,
+                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
             ]
         ];
 

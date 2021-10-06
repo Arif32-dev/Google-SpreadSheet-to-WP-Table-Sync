@@ -130,7 +130,7 @@
 </div>
 <?php }?>
 
-<?php if ($type === 'custom-type-1' || $type === 'custom-type-2') {?>
+<?php if ($type === 'custom-type') {?>
 <div class="">
     <div class="ui cards">
         <div class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>"
@@ -151,7 +151,7 @@
                         </div>
                     </span>
                     <div class="modal-handler">
-                        <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Icons/' . ($input_name == 'hide_rows' ? 'hide_column' : $input_name) . '.svg' ?>"
+                        <img src="<?php echo $icon_url ?>"
                             class="chooseStyle" alt="chooseStyle">
 
                         <input type="hidden" name="<?php echo esc_attr($input_name); ?>"

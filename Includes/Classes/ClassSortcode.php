@@ -70,9 +70,13 @@ class ClassSortcode {
         }
 
         $table_settings = unserialize($dbResult[0]->table_settings);
-        $hiddenRows = $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [];
 
-        $respond = $gswpts->get_table(false, null, $atts['id'], $hiddenRows, $dbResult);
+        $hiddenValues = [
+            'hiddenRows'  => $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [],
+            'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
+        ];
+
+        $respond = $gswpts->get_table(false, null, $atts['id'], $hiddenValues, $dbResult);
 
         if ($respond === false) {
             return $output;

@@ -80,9 +80,12 @@ class SheetFetching {
             return self::$output;
         }
 
-        $hiddenRows = $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [];
+        $hiddenValues = [
+            'hiddenRows'  => $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [],
+            'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
+        ];
 
-        $response = $gswpts->get_table(true, $sheet_response, null, $hiddenRows);
+        $response = $gswpts->get_table(true, $sheet_response, null, $hiddenValues);
 
         self::$output['response_type'] = esc_html('success');
 
