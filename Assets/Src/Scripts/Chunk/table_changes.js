@@ -16,8 +16,13 @@ jQuery(document).ready(function ($) {
             this.hideRowsActionBtns = $(
                 ".hide-rows-modal-wrapper .gswpts-hide-modal .svg_icons, .hide-rows-modal-wrapper .gswpts-hide-modal .actions > .button"
             );
+            this.hideCellsActionBtns = $(
+                ".hide-cell-modal-wrapper .gswpts-hide-modal .svg_icons, .hide-cell-modal-wrapper .gswpts-hide-modal .actions > .button"
+            );
             this.hideRowsActivator = $("#active_hide_rows");
+            this.hideCellActivator = $("#active_hidden_cells");
             this.hiddenRowsInput = $("#hidden_rows");
+            this.hiddenCellInput = $("#hidden_cells");
             this.events();
         }
 
@@ -71,6 +76,13 @@ jQuery(document).ready(function ($) {
                     let modal = $(".hide-rows-modal-wrapper .gswpts-hide-modal");
                     this.handleModal(wrapper, modal);
                 }
+
+                // Activate hide cell popup modal in to the page
+                if (input.attr("id") === "hide_cell") {
+                    let wrapper = $(".hide-cell-modal-wrapper");
+                    let modal = $(".hide-cell-modal-wrapper .gswpts-hide-modal");
+                    this.handleModal(wrapper, modal);
+                }
             });
 
             this.tableStyleActionBtn.on("click", (e) => {
@@ -111,6 +123,15 @@ jQuery(document).ready(function ($) {
                 this.hideRowsActionCallback(e);
             });
 
+            // Hide Cell modal action buttons for managing popup modal
+            this.hideCellsActionBtns.on("click", (e) => {
+                this.hideCellActionCallback(e);
+            });
+
+            this.hideCellActivator.click("click", (e) => {
+                this.hideCellActionCallback(e);
+            });
+
             $("#redirection_type > input:nth-child(1)").on("change", (e) => {
                 this.update_table_by_changes(e);
             });
@@ -119,12 +140,19 @@ jQuery(document).ready(function ($) {
                 this.hideRowsActionCallback(e);
             });
 
+            // Upon clicking on selected labels display those hidden table rows
             this.hiddenRowsInput.on("click", (e) => {
                 this.handleRowsVisibility(e);
             });
 
+            // Upon clicking on selected labels display those hidden table cell
+            this.hiddenCellInput.on("click", (e) => {
+                this.handleCellVisibility(e);
+            });
+
             $(document).on("click", ".ui.stackable.pagination.menu .paginate_button", (e) => {
                 this.showTableRows(e);
+                this.showTableCells(e);
             });
         }
 
@@ -139,15 +167,6 @@ jQuery(document).ready(function ($) {
                         btnClass: "fetch_save_btn",
                     });
                 }
-                // else {
-                //     this.btnAttAndTextChanger({
-                //         selector: ".next-setting",
-                //         btnText: "Next&nbsp;<i class='fas fa-angle-double-right'></i>",
-                //         btnAttribute: "next",
-                //         btnBackgroundColor: "#f2711c",
-                //         btnClass: "next-setting",
-                //     });
-                // }
             }
         }
 
@@ -356,35 +375,73 @@ jQuery(document).ready(function ($) {
             // set data to input value for saving into database
             if (this.isProPluginActive()) {
                 if (target.hasClass("selectBtn")) {
-                    let tableBody = $(".dataTables_scrollBody table tbody"),
-                        tableRows = $(".dataTables_scrollBody table tr");
+                    let tableBody = $(".dataTables_scrollBody table tbody");
 
                     if (target.prop("checked")) {
                         // if checkbox is on add row hidding feature and class with cursor changing
 
-                        tableBody.addClass("hiding_active");
-                        tableRows.addClass("gswpts_rows");
+                        // Deactive cell hididng feature when row hiding is active
+                        $("#active_hidden_cells").prop("checked", false);
 
-                        $(document).on(
-                            "click",
-                            ".dataTables_scrollBody table .gswpts_rows",
-                            (e) => {
-                                let target = $(e.currentTarget),
-                                    rowIndex = target.attr("data-index");
-                                this.insertHiddenRowsToSelectBox(rowIndex);
-                                this.insertHiddenRowsToInputBox(rowIndex);
-                                target.hide(300);
-                            }
-                        );
+                        tableBody.addClass("hiding_active");
+
+                        $(document).on("click", ".dataTables_scrollBody table tr", (e) => {
+                            if (!$("#active_hide_rows").prop("checked")) return;
+
+                            e.stopPropagation();
+
+                            $(".dataTables_scrollBody table tr > td").unbind("click");
+
+                            let target = $(e.currentTarget),
+                                rowIndex = target.attr("data-index");
+                            this.insertHiddenRowsToSelectBox(rowIndex);
+                            this.insertHiddenRowsToInputBox(rowIndex);
+                            target.hide(300);
+                        });
                     } else {
                         tableBody.removeClass("hiding_active");
-                        tableRows.removeClass("gswpts_rows");
                     }
                 }
             }
         }
 
-        // On remove of hidden rows from dropdown display the selected rows in table and also delete it from menu
+        // Handle hide rows modal popup action
+        hideCellActionCallback(e) {
+            let target = $(e.currentTarget);
+            $(".hide-cell-modal-wrapper").removeClass("active");
+            $(".hide-cell-modal-wrapper .gswpts-hide-modal").transition("scale");
+
+            // set data to input value for saving into database
+            if (this.isProPluginActive()) {
+                if (target.hasClass("selectBtn")) {
+                    let tableBody = $(".dataTables_scrollBody table tbody");
+                    if (target.prop("checked")) {
+                        // Deactive row hididng feature when cell hiding is active
+                        $("#active_hide_rows").prop("checked", false);
+
+                        // if checkbox is on add row hidding feature and class with cursor changing
+                        tableBody.addClass("cell_hiding_active");
+
+                        $(document).on("click", ".dataTables_scrollBody table tr > td", (e) => {
+                            if (!$("#active_hidden_cells").prop("checked")) return;
+
+                            e.stopPropagation();
+
+                            let target = $(e.currentTarget),
+                                cellIndex = target.attr("data-index");
+                            this.insertSelectedCellToSelectBox(cellIndex);
+                            this.insertHiddenCellToInputBox(cellIndex);
+                            target.find(".cell_div").hide(300);
+                        });
+                    } else {
+                        tableBody.removeClass("cell_hiding_active");
+                        $(".dataTables_scrollBody table tr > td").unbind("click");
+                    }
+                }
+            }
+        }
+
+        // On remove of hidden rows from dropdown display the removed rows in table and also delete it from menu
         handleRowsVisibility(e) {
             let target = $(e.currentTarget);
             let visibleRowsValue = target.find(".menu .item:not(.active)");
@@ -419,6 +476,48 @@ jQuery(document).ready(function ($) {
             });
         }
 
+        // On remove of hidden Cell from dropdown display the removed cell in table and also delete it from menu
+        handleCellVisibility(e) {
+            let target = $(e.currentTarget);
+            let visibleRowsValue = target.find(".menu .item:not(.active)");
+            if (!visibleRowsValue) return;
+
+            $.each(visibleRowsValue, function (indexInArray, valueOfElement) {
+                let indexValue = $(valueOfElement).attr("data-value");
+                $(`.dataTables_scrollBody table tbody tr .cell_index_${indexValue} .cell_div`).show(
+                    300
+                );
+
+                // Remove the the hidden cell value from hidden input in order to save into database
+                let hiddenCell = [],
+                    jsonFormatData,
+                    hiddenCellValues = $("#hide_cell");
+
+                if (hiddenCellValues.val()) {
+                    hiddenCell = JSON.parse(hiddenCellValues.val());
+
+                    let fomattedIndexValue = `[${indexValue.split("-")}]`;
+
+                    for (let index = 0; index < hiddenCell.length; index++) {
+                        const cell = hiddenCell[index];
+                        if (cell == fomattedIndexValue) {
+                            hiddenCell.splice(index, 1);
+
+                            jsonFormatData = JSON.stringify(hiddenCell);
+
+                            hiddenCellValues.val(jsonFormatData);
+
+                            break;
+                        }
+                    }
+                }
+
+                setTimeout(() => {
+                    target.find(`.menu [data-value=${indexValue}]`).remove();
+                }, 200);
+            });
+        }
+
         // On clicking of pagination link show the hideen table rows if those rows are not in hidden rows dropdown
         showTableRows(e) {
             let tableRows = $(".dataTables_scrollBody table .gswpts_rows");
@@ -431,6 +530,21 @@ jQuery(document).ready(function ($) {
 
                 if (selectedLables.length == 0) {
                     $(valueOfElement).show(300);
+                }
+            });
+        }
+
+        // On clicking of pagination link show the hideen table rows if those rows are not in hidden rows dropdown
+        showTableCells(e) {
+            let tableCells = $(".dataTables_scrollBody table .gswpts_rows td");
+
+            if (!tableCells) return;
+
+            $.each(tableCells, function (indexInArray, valueOfElement) {
+                let cellIndex = JSON.parse($(valueOfElement).attr("data-index")).join("-"),
+                    selectedLables = $(`#hidden_cells > [data-value=${cellIndex}]`);
+                if (selectedLables.length == 0) {
+                    $(valueOfElement).find(".cell_div").show(300);
                 }
             });
         }

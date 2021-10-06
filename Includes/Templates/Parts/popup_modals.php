@@ -107,10 +107,46 @@
                     name="active_hide_rows" id="active_hide_rows">
                 <label for="active_hide_rows"></label>
             </div>
-            <!-- <div class="ui positive button selectBtn">
-                Select
-            </div> -->
+
         </div>
     </div>
 </div>
 <!-- End of Hide Rows popup modal -->
+
+
+<!-- Popup modal for Hide Cell feature  -->
+<div class="hide-cell-modal-wrapper">
+    <div class="gswpts-hide-modal transition hidden">
+        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+        <div class="header">
+            <h4>Activate Cell Hiding Feature</h4>
+        </div>
+
+        <div class="body">
+            <div class="column">
+                <span>Hidden Cell:</span>
+                <div class="ui fluid multiple selection dropdown mt-2" id="hidden_cells">
+                    <input type="hidden" name="hidden_cells-input" id="hidden_cells-input">
+                    <i class="dropdown icon"></i>
+                    <div class="default text"><?php esc_html_e('Hidden Cells', 'sheetstowptable')?></div>
+                    <div class="menu">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <div class="ui black deny button cancelBtn">
+                Cancel
+            </div>
+            <div class="ui toggle checkbox">
+                <?php $isPro = $gswpts->tableToolsArray()['hide_cell']['is_pro']?>
+                <input type="checkbox"
+                    class="<?php echo (isset($isPro) && $isPro) ? 'pro_feature_input' : '' ?> selectBtn"
+                    name="active_hidden_cells" id="active_hidden_cells">
+                <label for="active_hidden_cells"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Hide Cell popup modal -->

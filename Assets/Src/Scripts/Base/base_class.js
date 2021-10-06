@@ -17,9 +17,7 @@ export default class Base_Class {
                 #search_table, 
                 #table_exporting, 
                 #vertical_scrolling,
-                #cell_format,
-                #table_style,
-                #hide_column
+                #cell_format
                 `
             );
         } else {
@@ -156,6 +154,11 @@ export default class Base_Class {
             settings.hideRows = $("#hide_rows").val()
                 ? JSON.parse($("#hide_rows").val()).length
                     ? JSON.parse($("#hide_rows").val())
+                    : ""
+                : "";
+            settings.hideCell = $("#hide_cell").val()
+                ? JSON.parse($("#hide_cell").val()).length
+                    ? JSON.parse($("#hide_cell").val())
                     : ""
                 : "";
         }
@@ -457,11 +460,11 @@ export default class Base_Class {
             // if hidden row values saved to db then hide table rows and also update the settings with hidden row values
             if (settings.hide_rows) {
                 $("#hide_rows").val(JSON.stringify(settings.hide_rows));
+            }
 
-                // Set the desktop column values in desktop select input
-                settings.hide_rows.forEach((rowIndex) => {
-                    $("#hidden_rows").dropdown("set selected", rowIndex);
-                });
+            // if hidden cell values saved to db then hide table cell and also update the settings with hidden cell values
+            if (settings.hide_cell) {
+                $("#hide_cell").val(JSON.stringify(settings.hide_cell));
             }
         }
     }
@@ -662,6 +665,34 @@ export default class Base_Class {
         }
     }
 
+    // Insert hidden row values from sheet to input box for row hiding
+    insertSelectedCellToSelectBox(cellIndex) {
+        let hiddenCells = $("#hidden_cells");
+        let menu = hiddenCells.find(".menu");
+        if (cellIndex) {
+            if (this.isProPluginActive()) {
+                // The column position of the cell
+                let cellColumnIndex = JSON.parse(cellIndex)[0];
+                // The row position of the cell
+                let cellRowIndex = JSON.parse(cellIndex)[1];
+
+                cellIndex = JSON.parse(cellIndex).join("-");
+
+                let prevMenuList = menu.find(`[data-value=${cellIndex}]`);
+                if (!prevMenuList.length) {
+                    menu.append(`
+                        <div class="item" data-value="${cellIndex}">
+                           Position: Col #${cellColumnIndex}, Row #${cellRowIndex}
+                        </div>
+                    `);
+                    setTimeout(() => {
+                        hiddenCells.dropdown("set selected", cellIndex);
+                    }, 400);
+                }
+            }
+        }
+    }
+
     // Add the values to hidden input value as an json object for saving in database
     insertHiddenRowsToInputBox(rowIndex) {
         let hiddenRows = [],
@@ -669,13 +700,56 @@ export default class Base_Class {
             hiddenRowValues = $("#hide_rows");
         if (hiddenRowValues.val()) {
             hiddenRows = JSON.parse(hiddenRowValues.val());
-            hiddenRows.push(rowIndex);
-            jsonFormatData = JSON.stringify(hiddenRows);
-            hiddenRowValues.val(jsonFormatData);
+            let valueExists = false;
+
+            for (let index = 0; index < hiddenRows.length; index++) {
+                const currentRowIndexValue = hiddenRows[index];
+
+                if (currentRowIndexValue == rowIndex) {
+                    valueExists = true;
+                    break;
+                }
+            }
+
+            if (valueExists == false) {
+                hiddenRows.push(rowIndex);
+                jsonFormatData = JSON.stringify(hiddenRows);
+                hiddenRowValues.val(jsonFormatData);
+            }
         } else {
             hiddenRows.push(rowIndex);
             jsonFormatData = JSON.stringify(hiddenRows);
             hiddenRowValues.val(jsonFormatData);
+        }
+    }
+
+    // Add the values to hidden input value as an json object for saving in database
+    insertHiddenCellToInputBox(cellIndex) {
+        let hiddenCell = [],
+            jsonFormatData,
+            hiddenCellValues = $("#hide_cell");
+        if (hiddenCellValues.val()) {
+            hiddenCell = JSON.parse(hiddenCellValues.val());
+
+            let valueExists = false;
+            for (let index = 0; index < hiddenCell.length; index++) {
+                const currentCellIndexValue = hiddenCell[index];
+
+                if (currentCellIndexValue == cellIndex) {
+                    valueExists = true;
+                    break;
+                }
+            }
+
+            if (valueExists == false) {
+                hiddenCell.push(cellIndex);
+                jsonFormatData = JSON.stringify(hiddenCell);
+                hiddenCellValues.val(jsonFormatData);
+            }
+        } else {
+            hiddenCell.push(cellIndex);
+            jsonFormatData = JSON.stringify(hiddenCell);
+            hiddenCellValues.val(jsonFormatData);
         }
     }
 }

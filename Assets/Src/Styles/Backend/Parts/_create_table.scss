@@ -176,6 +176,9 @@
         .dataTables_scrollBody table .hiding_active tr {
             cursor: pointer;
         }
+        .dataTables_scrollBody table .cell_hiding_active tr > td {
+            cursor: pointer;
+        }
     }
 
     .tableStyleModal {
@@ -314,7 +317,8 @@
     }
 
     .hide-column-modal-wrapper,
-    .hide-rows-modal-wrapper {
+    .hide-rows-modal-wrapper,
+    .hide-cell-modal-wrapper {
         transition: background 0.5s ease-in-out;
         position: absolute;
         top: 0;
@@ -405,13 +409,15 @@
         }
     }
 
-    .hide-rows-modal-wrapper .gswpts-hide-modal .body {
+    .hide-rows-modal-wrapper .gswpts-hide-modal .body,
+    .hide-cell-modal-wrapper .gswpts-hide-modal .body {
         min-height: unset;
         margin-bottom: 15px;
     }
 
     .hide-column-modal-wrapper.active,
-    .hide-rows-modal-wrapper.active {
+    .hide-rows-modal-wrapper.active,
+    .hide-cell-modal-wrapper.active {
         pointer-events: all;
         background: rgba(0, 0, 0, 0.52);
     }

@@ -63,7 +63,7 @@ jQuery(document).ready(function ($) {
                         }, 400);
 
                         this.sheet_container.html(parsedResponse.output);
-                        // insert the column value to input field and make a drop
+                        // insert the column value to input field and make a dropdown
                         this.insertColumnValueToInput(parsedResponse.tableColumns);
                     }
                 },
@@ -130,6 +130,7 @@ jQuery(document).ready(function ($) {
                                 tableTitle: table_settings.table_title == "true" ? true : false,
                                 verticalScroll: table_settings.vertical_scroll || "",
                                 hideRows: table_settings.hide_rows || "",
+                                hideCell: table_settings.hide_cell || "",
                             };
 
                             $("#create_tables").DataTable(
@@ -143,6 +144,8 @@ jQuery(document).ready(function ($) {
                             this.swap_bottom_options(swap_bottom_options);
 
                             this.manageHiddenRows(tableSettings.hideRows);
+
+                            this.manageHiddenCells(tableSettings.hideCell);
 
                             if (table_settings.table_export != "empty") {
                                 this.export_buttons_row_revealer(table_settings.table_export);
@@ -182,6 +185,15 @@ jQuery(document).ready(function ($) {
                 if (!hiddenRows) return;
                 hiddenRows.forEach((rowIndex) => {
                     this.insertHiddenRowsToSelectBox(rowIndex);
+                });
+            }
+        }
+
+        manageHiddenCells(hiddenCells) {
+            if (this.isProPluginActive()) {
+                if (!hiddenCells) return;
+                hiddenCells.forEach((rowIndex) => {
+                    this.insertSelectedCellToSelectBox(rowIndex);
                 });
             }
         }
