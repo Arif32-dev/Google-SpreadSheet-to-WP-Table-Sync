@@ -4,12 +4,15 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.6.0
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+
+= 2.8.0 =
+* New: Added Cell Hiding feature 🔥
 
 = 2.7.0 =
 * Fixed: Fixed some error's

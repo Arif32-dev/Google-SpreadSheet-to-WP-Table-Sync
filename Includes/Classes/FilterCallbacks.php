@@ -96,6 +96,7 @@ class FilterCallbacks {
         $settingsArray['table_cache']['is_pro'] = false;
         $settingsArray['hide_column']['is_pro'] = false;
         $settingsArray['hide_rows']['is_pro'] = false;
+        $settingsArray['hide_cell']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -137,6 +138,9 @@ class FilterCallbacks {
         }
         if (isset($table_settings['hideRows'])) {
             $settings['hide_rows'] = $table_settings['hideRows'];
+        }
+        if (isset($table_settings['hideCell'])) {
+            $settings['hide_cell'] = $table_settings['hideCell'];
         }
         return $settings;
     }
