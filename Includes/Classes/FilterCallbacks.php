@@ -83,6 +83,7 @@ class FilterCallbacks {
         $settingsArray['cell_format']['is_pro'] = false;
         $settingsArray['table_style']['is_pro'] = false;
         $settingsArray['redirection_type']['is_pro'] = false;
+        $settingsArray['import_styles']['is_pro'] = false;
 
         return $settingsArray;
     }
@@ -141,6 +142,9 @@ class FilterCallbacks {
         }
         if (isset($table_settings['hideCell'])) {
             $settings['hide_cell'] = $table_settings['hideCell'];
+        }
+        if (isset($table_settings['importStyles'])) {
+            $settings['import_styles'] = $table_settings['importStyles'];
         }
         return $settings;
     }

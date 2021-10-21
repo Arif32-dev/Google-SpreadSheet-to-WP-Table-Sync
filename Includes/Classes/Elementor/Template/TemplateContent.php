@@ -50,10 +50,14 @@ class TemplateContent {
 
     mainContainer.append(`
     <div>
-        <button class="gswpts_table_settings" data-id="${settings.choose_table}">Table Settings</button>
+        <button class="gswpts_table_settings" data-id="${settings.choose_table}"
+            style="background-color: #21ba45; color: #fff; padding: 10px 15px;">Table Settings
+        </button>
     </div>
     `);
     }
+
+    mainContainer.find('.table_customizer_link').hide(100)
 
     sheet_container.html(response.output);
 
@@ -187,7 +191,8 @@ class TemplateContent {
             redirectionType = mainSelector.find('#redirection_type'),
             allowSorting = mainSelector.find('#sorting'),
             searchTable = mainSelector.find('#search_table'),
-            tableCache = mainSelector.find('#table_cache');
+            tableCache = mainSelector.find('#table_cache'),
+            importStyles = mainSelector.find('#import_styles');
 
             return [
             tableTitle,
@@ -202,7 +207,8 @@ class TemplateContent {
             redirectionType,
             allowSorting,
             searchTable,
-            tableCache
+            tableCache,
+            importStyles
             ];
 
             }
@@ -223,7 +229,8 @@ class TemplateContent {
             redirectionType,
             allowSorting,
             searchTable,
-            tableCache
+            tableCache,
+            importStyles
             ] = grabElements(mainSelector);
 
 
@@ -242,6 +249,7 @@ class TemplateContent {
             allowSorting.prop("checked", settings.allow_sorting == "true" ? true : false);
             searchTable.prop("checked", settings.search_bar == "true" ? true : false);
             tableCache.prop("checked", settings.table_cache == "true" ? true : false);
+            importStyles.prop("checked", settings.import_styles == "true" ? true : false)
             }
 
             <!-- Grab all settings value as an object -->
@@ -260,7 +268,8 @@ class TemplateContent {
             redirectionType,
             allowSorting,
             searchTable,
-            tableCache
+            tableCache,
+            importStyles
             ] = grabElements(mainSelector);
 
 
@@ -277,7 +286,8 @@ class TemplateContent {
             'verticalScroll': tableHeight.val(),
             'cellFormat': cellFormat.val(),
             'redirectionType': redirectionType.val(),
-            'tableCache': tableCache.prop("checked")
+            'tableCache': tableCache.prop("checked"),
+            'importStyles' : importStyles.prop("checked")
             };
 
             return settings;
