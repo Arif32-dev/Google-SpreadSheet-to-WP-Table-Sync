@@ -17,7 +17,8 @@ export default class Base_Class {
                 #search_table, 
                 #table_exporting, 
                 #vertical_scrolling,
-                #cell_format
+                #cell_format,
+                #import_styles
                 `
             );
         } else {
@@ -161,6 +162,7 @@ export default class Base_Class {
                     ? JSON.parse($("#hide_cell").val())
                     : ""
                 : "";
+            settings.importStyles = $("#import_styles").prop("checked");
         }
         return settings;
     }
@@ -183,6 +185,7 @@ export default class Base_Class {
             tableStyle: null,
             hideColumn: null,
             hideRows: null,
+            tableStyles: false,
         };
 
         return default_settings;
@@ -435,7 +438,13 @@ export default class Base_Class {
             if (settings.table_style) {
                 $("#table_style").val(settings.table_style);
                 $(".styleWrapper").find(`label[for=${settings.table_style}]`).addClass("active");
-                this.tableStyle(settings.table_style);
+
+                let args = {
+                    tableStyle: settings.table_style,
+                    importStyles: settings.import_styles == "true" ? true : false,
+                };
+
+                this.tableStyle(args);
             }
 
             // if hide column value is saved to db and not empty set the hide column input field value & also the select field values
@@ -466,17 +475,24 @@ export default class Base_Class {
             if (settings.hide_cell) {
                 $("#hide_cell").val(JSON.stringify(settings.hide_cell));
             }
+
+            // if import_style value is true than check the checkbox
+            $("#import_styles").prop("checked", settings.import_styles == "true" ? true : false);
         }
     }
 
-    tableStyle(tableStyle) {
+    tableStyle(args) {
         if (file_url.tableStyles) {
             for (const style in file_url.tableStyles) {
                 $("#spreadsheet_container").removeClass(`gswpts_${style}`);
             }
         }
 
-        $("#spreadsheet_container").addClass(`gswpts_${tableStyle}`);
+        if (args.importStyles !== undefined && args.importStyles == true) {
+            $("#spreadsheet_container").addClass(`gswpts_default-style`);
+        } else {
+            $("#spreadsheet_container").addClass(`gswpts_${args.tableStyle}`);
+        }
     }
 
     changeCellFormat(formatStyle, tableSelector) {

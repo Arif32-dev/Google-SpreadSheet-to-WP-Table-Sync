@@ -104,6 +104,7 @@ registerBlockType("gswpts/google-sheets-to-wp-tables", {
                     desktopValues: null,
                     mobileValues: null,
                 },
+                importStyles: false,
             },
         },
 

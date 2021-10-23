@@ -137,9 +137,9 @@ class SheetCreation {
     public static function sheet_html($url) {
         global $gswpts;
 
-        $hasGID = $gswpts->getGridID($url);
+        $gridID = $gswpts->getGridID($url);
 
-        if (get_option('multiple_sheet_tab') && $hasGID === false && $gswpts->isProActive()) {
+        if (get_option('multiple_sheet_tab') && $gridID === false && $gswpts->isProActive()) {
             self::$output['response_type'] = esc_html('invalid_request');
             self::$output['output'] = '<b>' . __('Copy the Google sheet URL from browser URL bar that includes <i>gid</i> parameter', 'sheetstowptable') . '</b>';
             return self::$output;
@@ -153,7 +153,13 @@ class SheetCreation {
             return self::$output;
         }
 
-        $response = $gswpts->get_table(true, $sheet_response);
+        $reqData = [
+            'isAjaxReq'     => true,
+            'sheetResponse' => $sheet_response,
+            'url'           => $url
+        ];
+
+        $response = $gswpts->get_table($reqData);
         self::$output['response_type'] = esc_html('success');
         self::$output['output'] = "" . $response['table'] . "";
         self::$output['tableColumns'] = $response['tableColumns'];

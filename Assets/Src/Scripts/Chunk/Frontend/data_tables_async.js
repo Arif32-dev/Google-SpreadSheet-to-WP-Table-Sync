@@ -42,13 +42,19 @@ if (front_end_data.isProActive) {
                                         $(elem).addClass(table_settings.responsive_style);
                                     }
 
-                                    $(elem).addClass(
-                                        `gswpts_${
-                                            table_settings.table_style
-                                                ? table_settings.table_style
-                                                : "default-style"
-                                        }`
-                                    );
+                                    if (table_settings.import_styles == "true") {
+                                        $(elem).addClass(`gswpts_default-style`);
+                                    } else {
+                                        $(elem).addClass(
+                                            `gswpts_${
+                                                table_settings.table_style
+                                                    ? table_settings.table_style
+                                                    : "default-style"
+                                            }`
+                                        );
+                                    }
+
+                                    $(elem).addClass(`gswpts_default-style`);
                                 }
 
                                 if (table_settings.table_title == "true") {

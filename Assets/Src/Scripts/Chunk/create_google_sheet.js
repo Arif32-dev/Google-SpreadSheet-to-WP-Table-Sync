@@ -339,7 +339,7 @@ jQuery(document).ready(function ($) {
 
             $("#sheet_ui_card").transition("scale");
             $("#create_tables_wrapper").transition("scale");
-            this.btn_changer($("#fetch_save_btn"), "Fetch Data", "fetch");
+            this.btn_changer($(".fetch_save_btn"), "Fetch Data", "fetch");
             this.deleteParameter();
 
             // reveal table name input

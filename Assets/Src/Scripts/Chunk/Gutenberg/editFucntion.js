@@ -397,6 +397,10 @@ export default function editFucntion({ attributes, setAttributes }) {
             if (ajax_table_settings.hide_column) {
                 prevSettingObj.hideColumn = ajax_table_settings.hide_column;
             }
+
+            // Update the Import sheet style input value
+            prevSettingObj.importStyles =
+                ajax_table_settings.import_styles == "true" ? true : false;
         }
         setAttributes({ table_settings: prevSettingObj });
     }
@@ -1058,10 +1062,34 @@ export default function editFucntion({ attributes, setAttributes }) {
                                                     attributes.sortcode_id,
                                                     prevSettingObj
                                                 );
-                                                // changeCellFormat(
-                                                //     prevSettingObj.cellFormat,
-                                                //     attributes.sortcode_id
-                                                // );
+                                            }}
+                                        />
+                                    </div>
+                                    <br />
+                                </PanelRow>
+                            ) : null}
+
+                            {isProPluginActive() ? (
+                                <PanelRow>
+                                    <div class="import_styles">
+                                        <h5 class="header">Import Sheet Styles</h5>
+                                        <ToggleControl
+                                            label="Import Sheet Styles"
+                                            help=" Import cell backgorund color & cell font color from
+                                            google sheet. If you activate this feature it will
+                                            overrider <i>Table Style</i> settings"
+                                            checked={attributes.table_settings.importStyles}
+                                            onChange={(val) => {
+                                                const prevSettingObj = {
+                                                    ...attributes.table_settings,
+                                                };
+
+                                                prevSettingObj.importStyles =
+                                                    !prevSettingObj.importStyles;
+
+                                                setAttributes({ table_settings: prevSettingObj });
+
+                                                saveChanges(attributes.sortcode_id, prevSettingObj);
                                             }}
                                         />
                                     </div>
@@ -1246,7 +1274,7 @@ export default function editFucntion({ attributes, setAttributes }) {
         </InspectorControls>,
         <div
             class="gswpts_create_table_container"
-            class={`gswpts_create_table_container gswpts_${attributes.table_settings.tableStyle}`}
+            class={`gswpts_create_table_container gswpts_${embedTableStyleClass(attributes)}`}
             id={attributes.sortcode_id}
             style={{ marginRight: "0" }}
         >
@@ -1345,4 +1373,13 @@ export default function editFucntion({ attributes, setAttributes }) {
             )}
         </div>,
     ];
+}
+
+// Inject the table style class if import style is not active
+function embedTableStyleClass(attributes) {
+    if (attributes.table_settings.importStyles) {
+        return "default-style";
+    } else {
+        return attributes.table_settings.tableStyle;
+    }
 }

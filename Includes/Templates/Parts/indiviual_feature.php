@@ -18,8 +18,10 @@
                                 <span>
                                     <?php echo $feature_desc ?>
                                 </span>
+                                <?php if ($show_tooltip) {?>
                                 <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="200" alt="<?php echo esc_attr($input_name) ?>">
+                                <?php }?>
                             </span>
                         </div>
                     </span>
@@ -151,8 +153,7 @@
                         </div>
                     </span>
                     <div class="modal-handler">
-                        <img src="<?php echo $icon_url ?>"
-                            class="chooseStyle" alt="chooseStyle">
+                        <img src="<?php echo $icon_url ?>" class="chooseStyle" alt="chooseStyle">
 
                         <input type="hidden" name="<?php echo esc_attr($input_name); ?>"
                             id="<?php echo esc_attr($input_name); ?>" value="">

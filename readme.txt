@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.8.0
+Stable tag: 2.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,8 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🚫 **Hide Cell:** Hide your google sheet cell data based on your custom cell selection.
 
+🎨 **Import Sheet Styles:** Import cell backgorund color & cell font color from google sheet.
+
 
 
 🚀  [Get The PRO Version](https://go.wppool.dev/Sae) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
@@ -178,6 +180,11 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.9.0 =
+* New: Added sheet background  & font color import feature 🔥
+* Updated: Re-arranged other product section
+* Fixed: Fixed create table bug.
 
 = 2.8.0 =
 * New: Added Cell Hiding feature 🔥

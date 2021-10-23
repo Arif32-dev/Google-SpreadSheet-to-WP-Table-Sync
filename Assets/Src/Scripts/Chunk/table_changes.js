@@ -97,7 +97,13 @@ jQuery(document).ready(function ($) {
                         $("#table_style").val(selectedTableStyle.val());
 
                         // Changing the table style
-                        this.tableStyle(selectedTableStyle.val());
+
+                        let args = {
+                            tableStyle: selectedTableStyle.val(),
+                            importStyles: $("#import_styles").prop("checked"),
+                        };
+
+                        this.tableStyle(args);
                     }
                 }
             });
@@ -202,7 +208,9 @@ jQuery(document).ready(function ($) {
         update_table_by_changes(e) {
             let table_settings = this.table_settings_obj();
 
-            if ($(e.currentTarget).attr("id") == "table_exporting" && this.isProPluginActive()) {
+            let currentTargetId = $(e.currentTarget).attr("id");
+
+            if (currentTargetId == "table_exporting" && this.isProPluginActive()) {
                 let export_btn = ["json", "pdf", "csv", "excel", "print", "copy"];
                 export_btn.forEach((btn) => {
                     this.button_reavealer(e, btn);
@@ -210,15 +218,15 @@ jQuery(document).ready(function ($) {
             }
 
             if (
-                $(e.currentTarget).attr("id") == "show_title" ||
-                "responsive_style" ||
-                "search_table" ||
-                "rows_per_page" ||
-                "sorting" ||
-                "show_entries" ||
-                "info_block" ||
-                "vertical_scrolling" ||
-                "cell_format"
+                currentTargetId == "show_title" ||
+                currentTargetId == "responsive_style" ||
+                currentTargetId == "search_table" ||
+                currentTargetId == "rows_per_page" ||
+                currentTargetId == "sorting" ||
+                currentTargetId == "show_entries" ||
+                currentTargetId == "info_block" ||
+                currentTargetId == "vertical_scrolling" ||
+                currentTargetId == "cell_format"
             ) {
                 if (this.isProPluginActive()) {
                     this.export_buttons_row_revealer(table_settings.tableExport);
@@ -231,12 +239,12 @@ jQuery(document).ready(function ($) {
             }
 
             /* Swaping Filter Inputs */
-            if ($(e.currentTarget).attr("id") == "swap_filter_inputs") {
+            if (currentTargetId == "swap_filter_inputs") {
                 this.swap_filter_inputs($(e.currentTarget).prop("checked"));
             }
 
             /* Swaping bottom elemts */
-            if ($(e.currentTarget).attr("id") == "swap_bottom_options") {
+            if (currentTargetId == "swap_bottom_options") {
                 this.swap_bottom_options($(e.currentTarget).prop("checked"));
             }
 
@@ -248,6 +256,26 @@ jQuery(document).ready(function ($) {
             }
             // add dragging ability to table
             this.addDraggingAbility();
+
+            // Clear Table Style feature if Import sheet style is active
+
+            if (currentTargetId == "import_styles") {
+                let args = {};
+
+                if ($("#import_styles").prop("checked")) {
+                    args = {
+                        tableStyle: "default-style",
+                        importStyles: $("#import_styles").prop("checked"),
+                    };
+                } else {
+                    args = {
+                        tableStyle: $("#table_style").val(),
+                        importStyles: $("#import_styles").prop("checked"),
+                    };
+                }
+
+                this.tableStyle(args);
+            }
         }
 
         reFormatTable() {

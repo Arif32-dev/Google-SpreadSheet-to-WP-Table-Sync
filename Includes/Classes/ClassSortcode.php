@@ -76,17 +76,37 @@ class ClassSortcode {
             'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
         ];
 
-        $respond = $gswpts->get_table(false, null, $atts['id'], $hiddenValues, $dbResult);
+        $reqData = [
+            'isAjaxReq'     => false,
+            'sheetResponse' => null,
+            'tableID'       => $atts['id'],
+            'hiddenValues'  => $hiddenValues,
+            'dbResult'      => $dbResult,
+            'import_styles' => $table_settings['import_styles'] == 'true' ? true : false
+        ];
 
-        if ($respond === false) {
+        $respond = $gswpts->get_table($reqData);
+
+        if (!$respond) {
             return $output;
         }
 
         $table_name = $gswpts->input_values($atts['id'])['table_name'];
+
         $table = $respond['table']['table'];
 
         $responsive = isset($table_settings['responsive_style']) && $table_settings['responsive_style'] ? $table_settings['responsive_style'] : null;
-        $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_' . $table_settings['table_style'] . '' : null;
+
+        $tableStyle = '';
+
+        if ($table_settings['import_styles'] == 'true') {
+
+            $tableStyle = 'default-style';
+
+        } else {
+
+            $tableStyle = isset($table_settings['table_style']) && $table_settings['table_style'] ? 'gswpts_' . $table_settings['table_style'] . '' : null;
+        }
 
         $output = '<div class="gswpts_tables_container gswpts_table_' . esc_attr($atts['id']) . ' ' . esc_attr($responsive) . ' ' . esc_attr($tableStyle) . '" id="' . esc_attr($atts['id']) . '"
                         data-table_name="' . esc_attr($respond['table_name']) . '"
@@ -113,7 +133,7 @@ class ClassSortcode {
     public function editTableLink(int $tableID) {
 
         if (current_user_can('manage_options')) {
-            return '<a style="position: relative; top: 20px;" href="' . esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id=' . $tableID . '')) . '" target="_blank">Customize Table</a>';
+            return '<a class="table_customizer_link" style="position: relative; top: 20px;" href="' . esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id=' . $tableID . '')) . '" target="_blank">Customize Table</a>';
         } else {
             return null;
         }

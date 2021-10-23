@@ -131,6 +131,7 @@ jQuery(document).ready(function ($) {
                                 verticalScroll: table_settings.vertical_scroll || "",
                                 hideRows: table_settings.hide_rows || "",
                                 hideCell: table_settings.hide_cell || "",
+                                importStyles: table_settings.import_styles == "true" ? true : false,
                             };
 
                             $("#create_tables").DataTable(
