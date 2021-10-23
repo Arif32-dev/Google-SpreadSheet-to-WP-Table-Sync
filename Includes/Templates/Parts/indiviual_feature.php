@@ -1,6 +1,6 @@
 <?php extract($args)?>
 <?php global $gswpts;?>
-<?php if ($type === 'checkbox') {?>
+<?php if (isset($type) && $type === 'checkbox') {?>
 <div class="">
     <div class="ui cards">
         <div
@@ -39,7 +39,7 @@
 
 <?php }?>
 
-<?php if ($type === 'select') {?>
+<?php if (isset($type) && $type === 'select') {?>
 <div class="">
     <div class="ui cards">
         <div
@@ -87,7 +87,7 @@
 <?php }?>
 
 
-<?php if ($type === 'multi-select') {?>
+<?php if (isset($type) && $type === 'multi-select') {?>
 <div class="">
     <div class="ui cards">
         <div class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>"
@@ -132,7 +132,7 @@
 </div>
 <?php }?>
 
-<?php if ($type === 'custom-type') {?>
+<?php if (isset($type) && $type === 'custom-type') {?>
 <div class="">
     <div class="ui cards">
         <div class="card <?php echo (isset($is_pro) && $is_pro) || (isset($is_upcoming) && $is_upcoming) ? 'gswpts_pro_card' : '' ?>"
