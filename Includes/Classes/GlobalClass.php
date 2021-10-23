@@ -55,26 +55,39 @@ class GlobalClass {
     }
 
     /**
-     * @param  $ajax_req
-     * @param  false        $sheet_response
-     * @param  null         $table_id
+     * @param  array   $reqData
      * @return mixed
      */
-    public function get_table(
-        $ajax_req = false,
-        $sheet_response = null,
-        $table_id = null,
-        $hiddenValues = [],
-        $db_result = []
-    ) {
-        if ($ajax_req && $sheet_response) {
-            return $this->the_table($sheet_response, $hiddenValues);
+    public function get_table(array $reqData) {
+
+        $queryData = [];
+
+        // set the query arguments to fetch styles from google sheet
+        if (isset($reqData['url']) && $reqData['url']) {
+            $queryData['sheetID'] = $this->get_sheet_id($reqData['url']);
+            $queryData['gID'] = $this->getGridID($reqData['url']);
+        } else {
+            $queryData['sheetID'] = $this->get_sheet_id($reqData['dbResult'][0]->source_url);
+            $queryData['gID'] = $this->getGridID($reqData['dbResult'][0]->source_url);
         }
-        if (isset($table_id) && $table_id !== '') {
 
-            if ($db_result) {
+        if ($reqData['isAjaxReq'] && $reqData['sheetResponse']) {
 
-                $tableSettings = unserialize($db_result[0]->table_settings);
+            $args = [
+                'sheetResponse' => $reqData['sheetResponse'],
+                'hiddenValues'  => isset($reqData['hiddenValues']) ? $reqData['hiddenValues'] : [],
+                'queryData'     => $queryData,
+                'importStyles'  => isset($reqData['import_styles']) ? $reqData['import_styles'] : false
+            ];
+
+            return $this->the_table($args);
+        }
+
+        if (isset($reqData['tableID']) && $reqData['tableID'] !== '') {
+
+            if ($reqData['dbResult']) {
+
+                $tableSettings = unserialize($reqData['dbResult'][0]->table_settings);
 
                 $tableCache = false;
 
@@ -82,19 +95,26 @@ class GlobalClass {
                     $tableCache = true;
                 }
 
-                $sheet_response = $this->loadDataByCondition($table_id, $db_result[0]->source_url, $tableCache);
+                $sheet_response = $this->loadDataByCondition($reqData['tableID'], $reqData['dbResult'][0]->source_url, $tableCache);
 
                 if (!$sheet_response) {
                     return false;
                 }
 
-                $table = $this->the_table($sheet_response, $hiddenValues);
+                $args = [
+                    'sheetResponse' => $sheet_response,
+                    'hiddenValues'  => $reqData['hiddenValues'],
+                    'queryData'     => $queryData,
+                    'importStyles'  => $reqData['import_styles']
+                ];
+
+                $table = $this->the_table($args);
 
                 $output = [
-                    'id'             => $table_id,
+                    'id'             => $reqData['tableID'],
                     'table'          => $table,
                     'table_settings' => $tableSettings,
-                    'table_name'     => $db_result[0]->table_name,
+                    'table_name'     => $reqData['dbResult'][0]->table_name,
                     'total_rows'     => $table['count']
                 ];
                 return $output;
@@ -107,7 +127,15 @@ class GlobalClass {
      * @param  $sheet_response
      * @return mixed
      */
-    public function the_table($sheet_response, $hiddenValues) {
+    public function the_table(array $args) {
+
+        $sheet_response = $args['sheetResponse'];
+
+        $hiddenValues = $args['hiddenValues'];
+
+        $queryData = $args['queryData'];
+
+        $importStyles = $args['importStyles'];
 
         $table = '<table id="create_tables" class="ui celled display table gswpts_tables" style="width:100%">';
         $i = 0;
@@ -117,21 +145,39 @@ class GlobalClass {
         fwrite($stream, $sheet_response);
         rewind($stream);
 
+        $sheetStyles = null;
+
+        if ($importStyles) {
+            $sheetStyles = $this->getSheetStyles($queryData);
+        }
+
+        // Organize the sheet styles as an object
+        if ($sheetStyles) {
+            $styles = [
+                'bgColors'   => property_exists($sheetStyles, 'bgColors') ? $sheetStyles->bgColors : '',
+                'fontColors' => property_exists($sheetStyles, 'fontColors') ? $sheetStyles->fontColors : ''
+            ];
+        }
+
         $tableHeadValues = [];
 
         while (!feof($stream)) {
 
+            $styles['rowIndex'] = $i;
+
             if ($i <= 0) {
                 $table .= '<thead><tr>';
 
-                foreach (fgetcsv($stream) as $cell_value) {
+                foreach (fgetcsv($stream) as $index => $cell_value) {
 
                     array_push($tableHeadValues, $cell_value);
 
+                    $styles['cellIndex'] = $index;
+
                     if ($cell_value) {
-                        $table .= '<th class="' . $this->embedCellFormatClass() . '">' . stripslashes(esc_html__($cell_value, 'sheetstowptable')) . '</th>';
+                        $table .= '<th style="' . $this->embedCellStyle($styles) . '" class="' . $this->embedCellFormatClass() . '">' . stripslashes(esc_html__($cell_value, 'sheetstowptable')) . '</th>';
                     } else {
-                        $table .= '<th class="' . $this->embedCellFormatClass() . '"></th>';
+                        $table .= '<th style="' . $this->embedCellStyle($styles) . '" class="' . $this->embedCellFormatClass() . '"></th>';
                     }
                 }
                 $table .= '</tr></thead>';
@@ -155,12 +201,18 @@ class GlobalClass {
                                 style="' . $this->hideRows($hiddenRows, $i) . '">';
 
                 foreach (fgetcsv($stream) as $columnIndex => $cell_value) {
+
+                    $styles['cellIndex'] = $columnIndex;
+
                     $convertedValue = '';
                     $cellIndex = '[' . ($columnIndex + 1) . ',' . $i . ']';
+
                     if ($cell_value) {
+
                         // Convert the cell value to use inside td tag
                         $convertedValue = __(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable');
                         $table .= '<td data-index="' . $cellIndex . '"
+                                        style="' . $this->embedCellStyle($styles) . '"
                                         data-content="' . $this->addTableHeaderToCell($tableHeadValues[$columnIndex]) . '"
                                         class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
                                             <div class="cell_div"
@@ -170,6 +222,7 @@ class GlobalClass {
                                     </td>';
                     } else {
                         $table .= '<td data-index="' . $cellIndex . '"
+                                    style="' . $this->embedCellStyle($styles) . '"
                                     data-content="' . $this->addTableHeaderToCell($tableHeadValues[$columnIndex]) . '"
                                     class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
                                         <div class="cell_div"
@@ -193,6 +246,66 @@ class GlobalClass {
             'tableColumns' => $tableHeadValues
         ];
         return $response;
+    }
+
+    /**
+     * Return css inline style so that it can be added as inline style value
+     * @param  $style
+     * @return mixed
+     */
+    public function embedCellStyle($style) {
+
+        $styleText = '';
+
+        if (!$this->isProActive()) {
+            return $styleText;
+        }
+
+        if (!empty($style['bgColors'])) {
+            $styleText .= 'background-color: ' . $style['bgColors'][$style['rowIndex']][$style['cellIndex']] . ';';
+        }
+
+        if (!empty($style['fontColors'])) {
+            $styleText .= 'color: ' . $style['fontColors'][$style['rowIndex']][$style['cellIndex']] . ';';
+        }
+
+        return $styleText;
+    }
+
+    /**
+     * @param  $url
+     * @return mixed
+     */
+    public function getSheetStyles(array $queryData) {
+        $sheetStyles = [];
+
+        if (!$this->isProActive()) {
+            return $sheetStyles;
+        }
+
+        if (!isset($queryData['sheetID']) || !$queryData['sheetID']) {
+            return $sheetStyles;
+        }
+
+        if (!isset($queryData['gID']) || !$queryData['gID']) {
+            return $sheetStyles;
+        }
+
+        $restURL = "https://script.google.com/macros/s/AKfycbxUXtjpcxhQSShOGPna4uZZ29msPRrg8IeIZeMBMhA1Ux1iJ_mRcE2ywYHOHtBHu2orOA/exec?sheetID=" . $queryData['sheetID'] . "&gID=" . $queryData['gID'] . "";
+
+        try {
+            $response = wp_remote_get($restURL);
+
+            if ($response['response']['code'] == 200) {
+                return json_decode($response['body']);
+            } else {
+                return $sheetStyles;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return $sheetStyles;
     }
 
     /**
@@ -942,6 +1055,16 @@ class GlobalClass {
                 'default_text'  => 'Choose Style',
                 'show_tooltip'  => false,
                 'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/table_style.svg'
+            ],
+
+            'import_styles'        => [
+                'feature_title' => __('Import Sheet Styles', 'sheetstowptable'),
+                'feature_desc'  => __('Import cell backgorund color & cell font color from google sheet. If you activate this feature it will overrider <i>Table Style</i> setting', 'sheetstowptable'),
+                'input_name'    => 'import_styles',
+                'is_pro'        => true,
+                'type'          => 'checkbox',
+                'checked'       => false,
+                'show_tooltip'  => true
             ]
         ];
 

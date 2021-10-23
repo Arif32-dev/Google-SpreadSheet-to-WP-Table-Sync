@@ -66,38 +66,6 @@ class FetchProducts {
             $recommended_plugins['wp-dark-mode']->short_description = 'Help your website visitors spend more time and an eye-pleasing reading experience. Personal preference rules always king. WP Dark Mode can be a game-changer for your website.';
         }
 
-        /* dark-mode Plugin */
-        $args = [
-            'slug'   => 'dark-mode',
-            'fields' => [
-                'short_description' => true,
-                'icons'             => true,
-                'reviews'           => false // excludes all reviews
-            ]
-        ];
-        $data = plugins_api('plugin_information', $args);
-        if ($data && !is_wp_error($data)) {
-            $recommended_plugins['dark-mode'] = $data;
-            $recommended_plugins['dark-mode']->name = 'WP Markdown Editor (Formerly Dark Mode)';
-            $recommended_plugins['dark-mode']->short_description = 'Quickly edit content in WordPress by getting an immersive, peaceful and natural writing experience with the coolest editor.';
-        }
-
-        /* Flexiaddons Plugin */
-        $args = [
-            'slug'   => 'flexiaddons',
-            'fields' => [
-                'short_description' => true,
-                'icons'             => true,
-                'reviews'           => false // excludes all reviews
-            ]
-        ];
-        $data = plugins_api('plugin_information', $args);
-        if ($data && !is_wp_error($data)) {
-            $recommended_plugins['flexiaddons'] = $data;
-            $recommended_plugins['flexiaddons']->name = 'Flexi Addons for Elementor';
-            $recommended_plugins['flexiaddons']->short_description = 'A collection of premium quality & highly customizable addons or modules for use in Elementor page builder.';
-        }
-
         /* jitsi meet Plugin */
         $args = [
             'slug'   => 'webinar-and-video-conference-with-jitsi-meet',
@@ -112,38 +80,6 @@ class FetchProducts {
             $recommended_plugins['webinar-and-video-conference-with-jitsi-meet'] = $data;
             $recommended_plugins['webinar-and-video-conference-with-jitsi-meet']->name = 'Webinar and Video Conference with Jitsi Meet';
             $recommended_plugins['webinar-and-video-conference-with-jitsi-meet']->short_description = 'Webinar and Video Conference with Jitsi Meet.';
-        }
-
-        /* call-to-action-block-wppool Plugin */
-        $args = [
-            'slug'   => 'call-to-action-block-wppool',
-            'fields' => [
-                'short_description' => true,
-                'icons'             => true,
-                'reviews'           => false // excludes all reviews
-            ]
-        ];
-        $data = plugins_api('plugin_information', $args);
-        if ($data && !is_wp_error($data)) {
-            $recommended_plugins['call-to-action-block-wppool'] = $data;
-            $recommended_plugins['call-to-action-block-wppool']->name = 'Call to Action Block – WPPOOL';
-            $recommended_plugins['call-to-action-block-wppool']->short_description = 'Call to Action Gutenberg Block.';
-        }
-
-        /* flash-social-share Plugin */
-        $args = [
-            'slug'   => 'flash-social-share',
-            'fields' => [
-                'short_description' => true,
-                'icons'             => true,
-                'reviews'           => false // excludes all reviews
-            ]
-        ];
-        $data = plugins_api('plugin_information', $args);
-        if ($data && !is_wp_error($data)) {
-            $recommended_plugins['flash-social-share'] = $data;
-            $recommended_plugins['flash-social-share']->name = 'Flash Social Share';
-            $recommended_plugins['flash-social-share']->short_description = 'Make way for the fastest social sharing plugin alive! The FLASH Social Share! 🔥';
         }
 
         /* easy-video-reviews Plugin */
@@ -176,6 +112,23 @@ class FetchProducts {
             $recommended_plugins['chat-widgets-for-multivendor-marketplaces'] = $data;
             $recommended_plugins['chat-widgets-for-multivendor-marketplaces']->name = 'Chat Widgets for Multivendor Marketplaces';
             $recommended_plugins['chat-widgets-for-multivendor-marketplaces']->short_description = 'Chat with your customers via their favorite channels. Show a chat button on the bottom…';
+        }
+
+        /* Flexiaddons Plugin */
+        $args = [
+            'slug'   => 'flexiaddons',
+            'fields' => [
+                'short_description' => true,
+                'icons'             => true,
+                'reviews'           => false // excludes all reviews
+            ]
+        ];
+
+        $data = plugins_api('plugin_information', $args);
+        if ($data && !is_wp_error($data)) {
+            $recommended_plugins['flexiaddons'] = $data;
+            $recommended_plugins['flexiaddons']->name = 'Flexi Addons for Elementor';
+            $recommended_plugins['flexiaddons']->short_description = 'A collection of premium quality & highly customizable addons or modules for use in Elementor page builder.';
         }
 
         ?>
@@ -341,6 +294,10 @@ foreach ((array) $recommended_plugins as $plugin) {
 
             /**
              * Filters the install action links for a plugin.
+             *
+             *
+             *
+             *
              *
              *
              *

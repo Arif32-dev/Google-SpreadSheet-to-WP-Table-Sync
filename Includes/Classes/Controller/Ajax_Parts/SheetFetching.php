@@ -85,7 +85,16 @@ class SheetFetching {
             'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
         ];
 
-        $response = $gswpts->get_table(true, $sheet_response, null, $hiddenValues);
+        $reqData = [
+            'isAjaxReq'     => true,
+            'sheetResponse' => $sheet_response,
+            'tableID'       => null,
+            'hiddenValues'  => $hiddenValues,
+            'url'           => $url,
+            'import_styles' => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false
+        ];
+
+        $response = $gswpts->get_table($reqData);
 
         self::$output['response_type'] = esc_html('success');
 
