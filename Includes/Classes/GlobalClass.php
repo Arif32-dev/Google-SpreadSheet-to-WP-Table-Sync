@@ -287,7 +287,7 @@ class GlobalClass {
             return $sheetStyles;
         }
 
-        if (!isset($queryData['gID']) || !$queryData['gID']) {
+        if (!isset($queryData['gID'])) {
             return $sheetStyles;
         }
 
