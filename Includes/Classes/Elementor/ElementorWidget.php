@@ -28,23 +28,12 @@ class ElementorWidget extends \Elementor\Widget_Base {
     ) {
         parent::__construct($data, $args);
 
-        echo '<style>
-                .gswpts_icon {
-                    background: url(' . esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') . ');
-                    display: block;
-                    width: 30px;
-                    height: 30px;
-                    background-repeat: no-repeat;
-                    margin-left: calc(50% - 15px);
-                }
-            </style>';
         wp_enqueue_style('GSWPTS-elementor-table', GSWPTS_PRO_BASE_URL . 'Assets/Public/Styles/elementor.min.css', [], GSWPTS_PRO_VERSION, 'all');
 
         global $gswpts;
         $gswpts->data_table_scripts();
 
         $this->tableSettingsClass = new TableSettings();
-
     }
 
     // public function get_script_depends() {

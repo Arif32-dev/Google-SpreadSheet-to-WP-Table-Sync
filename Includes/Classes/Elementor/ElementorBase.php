@@ -42,7 +42,22 @@ class ElementorBase {
 
         if ($this->is_compatible()) {
             add_action('elementor/init', [$this, 'init']);
+            // Register Widget Styles
+            add_action('elementor/editor/after_enqueue_scripts', [$this, 'loadWidgetCss']);
         }
+    }
+
+    public function loadWidgetCss() {
+        echo '<style>
+        .gswpts_icon {
+            background: url(' . esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') . ');
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-repeat: no-repeat;
+            margin-left: calc(50% - 15px);
+        }
+        </style>';
     }
 
     /**
