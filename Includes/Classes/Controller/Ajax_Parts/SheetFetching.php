@@ -72,7 +72,14 @@ class SheetFetching {
             $tableCache = true;
         }
 
-        $sheet_response = $gswpts->loadDataByCondition($table_id, $url, $tableCache);
+        $args = [
+            'tableID'      => $table_id,
+            'url'          => $url,
+            'tableCache'   => $tableCache,
+            'importStyles' => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false
+        ];
+
+        $sheet_response = $gswpts->loadDataByCondition($args);
 
         if (!$sheet_response || empty($sheet_response) || $sheet_response == null) {
             self::$output['response_type'] = esc_html('invalid_request');
@@ -88,10 +95,11 @@ class SheetFetching {
         $reqData = [
             'isAjaxReq'     => true,
             'sheetResponse' => $sheet_response,
-            'tableID'       => null,
+            'tableID'       => $table_id,
             'hiddenValues'  => $hiddenValues,
             'url'           => $url,
-            'import_styles' => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false
+            'importStyles'  => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false,
+            'tableCache'    => $tableCache
         ];
 
         $response = $gswpts->get_table($reqData);

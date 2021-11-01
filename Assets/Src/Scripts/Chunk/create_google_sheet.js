@@ -125,6 +125,7 @@ jQuery(document).ready(function ($) {
                 },
 
                 success: (res) => {
+                    console.log(res);
                     if (
                         JSON.parse(res).response_type == "invalid_action" ||
                         JSON.parse(res).response_type == "invalid_request"
@@ -183,6 +184,10 @@ jQuery(document).ready(function ($) {
                         this.push_parameter(id);
                         // Add classname as .tables_settings to save table changes
                         $("#gswpts_tabs ul li").addClass("tables_settings");
+
+                        setTimeout(() => {
+                            window.location.href = file_url.dasboardURL;
+                        }, 800);
                     }
 
                     if (JSON.parse(res).response_type == "updated") {
@@ -295,7 +300,11 @@ jQuery(document).ready(function ($) {
                 tabInputs.prop("checked", false);
                 tabInputs.next().prop("checked", true);
 
-                this.btn_changer(target, "Save Table &nbsp;<i class='fas fa-save'></i>", "save");
+                this.btn_changer(
+                    target,
+                    "Save & Use Table &nbsp;<i class='fas fa-save'></i>",
+                    "save"
+                );
 
                 target.css({
                     backgroundColor: "#6435c9",

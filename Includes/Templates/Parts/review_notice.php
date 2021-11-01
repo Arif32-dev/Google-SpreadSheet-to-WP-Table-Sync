@@ -3,9 +3,9 @@
     font-size: 17px;
 }
 
-.gswpts-review-notice strong>a {
+/* .gswpts-review-notice strong>a {
     color: #2ecc40;
-}
+} */
 
 .gswpts-review-notice .notice-actions {
     display: flex;
@@ -62,25 +62,23 @@
 </style>
 <div class="notice notice-large is-dismissible notice-info gswpts-review-notice">
     <p>Hi there, it seems like
-        <strong>
-            <a href="https://wordpress.org/plugins/sheets-to-wp-table-live-sync/" target="_blank">
-                <?php echo PlUGIN_NAME; ?>
-            </a></strong> is bringing you some
+
+        <a href="https://wordpress.org/plugins/sheets-to-wp-table-live-sync/" target="_blank">
+            <?php echo PlUGIN_NAME; ?>
+        </a> is bringing you some
         value, and
         that is pretty awesome!
         Can you please show us some love and rate
-        <strong>
-            <a href="https://wordpress.org/plugins/sheets-to-wp-table-live-sync/" target="_blank">
-                <?php echo PlUGIN_NAME; ?>
-            </a></strong> on WordPress? It will take
+        <a href="https://wordpress.org/plugins/sheets-to-wp-table-live-sync/" target="_blank">
+            <?php echo PlUGIN_NAME; ?>
+        </a> on WordPress? It will take
         two minutes of your time, and
         will
         really help us spread the world.
     </p>
 
     <div class="notice-actions">
-        <a class="hide_notice" data-value="hide_notice"
-            href="https://wordpress.org/support/plugin/sheets-to-wp-table-live-sync/reviews/?filter=5#new-post"
+        <a href="https://wordpress.org/support/plugin/sheets-to-wp-table-live-sync/reviews/?filter=5#new-post"
             target="_blank">I'd love
             to
             help :)</a>
@@ -99,7 +97,7 @@
             </div>
 
             <span class="promo_close_btn">
-                <?php require GSWPTS_BASE_PATH.'Assets/Public/Icons/times-circle-solid.svg'?>
+                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
             </span>
         </div>
     </div>
@@ -109,9 +107,13 @@
 
 <script>
 jQuery(document).ready(function($) {
-    $('.gswpts-review-notice .notice-actions>a').click(e => {
-        e.preventDefault();
+    $('.gswpts-review-notice .notice-actions > a').click(e => {
+
         let target = $(e.currentTarget);
+
+        if (target.hasClass('hide_notice') || target.hasClass('remind_later')) {
+            e.preventDefault();
+        }
 
         if (target.hasClass('remind_later')) {
             $('.gswpts-review-notice .notice-overlay-wrap').addClass('active')
@@ -119,14 +121,16 @@ jQuery(document).ready(function($) {
         }
 
         if (target.hasClass('hide_notice')) {
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo admin_url('admin-ajax.php') ?>",
                 data: {
-                    action: 'gswpts_review_notice',
+                    action: 'gswpts_notice_action',
                     info: {
                         type: 'hide_notice'
-                    }
+                    },
+                    actionType: 'review_notice'
                 },
                 success: response => {
                     console.log(response)
@@ -144,7 +148,8 @@ jQuery(document).ready(function($) {
         $('.gswpts-review-notice .notice-overlay').removeClass('active')
         $('.gswpts-review-notice .notice-overlay-wrap').removeClass('active')
     })
-    $('.gswpts-review-notice .notice-overlay-actions>a').click(e => {
+
+    $('.gswpts-review-notice .notice-overlay-actions > a').click(e => {
         e.preventDefault();
         $('.gswpts-review-notice .notice-overlay').removeClass('active')
         $('.gswpts-review-notice .notice-overlay-wrap').removeClass('active')
@@ -156,11 +161,12 @@ jQuery(document).ready(function($) {
             type: "POST",
             url: "<?php echo admin_url('admin-ajax.php') ?>",
             data: {
-                action: 'gswpts_review_notice',
+                action: 'gswpts_notice_action',
                 info: {
                     type: 'reminder',
                     value: dataValue
-                }
+                },
+                actionType: 'review_notice'
             },
             success: response => {
                 console.log(response)

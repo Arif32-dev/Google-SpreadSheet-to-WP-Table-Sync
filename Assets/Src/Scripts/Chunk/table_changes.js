@@ -167,7 +167,7 @@ jQuery(document).ready(function ($) {
                 if ($(e.currentTarget).attr("id") == "tab4") {
                     this.btnAttAndTextChanger({
                         selector: "next-setting",
-                        btnText: "Save Table &nbsp;<i class='fas fa-save'></i>",
+                        btnText: "Save & Use Table &nbsp;<i class='fas fa-save'></i>",
                         btnAttribute: "save",
                         btnBackgroundColor: "#6435c9",
                         btnClass: "fetch_save_btn",

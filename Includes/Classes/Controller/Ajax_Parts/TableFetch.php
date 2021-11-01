@@ -64,6 +64,7 @@ class TableFetch {
                                 <td class="text-center" style="display: flex; justify-content: center; align-items: center; height: 35px;">
                                         <input type="hidden" class="table_copy_sortcode" value="[gswpts_table id=' . esc_attr($table_data->id) . ']">
                                         <span class="gswpts_sortcode_copy" style="display: flex; align-items: center; white-space: nowrap; margin-right: 12px">[gswpts_table id=' . esc_attr($table_data->id) . ']</span>
+                                        <i class="fas fa-copy gswpts_sortcode_copy" style="font-size: 20px;color: #b7b8ba; cursor: copy"></i>
                                 </td>
                                  <td class="text-center">
                                     <div style="line-height: 38px;">

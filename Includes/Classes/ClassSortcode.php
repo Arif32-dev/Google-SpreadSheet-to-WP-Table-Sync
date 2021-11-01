@@ -82,7 +82,7 @@ class ClassSortcode {
             'tableID'       => $atts['id'],
             'hiddenValues'  => $hiddenValues,
             'dbResult'      => $dbResult,
-            'import_styles' => $table_settings['import_styles'] == 'true' ? true : false
+            'importStyles'  => $table_settings['import_styles'] == 'true' ? true : false
         ];
 
         $respond = $gswpts->get_table($reqData);

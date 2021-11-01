@@ -9,6 +9,7 @@ use GSWPTS\Includes\Classes\Controller\AdminMenus;
 use GSWPTS\Includes\Classes\Controller\AjaxHandler;
 use GSWPTS\Includes\Classes\EnqueueFiles;
 use GSWPTS\Includes\Classes\GlobalClass;
+use GSWPTS\Includes\Classes\Hooks;
 use GSWPTS\Includes\Classes\SettingsApi;
 
 class PluginBase {
@@ -28,5 +29,6 @@ class PluginBase {
         new AjaxHandler();
         new ClassSortcode();
         new SettingsApi();
+        new Hooks();
     }
 }
