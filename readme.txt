@@ -4,12 +4,18 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.9.0
+Stable tag: 2.10.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+
+= 2.10.0 =
+* New: Added import of all styles in sheet.
+* New: Added affiliate popup.
+* Updated: Modifed some UI/UX
+* Fixed: Fixed elementor header already sent issue.
 
 = 2.9.0 =
 * New: Added sheet background  & font color import feature 🔥
