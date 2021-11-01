@@ -54,7 +54,8 @@ class EnqueueFiles {
                 'iconsURL'    => $iconsURLs,
                 'isProActive' => $gswpts->isProActive(),
                 'tableStyles' => $gswpts->tableStylesArray(),
-                'renameIcon'  => GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg'
+                'renameIcon'  => GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg',
+                'dasboardURL' => esc_url(admin_url('admin.php?page=gswpts-dashboard'))
             ]);
         }
 

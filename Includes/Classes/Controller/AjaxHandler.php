@@ -5,8 +5,8 @@ namespace GSWPTS\Includes\Classes\Controller;
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\ManageNotices;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\ReviewNotice;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
@@ -41,8 +41,8 @@ class AjaxHandler {
         add_action('wp_ajax_gswpts_get_posts', [$this, 'getPosts']);
         add_action('wp_ajax_nopriv_gswpts_get_posts', [$this, 'getPosts']);
         /* Ger wppool post */
-        add_action('wp_ajax_gswpts_review_notice', [$this, 'manageReviewNotice']);
-        add_action('wp_ajax_nopriv_gswpts_review_notice', [$this, 'manageReviewNotice']);
+        add_action('wp_ajax_gswpts_notice_action', [$this, 'manageNoticeActions']);
+        add_action('wp_ajax_nopriv_gswpts_notice_action', [$this, 'manageNoticeActions']);
     }
 
     public function sheet_creation() {
@@ -80,8 +80,8 @@ class AjaxHandler {
         $remoteClass->getPostRequest();
     }
 
-    public function manageReviewNotice() {
-        $remoteClass = new ReviewNotice();
+    public function manageNoticeActions() {
+        $remoteClass = new ManageNotices();
         $remoteClass->manageNotices();
     }
 }

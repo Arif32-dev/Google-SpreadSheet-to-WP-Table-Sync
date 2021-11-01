@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           2.9.1
+ * Version:           2.10.0
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '2.9.1');
+    define('GSWPTS_VERSION', '2.10.0');
     // define('GSWPTS_VERSION', time());
 }
 
@@ -106,15 +106,22 @@ final class SheetsToWPTableLiveSync {
             add_action('plugins_loaded', [$this, 'include_file']);
             add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'add_action_links']);
             $this->reviewNoticeByCondition();
+            $this->reviewAffiliateNoticeByCondition();
         }
     }
 
     public function reviewNoticeByCondition() {
-        if (get_option('gswptsActivationTime')) {
-            if (abs((time() - get_option('gswptsActivationTime')) / (60 * 60 * 24)) > get_option('deafaultNoticeInterval')) {
-                if (get_option('gswptsReviewNotice')['isRated'] == false) {
-                    add_action('admin_notices', [$this, 'showReviewNotice']);
-                }
+        if (time() >= intval(get_option('deafaultNoticeInterval'))) {
+            if (get_option('gswptsReviewNotice') == false) {
+                add_action('admin_notices', [$this, 'showReviewNotice']);
+            }
+        }
+    }
+
+    public function reviewAffiliateNoticeByCondition() {
+        if (time() >= intval(get_option('deafaultAffiliateInterval'))) {
+            if (get_option('gswptsAffiliateNotice') == false) {
+                add_action('admin_notices', [$this, 'showAffiliateNotice']);
             }
         }
     }
@@ -151,11 +158,25 @@ final class SheetsToWPTableLiveSync {
                 add_option('gswptsActivationTime', time());
             }
 
-            add_option('gswptsReviewNotice', [
-                'isRated' => false
-            ]);
+            // ==================================
+            // Review notice options
+            // ==================================
+            add_option('gswptsReviewNotice', false);
 
-            add_option('deafaultNoticeInterval', 7);
+            add_option('deafaultNoticeInterval', (time() + 7 * 24 * 60 * 60));
+            // ==================================
+            // End Review notice options
+            // ==================================
+
+            // ==================================
+            // Affiliate notice options
+            // ==================================
+            add_option('gswptsAffiliateNotice', false);
+
+            add_option('deafaultAffiliateInterval', (time() + 10 * 24 * 60 * 60));
+            // ==================================
+            // End Affiliate notice options
+            // ==================================
 
             // Make the async loading default
             update_option('asynchronous_loading', true);
@@ -180,6 +201,14 @@ final class SheetsToWPTableLiveSync {
         return;
     }
 
+    /**
+     * @return null
+     */
+    public function showAffiliateNotice() {
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/affiliate_notice.php');
+        return;
+    }
+
     public function version_check() {
         if (version_compare(PHP_VERSION, '5.4') < 0) {
             if (is_plugin_active(plugin_basename(__FILE__))) {
@@ -200,4 +229,5 @@ if (!function_exists('sheetsToWPTableLiveSync')) {
         return new SheetsToWPTableLiveSync();
     }
 }
+
 sheetsToWPTableLiveSync();
