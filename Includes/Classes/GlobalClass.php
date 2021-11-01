@@ -13,7 +13,7 @@ class GlobalClass {
             return false;
         }
 
-        $restURL = "https://script.google.com/macros/s/AKfycbxvhPZLP7IZ8SPyr73cFY9Qr3K6HgAfp4ihueGM0Lm-ZmE5bg07ne1d0Nw6ZXHzWFZTvA/exec?sheetID=" . $sheetID . "&action=lastUpdatedTimestamp";
+        $restURL = "https://script.google.com/macros/s/AKfycbzn5B4Np5A6FLa55Z626arTHeXElb606QlApWtYHlS37TL-wh8aIEFmZplNuAK691eF_Q/exec?sheetID=" . $sheetID . "&action=lastUpdatedTimestamp";
 
         try {
             $res = wp_remote_get($restURL);
