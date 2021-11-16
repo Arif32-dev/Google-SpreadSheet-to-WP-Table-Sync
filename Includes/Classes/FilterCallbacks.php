@@ -212,7 +212,6 @@ class FilterCallbacks {
             $settingsArray;
         }
 
-        $settingsArray['multiple_sheet_tab']['is_pro'] = false;
         $settingsArray['custom_css']['is_pro'] = false;
 
         return $settingsArray;
@@ -260,10 +259,6 @@ class FilterCallbacks {
     public function getGridID(string $url) {
         $gID = false;
         $pattern = "/gid=(\w+)/i";
-
-        if (!get_option('multiple_sheet_tab')) {
-            return $gID;
-        }
 
         if (preg_match_all($pattern, $url, $matches)) {
 

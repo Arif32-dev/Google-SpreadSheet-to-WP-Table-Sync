@@ -4,12 +4,20 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.10.0
+Stable tag: 2.11.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+
+= 2.11.0 =
+* New: Added image loading from URL. 🔥
+* New: Added automatic detection of line breaks. 🔥
+* New: Added iframe video support. 🔥
+* Removed: Removed Multiple sheet tab option and made it default
+* Fixed: Fixed some bug.
+* Fixed: Fixed Elementor settings popup height issue.
 
 = 2.10.0 =
 * New: Added import of all styles in sheet.

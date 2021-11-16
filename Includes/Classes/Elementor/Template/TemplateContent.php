@@ -499,7 +499,7 @@ class TemplateContent {
 
                     <?php $settingsClass = new TableSettings();?>
                     return `
-                    <div class="modal_wrapper">
+                    <div class="modal_wrappers" style="min-height: 740px;">
                         <div class="modal_container">
 
                             <div class="settings_container">
