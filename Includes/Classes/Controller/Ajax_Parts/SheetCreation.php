@@ -139,7 +139,7 @@ class SheetCreation {
 
         $gridID = $gswpts->getGridID($url);
 
-        if (get_option('multiple_sheet_tab') && $gridID === false && $gswpts->isProActive()) {
+        if ($gridID === false && $gswpts->isProActive()) {
             self::$output['response_type'] = esc_html('invalid_request');
             self::$output['output'] = '<b>' . __('Copy the Google sheet URL from browser URL bar that includes <i>gid</i> parameter', 'sheetstowptable') . '</b>';
             return self::$output;
@@ -275,7 +275,7 @@ class SheetCreation {
         }
 
         // If pro is active & Multiple sheet option is ON then dont consider duplicate sheet
-        if (get_option('multiple_sheet_tab') && $gswpts->isProActive()) {
+        if ($gswpts->isProActive()) {
             return $return_value;
         }
 
@@ -307,7 +307,7 @@ class SheetCreation {
             return $returnValue;
         }
 
-        if (get_option('multiple_sheet_tab') && $gswpts->isProActive()) {
+        if ($gswpts->isProActive()) {
             foreach ($dbResult as $data) {
                 if ($gswpts->getGridID($data->source_url) == $gswpts->getGridID($url)) {
                     // if both gid is same than we have to check if current sheet id is same with saved sheet id

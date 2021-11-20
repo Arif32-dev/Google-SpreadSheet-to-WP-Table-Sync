@@ -72,11 +72,18 @@ class SheetFetching {
             $tableCache = true;
         }
 
+        $isUpdated = $gswpts->isSheetUpdated(intval($table_id), $url);
+
+        if ($isUpdated & $tableCache) {
+            $gswpts->setLastUpdatedTime($table_id, $url);
+        }
+
         $args = [
             'tableID'      => $table_id,
             'url'          => $url,
             'tableCache'   => $tableCache,
-            'importStyles' => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false
+            'importStyles' => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false,
+            'isUpdated'    => $isUpdated
         ];
 
         $sheet_response = $gswpts->loadDataByCondition($args);
@@ -99,7 +106,8 @@ class SheetFetching {
             'hiddenValues'  => $hiddenValues,
             'url'           => $url,
             'importStyles'  => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false,
-            'tableCache'    => $tableCache
+            'tableCache'    => $tableCache,
+            'isUpdated'     => $isUpdated
         ];
 
         $response = $gswpts->get_table($reqData);

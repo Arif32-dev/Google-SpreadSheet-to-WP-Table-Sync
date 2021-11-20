@@ -21,12 +21,10 @@ class SettingsApi {
                 'gswpts_general_setting',
                 $setting,
                 [
-                    'default' => $setting == 'gutenberg_support' || $setting == 'elementor_support' ? 'on' : false
+                    'default' => $setting == 'asynchronous_loading' ? 'on' : false
                 ]
             );
-            if ($setting == 'gutenberg_support' || $setting == 'elementor_support') {
-                add_option($setting, 'on');
-            }
+
         }
         self::add_section_and_fields();
     }

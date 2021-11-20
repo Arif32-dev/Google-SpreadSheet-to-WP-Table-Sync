@@ -91,12 +91,18 @@ class GlobalClass {
                     $tableCache = true;
                 }
 
-                // $sheet_response = $this->loadDataByCondition($reqData['tableID'], $reqData['dbResult'][0]->source_url, $tableCache);
+                $isUpdated = $this->isSheetUpdated(intval($reqData['tableID']), $reqData['dbResult'][0]->source_url);
+
+                if ($isUpdated & $tableCache) {
+                    $this->setLastUpdatedTime($reqData['tableID'], $reqData['dbResult'][0]->source_url);
+                }
+
                 $sheet_response = $this->loadDataByCondition([
-                    'tableID'       => $reqData['tableID'],
-                    'url'           => $reqData['dbResult'][0]->source_url,
-                    'tableCache'    => $tableCache,
-                    'import_styles' => $reqData['import_styles']
+                    'tableID'      => $reqData['tableID'],
+                    'url'          => $reqData['dbResult'][0]->source_url,
+                    'tableCache'   => $tableCache,
+                    'importStyles' => $reqData['importStyles'],
+                    'isUpdated'    => $isUpdated
                 ]);
 
                 if (!$sheet_response) {
@@ -108,7 +114,10 @@ class GlobalClass {
                     'hiddenValues'  => $reqData['hiddenValues'],
                     'queryData'     => $queryData,
                     'importStyles'  => $reqData['importStyles'],
-                    'tableCache'    => $tableCache
+                    'tableCache'    => $tableCache,
+                    'url'           => $reqData['dbResult'][0]->source_url,
+                    'tableID'       => $reqData['tableID'],
+                    'isUpdated'     => $isUpdated
                 ];
 
                 $table = $this->the_table($args);
@@ -135,8 +144,6 @@ class GlobalClass {
         $sheet_response = $args['sheetResponse'];
 
         $hiddenValues = $args['hiddenValues'];
-
-        $queryData = $args['queryData'];
 
         $importStyles = $args['importStyles'];
 
@@ -167,6 +174,9 @@ class GlobalClass {
                 'horizontalAlignments' => property_exists($sheetStyles, 'horizontalAlignments') ? $sheetStyles->horizontalAlignments : ''
             ];
         }
+
+        // Get the images
+        $imagesData = (array) $this->loadImagesByCondition($args);
 
         $tableHeadValues = [];
 
@@ -216,17 +226,33 @@ class GlobalClass {
                     $convertedValue = '';
                     $cellIndex = '[' . ($columnIndex + 1) . ',' . $i . ']';
 
+                    $cell_value = $this->getOrganizedImageData(
+                        [
+                            'cellIndex'  => $columnIndex,
+                            'rowIndex'   => $i,
+                            'imagesData' => $imagesData
+                        ],
+                        $cell_value
+                    );
+
                     if ($cell_value) {
 
+                        $cell_value = $this->checkLinkExists($cell_value);
+                        $cell_value = $this->transformBooleanValues($cell_value);
+
                         // Convert the cell value to use inside td tag
-                        $convertedValue = __(stripslashes($this->transformBooleanValues($this->checkLinkExists($cell_value))), 'sheetstowptable');
+                        $convertedValue = __(
+                            stripslashes($cell_value),
+                            'sheetstowptable'
+                        );
+
                         $table .= '<td data-index="' . $cellIndex . '"
                                         style="' . $this->embedCellStyle($styles) . '"
                                         data-content="' . $this->addTableHeaderToCell($tableHeadValues[$columnIndex]) . '"
                                         class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
                                             <div class="cell_div"
                                                  style="' . $this->hideCells($hiddenCells, $cellIndex) . '">
-                                                    ' . $convertedValue . '
+                                                    ' . nl2br($convertedValue) . '
                                             </div>
                                     </td>';
                     } else {
@@ -236,6 +262,7 @@ class GlobalClass {
                                     class="cell_index_' . ($columnIndex + 1) . '-' . $i . ' ' . $this->embedCellFormatClass() . '">
                                         <div class="cell_div"
                                             style="' . $this->hideCells($hiddenCells, $cellIndex) . '">
+                                            ' . $cell_value . '
                                         </div>
                                     </td>';
                     }
@@ -254,7 +281,29 @@ class GlobalClass {
             'count'        => $i,
             'tableColumns' => $tableHeadValues
         ];
+
         return $response;
+    }
+
+    /**
+     * @param $args
+     */
+    public function getOrganizedImageData($args, $cell_value) {
+        $imagesData = isset($args['imagesData']) ? $args['imagesData'] : null;
+        $rowIndex = isset($args['rowIndex']) ? $args['rowIndex'] : null;
+        $cellIndex = isset($args['cellIndex']) ? $args['cellIndex'] : null;
+
+        if (isset($imagesData['row_' . $rowIndex . '_col_' . $cellIndex . '']) &&
+            $imagesData['row_' . $rowIndex . '_col_' . $cellIndex . '']) {
+
+            $imgUrl = $imagesData['row_' . $rowIndex . '_col_' . $cellIndex . '']->imgUrl[0];
+            $width = $imagesData['row_' . $rowIndex . '_col_' . $cellIndex . '']->width;
+            $height = $imagesData['row_' . $rowIndex . '_col_' . $cellIndex . '']->height;
+
+            return '<img src="' . $imgUrl . '" style="width: ' . (floatval($width) + 50) . 'px; height: ' . (floatval($height) + 50) . 'px" />';
+        }
+
+        return $cell_value;
     }
 
     /**
@@ -350,7 +399,7 @@ class GlobalClass {
             return $sheetStyles;
         }
 
-        $restURL = "https://script.google.com/macros/s/AKfycbzn5B4Np5A6FLa55Z626arTHeXElb606QlApWtYHlS37TL-wh8aIEFmZplNuAK691eF_Q/exec?sheetID=" . $queryData['sheetID'] . "&gID=" . $queryData['gID'] . "&action=getStyles";
+        $restURL = "https://script.google.com/macros/s/AKfycbxFQqs02vfk887crE4jEK_i9SXnFcaWYpb9qNnvDZe09YL-DmDkFqVELaMB2F7EhzXeFg/exec?sheetID=" . $queryData['sheetID'] . "&gID=" . $queryData['gID'] . "&action=getStyles";
 
         try {
             $response = wp_remote_get($restURL);
@@ -365,6 +414,45 @@ class GlobalClass {
         }
 
         return $sheetStyles;
+    }
+
+    /**
+     * Get the images from google sheet
+     * @param  array   $args
+     * @return mixed
+     */
+    public function getImages(array $args) {
+        $queryData = $args['queryData'];
+
+        $imagesData = [];
+
+        if (!$this->isProActive()) {
+            return $imagesData;
+        }
+
+        if (!isset($queryData['sheetID']) || !$queryData['sheetID']) {
+            return $imagesData;
+        }
+
+        if (!isset($queryData['gID'])) {
+            return $imagesData;
+        }
+
+        $restURL = "https://script.google.com/macros/s/AKfycbxFQqs02vfk887crE4jEK_i9SXnFcaWYpb9qNnvDZe09YL-DmDkFqVELaMB2F7EhzXeFg/exec?sheetID=" . $queryData['sheetID'] . "&gID=" . $queryData['gID'] . "&action=getImages";
+
+        try {
+            $response = wp_remote_get($restURL);
+
+            if ($response['response']['code'] == 200) {
+                return json_decode($response['body']);
+            } else {
+                return $imagesData;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return $imagesData;
     }
 
     /**
@@ -470,12 +558,26 @@ class GlobalClass {
             return $string;
         }
 
+        // if the string is url and contains image property than return the string image tag
+        if (filter_var($string, FILTER_VALIDATE_URL) && is_array(getimagesize($string))) {
+            return '<img src="' . $string . '" alt="' . $string . '"/>';
+        }
+
+        if (preg_match_all('/iframe/', $string, $matches)) {
+            return $string;
+        }
+
+        // If a img tag is found return that image tag and don't proceed further
+        if (preg_match_all('/img/', $string, $matches)) {
+            return $string;
+        }
+
         // Link text and link pattern combined
         $pattern = '/(\[.+\]).*(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
         // This is only link pattern
         $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
 
-        // $pattern = '/(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/i';
+        // $pattern = '/((?:(http|https|Http|Https|rtsp|Rtsp):\/\/(?:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,64}(?:\:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,25})?\@)?)?((?:(?:[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}\.)+(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnrwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eouw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw]))|(?:(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[0-9])))(?:\:\d{1,5})?)(\/(?:(?:[a-zA-Z0-9\;\/\?\:\@\&\=\#\~\-\.\+\!\*\'\(\)\,\_])|(?:\%[a-fA-F0-9]{2}))*)?(?:\b|$)/g';
 
         if (preg_match_all($pattern, $string, $matches)) {
             if ($matches) {
@@ -601,25 +703,18 @@ class GlobalClass {
      * @return mixed
      */
     public function loadDataByCondition($args) {
+
         $sheetResponse = '';
 
         if (!$args['tableCache']) {
             return $this->get_csv_data($args['url']);
         }
 
-        $isUpdated = $this->isSheetUpdated(intval($args['tableID']), $args['url']);
-
-        if ($isUpdated) {
+        if ($args['isUpdated']) {
 
             $sheetResponse = $this->get_csv_data($args['url']);
             // save sheet data to local storage
             $this->saveSheetData($args['tableID'], $sheetResponse);
-
-            if (!$args['importStyles']) {
-                // update the last updated time
-                $this->setLastUpdatedTime($args['tableID'], $args['url']);
-            }
-
         } else {
             $sheetResponse = $this->getSavedSheetData($args['tableID'], $args['url']);
         }
@@ -628,6 +723,7 @@ class GlobalClass {
     }
 
     /**
+     * Load the sheet styles from wp transient if table caching is on or load it from sheet
      * @param  $args
      * @return mixed
      */
@@ -639,22 +735,41 @@ class GlobalClass {
             return $this->getSheetStyles($args);
         }
 
-        $isUpdated = $this->isSheetUpdated(intval($args['tableID']), $args['url']);
-
-        if ($isUpdated) {
+        if ($args['isUpdated']) {
 
             $sheetStyles = $this->getSheetStyles($args);
-
-            // save sheet data to local storage
+            // save sheet data to wp transient
             $this->saveSheetStyles($args['tableID'], $sheetStyles);
-            // update the last updated time
-            $this->setLastUpdatedTime($args['tableID'], $args['url']);
-
         } else {
             $sheetStyles = $this->getSavedSheetStyles($args);
         }
 
         return $sheetStyles;
+    }
+
+    /**
+     * Load the images from wp transient if table caching is on or load it from sheet
+     * @param  $args
+     * @return mixed
+     */
+    public function loadImagesByCondition($args) {
+
+        $imagesData = null;
+
+        if (!$args['tableCache']) {
+            return $this->getImages($args);
+        }
+
+        if ($args['isUpdated']) {
+
+            $imagesData = $this->getImages($args);
+            // save sheet data to wp trnasient
+            $this->saveSheetImages($args['tableID'], $imagesData);
+        } else {
+            $imagesData = $this->getSavedSheetImages($args);
+        }
+
+        return $imagesData;
     }
 
     /**
@@ -790,6 +905,27 @@ class GlobalClass {
     }
 
     /**
+     * @param  $args
+     * @return mixed
+     */
+    public function getSavedSheetImages($args) {
+        $imagesData = null;
+
+        $imagesData = get_transient('gswpts_sheet_images_' . $args['tableID'] . '') ? get_transient('gswpts_sheet_images_' . $args['tableID'] . '') : null;
+
+        if (!$imagesData) {
+            $imagesData = $this->getImages($args);
+
+            // save sheet data to local storage
+            $this->saveSheetImages($args['tableID'], $imagesData);
+            // update the last updated time
+            $this->setLastUpdatedTime($args['tableID'], $args['url']);
+        }
+
+        return $imagesData;
+    }
+
+    /**
      * Save the table styles in wordpress transient
      * @param  int               $tableID
      * @param  $sheetResponse
@@ -800,6 +936,14 @@ class GlobalClass {
         $sheetStyles
     ) {
         set_transient('gswpts_sheet_styles_' . $tableID . '', $sheetStyles, (time() + 86400 * 30), '/');
+    }
+
+    /**
+     * @param int           $tableID
+     * @param $imagesData
+     */
+    public function saveSheetImages(int $tableID, $imagesData) {
+        set_transient('gswpts_sheet_images_' . $tableID . '', $imagesData, (time() + 86400 * 30), '/');
     }
 
     /**
@@ -842,7 +986,7 @@ class GlobalClass {
 
         $constructedURL = '';
 
-        if ($constructorArray['gID'] && get_option('multiple_sheet_tab') && $this->isProActive()) {
+        if ($constructorArray['gID'] && $this->isProActive()) {
             $constructedURL = "https://docs.google.com/spreadsheets/d/" . $constructorArray['sheetID'] . "/export?format=csv&id=" . $constructorArray['sheetID'] . "&gid=" . $constructorArray['gID'] . "";
         } else {
             $constructedURL = "https://docs.google.com/spreadsheets/d/" . $constructorArray['sheetID'] . "/export?format=csv&id=" . $constructorArray['sheetID'] . "";
@@ -859,7 +1003,7 @@ class GlobalClass {
         $gID = false;
         $pattern = "/gid=(\w+)/i";
 
-        if (!get_option('multiple_sheet_tab') || !$this->isProActive()) {
+        if (!$this->isProActive()) {
             return $gID;
         }
 
@@ -869,6 +1013,7 @@ class GlobalClass {
                 $gID = '' . $matchedID . '';
             }
         }
+
         return $gID;
     }
 
@@ -1459,16 +1604,6 @@ class GlobalClass {
                 'is_pro'          => false
 
             ],
-            'multiple_sheet_tab'   => [
-                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
-                'setting_title'   => __('Multiple Sheet\'s Tab', 'sheetstowptable'),
-                'setting_tooltip' => __('This feature will let you to choose & save multiple spreadsheet tab', 'sheetstowptable'),
-                'is_checked'      => $optionValues['multiple_sheet_tab'],
-                'input_name'      => 'multiple_sheet_tab',
-                'setting_desc'    => __("Enabling this feature will allow user/admin to choose & save multiple spreadsheet tab from a Google spreadsheet.
-                                        In free plugin user/admin can select 1 spreadsheet tab from a single Google spreadsheet.", 'sheetstowptable'),
-                'is_pro'          => true
-            ],
             'custom_css'           => [
                 'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
                 'setting_title'   => __('Custom CSS', 'sheetstowptable'),
@@ -1512,7 +1647,6 @@ class GlobalClass {
     public function generalSettingsOptions(): array{
         $generalSettingsOptions = [
             'asynchronous_loading',
-            'multiple_sheet_tab',
             'custom_css',
             'css_code_value'
         ];
