@@ -80,6 +80,10 @@
                 max-width: 200px;
                 overflow-wrap: break-word;
                 min-height: 25px;
+
+                img {
+                    max-width: unset;
+                }
             }
             .expanded_style {
                 max-width: unset;
@@ -99,6 +103,9 @@
                 overflow-wrap: break-word;
                 white-space: normal;
                 overflow-x: unset;
+                img {
+                    max-width: 100%;
+                }
             }
             th:focus {
                 outline: none;

@@ -65,7 +65,6 @@ class SheetsToWPTableLiveSyncUninstall {
             'gswptsAffiliateNotice',
             'deafaultAffiliateInterval',
             'asynchronous_loading',
-            'multiple_sheet_tab',
             'custom_css',
             'css_code_value'
         ];

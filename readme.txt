@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.10.0
+Stable tag: 2.11.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,8 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🎨 **Import Sheet Styles:** Import cell backgorund color & cell font color, font size, font widget, font family & all other style from google sheet.
 
+🖼️ **Image Support:** Load image from any url that contains image. Just add the image url in your sheet and it will load that image in your website. 
+
 
 
 🚀  [Get The PRO Version](https://go.wppool.dev/Sae) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
@@ -180,6 +182,14 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.11.0 =
+* New: Added image loading from URL. 🔥
+* New: Added automatic detection of line breaks. 🔥
+* New: Added iframe video support. 🔥
+* Removed: Removed Multiple sheet tab option and made it default
+* Fixed: Fixed some bug.
+* Fixed: Fixed Elementor settings popup height issue.
 
 = 2.10.0 =
 * New: Added import of all styles in sheet.

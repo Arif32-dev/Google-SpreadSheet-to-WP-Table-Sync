@@ -13,7 +13,7 @@ class UdTables {
     public function ud_tables() {
         if (sanitize_text_field($_POST['action']) != 'gswpts_ud_table') {
             self::$output['response_type'] = esc_html('invalid_action');
-            self::$output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Action is invalid', 'sheetstowptable') . '</b>';
             echo json_encode(self::$output);
             wp_die();
         }
@@ -45,7 +45,7 @@ class UdTables {
                 $return = self::delete_table(['id' => sanitize_text_field($value)]);
                 if ($return['response_type'] != 'deleted') {
                     self::$output['response_type'] = esc_html('invalid_request');
-                    self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+                    self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
                     echo json_encode(self::$output);
                     wp_die();
                 } else {
@@ -54,19 +54,19 @@ class UdTables {
             }
             if ($delete_respose) {
                 self::$output['response_type'] = esc_html('deleted_All');
-                self::$output['output'] = '<b>'.esc_html__('Selected tables deleted successfully', 'sheetstowptable').'</b>';
+                self::$output['output'] = '<b>' . esc_html__('Selected tables deleted successfully', 'sheetstowptable') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             } else {
                 self::$output['response_type'] = esc_html('invalid_request');
-                self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+                self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
                 echo json_encode(self::$output);
                 wp_die();
             }
         }
 
         self::$output['response_type'] = esc_html('invalid_request');
-        self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+        self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
         echo json_encode(self::$output);
         wp_die();
     }
@@ -76,7 +76,7 @@ class UdTables {
      */
     public static function update_table(array $sanitized_data) {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $update_response = $wpdb->update(
             $table,
@@ -95,7 +95,7 @@ class UdTables {
         );
         if (is_int($update_response)) {
             self::$output['response_type'] = esc_html('updated');
-            self::$output['output'] = '<b>'.esc_html__('Table name updated successfully', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table name updated successfully', 'sheetstowptable') . '</b>';
             return self::$output;
         }
     }
@@ -105,7 +105,7 @@ class UdTables {
      */
     public static function delete_table(array $sanitized_data) {
         global $wpdb;
-        $table = $wpdb->prefix.'gswpts_tables';
+        $table = $wpdb->prefix . 'gswpts_tables';
 
         $update_response = $wpdb->delete(
             $table,
@@ -117,16 +117,19 @@ class UdTables {
             ]
         );
         if (is_int($update_response)) {
-            // delete caching related data of this table
-            delete_transient('gswpts_sheet_data_'.$sanitized_data['id'].'');
-            delete_option('gswpts_sheet_updated_time_'.$sanitized_data['id'].'');
+            // delete caching related transient of this table
+            delete_transient('gswpts_sheet_data_' . $sanitized_data['id'] . '');
+            delete_transient('gswpts_sheet_styles_' . $sanitized_data['id'] . '');
+            delete_transient('gswpts_sheet_images_' . $sanitized_data['id'] . '');
+
+            delete_option('gswpts_sheet_updated_time_' . $sanitized_data['id'] . '');
 
             self::$output['response_type'] = esc_html('deleted');
-            self::$output['output'] = '<b>'.esc_html__('Table deleted successfully', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Table deleted successfully', 'sheetstowptable') . '</b>';
             return self::$output;
         } else {
             self::$output['response_type'] = esc_html('invalid_request');
-            self::$output['output'] = '<b>'.esc_html__('Request is invalid', 'sheetstowptable').'</b>';
+            self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';
             return self::$output;
         }
     }

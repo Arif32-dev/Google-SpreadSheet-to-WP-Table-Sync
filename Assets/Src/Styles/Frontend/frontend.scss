@@ -1,4 +1,4 @@
-@use './Parts/mixin';
+@use "./Parts/mixin";
 
 /* End of mixin */
 
@@ -22,6 +22,9 @@
             overflow-wrap: break-word;
             border: 1px solid #76767647;
             min-height: 25px;
+            img {
+                max-width: unset;
+            }
         }
         @media screen and (max-width: 768px) {
             th,
@@ -43,6 +46,9 @@
             white-space: normal;
             vertical-align: middle;
             overflow-x: unset;
+            img {
+                max-width: 100%;
+            }
             @media screen and (max-width: 768px) {
                 & {
                     max-width: unset;

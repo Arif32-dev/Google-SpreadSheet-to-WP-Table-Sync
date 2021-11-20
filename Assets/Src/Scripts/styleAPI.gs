@@ -1,14 +1,14 @@
 // function testAPI(){
 //   let requestObject = {
-//     sheetID: '1BLPajAgkl9biIzA8avvzmXXtcXwfWmGWkksIyQP5Q-Q',
-//     gID: '0',
-//     action: 'getStyles'
+//     sheetID: '1t7MnIPlu_lU9srlftEvtSnSx3db3-hLctNXFao3wRVQ',
+//     gID: '135572357',
+//     action: 'getImages'
 //   }
 
 //   // get sheet cell style like background color, text color
-//   let response = getSheetCellStyles(requestObject);
+//   let response = getImagesData(requestObject);
 
-//   Logger.log(JSON.stringify(response));
+//   Logger.log(response);
 // }
 
 function doGet(req) {
@@ -34,7 +34,7 @@ function doGet(req) {
             sheetID,
             gID,
         };
-        // get sheet cell style like background color, text color
+        // get sheet cell style like background color, text color etc
         let sheetCellStyles = getSheetCellStyles(requestObject);
 
         return ContentService.createTextOutput(JSON.stringify(sheetCellStyles));
@@ -49,6 +49,20 @@ function doGet(req) {
         let getLastUpdatedtime = getLastUpdatedTimestamp(requestObject);
 
         return ContentService.createTextOutput(JSON.stringify(getLastUpdatedtime));
+    }
+
+    // If action is getImages than fetch the images that are inserted in google sheet as formula
+    if (action == "getImages") {
+        if (!gID) gID = 0;
+
+        let requestObject = {
+            sheetID,
+            gID,
+        };
+
+        let imagesData = getImagesData(requestObject);
+
+        return ContentService.createTextOutput(JSON.stringify(imagesData));
     }
 
     return ContentService.createTextOutput(
@@ -90,6 +104,45 @@ function getSheetCellStyles(requestObject) {
     };
 }
 
+// Get all the data of inserted image from google sheet
+function getImagesData(requestObject) {
+    let sheet = openSheetByID(requestObject);
+
+    let lastColumn = sheet.getLastColumn();
+
+    let lastRowIndex = sheet.getLastRow();
+
+    lastColumn = getLastColumChar(lastColumn);
+
+    let range = sheet.getRange(`A1:${lastColumn}${lastRowIndex}`);
+
+    let formulas = range.getFormulas();
+
+    let returnValue = {};
+
+    if (!formulas) return returnValue;
+
+    let linkRegex =
+        /((?:(http|https|Http|Https|rtsp|Rtsp):\/\/(?:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,64}(?:\:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,25})?\@)?)?((?:(?:[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}\.)+(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnrwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eouw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw]))|(?:(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[0-9])))(?:\:\d{1,5})?)(\/(?:(?:[a-zA-Z0-9\;\/\?\:\@\&\=\#\~\-\.\+\!\*\'\(\)\,\_])|(?:\%[a-fA-F0-9]{2}))*)?(?:\b|$)/g;
+
+    formulas.forEach((rows, rowIndex) => {
+        for (let i = 0; i < rows.length; i++) {
+            let cellValue = rows[i];
+            if (/(\=image|=IMAGE)/.test(cellValue)) {
+                returnValue[`row_${rowIndex}_col_${i}`] = {
+                    imgUrl: cellValue.match(linkRegex),
+                    width: sheet.getColumnWidth(i + 1),
+                    height: sheet.getRowHeight(rowIndex + 1),
+                    rowIndex: rowIndex,
+                    cellIndex: i,
+                };
+            }
+        }
+    });
+
+    return returnValue;
+}
+
 // Open the google sheet with sheet ID
 function openSheetByID(requestObject) {
     var ss = SpreadsheetApp.openById(requestObject.sheetID);
@@ -115,7 +168,7 @@ function openSheetByID(requestObject) {
 // get alphabet name of requested numeric column
 // Example: Column #2 is going convert as Column B
 function getLastColumChar(column) {
-    var temp,
+    let temp,
         letter = "";
     while (column > 0) {
         temp = (column - 1) % 26;
