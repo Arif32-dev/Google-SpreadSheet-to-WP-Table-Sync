@@ -72,8 +72,8 @@ class ClassSortcode {
         $table_settings = unserialize($dbResult[0]->table_settings);
 
         $hiddenValues = [
-            'hiddenRows'  => $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [],
-            'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
+            'hiddenRows'  => isset($table_settings['hide_rows']) ? $table_settings['hide_rows'] : [],
+            'hiddenCells' => isset($table_settings['hide_cell']) ? $table_settings['hide_cell'] : []
         ];
 
         $reqData = [
@@ -82,7 +82,7 @@ class ClassSortcode {
             'tableID'       => $atts['id'],
             'hiddenValues'  => $hiddenValues,
             'dbResult'      => $dbResult,
-            'importStyles'  => $table_settings['import_styles'] == 'true' ? true : false
+            'importStyles'  => isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true' ? true : false
         ];
 
         $respond = $gswpts->get_table($reqData);
@@ -99,7 +99,7 @@ class ClassSortcode {
 
         $tableStyle = '';
 
-        if ($table_settings['import_styles'] == 'true') {
+        if (isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true') {
 
             $tableStyle = 'default-style';
 

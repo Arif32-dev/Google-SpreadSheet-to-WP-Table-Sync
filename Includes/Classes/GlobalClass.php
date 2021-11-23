@@ -778,6 +778,10 @@ class GlobalClass {
      */
     public function getLastUpdatedtime(string $url): string {
 
+        if (!$this->isProActive()) {
+            return false;
+        }
+
         if (!$url) {
             return false;
         }
