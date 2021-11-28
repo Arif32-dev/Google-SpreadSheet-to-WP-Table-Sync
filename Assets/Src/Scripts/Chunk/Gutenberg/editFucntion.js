@@ -5,6 +5,8 @@ const { useEffect, useRef } = wp.element;
 const { InspectorControls } = wp.blockEditor;
 const { Panel, PanelBody, PanelRow, SelectControl, ToggleControl } = wp.components;
 
+var $ = jQuery.noConflict();
+
 import {
     formatCellValues,
     rowsPerPage,
