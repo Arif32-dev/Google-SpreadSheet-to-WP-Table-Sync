@@ -4,12 +4,20 @@ Tags: spreadsheet, google spreadsheet, live table, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.11.0
+Stable tag: 2.12.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+
+= 2.12.0 =
+* New: Added tab management feature. 🔥
+* Updated: Popup offer api modified
+* Fixed: Fixed url conflict issue for image loading.
+* Fixed: Fixed $ error with other plugins
+* Fixed: Fixed PHP 8 error
+* Fixed: Fixed PDF generation script
 
 = 2.11.0 =
 * New: Added image loading from URL. 🔥
