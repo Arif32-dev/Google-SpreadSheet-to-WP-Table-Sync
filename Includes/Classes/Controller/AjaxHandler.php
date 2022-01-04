@@ -9,7 +9,10 @@ use GSWPTS\Includes\Classes\Controller\Ajax_Parts\ManageNotices;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabChanges;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabFetch;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
+use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabNameToggle;
 use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
 
 class AjaxHandler {
@@ -22,27 +25,45 @@ class AjaxHandler {
         /* Sheet Creation */
         add_action('wp_ajax_gswpts_sheet_create', [$this, 'sheet_creation']);
         add_action('wp_ajax_nopriv_gswpts_sheet_create', [$this, 'sheet_creation']);
+
         /* Sheet Fetching */
         add_action('wp_ajax_gswpts_sheet_fetch', [$this, 'sheet_fetch']);
         add_action('wp_ajax_nopriv_gswpts_sheet_fetch', [$this, 'sheet_fetch']);
+
         /* Table Fetching */
         add_action('wp_ajax_gswpts_table_fetch', [$this, 'table_fetch']);
         add_action('wp_ajax_nopriv_gswpts_table_fetch', [$this, 'table_fetch']);
+
         /* Update and delete table */
         add_action('wp_ajax_gswpts_ud_table', [$this, 'ud_tables']);
-        add_action('wp_ajax_nopriv_gswpts_ud_table', [$this, 'ud_tables']);
+
         /* Other product fetching */
         add_action('wp_ajax_gswpts_product_fetch', [$this, 'fetch_products']);
         add_action('wp_ajax_nopriv_gswpts_product_fetch', [$this, 'fetch_products']);
+
         /* User subscription */
         add_action('wp_ajax_gswpts_user_subscribe', [$this, 'userSubscribe']);
         add_action('wp_ajax_nopriv_gswpts_user_subscribe', [$this, 'userSubscribe']);
+
         /* Ger wppool post */
         add_action('wp_ajax_gswpts_get_posts', [$this, 'getPosts']);
         add_action('wp_ajax_nopriv_gswpts_get_posts', [$this, 'getPosts']);
+
         /* Ger wppool post */
         add_action('wp_ajax_gswpts_notice_action', [$this, 'manageNoticeActions']);
         add_action('wp_ajax_nopriv_gswpts_notice_action', [$this, 'manageNoticeActions']);
+
+        /* Manage table tabs */
+        add_action('wp_ajax_gswpts_manage_tab', [$this, 'manageTab']);
+
+        /* Manage table tabs */
+        add_action('wp_ajax_gswpts_tab_changes', [$this, 'tabChanges']);
+
+        /* Update and delete table */
+        add_action('wp_ajax_gswpts_ud_tab', [$this, 'ud_tables']);
+
+        /* Update and delete table */
+        add_action('wp_ajax_gswpts_manage_tab_toggle', [$this, 'manageTabToggleValue']);
     }
 
     public function sheet_creation() {
@@ -83,5 +104,20 @@ class AjaxHandler {
     public function manageNoticeActions() {
         $remoteClass = new ManageNotices();
         $remoteClass->manageNotices();
+    }
+
+    public function manageTab() {
+        $remoteClass = new TabFetch();
+        $remoteClass->manageTabs();
+    }
+
+    public function tabChanges() {
+        $remoteClass = new TabChanges();
+        $remoteClass->tabChanges();
+    }
+
+    public function manageTabToggleValue() {
+        $remoteClass = new TabNameToggle();
+        $remoteClass->tabNameToggle();
     }
 }

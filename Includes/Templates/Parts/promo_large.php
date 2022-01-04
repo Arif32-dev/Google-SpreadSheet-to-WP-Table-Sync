@@ -1,27 +1,29 @@
 <?php
 
-$url = 'https://wppool.dev/?action=wp_dark_mode_get_offer_json';
+$url = 'https://wppool.dev/wp-json/wppool/plugin_offers';
 
 $res = wp_remote_get($url);
+
+$discountPercentage = '';
 
 if (!is_wp_error($res)) {
     $json = wp_remote_retrieve_body($res);
 
-    $data = (array) json_decode($json);
+    $data = json_decode($json);
 
-    if (array_key_exists('data', $data)) {
-        $date = date('Y-m-d-H-i', strtotime($data['data']->counter_time));
+    $date = date('Y-m-d-H-i', strtotime($data->counter_time));
 
-        $date_parts = explode('-', $date);
+    $date_parts = explode('-', $date);
 
-        $countdown_time = [
-            'year'   => $date_parts[0],
-            'month'  => $date_parts[1],
-            'day'    => $date_parts[2],
-            'hour'   => $date_parts[3],
-            'minute' => $date_parts[4]
-        ];
-    }
+    $countdown_time = [
+        'year'   => $date_parts[0],
+        'month'  => $date_parts[1],
+        'day'    => $date_parts[2],
+        'hour'   => $date_parts[3],
+        'minute' => $date_parts[4]
+    ];
+
+    $discountPercentage = $data->sheets_to_table_live_sync->discount;
 }
 
 ?>
@@ -38,17 +40,17 @@ if (!is_wp_error($res)) {
 
             <div class="popup-header"
                 style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/header-bg.svg' ?>)">
-                <h2>- <span>50</span> %</h2>
+                <h2>- <span><?php echo esc_html($discountPercentage) ?></span> %</h2>
             </div>
             <div class="popup-body">
                 <img class="layer-image" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/body-bg.svg' ?>"
                     alt="alternate image" />
 
                 <div class="offer">
-                    <h2>get <span>50%</span> off</h2>
+                    <h2>get <span><?php echo esc_html($discountPercentage) ?>%</span> off</h2>
                 </div>
 
-                <div id="offer_limit" data-limit="<?php echo $data['data']->counter_time; ?>">
+                <div id="offer_limit" data-limit="<?php echo $data->counter_time; ?>">
                     <ul>
                         <li>
                             <p class="time">00 <span>:</span></p>

@@ -11,6 +11,8 @@ class ClassSortcode {
         } else {
             add_shortcode('gswpts_table', [$this, 'gswpts_sortcodes']);
         }
+
+        add_shortcode('gswpts_tab', [$this, 'showTabData']);
     }
 
     /**
@@ -99,6 +101,8 @@ class ClassSortcode {
 
         $tableStyle = '';
 
+        $sheetUrl = $dbResult[0]->source_url;
+
         if (isset($table_settings['import_styles']) && $table_settings['import_styles'] == 'true') {
 
             $tableStyle = 'default-style';
@@ -110,7 +114,8 @@ class ClassSortcode {
 
         $output = '<div class="gswpts_tables_container gswpts_table_' . esc_attr($atts['id']) . ' ' . esc_attr($responsive) . ' ' . esc_attr($tableStyle) . '" id="' . esc_attr($atts['id']) . '"
                         data-table_name="' . esc_attr($respond['table_name']) . '"
-                        data-table_settings=' . json_encode($table_settings) . '>';
+                        data-table_settings=' . json_encode($table_settings) . '
+                        data-url="' . esc_attr($sheetUrl) . '">';
 
         $output .= $table_name;
 
@@ -137,5 +142,36 @@ class ClassSortcode {
         } else {
             return null;
         }
+    }
+
+    /**
+     * @param  $atts
+     * @return mixed
+     */
+    public function showTabData($atts) {
+
+        $output = "<h5><b>" . __('Tab maybe deleted or can\'t be displayed.', 'sheetstowptable') . "</b></h5><br>";
+
+        if (!is_int(intval($atts['id']))) {
+            return $output;
+        }
+
+        $tabID = $atts['id'];
+
+        global $gswptsTabFunctions;
+
+        $tab = $gswptsTabFunctions->getTabByID([
+            'id'               => $tabID,
+            'includeBootrstap' => false,
+            'isShortcode'      => true
+        ]);
+
+        $output = '<div class="create_tab_content">';
+
+        $output .= $tab;
+
+        $output .= '</div>';
+
+        return $output;
     }
 }

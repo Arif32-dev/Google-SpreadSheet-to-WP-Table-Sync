@@ -6,8 +6,8 @@ var HW_config = {
 </script>
 <script async src="https://cdn.headwayapp.co/widget.js"></script>
 
-<?php if (isset($_GET['subpage']) && sanitize_text_field($_GET['subpage']) == 'create-table') {?>
-<?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/create_tables.php')?>
+<?php if (isset($_GET['subpage']) && sanitize_text_field($_GET['subpage']) == 'create-tab') {?>
+<?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/create_tab.php')?>
 <?php } else {?>
 <div class="gswpts_manage_table_container">
 
@@ -36,14 +36,14 @@ var HW_config = {
 
         <div id="delete_button_container" class="row">
             <div class="col-12 p-0">
-                <button id="delete_button" class="negative ui button mr-0 float-right transition hidden"
+                <button id="tab_delete_button" class="negative ui button mr-0 float-right transition hidden"
                     data-show="false">
                     <span>
                         <?php _e('Delete Selected', 'sheetstowptable');?> &nbsp; <i class="fas fa-trash-alt"></i>
                     </span>
                 </button>
 
-                <button id="unselect_btn" class="ui violet button mr-2 float-right transition hidden">
+                <button id="manage_tab_unselect_btn" class="ui violet button mr-2 float-right transition hidden">
                     <span>
                         <?php _e('Clear Selection', 'sheetstowptable');?> &nbsp; <i class="fas fa-minus"></i>
                     </span>
@@ -53,9 +53,9 @@ var HW_config = {
         </div>
 
 
-        <div class="row">
+        <div class="row ml-1">
 
-            <div id="gswpts_tables_container" class="col-12 p-0 mt-3 position-relative">
+            <div id="gswpts_tab_container" class="col-12 p-0 mt-3 position-relative">
 
                 <div class="ui segment gswpts_table_loader">
                     <div class="ui active inverted dimmer">
@@ -69,11 +69,13 @@ var HW_config = {
             </div>
 
             <!-- Start create table button -->
-            <a class="positive ui button mr-2 float-left transition hidden create_table_btn"
-                style="font-size: 1.03rem; position: relative;top: -55px;"
-                href="<?php echo esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table')); ?>">
-                <?php _e('Create Table', 'sheetstowptable');?> &nbsp; <i class="fas fa-plus"></i>
-            </a>
+            <div class="col-12 pl-0">
+                <a class="positive ui button mr-2 float-left transition hidden tab_create_btn"
+                    style="font-size: 1.03rem; position: relative;top: -45px; margin-left: -15px"
+                    href="<?php echo esc_url(admin_url('admin.php?page=gswpts-manage-tab&subpage=create-tab')); ?>">
+                    <?php _e('Create Tab', 'sheetstowptable');?> &nbsp; <i class="fas fa-plus"></i>
+                </a>
+            </div>
             <!-- End of create table button -->
 
             <!-- Start popup modal -->
@@ -84,7 +86,7 @@ var HW_config = {
                                                                 margin: -50px 0 0 -190px;
                                                                 ">
                 <div class="header">
-                    Delete Your Table
+                    Delete Your Tab
                 </div>
                 <div class="content">
                     <p><b class="gswpts_popup_content"></b></p>
