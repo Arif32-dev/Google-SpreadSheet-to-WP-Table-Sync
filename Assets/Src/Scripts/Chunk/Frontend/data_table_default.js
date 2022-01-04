@@ -20,10 +20,11 @@ if (front_end_data.isProActive) {
                     let table_settings = JSON.parse($(elem).attr("data-table_settings"));
 
                     let table_name = $(elem).attr("data-table_name");
+                    let sheetUrl = $(elem).attr("data-url");
 
                     let table_obj = new Global_Table_Config();
 
-                    table_obj.table_configuration($, i, elem, table_name, table_settings);
+                    table_obj.table_configuration($, i, elem, table_name, table_settings, sheetUrl);
 
                     let scrollerContainer = $(elem).find(".dataTables_scroll");
                     let scrollerElement = $(elem).find(".dataTables_scrollBody");
@@ -58,10 +59,11 @@ if (front_end_data.isProActive) {
                     let table_settings = JSON.parse($(elem).attr("data-table_settings"));
 
                     let table_name = $(elem).attr("data-table_name");
+                    let sheetUrl = $(elem).attr("data-url");
 
                     let table_obj = new Global_Table_Config();
 
-                    table_obj.table_configuration($, i, elem, table_name, table_settings);
+                    table_obj.table_configuration($, i, elem, table_name, table_settings, sheetUrl);
 
                     table_obj.clearOverflow();
                 });

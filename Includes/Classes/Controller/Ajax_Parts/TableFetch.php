@@ -68,15 +68,21 @@ class TableFetch {
                                 </td>
                                  <td class="text-center">
                                     <div style="line-height: 38px;">
+
+                                        <div class="ui input table_name_hidden">
+                                            <input type="text" class="table_name_hidden_input" value="' . esc_attr($table_data->table_name) . '" />
+                                        </div>
                                         <a
                                         style="margin-right: 5px; padding: 5px 15px;white-space: nowrap;"
                                         class="table_name"
                                         href="' . esc_url(admin_url('admin.php?page=gswpts-dashboard&subpage=create-table&id=' . esc_attr($table_data->id) . '')) . '">
                                         ' . esc_html__($table_data->table_name, 'sheetstowptable') . '
                                         </a>
+
                                         <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1" id="' . esc_attr($table_data->id) . '" style="width: 50px;height: 38px;">
                                             <img src="' . GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg' . '" width="24px" height="15px" alt="rename-icon"/>
                                         </button>
+
                                     </div>
                                 </td>
                                 <td class="text-center"><button data-id="' . esc_attr($table_data->id) . '" id="table-' . esc_attr($table_data->id) . '" class="negative ui button gswpts_table_delete_btn">' . esc_html__('Delete', 'sheetstowptable') . ' &nbsp; <i class="fas fa-trash"></i></button></td>

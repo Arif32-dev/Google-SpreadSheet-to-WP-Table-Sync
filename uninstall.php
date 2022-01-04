@@ -42,7 +42,8 @@ class SheetsToWPTableLiveSyncUninstall {
     public function db_tables() {
         global $wpdb;
         $tables = [
-            $wpdb->prefix . 'gswpts_tables'
+            $wpdb->prefix . 'gswpts_tables',
+            $wpdb->prefix . 'gswpts_tabs'
         ];
         return $tables;
     }
@@ -70,7 +71,6 @@ class SheetsToWPTableLiveSyncUninstall {
         ];
 
         foreach ($savedOptions as $option) {
-            unregister_setting('gswpts_general_setting', $option);
             delete_option($option);
         }
     }

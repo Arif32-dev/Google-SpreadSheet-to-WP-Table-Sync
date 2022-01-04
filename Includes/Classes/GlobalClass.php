@@ -143,7 +143,7 @@ class GlobalClass {
 
         $sheet_response = $args['sheetResponse'];
 
-        $hiddenValues = $args['hiddenValues'];
+        $hiddenValues = isset($args['hiddenValues']) ? $args['hiddenValues'] : [];
 
         $importStyles = $args['importStyles'];
 
@@ -558,8 +558,10 @@ class GlobalClass {
             return $string;
         }
 
+        $imgMatchingRegex = "/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))/i";
+
         // if the string is url and contains image property than return the string image tag
-        if (filter_var($string, FILTER_VALIDATE_URL) && is_array(getimagesize($string))) {
+        if (filter_var($string, FILTER_VALIDATE_URL) && preg_match_all($imgMatchingRegex, $string)) {
             return '<img src="' . $string . '" alt="' . $string . '"/>';
         }
 
@@ -576,8 +578,6 @@ class GlobalClass {
         $pattern = '/(\[.+\]).*(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
         // This is only link pattern
         $linkPattern = '/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/i';
-
-        // $pattern = '/((?:(http|https|Http|Https|rtsp|Rtsp):\/\/(?:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,64}(?:\:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,25})?\@)?)?((?:(?:[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}\.)+(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnrwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eouw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw]))|(?:(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[0-9])))(?:\:\d{1,5})?)(\/(?:(?:[a-zA-Z0-9\;\/\?\:\@\&\=\#\~\-\.\+\!\*\'\(\)\,\_])|(?:\%[a-fA-F0-9]{2}))*)?(?:\b|$)/g';
 
         if (preg_match_all($pattern, $string, $matches)) {
             if ($matches) {
@@ -675,7 +675,7 @@ class GlobalClass {
         $replacedString = str_replace($holderText, "", $replacedString);
         $replacedString = str_replace($matchedLink[0], '<a href="' . $this->checkHttpsInString($matchedLink[0], true) . '" target="_self">' . $linkText . '</a>', $replacedString);
 
-        return $replacedString;
+        return (string) $replacedString;
     }
 
     /**
@@ -756,7 +756,7 @@ class GlobalClass {
 
         $imagesData = null;
 
-        if (!$args['tableCache']) {
+        if (!isset($args['tableCache'])) {
             return $this->getImages($args);
         }
 
@@ -786,7 +786,7 @@ class GlobalClass {
             return false;
         }
 
-        $sheetID = $this->get_sheet_id($url);
+        $sheetID = (string) $this->get_sheet_id((string) $url);
 
         global $gswptsPro;
         $modifiedTime = $gswptsPro->getLastUpdatedtime($sheetID);
@@ -963,13 +963,18 @@ class GlobalClass {
 
         $url = $this->sheetURLConstructor($sheet_id, $url);
 
-        $response = wp_remote_get($url)['body'];
+        try {
+            $response = wp_remote_get($url)['body'];
+            if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
+                return false;
+            }
 
-        if (preg_match_all("/((<!DOCTYPE html>)|(<head>))/i", $response)) {
-            return false;
+            return $response;
+
+        } catch (\Throwable $th) {
+            throw "Fetching data was a problem" . $th;
         }
 
-        return $response;
     }
 
     /**
@@ -1029,6 +1034,23 @@ class GlobalClass {
     public function fetch_db_by_id($id) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
+
+        $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . " WHERE id=%d", sanitize_text_field($id)));
+        if (!empty($result)) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    // Get the tab by its id value
+    /**
+     * @param  $id
+     * @return mixed
+     */
+    public function getTab($id) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'gswpts_tabs';
 
         $result = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $table . " WHERE id=%d", sanitize_text_field($id)));
         if (!empty($result)) {

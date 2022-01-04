@@ -95,8 +95,8 @@ class SheetFetching {
         }
 
         $hiddenValues = [
-            'hiddenRows'  => $table_settings['hide_rows'] ? $table_settings['hide_rows'] : [],
-            'hiddenCells' => $table_settings['hide_cell'] ? $table_settings['hide_cell'] : []
+            'hiddenRows'  => isset($table_settings['hide_rows']) ? $table_settings['hide_rows'] : [],
+            'hiddenCells' => isset($table_settings['hide_cell']) ? $table_settings['hide_cell'] : []
         ];
 
         $reqData = [

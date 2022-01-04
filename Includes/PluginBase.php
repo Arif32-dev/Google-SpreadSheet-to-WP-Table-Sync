@@ -14,8 +14,9 @@ use GSWPTS\Includes\Classes\SettingsApi;
 
 class PluginBase {
     public function __construct() {
-        $this->includes();
         $this->global_functions();
+        $this->includes();
+        $this->includesFunctions();
     }
 
     public function global_functions() {
@@ -30,5 +31,13 @@ class PluginBase {
         new ClassSortcode();
         new SettingsApi();
         new Hooks();
+    }
+
+    public function includesFunctions() {
+        require_once GSWPTS_BASE_PATH . 'Includes/functions/tab_functions.php';
+
+        global $gswptsTabFunctions;
+
+        $gswptsTabFunctions = new \TabFunctions();
     }
 }

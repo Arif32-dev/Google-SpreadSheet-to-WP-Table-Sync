@@ -289,6 +289,48 @@ export default class Base_Class {
         }
     }
 
+    getSpreadsheetID(url) {
+        if (!url || url == "") return;
+
+        let sheetID = null;
+
+        sheetID = url.split(/\//)[5];
+
+        if (sheetID) return sheetID;
+
+        return null;
+    }
+
+    getGridID(url) {
+        if (!url || url == "") return;
+
+        let gridID = null;
+
+        gridID = url.match(/gid=(\w+)/)[1];
+
+        if (gridID) return gridID;
+
+        return null;
+    }
+
+    setPdfUrl(url) {
+        let spreadsheetID = this.getSpreadsheetID(url);
+        let gridID = this.getGridID(url);
+        let pdfUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetID}/export?format=pdf&id=${spreadsheetID}&gid=${gridID}`;
+
+        if (!$("#create_tables_wrapper .dt-buttons .pdf_btn").length) {
+            $("#create_tables_wrapper .dt-buttons").append(
+                `<a class="ui inverted red button transition hidden pdf_btn"
+                    href="${pdfUrl}"
+                    download>
+                    <span>
+                        PDF &nbsp;<img src="${file_url.iconsURL.filePdf}" />
+                    </span>
+                </a>`
+            );
+        }
+    }
+
     table_object(table_name, dom, table_settings) {
         let obj = {
             dom: dom,
@@ -318,12 +360,6 @@ export default class Base_Class {
                             `${table_name}.json`
                         );
                     },
-                },
-                {
-                    text: `PDF &nbsp;<img src="${file_url.iconsURL.filePdf}" />`,
-                    extend: "pdf",
-                    className: "ui inverted red button transition hidden pdf_btn",
-                    title: `${table_name}`,
                 },
                 {
                     text: `CSV &nbsp;<img src="${file_url.iconsURL.fileCSV}" />`,

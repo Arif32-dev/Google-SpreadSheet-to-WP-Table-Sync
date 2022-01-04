@@ -1,4 +1,4 @@
-import Base_Class from "./../Base/base_class";
+import Base_Class from "../Base/base_class";
 
 jQuery(document).ready(function ($) {
     class Google_Sheets_Creation extends Base_Class {
@@ -125,7 +125,6 @@ jQuery(document).ready(function ($) {
                 },
 
                 success: (res) => {
-                    console.log(res);
                     if (
                         JSON.parse(res).response_type == "invalid_action" ||
                         JSON.parse(res).response_type == "invalid_request"
@@ -241,6 +240,8 @@ jQuery(document).ready(function ($) {
                         submit_button.css({
                             backgroundColor: "#f2711c",
                         });
+
+                        this.setPdfUrl($("#file_input").val());
 
                         setTimeout(() => {
                             this.call_alert(
@@ -360,6 +361,9 @@ jQuery(document).ready(function ($) {
                 $("#sheet_ui_card").remove();
                 $("#create_tables_wrapper").remove();
             }, 300);
+
+            // remove pdf button
+            $(".dt-buttons .pdf_btn").transition("scale");
         }
 
         push_parameter(id) {

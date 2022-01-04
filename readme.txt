@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.11.1
+Stable tag: 2.12.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,8 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🖼️ **Image Support:** Load image from any url that contains image. Just add the image url in your sheet and it will load that image in your website. 
 
+📑 **Tab Management:** Manage your all the tables in 1 place as a tab. This feature enables you to effectively manage your data from multiple sheet.
+
 
 
 🚀  [Get The PRO Version](https://go.wppool.dev/Sae) | 👩🏼‍💻 [Get Support](https://wppool.dev/sheets-to-wp-table-live-sync/)
@@ -182,6 +184,14 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.12.0 =
+* New: Added tab management feature. 🔥
+* Updated: Popup offer API modified
+* Fixed: Fixed URL conflict issue for image loading.
+* Fixed: Fixed $ error with other plugins
+* Fixed: Fixed PHP 8 error
+* Fixed: Fixed PDF generation script
 
 = 2.11.1 =
 * Fixed: Fixed bug on free version without pro.

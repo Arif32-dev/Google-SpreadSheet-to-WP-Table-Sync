@@ -10,9 +10,13 @@ jQuery(document).ready(function ($) {
             this.fetch_data_by_id();
         }
         fetch_data_by_id() {
-            if (!this.get_slug_parameter("id")) {
+            if (
+                !this.get_slug_parameter("id") ||
+                this.get_slug_parameter("subpage") != "create-table"
+            ) {
                 return;
             }
+
             $.ajax({
                 url: file_url.admin_ajax,
 
@@ -169,6 +173,8 @@ jQuery(document).ready(function ($) {
                                     10
                                 );
                             }
+
+                            this.setPdfUrl(JSON.parse(res.responseText).table_data.source_url);
                         }, 200);
                     }
                 },

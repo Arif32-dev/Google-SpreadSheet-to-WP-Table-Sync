@@ -19,15 +19,27 @@ final class DbTables {
         $collate = $wpdb->get_charset_collate();
 
         /* This will create this pluign main table */
-        $table = $wpdb->prefix.'gswpts_tables';
-        $this->sql = "CREATE TABLE ".$table." (
+        $table = $wpdb->prefix . 'gswpts_tables';
+        $this->sql = "CREATE TABLE " . $table . " (
                                     `id` INT(255) NOT NULL AUTO_INCREMENT,
                                     `table_name` VARCHAR(255) DEFAULT NULL,
                                     `source_url` LONGTEXT,
                                     `source_type` VARCHAR(255),
                                     `table_settings` LONGTEXT,
                                     PRIMARY KEY (`id`)
-                                ) ENGINE=InnoDB ".$collate."";
+                                ) ENGINE=InnoDB " . $collate . "";
+        $this->create_tables();
+
+        /* This will create a table that will manage the plugins user created tab */
+        $table = $wpdb->prefix . 'gswpts_tabs';
+        $this->sql = "CREATE TABLE " . $table . " (
+                                     `id` INT(255) NOT NULL AUTO_INCREMENT,
+                                     `tab_name` VARCHAR(255) NOT NULL,
+                                     `show_name` BOOLEAN,
+                                     `reverse_mode` BOOLEAN,
+                                     `tab_settings` LONGTEXT NOT NULL,
+                                     PRIMARY KEY (`id`)
+                                 ) ENGINE=InnoDB " . $collate . "";
         $this->create_tables();
     }
 

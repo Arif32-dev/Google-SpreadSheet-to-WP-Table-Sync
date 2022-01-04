@@ -20,6 +20,7 @@ class EnqueueFiles {
         $get_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : null;
 
         if (($get_page == 'gswpts-dashboard') ||
+            ($get_page == 'gswpts-manage-tab') ||
             ($get_page == 'gswpts-general-settings') ||
             ($get_page == 'gswpts-documentation') ||
             ($get_page == 'gswpts-recommendation') ||
@@ -43,18 +44,21 @@ class EnqueueFiles {
 
             /* Javascript Files */
             wp_enqueue_script('jquery');
+            wp_enqueue_script('jquery-ui-draggable');
+            wp_enqueue_script('jquery-ui-droppable');
             wp_enqueue_script('GSWPTS-fontawesome', GSWPTS_BASE_URL . 'Assets/Public/Icons/Fontawesome/css/all.min.js', [], GSWPTS_VERSION, true);
-            wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery'], GSWPTS_VERSION, true);
+            wp_enqueue_script('GSWPTS-admin-js', GSWPTS_BASE_URL . 'Assets/Public/Scripts/Backend/admin.min.js', ['jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'], GSWPTS_VERSION, true);
 
             $iconsURLs = apply_filters('export_buttons_logo_backend', false);
 
             wp_localize_script('GSWPTS-admin-js', 'file_url', [
-                'admin_ajax'  => esc_url(admin_url('admin-ajax.php')),
-                'iconsURL'    => $iconsURLs,
-                'isProActive' => $gswpts->isProActive(),
-                'tableStyles' => $gswpts->tableStylesArray(),
-                'renameIcon'  => GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg',
-                'dasboardURL' => esc_url(admin_url('admin.php?page=gswpts-dashboard'))
+                'admin_ajax'   => esc_url(admin_url('admin-ajax.php')),
+                'iconsURL'     => $iconsURLs,
+                'isProActive'  => $gswpts->isProActive(),
+                'tableStyles'  => $gswpts->tableStylesArray(),
+                'renameIcon'   => GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg',
+                'dasboardURL'  => esc_url(admin_url('admin.php?page=gswpts-dashboard')),
+                'manageTabURL' => esc_url(admin_url('admin.php?page=gswpts-manage-tab'))
             ]);
         }
 

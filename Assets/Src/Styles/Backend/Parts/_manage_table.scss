@@ -26,7 +26,8 @@
             width: 105% !important;
         }
     }
-    #gswpts_tables_container .ui.stackable.pagination.menu {
+    #gswpts_tables_container,
+    #gswpts_tab_container .ui.stackable.pagination.menu {
         padding: 0 !important;
     }
 
@@ -37,5 +38,22 @@
     #manage_tables th,
     #manage_tables td {
         vertical-align: middle;
+    }
+
+    .manage_tab_name_toggle.manage_tab_name_toggle.manage_tab_name_toggle {
+        input:checked ~ .box:before,
+        input:checked ~ label:before {
+            background-color: $link-color !important;
+        }
+    }
+
+    .table_name_hidden,
+    .tab_name_hidden {
+        display: none;
+    }
+
+    .table_name_hidden.active,
+    .tab_name_hidden.active {
+        display: unset;
     }
 }

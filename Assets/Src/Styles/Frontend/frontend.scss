@@ -2,6 +2,8 @@
 
 /* End of mixin */
 
+@import "./Parts/create_tab";
+
 .gswpts_tables_container {
     @include mixin.button_style;
     @include mixin.input_style;

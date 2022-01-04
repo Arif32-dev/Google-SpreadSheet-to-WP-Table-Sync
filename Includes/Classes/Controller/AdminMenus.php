@@ -15,7 +15,7 @@ class AdminMenus {
             __('Sheets To Table', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
-            [get_called_class(), 'gswpts_tables'],
+            [$this, 'dashboardPage'],
             GSWPTS_BASE_URL . 'Assets/Public/Images/logo_20_20.svg'
         );
         add_submenu_page(
@@ -24,15 +24,29 @@ class AdminMenus {
             __('Dashboard', 'sheetstowptable'),
             'manage_options',
             'gswpts-dashboard',
-            [get_called_class(), 'gswpts_tables']
+            [$this, 'dashboardPage']
         );
+
+        global $gswpts;
+
+        if ($this->checkProPluginExists() && $gswpts->isProActive()) {
+            add_submenu_page(
+                'gswpts-dashboard',
+                __('Manage Tab', 'sheetstowptable'),
+                __('Manage Tab', 'sheetstowptable'),
+                'manage_options',
+                'gswpts-manage-tab',
+                [$this, 'tabPage']
+            );
+        }
+
         add_submenu_page(
             'gswpts-dashboard',
             __('General Settings', 'sheetstowptable'),
             __('General Settings', 'sheetstowptable'),
             'manage_options',
             'gswpts-general-settings',
-            [get_called_class(), 'general_settings']
+            [$this, 'generalSettingsPage']
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -40,7 +54,7 @@ class AdminMenus {
             __('Documentation', 'sheetstowptable'),
             'manage_options',
             'gswpts-documentation',
-            [get_called_class(), 'documentationPage']
+            [$this, 'documentationPage']
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -48,7 +62,7 @@ class AdminMenus {
             __('Recommended Plugins', 'sheetstowptable'),
             'manage_options',
             'gswpts-recommendation',
-            [get_called_class(), 'pluginRecommendationPage']
+            [$this, 'pluginRecommendationPage']
         );
 
         if (!$this->checkProPluginExists()) {
@@ -81,11 +95,15 @@ class AdminMenus {
         return $isProExits;
     }
 
-    public static function gswpts_tables() {
+    public static function dashboardPage() {
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php', true);
     }
 
-    public static function general_settings() {
+    public static function tabPage() {
+        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tab.php', true);
+    }
+
+    public static function generalSettingsPage() {
         load_template(GSWPTS_BASE_PATH . 'Includes/Templates/general_settings.php', true);
     }
 

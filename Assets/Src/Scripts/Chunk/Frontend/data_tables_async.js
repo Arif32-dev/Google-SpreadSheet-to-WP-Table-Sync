@@ -29,7 +29,6 @@ if (front_end_data.isProActive) {
                         type: "post",
 
                         success: (res) => {
-                            console.log(JSON.parse(res));
                             let tableClass = new Global_Table_Config();
 
                             if (JSON.parse(res).response_type == "success") {
@@ -64,13 +63,15 @@ if (front_end_data.isProActive) {
                                 $(elem).find(".gswpts_tables_content").html(JSON.parse(res).output);
 
                                 let table_name = JSON.parse(res).table_data.table_name;
+                                let sheetUrl = JSON.parse(res).table_data.source_url;
 
                                 tableClass.table_configuration(
                                     $,
                                     i,
                                     elem,
                                     table_name,
-                                    table_settings
+                                    table_settings,
+                                    sheetUrl
                                 );
 
                                 let scrollerContainer = $(elem).find(".dataTables_scroll");
@@ -146,6 +147,7 @@ if (front_end_data.isProActive) {
                                 $(elem).find(".gswpts_tables_content").html(JSON.parse(res).output);
 
                                 let table_name = JSON.parse(res).table_data.table_name;
+                                let sheetUrl = JSON.parse(res).table_data.source_url;
 
                                 let tableClass = new Global_Table_Config();
 
@@ -154,7 +156,8 @@ if (front_end_data.isProActive) {
                                     i,
                                     elem,
                                     table_name,
-                                    table_settings
+                                    table_settings,
+                                    sheetUrl
                                 );
 
                                 tableClass.clearOverflow();

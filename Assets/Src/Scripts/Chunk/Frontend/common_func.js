@@ -1,5 +1,5 @@
 export default class Global_Table_Config {
-    table_configuration($, i, elem, table_name, table_settings) {
+    table_configuration($, i, elem, table_name, table_settings, sheetUrl) {
         let dom = `<"filtering_input filtering_input_${i}"${
             table_settings.show_x_entries == "true" ? "l" : ""
         }${table_settings.search_bar == "true" ? "f" : ""}>rt<"bottom_options bottom_options_${i}"${
@@ -32,6 +32,8 @@ export default class Global_Table_Config {
         $(elem)
             .find("#create_tables")
             .DataTable(this.table_obj($, table_name, table_settings, dom));
+
+        this.setPdfUrl(sheetUrl, $(elem).find(".dt-buttons"));
 
         if (this.isProPluginActive()) {
             this.reveal_export_btns($, elem, table_settings);
@@ -87,6 +89,46 @@ export default class Global_Table_Config {
         }
     }
 
+    getSpreadsheetID(url) {
+        if (!url || url == "") return;
+
+        let sheetID = null;
+
+        sheetID = url.split(/\//)[5];
+
+        if (sheetID) return sheetID;
+
+        return null;
+    }
+
+    getGridID(url) {
+        if (!url || url == "") return;
+
+        let gridID = null;
+
+        gridID = url.match(/gid=(\w+)/)[1];
+
+        if (gridID) return gridID;
+
+        return null;
+    }
+
+    setPdfUrl(url, elem) {
+        let spreadsheetID = this.getSpreadsheetID(url);
+        let gridID = this.getGridID(url);
+        let pdfUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetID}/export?format=pdf&id=${spreadsheetID}&gid=${gridID}`;
+
+        elem.append(
+            `<a class="ui inverted red button export_btns pdf_btn"
+                href="${pdfUrl}"
+                download>
+                <span>
+                    PDF &nbsp;<img src="${front_end_data.iconsURL.filePdf}" />
+                </span>
+            </a>`
+        );
+    }
+
     table_obj($, table_name, table_settings, dom) {
         let table_object = {
             dom: dom,
@@ -116,12 +158,12 @@ export default class Global_Table_Config {
                         );
                     },
                 },
-                {
-                    text: `PDF &nbsp;<img src="${front_end_data.iconsURL.filePdf}" />`,
-                    extend: "pdf",
-                    className: "ui inverted red button export_btns pdf_btn",
-                    title: `${table_name}`,
-                },
+                // {
+                //     text: `PDF &nbsp;<img src="${front_end_data.iconsURL.filePdf}" />`,
+                //     extend: "pdf",
+                //     className: "ui inverted red button export_btns pdf_btn",
+                //     title: `${table_name}`,
+                // },
                 {
                     text: `CSV &nbsp;<img src="${front_end_data.iconsURL.fileCSV}" />`,
                     extend: "csv",

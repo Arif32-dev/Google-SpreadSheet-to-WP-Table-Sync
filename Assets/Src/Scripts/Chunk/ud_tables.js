@@ -4,40 +4,46 @@ jQuery(document).ready(function ($) {
     class UD_tables extends Base_Class {
         constructor() {
             super($);
-            this.deleteBtn = $("#delete_button");
+            this.deleteBtn = $("#delete_button, #tab_delete_button");
+            this.dataActionType = null;
             this.events();
         }
+
         events() {
-            $(document).on("click", ".gswpts_edit_table", (e) => {
-                this.edit_table_name(e);
+            $(document).on("click", ".gswpts_edit_table, .gswpts_edit_tab", (e) => {
+                this.editName(e);
             });
 
-            $(document).on("click", ".table_name_save", (e) => {
-                this.update_table_name(e);
+            $(document).on("click", ".table_name_save, .tab_name_save", (e) => {
+                this.updateName(e);
                 this.edit_tag_value(e);
             });
 
             $(document).on("click", ".semntic-popup-modal .actions > .yes-btn", (e) => {
                 let id = $(e.currentTarget).attr("data-id");
-                this.delete_table(id);
+                if (id) {
+                    this.deleteData(id);
+                }
             });
 
-            $(document).on("click", ".gswpts_table_delete_btn", (e) => {
+            $(document).on("click", ".gswpts_table_delete_btn, .gswpts_tab_delete_btn", (e) => {
                 let id = $(e.currentTarget).attr("data-id");
+
                 this.initiatePopup(
                     {
                         deleteAll: false,
                         id,
-                        contentText: "Are you sure you want to delete your this table ?",
+                        contentText: "Are you sure you want to delete your this?",
                     },
                     e
                 );
             });
+
             this.deleteBtn.on("click", (e) => {
                 this.initiatePopup(
                     {
                         deleteAll: true,
-                        contentText: "Are you sure you want to delete your selected tables ?",
+                        contentText: "Are you sure you want to delete your selected data?",
                     },
                     e
                 );
@@ -54,6 +60,14 @@ jQuery(document).ready(function ($) {
                 $(".semntic-popup-modal .actions > .yes-btn").attr("data-id", arg.id);
             }
 
+            if ($(e.currentTarget).hasClass("gswpts_table_delete_btn")) {
+                this.dataActionType = "gswpts_ud_table";
+            }
+
+            if ($(e.currentTarget).hasClass("gswpts_tab_delete_btn")) {
+                this.dataActionType = "gswpts_ud_tab";
+            }
+
             // implementing plain javascript for resolving (this) keyword conflict issue
             document
                 .querySelector(".semntic-popup-modal .actions > .yes-btn")
@@ -64,42 +78,67 @@ jQuery(document).ready(function ($) {
                 });
         }
 
-        update_table_name(e) {
-            let table_name = $(e.currentTarget).parent().parent().find(".table_name").text();
+        updateName(e) {
+            let name = "Name";
+
+            if ($(e.currentTarget).hasClass("table_name_save")) {
+                name = $(e.currentTarget).parent().parent().find(".table_name_hidden_input").val();
+                this.dataActionType = "gswpts_ud_table";
+            }
+
+            if ($(e.currentTarget).hasClass("tab_name_save")) {
+                name = $(e.currentTarget).parent().parent().find(".tab_name_hidden_input").val();
+                this.dataActionType = "gswpts_ud_tab";
+            }
 
             let data = {
                 reqType: "update",
-                table_id: $(e.currentTarget).attr("id"),
-                table_name: table_name,
+                id: $(e.currentTarget).attr("id"),
+                name,
+                dataActionType: this.dataActionType,
             };
-            console.log(data);
-            this.ajax_request(data, e);
+
+            this.ajax_request(data);
         }
 
-        delete_table(id) {
+        deleteData(id) {
             let data = {
                 reqType: "delete",
-                table_id: id,
+                id,
+                dataActionType: this.dataActionType,
             };
 
             this.ajax_request(data);
         }
 
         delete_all_table(e) {
-            let allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+            let allCheckBox = null;
+
+            if ($(e.currentTarget).attr("id") == "delete_button") {
+                allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+                this.dataActionType = "gswpts_ud_table";
+            }
+
+            if ($(e.currentTarget).attr("id") == "tab_delete_button") {
+                allCheckBox = $("input[name='manage_tab_checkbox']:checked");
+                this.dataActionType = "gswpts_ud_tab";
+            }
 
             let data = {
                 reqType: "deleteAll",
+                dataActionType: this.dataActionType,
             };
-            let table_ids = [];
+
+            let ids = [];
 
             $.each(allCheckBox, function (indexInArray, valueOfElement) {
-                table_ids.push($(valueOfElement).val());
+                ids.push($(valueOfElement).val());
             });
 
-            data.table_ids = table_ids;
-            if (data.table_ids.length > 0) {
-                this.ajax_request(data, e);
+            data.ids = ids;
+
+            if (data.ids.length > 0) {
+                this.ajax_request(data);
             } else {
                 this.call_alert(
                     "Warning &#9888;&#65039;",
@@ -111,19 +150,54 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        ajax_request(data, e = null) {
+        ajax_request(data) {
             let currentTarget;
-            if (e == null) {
-                currentTarget = $(`#table-${data.table_id}`);
-            } else {
-                currentTarget = $(e.currentTarget);
+
+            let action = null;
+
+            if (
+                data.dataActionType == "gswpts_ud_table" &&
+                (data.reqType == "delete" || data.reqType == "deleteAll")
+            ) {
+                currentTarget = $(`#table-${data.id}`);
+            }
+
+            if (data.dataActionType == "gswpts_ud_table" && data.reqType == "update") {
+                currentTarget = $(`#${data.id}`);
+            }
+
+            if (
+                data.dataActionType == "gswpts_ud_tab" &&
+                (data.reqType == "delete" || data.reqType == "deleteAll")
+            ) {
+                currentTarget = $(`#tab-${data.id}`);
+            }
+
+            if (data.dataActionType == "gswpts_ud_tab" && data.reqType == "update") {
+                currentTarget = $(`#${data.id}`);
+            }
+
+            if (data.dataActionType == "gswpts_ud_table") {
+                action = "gswpts_ud_table";
+            }
+
+            if (data.dataActionType == "gswpts_ud_tab") {
+                action = "gswpts_ud_tab";
+            }
+
+            if (currentTarget.hasClass("table_name_save")) {
+                action = "gswpts_ud_table";
+            }
+
+            if (currentTarget.hasClass("tab_name_save")) {
+                action = "gswpts_ud_tab";
             }
 
             $.ajax({
                 url: file_url.admin_ajax,
 
                 data: {
-                    action: "gswpts_ud_table",
+                    action,
                     data: data,
                 },
                 type: "post",
@@ -167,8 +241,10 @@ jQuery(document).ready(function ($) {
                             3
                         );
                     }
+
                     if (JSON.parse(res).response_type == "deleted") {
                         currentTarget.html("Deleted");
+
                         currentTarget.parent().parent().transition("fade");
                         this.call_alert(
                             "Successfull &#128077;",
@@ -177,6 +253,7 @@ jQuery(document).ready(function ($) {
                             3
                         );
                     }
+
                     if (JSON.parse(res).response_type == "deleted_All") {
                         this.remove_seleted_tables();
                         currentTarget.html("Delete Selected");
@@ -196,10 +273,20 @@ jQuery(document).ready(function ($) {
         }
 
         remove_seleted_tables() {
-            let allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+            let allCheckBox = null;
+
+            if (this.dataActionType === "gswpts_ud_table") {
+                allCheckBox = $("input[name='manage_tables_checkbox']:checked");
+            }
+
+            if (this.dataActionType === "gswpts_ud_tab") {
+                allCheckBox = $("input[name='manage_tab_checkbox']:checked");
+            }
+
             $.each(allCheckBox, function (indexInArray, valueOfElement) {
                 $(valueOfElement).parent().parent().transition("fade");
             });
+
             setTimeout(() => {
                 $.each(allCheckBox, function (indexInArray, valueOfElement) {
                     $(valueOfElement).parent().parent().remove();
@@ -207,35 +294,52 @@ jQuery(document).ready(function ($) {
             }, 300);
         }
 
-        edit_table_name(e) {
+        editName(e) {
             let currentTarget = $(e.currentTarget);
 
-            currentTarget.addClass("table_name_save");
+            if (currentTarget.hasClass("gswpts_edit_tab")) {
+                currentTarget.addClass("tab_name_save");
+            }
+
+            if (currentTarget.hasClass("gswpts_edit_table")) {
+                currentTarget.addClass("table_name_save");
+            }
+
             currentTarget.html(`
                 <i class="save icon"></i>
             `);
-            let link_tag = currentTarget.siblings("a");
-            link_tag.css({
-                cursor: "auto",
+
+            let linkTag = currentTarget.siblings("a");
+
+            linkTag.css({
+                display: "none",
             });
-            link_tag.attr("contentEditable", true);
-            link_tag.focus();
-            link_tag.unbind("click");
+
+            let inputTag = currentTarget.parent().find(".ui.input");
+
+            inputTag.addClass("active");
         }
 
         edit_tag_value(e) {
             let currentTarget = $(e.currentTarget);
 
-            currentTarget.removeClass("table_name_save");
+            if (currentTarget.hasClass("gswpts_edit_tab")) {
+                currentTarget.removeClass("tab_name_save");
+            } else {
+                currentTarget.removeClass("table_name_save");
+            }
 
-            let link_tag = currentTarget.siblings("a");
-            link_tag.css({
-                cursor: "pointer",
+            let linkTag = currentTarget.siblings("a");
+
+            linkTag.css({
+                display: "unset",
             });
-            link_tag.attr("contentEditable", false);
-            link_tag.focusout();
-            link_tag.blur();
-            link_tag.bind("click");
+
+            let inputTag = currentTarget.parent().find(".ui.input");
+
+            linkTag.text(inputTag.find("input").val());
+
+            inputTag.removeClass("active");
         }
 
         // Clear all the selected table that are meant to be deleted.
