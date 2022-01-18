@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.12.0
+Stable tag: 2.12.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,9 @@ For instant support please send us a message on our Facebook page or you also co
 
 
 == Changelog ==
+
+= 2.12.1 =
+* Fixed: Fixed tab management db update
 
 = 2.12.0 =
 * New: Added tab management feature. 🔥
