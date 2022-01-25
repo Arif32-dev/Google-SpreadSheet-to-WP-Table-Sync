@@ -2,7 +2,7 @@
 Contributors: wppool, azizultex, devdrarif, wpdarkmode
 Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.4
 Stable tag: 2.12.1
 License: GPLv2 or later
