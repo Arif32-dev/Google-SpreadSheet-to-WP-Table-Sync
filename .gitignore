@@ -1,4 +1,5 @@
 /node_modules/
+.vscode
 # /composer.json
 # /composer.lock
 # /package.json

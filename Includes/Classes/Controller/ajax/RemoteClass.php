@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
+namespace GSWPTS\includes\classes\controller\ajax;
 
 class RemoteClass {
     /**
@@ -132,7 +132,7 @@ class RemoteClass {
 
         if (sanitize_text_field($_GET['action']) != 'gswpts_get_posts') {
             $this->output['response_type'] = esc_html('invalid_action');
-            $this->output['output'] = '<b>'.esc_html__('Action is invalid', 'sheetstowptable').'</b>';
+            $this->output['output'] = '<b>' . esc_html__('Action is invalid', 'sheetstowptable') . '</b>';
             echo json_encode($this->output);
             wp_die();
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
+namespace GSWPTS\includes\classes\controller\ajax;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 

@@ -242,11 +242,11 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
     </div>
 
     <!-- Load all the modals here -->
-    <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/popup_modals.php')?>
+    <?php load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/popup_modals.php')?>
     <!-- End of all modals -->
 
     <!-- Popup modal for pro feature -->
-    <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo_large.php')?>
+    <?php load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/promo_large.php')?>
     <!-- End of pro feature popup modal -->
 
 </div>

@@ -1,16 +1,16 @@
 <?php
 
-namespace GSWPTS\Includes;
+namespace GSWPTS\includes;
+
+use GSWPTS\includes\classes\ClassSortcode;
+use GSWPTS\includes\classes\controller\AdminMenus;
+use GSWPTS\includes\classes\controller\AjaxHandler;
+use GSWPTS\includes\classes\EnqueueFiles;
+use GSWPTS\includes\classes\GlobalClass;
+use GSWPTS\includes\classes\Hooks;
+use GSWPTS\includes\classes\SettingsApi;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
-
-use GSWPTS\Includes\Classes\ClassSortcode;
-use GSWPTS\Includes\Classes\Controller\AdminMenus;
-use GSWPTS\Includes\Classes\Controller\AjaxHandler;
-use GSWPTS\Includes\Classes\EnqueueFiles;
-use GSWPTS\Includes\Classes\GlobalClass;
-use GSWPTS\Includes\Classes\Hooks;
-use GSWPTS\Includes\Classes\SettingsApi;
 
 class PluginBase {
     public function __construct() {
@@ -34,7 +34,7 @@ class PluginBase {
     }
 
     public function includesFunctions() {
-        require_once GSWPTS_BASE_PATH . 'Includes/functions/tab_functions.php';
+        require_once GSWPTS_BASE_PATH . 'includes/functions/tab_functions.php';
 
         global $gswptsTabFunctions;
 

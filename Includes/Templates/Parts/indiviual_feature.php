@@ -60,7 +60,7 @@
                                 </span>
 
                                 <?php if ($show_tooltip) {?>
-                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'assets/public/images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="200" alt="<?php echo esc_attr($input_name) ?>">
                                 <?php }?>
                             </span>

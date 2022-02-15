@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
+namespace GSWPTS\includes\classes\controller\ajax;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
@@ -294,16 +294,6 @@ foreach ((array) $recommended_plugins as $plugin) {
 
             /**
              * Filters the install action links for a plugin.
-             *
-             *
-             *
-             *
-             *
-             *
-             *
-             *
-             *
-             * @since 2.7.0
              *
              * @param string[] $action_links An array of plugin action links. Defaults are links to Details and Install Now.
              * @param array    $plugin       The plugin currently being listed.

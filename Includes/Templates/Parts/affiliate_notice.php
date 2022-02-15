@@ -92,7 +92,7 @@
             </div>
 
             <span class="promo_close_btn">
-                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+                <?php require GSWPTS_BASE_PATH . 'assets/public/icons/times-circle-solid.svg'?>
             </span>
         </div>
     </div>

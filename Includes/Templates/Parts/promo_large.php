@@ -35,15 +35,15 @@ if (!is_wp_error($res)) {
         <div class="popup-box">
 
             <span class="large_promo_close">
-                <?php require GSWPTS_BASE_PATH . 'Assets/Public/Images/promo-close.svg'?>
+                <?php require GSWPTS_BASE_PATH . 'assets/public/images/promo-close.svg'?>
             </span>
 
             <div class="popup-header"
-                style="background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/header-bg.svg' ?>)">
+                style="background-image: url(<?php echo GSWPTS_BASE_URL . 'assets/public/images/header-bg.svg' ?>)">
                 <h2>- <span><?php echo esc_html($discountPercentage) ?></span> %</h2>
             </div>
             <div class="popup-body">
-                <img class="layer-image" src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/body-bg.svg' ?>"
+                <img class="layer-image" src="<?php echo GSWPTS_BASE_URL . 'assets/public/images/body-bg.svg' ?>"
                     alt="alternate image" />
 
                 <div class="offer">
@@ -80,7 +80,7 @@ if (!is_wp_error($res)) {
 
 <style>
 #offer_limit ul li {
-    background-image: url(<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/timer-background.svg' ?>)
+    background-image: url(<?php echo GSWPTS_BASE_URL . 'assets/public/images/timer-background.svg' ?>)
 }
 </style>
 

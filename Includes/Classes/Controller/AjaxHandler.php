@@ -1,19 +1,19 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller;
+namespace GSWPTS\includes\classes\controller;
+
+use GSWPTS\includes\classes\controller\ajax\FetchProducts;
+use GSWPTS\includes\classes\controller\ajax\ManageNotices;
+use GSWPTS\includes\classes\controller\ajax\RemoteClass;
+use GSWPTS\includes\classes\controller\ajax\SheetCreation;
+use GSWPTS\includes\classes\controller\ajax\SheetFetching;
+use GSWPTS\includes\classes\controller\ajax\TabChanges;
+use GSWPTS\includes\classes\controller\ajax\TabFetch;
+use GSWPTS\includes\classes\controller\ajax\TableFetch;
+use GSWPTS\includes\classes\controller\ajax\TabNameToggle;
+use GSWPTS\includes\classes\controller\ajax\UdTables;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
-
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\FetchProducts;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\ManageNotices;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\RemoteClass;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetCreation;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\SheetFetching;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabChanges;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabFetch;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TableFetch;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\TabNameToggle;
-use GSWPTS\Includes\Classes\Controller\Ajax_Parts\UdTables;
 
 class AjaxHandler {
 

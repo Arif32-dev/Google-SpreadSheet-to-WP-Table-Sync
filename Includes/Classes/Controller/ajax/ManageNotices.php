@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller\Ajax_Parts;
+namespace GSWPTS\includes\classes\controller\ajax;
 
 class ManageNotices {
     /**

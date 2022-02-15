@@ -34,7 +34,7 @@ table {
 
             <div class="row heading_row">
                 <div class="col-12 d-flex justify-content-start p-0 align-items-center">
-                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>"
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'assets/public/images/logo_30_30.svg'); ?>"
                         alt="sheets-logo">
                     <span class="ml-2">
                         <strong><?php echo PlUGIN_NAME; ?></strong>
@@ -69,7 +69,7 @@ table {
 
                 </div>
 
-                <?php load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/promo_large.php', true);?>
+                <?php load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/promo_large.php', true);?>
 
             </div>
         </form>

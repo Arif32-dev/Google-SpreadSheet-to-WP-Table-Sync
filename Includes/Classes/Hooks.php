@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes;
+namespace GSWPTS\includes\classes;
 
 use GSWPTS\Includes\Classes\DbTables;
 

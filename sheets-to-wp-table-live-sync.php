@@ -93,7 +93,7 @@ final class SheetsToWPTableLiveSync {
      */
     public function include_file() {
 
-        new GSWPTS\Includes\PluginBase();
+        new GSWPTS\includes\PluginBase();
 
         if (get_option('gswpts_activation_redirect', false)) {
             delete_option('gswpts_activation_redirect');

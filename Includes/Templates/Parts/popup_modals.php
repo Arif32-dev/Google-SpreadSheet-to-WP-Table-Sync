@@ -2,7 +2,7 @@
 <!-- Popup modal for table style -->
 <div class="tableStyleModal">
     <div class="styleModal transition hidden">
-        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+        <?php require GSWPTS_BASE_PATH . 'assets/public/icons/times-circle-solid.svg'?>
         <div class="header">
             <h4>Choose Table Style</h4>
         </div>
@@ -26,7 +26,7 @@
 <!-- Popup modal for Hide Column feature  -->
 <div class="hide-column-modal-wrapper">
     <div class="gswpts-hide-modal transition hidden">
-        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+        <?php require GSWPTS_BASE_PATH . 'assets/public/icons/times-circle-solid.svg'?>
         <div class="header">
             <h4>Choose Column To Hide</h4>
         </div>
@@ -78,7 +78,7 @@
 <!-- Popup modal for Hide Rows feature  -->
 <div class="hide-rows-modal-wrapper">
     <div class="gswpts-hide-modal transition hidden">
-        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+        <?php require GSWPTS_BASE_PATH . 'assets/public/icons/times-circle-solid.svg'?>
         <div class="header">
             <h4>Activate Row Hiding Feature</h4>
         </div>
@@ -117,7 +117,7 @@
 <!-- Popup modal for Hide Cell feature  -->
 <div class="hide-cell-modal-wrapper">
     <div class="gswpts-hide-modal transition hidden">
-        <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/times-circle-solid.svg'?>
+        <?php require GSWPTS_BASE_PATH . 'assets/public/icons/times-circle-solid.svg'?>
         <div class="header">
             <h4>Activate Cell Hiding Feature</h4>
         </div>

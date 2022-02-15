@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes;
+namespace GSWPTS\includes\classes;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 

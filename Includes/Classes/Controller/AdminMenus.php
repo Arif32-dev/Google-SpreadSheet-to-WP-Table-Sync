@@ -1,6 +1,6 @@
 <?php
 
-namespace GSWPTS\Includes\Classes\Controller;
+namespace GSWPTS\includes\classes\controller;
 
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
@@ -16,7 +16,7 @@ class AdminMenus {
             'manage_options',
             'gswpts-dashboard',
             [$this, 'dashboardPage'],
-            GSWPTS_BASE_URL . 'Assets/Public/Images/logo_20_20.svg'
+            GSWPTS_BASE_URL . 'assets/public/images/logo_20_20.svg'
         );
         add_submenu_page(
             'gswpts-dashboard',
@@ -96,22 +96,22 @@ class AdminMenus {
     }
 
     public static function dashboardPage() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tables.php', true);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/manage_tables.php', true);
     }
 
     public static function tabPage() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/manage_tab.php', true);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/manage_tab.php', true);
     }
 
     public static function generalSettingsPage() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/general_settings.php', true);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/general_settings.php', true);
     }
 
     public static function documentationPage() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/documentation_page.php', true);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/documentation_page.php', true);
     }
 
     public static function pluginRecommendationPage() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/recommendation_page.php', true);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/recommendation_page.php', true);
     }
 }
