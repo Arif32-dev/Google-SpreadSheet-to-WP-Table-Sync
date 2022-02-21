@@ -1,0 +1,59 @@
+.gswpts_manage_table_container {
+    margin-right: 20px;
+
+    * {
+        font-family: $font-family;
+    }
+
+    a {
+        cursor: pointer;
+        color: $link-color;
+        transition: color 0.1s ease-in-out;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+
+    .gswpts_table_loader {
+        min-height: 450px;
+    }
+
+    #gswpts_tables_container .ui.stackable.grid {
+        margin: 0;
+
+        .row {
+            width: 105% !important;
+        }
+    }
+    #gswpts_tables_container,
+    #gswpts_tab_container .ui.stackable.pagination.menu {
+        padding: 0 !important;
+    }
+
+    #manage_tables_paginate > div {
+        padding-top: 0 !important;
+    }
+
+    #manage_tables th,
+    #manage_tables td {
+        vertical-align: middle;
+    }
+
+    .manage_tab_name_toggle.manage_tab_name_toggle.manage_tab_name_toggle {
+        input:checked ~ .box:before,
+        input:checked ~ label:before {
+            background-color: $link-color !important;
+        }
+    }
+
+    .table_name_hidden,
+    .tab_name_hidden {
+        display: none;
+    }
+
+    .table_name_hidden.active,
+    .tab_name_hidden.active {
+        display: unset;
+    }
+}
