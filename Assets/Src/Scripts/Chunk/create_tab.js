@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class ManageTab extends Base_Class {
+    class ManageTab extends BaseClass {
         constructor() {
             super($);
             this.tabInputBtn = $(".tab_input_btn");
@@ -40,22 +40,13 @@ jQuery(document).ready(function ($) {
         showContent(e) {
             let target = $(e.currentTarget);
 
-            target
-                .parents(".tab_bottom_side")
-                .find(`.tab_contents .tab-content`)
-                .hide()
-                .removeClass("active");
+            target.parents(".tab_bottom_side").find(`.tab_contents .tab-content`).hide().removeClass("active");
 
             let inputID = target.attr("id").match(/(\d+)/)[0];
 
-            target
-                .parents(".tab_bottom_side")
-                .find(`.tab_contents #tab-content${inputID}`)
-                .fadeIn()
-                .addClass("active")
-                .css({
-                    display: "flex",
-                });
+            target.parents(".tab_bottom_side").find(`.tab_contents #tab-content${inputID}`).fadeIn().addClass("active").css({
+                display: "flex",
+            });
         }
 
         addDragging() {
@@ -88,9 +79,7 @@ jQuery(document).ready(function ($) {
                         droppable.find(".demo_content").remove();
 
                         // Move draggable into droppable
-                        let drag = $(".droppable").has(ui.draggable).length
-                            ? draggable
-                            : draggable.clone();
+                        let drag = $(".droppable").has(ui.draggable).length ? draggable : draggable.clone();
 
                         drag.appendTo(droppable);
 
@@ -145,23 +134,17 @@ jQuery(document).ready(function ($) {
                                 id="tab${i + totolTabCount}" 
                                 data-id="${i + totolTabCount}"
                                 class="tab_hidden_input" ${normalIndex == 0 ? "checked" : ""} />
-                        <label class="tab_name_label unselectable" for="tab${
-                            i + totolTabCount
-                        }" role="tab">
+                        <label class="tab_name_label unselectable" for="tab${i + totolTabCount}" role="tab">
                             <span class="tab_page_name">tab${normalIndex + 1}</span>
                             <div class="ui input">
-                                <input type="text" class="hidden_tab_name" value="tab${
-                                    normalIndex + 1
-                                }" placeholder="Tab name..."/>
+                                <input type="text" class="hidden_tab_name" value="tab${normalIndex + 1}" placeholder="Tab name..."/>
                             </div>
                         </label>
                     </li>
                 `;
 
                 tabContents += `
-                    <div id="tab-content${i + totolTabCount}" class="tab-content droppable ${
-                    normalIndex == 0 ? "active" : ""
-                }">
+                    <div id="tab-content${i + totolTabCount}" class="tab-content droppable ${normalIndex == 0 ? "active" : ""}">
                         <b class="demo_content">
                             Tab #${normalIndex + 1} content
                         </b>
@@ -191,9 +174,7 @@ jQuery(document).ready(function ($) {
             let inputValue = target.find(".hidden_tab_name").val();
 
             if (!inputValue || inputValue == "") {
-                target
-                    .find(".hidden_tab_name")
-                    .val(target.parent().find(".tab_hidden_input").attr("id"));
+                target.find(".hidden_tab_name").val(target.parent().find(".tab_hidden_input").attr("id"));
             }
 
             target.addClass("deactivate_transition");
@@ -259,12 +240,7 @@ jQuery(document).ready(function ($) {
             let data = this.collectData();
 
             if (!data.length) {
-                this.call_alert(
-                    "Warning &#9888;&#65039;",
-                    "<b>Table is not selected to create tab</b>",
-                    "warning",
-                    3
-                );
+                this.call_alert("Warning &#9888;&#65039;", "<b>Table is not selected to create tab</b>", "warning", 3);
                 return;
             }
 
@@ -342,11 +318,7 @@ jQuery(document).ready(function ($) {
 
             function getTabPages(tabPages) {
                 let pages = {
-                    tabName:
-                        tabPages
-                            .parents(".tab_bottom_side")
-                            .find(".tab_name_box .tab_name")
-                            .val() || "Tab name",
+                    tabName: tabPages.parents(".tab_bottom_side").find(".tab_name_box .tab_name").val() || "Tab name",
                     reverseMode: isReverseMode(tabPages),
                     tabSettings: [],
                 };
@@ -356,9 +328,7 @@ jQuery(document).ready(function ($) {
                 $.each(tabPages, function (tabIndex, liElement) {
                     if (tabPages.length) {
                         let id = parseInt($(liElement).find(".tab_hidden_input").attr("data-id"));
-                        let cards = $(liElement)
-                            .parents(".tab_bottom_side")
-                            .find(`#tab-content${id} .card`);
+                        let cards = $(liElement).parents(".tab_bottom_side").find(`#tab-content${id} .card`);
 
                         pages.tabSettings.push({
                             id,
@@ -439,12 +409,7 @@ jQuery(document).ready(function ($) {
                     }
 
                     if (JSON.parse(res).response_type == "success") {
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
                 },
 

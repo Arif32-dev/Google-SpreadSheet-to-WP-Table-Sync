@@ -119,7 +119,7 @@ $table_id = isset($_GET['id']) && !empty($_GET['id']) ? sanitize_text_field($_GE
 
                             <div class="col-12 p-0">
                                 <form id="gswpts_create_table" class="ui form">
-                                    <?php $gswpts->nonce_field('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce');?>
+                                    <?php $gswpts->nonceField('gswpts_sheet_nonce_action', 'gswpts_sheet_nonce');?>
                                     <div class="row input_fields">
 
                                         <div class="col-12 col-md-3">

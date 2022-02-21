@@ -1,2 +1,2 @@
-import '../Styles/Backend/gutenberg.scss'
-import './Chunk/Gutenberg/gutenberg-block'
+import "../styles/backend/gutenberg.scss";
+import "./chunk/gutenberg/gutenberg-block";

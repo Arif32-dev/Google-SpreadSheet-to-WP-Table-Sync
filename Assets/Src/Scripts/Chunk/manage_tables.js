@@ -1,7 +1,7 @@
-import Base_Class from "./../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class Manage_Tables extends Base_Class {
+    class Manage_Tables extends BaseClass {
         constructor() {
             super($);
             this.table_container = $("#gswpts_tables_container");
@@ -59,10 +59,7 @@ jQuery(document).ready(function ($) {
                 type: "post",
 
                 success: (res) => {
-                    if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
-                    ) {
+                    if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                         this.table_container.html("");
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
                     }
@@ -92,19 +89,9 @@ jQuery(document).ready(function ($) {
                         });
 
                         if (JSON.parse(res.responseText).no_data == "true") {
-                            this.call_alert(
-                                "Warning &#9888;&#65039;",
-                                "<b>No tables found. Create a new</b>",
-                                "warning",
-                                3
-                            );
+                            this.call_alert("Warning &#9888;&#65039;", "<b>No tables found. Create a new</b>", "warning", 3);
                         } else {
-                            this.call_alert(
-                                "Successfull &#128077;",
-                                "<b>All Tables Fetched Successfully</b>",
-                                "success",
-                                3
-                            );
+                            this.call_alert("Successfull &#128077;", "<b>All Tables Fetched Successfully</b>", "success", 3);
                         }
                     }
                 },

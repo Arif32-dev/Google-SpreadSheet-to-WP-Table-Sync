@@ -1,16 +1,23 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
-    mode: 'production',
+    mode: "production",
     entry: {
         gutenberg: {
-            import: path.resolve(__dirname, 'Assets/Src/Scripts/gutenberg.js'),
-            filename: 'Scripts/Backend/Gutenberg/[name].min.js'
+            import: path.resolve(__dirname, "assets/src/scripts/gutenberg.js"),
+            filename: "scripts/backend/gutenberg/[name].min.js",
         },
     },
     output: {
-        path: path.resolve(__dirname, 'Assets/Public/'),
+        path: path.resolve(__dirname, "assets/public/"),
     },
+
+    externals: {
+        react: "React",
+        "react-dom": "ReactDOM",
+    },
+
     module: {
         rules: [
             {
@@ -18,37 +25,33 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'babel-loader',
+                        loader: "babel-loader",
                         options: {
-                            presets: ['@babel/preset-env', '@babel/preset-react']
-                        }
-                    }
+                            presets: ["@babel/preset-env", "@babel/preset-react"],
+                        },
+                    },
                 ],
             },
             {
                 test: /.s?css$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader
+                        loader: MiniCssExtractPlugin.loader,
                     },
                     {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            url: true
+                            url: true,
                         },
                     },
                     {
                         loader: "postcss-loader",
                         options: {
                             postcssOptions: {
-                                plugins: [
-                                    [
-                                        "postcss-preset-env",
-                                    ],
-                                ],
-                            }
-                        }
+                                plugins: [["postcss-preset-env"]],
+                            },
+                        },
                     },
                     {
                         loader: "sass-loader",
@@ -60,18 +63,18 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack'],
-            }
+                use: ["@svgr/webpack"],
+            },
         ],
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'Styles/[name].min.css',
-        })
+            filename: "styles/[name].min.css",
+        }),
     ],
-    devtool: 'source-map',
+    devtool: "source-map",
     watch: true,
     watchOptions: {
-        ignored: ['node_modules/**']
-    }
+        ignored: ["node_modules/**"],
+    },
 };

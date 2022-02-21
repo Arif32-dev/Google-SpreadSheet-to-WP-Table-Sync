@@ -280,7 +280,7 @@ class SheetCreation {
         }
 
         foreach ($dbResult as $data) {
-            if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+            if ($gswpts->getSheetID($data->source_url) == $gswpts->getSheetID($url)) {
                 $return_value = true;
                 break;
             } else {
@@ -311,7 +311,7 @@ class SheetCreation {
             foreach ($dbResult as $data) {
                 if ($gswpts->getGridID($data->source_url) == $gswpts->getGridID($url)) {
                     // if both gid is same than we have to check if current sheet id is same with saved sheet id
-                    if ($gswpts->get_sheet_id($data->source_url) == $gswpts->get_sheet_id($url)) {
+                    if ($gswpts->getSheetID($data->source_url) == $gswpts->getSheetID($url)) {
                         $returnValue = true;
                         break;
                     }
@@ -349,7 +349,7 @@ class SheetCreation {
 
         $settings = self::get_table_settings($settings);
 
-        $previousSettings = unserialize($gswpts->fetch_db_by_id($table_id)[0]->table_settings);
+        $previousSettings = unserialize($gswpts->fetchDbByID($table_id)[0]->table_settings);
 
         foreach ($settings as $key => $value) {
             $previousSettings[$key] = $value;

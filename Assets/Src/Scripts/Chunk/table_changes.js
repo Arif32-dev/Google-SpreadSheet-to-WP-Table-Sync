@@ -1,7 +1,7 @@
-import Base_Class from "./../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class Table_Changes extends Base_Class {
+    class Table_Changes extends BaseClass {
         constructor() {
             super($);
             this.promo_close_btn = $(".promo_close_btn");
@@ -281,14 +281,14 @@ jQuery(document).ready(function ($) {
         reFormatTable() {
             let table_settings = this.table_settings_obj();
 
-            let dom = `<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
-                table_settings.searchBar ? "f" : ""
-            }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
+            let dom = `<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${table_settings.searchBar ? "f" : ""}>rt<"#bottom_options"${
+                table_settings.showInfoBlock ? "i" : ""
+            }p>`;
 
             if (this.isProPluginActive()) {
-                dom = `B<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${
-                    table_settings.searchBar ? "f" : ""
-                }>rt<"#bottom_options"${table_settings.showInfoBlock ? "i" : ""}p>`;
+                dom = `B<"#filtering_input"${table_settings.showXEntries ? "l" : ""}${table_settings.searchBar ? "f" : ""}>rt<"#bottom_options"${
+                    table_settings.showInfoBlock ? "i" : ""
+                }p>`;
             }
 
             let table_name = $("#table_name").val();
@@ -374,12 +374,8 @@ jQuery(document).ready(function ($) {
                     let desktopColumnInput = $("#desktop-hide-columns");
                     let mobileColumnInput = $("#mobile-hide-columns");
 
-                    let desktopHideColumns = desktopColumnInput.find("input").val()
-                        ? desktopColumnInput.find("input").val().split(",")
-                        : null;
-                    let modbleHideColumns = mobileColumnInput.find("input").val()
-                        ? mobileColumnInput.find("input").val().split(",")
-                        : null;
+                    let desktopHideColumns = desktopColumnInput.find("input").val() ? desktopColumnInput.find("input").val().split(",") : null;
+                    let modbleHideColumns = mobileColumnInput.find("input").val() ? mobileColumnInput.find("input").val().split(",") : null;
 
                     let hideColumnValues = {
                         desktopValues: desktopHideColumns,
@@ -512,9 +508,7 @@ jQuery(document).ready(function ($) {
 
             $.each(visibleRowsValue, function (indexInArray, valueOfElement) {
                 let indexValue = $(valueOfElement).attr("data-value");
-                $(`.dataTables_scrollBody table tbody tr .cell_index_${indexValue} .cell_div`).show(
-                    300
-                );
+                $(`.dataTables_scrollBody table tbody tr .cell_index_${indexValue} .cell_div`).show(300);
 
                 // Remove the the hidden cell value from hidden input in order to save into database
                 let hiddenCell = [],

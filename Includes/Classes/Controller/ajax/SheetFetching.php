@@ -35,7 +35,7 @@ class SheetFetching {
     public static function output_html(int $id) {
         global $gswpts;
 
-        $db_result = $gswpts->fetch_db_by_id($id);
+        $db_result = $gswpts->fetchDbByID($id);
         if (!$db_result) {
             self::$output['response_type'] = esc_html('invalid_request');
             self::$output['output'] = '<b>' . esc_html__('Request is invalid', 'sheetstowptable') . '</b>';

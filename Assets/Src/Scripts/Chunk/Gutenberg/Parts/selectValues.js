@@ -1,17 +1,12 @@
 export function rowsPerPage(isProActive) {
     const values = [
-        { key: "1", value: "1", text: "1" },
-        { key: "5", value: "5", text: "5" },
-        { key: "10", value: "10", text: "10" },
-        { key: "15", value: "15", text: "15" },
+        { value: "1", label: "1" },
+        { value: "5", label: "5" },
+        { value: "10", label: "10" },
+        { value: "15", label: "15" },
     ];
     if (isProActive) {
-        values.push(
-            { key: "25", value: "25", text: "25" },
-            { key: "50", value: "50", text: "50" },
-            { key: "100", value: "100", text: "100" },
-            { key: "-1", value: "-1", text: "All" }
-        );
+        values.push({ value: "25", label: "25" }, { value: "50", label: "50" }, { value: "100", label: "100" }, { value: "-1", label: "All" });
     }
     return values;
 }
@@ -20,7 +15,7 @@ export function scrollHeights(isProActive, heights) {
     if (isProActive) {
         if (heights) {
             for (const height in heights) {
-                values.push({ key: height, value: height, text: heights[height]["val"] });
+                values.push({ value: height, label: heights[height]["val"] });
             }
         }
     }
@@ -29,20 +24,14 @@ export function scrollHeights(isProActive, heights) {
 export function formatCellValues(isProActive) {
     const values = [];
     if (isProActive) {
-        values.push(
-            { key: "wrap", value: "wrap", text: "Wrap Style" },
-            { key: "expand", value: "expand", text: "Expanded Style" }
-        );
+        values.push({ value: "wrap", label: "Wrap Style" }, { value: "expand", label: "Expanded Style" });
     }
     return values;
 }
 export function redirectionValues(isProActive) {
     const values = [];
     if (isProActive) {
-        values.push(
-            { key: "_blank", value: "_blank", text: "Blank Type" },
-            { key: "_self", value: "_self", text: "Self Type" }
-        );
+        values.push({ value: "_blank", label: "Blank Type" }, { value: "_self", label: "Self Type" });
     }
     return values;
 }
@@ -51,7 +40,7 @@ export function tableStyles(isProActive, styles) {
     if (isProActive) {
         if (styles) {
             for (const style in styles) {
-                values.push({ key: style, value: style, text: styles[style]["label"] });
+                values.push({ value: style, label: styles[style]["label"] });
             }
         }
     }
@@ -62,7 +51,7 @@ export function responsiveStyles(isProActive, styles) {
     if (isProActive) {
         if (styles) {
             for (const style in styles) {
-                values.push({ key: style, value: style, text: styles[style]["val"] });
+                values.push({ value: style, label: styles[style]["val"] });
             }
         }
     }

@@ -65,7 +65,7 @@ class ClassSortcode {
             return $output;
         }
 
-        $dbResult = $gswpts->fetch_db_by_id($atts['id']);
+        $dbResult = $gswpts->fetchDbByID($atts['id']);
 
         if (!$dbResult) {
             return $output;

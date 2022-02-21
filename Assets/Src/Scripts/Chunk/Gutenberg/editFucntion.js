@@ -1,5 +1,9 @@
+import React from "react";
+// import Select from "react-select";
 import { Dropdown } from "semantic-ui-react";
-import { saveChanges, callAlert } from "./Parts/helperFunctions";
+
+import { saveChanges, callAlert } from "./parts/helperFunctions";
+import { formatCellValues, rowsPerPage, scrollHeights, redirectionValues, tableStyles, responsiveStyles } from "./parts/selectValues";
 
 const { useEffect, useRef } = wp.element;
 const { InspectorControls } = wp.blockEditor;
@@ -7,19 +11,10 @@ const { Panel, PanelBody, PanelRow, SelectControl, ToggleControl } = wp.componen
 
 var $ = jQuery.noConflict();
 
-import {
-    formatCellValues,
-    rowsPerPage,
-    scrollHeights,
-    redirectionValues,
-    tableStyles,
-    responsiveStyles,
-} from "./Parts/selectValues";
-
 export default function editFucntion({ attributes, setAttributes }) {
     useEffect(() => {
         if (attributes.sortcode_id) {
-            fetch_data_by_id(attributes.sortcode_id);
+            // fetch_data_by_id(attributes.sortcode_id);
             setAttributes({ table_selection: attributes.sortcode_id });
             setAttributes({ show_choose_table: true });
             setAttributes({ initializer_button_action: "choose_table" });
@@ -67,18 +62,11 @@ export default function editFucntion({ attributes, setAttributes }) {
             },
 
             success: (res) => {
-                console.log(res);
+                if (!res) return;
 
                 let response = res ? JSON.parse(res) : "";
 
-                console.log(response);
-
-                if (!res) return;
-
-                if (
-                    response.response_type == "invalid_action" ||
-                    response.response_type == "invalid_request"
-                ) {
+                if (response.response_type == "invalid_action" || response.response_type == "invalid_request") {
                     callAlert("Error &#128683;", response.output, "error", 4);
 
                     setAttributes({ req_type: "fetch" });
@@ -103,7 +91,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     // Set the column header values in tableColumns attribute
                     setAttributes({ tableColumns: formattedColumnValues });
 
-                    immidiateSaveTable(url);
+                    immediateSaveTable(url);
                 }
             },
 
@@ -120,12 +108,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     );
 
                     setTimeout(() => {
-                        callAlert(
-                            "Successfull &#128077;",
-                            "<b>Google Sheet data fetched successfully</b>",
-                            "success",
-                            3
-                        );
+                        callAlert("Successfull &#128077;", "<b>Google Sheet data fetched successfully</b>", "success", 3);
                     }, 700);
                 }
             },
@@ -138,7 +121,7 @@ export default function editFucntion({ attributes, setAttributes }) {
         });
     }
 
-    function immidiateSaveTable(url) {
+    function immediateSaveTable(url) {
         $.ajax({
             url: gswpts_gutenberg_block.admin_ajax,
 
@@ -159,10 +142,7 @@ export default function editFucntion({ attributes, setAttributes }) {
             },
 
             success: (res) => {
-                if (
-                    JSON.parse(res).response_type == "invalid_action" ||
-                    JSON.parse(res).response_type == "invalid_request"
-                ) {
+                if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                     callAlert("Error &#128683;", JSON.parse(res).output, "error", 4);
                 }
 
@@ -188,12 +168,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     setAttributes({ sheet_url: null });
                     setAttributes({ btn_text: "Fetch Data" });
                     setAttributes({ req_type: "fetch" });
-                    callAlert(
-                        "Warning &#9888;&#65039;",
-                        "<b>Google sheet previously saved. Try choose table instead of creating</b>",
-                        "warning",
-                        6
-                    );
+                    callAlert("Warning &#9888;&#65039;", "<b>Google sheet previously saved. Try choose table instead of creating</b>", "warning", 6);
                 }
             },
 
@@ -247,10 +222,7 @@ export default function editFucntion({ attributes, setAttributes }) {
             },
 
             success: (res) => {
-                if (
-                    JSON.parse(res).response_type == "invalid_action" ||
-                    JSON.parse(res).response_type == "invalid_request"
-                ) {
+                if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                     setAttributes({ innerHTML: JSON.parse(res).output });
                     setAttributes({ show_settings: false });
                     setAttributes({ table_name: "" });
@@ -268,12 +240,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                     // Set the column header values in tableColumns attribute
                     setAttributes({ tableColumns: formattedColumnValues });
 
-                    callAlert(
-                        "Successfull &#128077;",
-                        "<b>Google Sheet data fetched successfully</b>",
-                        "success",
-                        3
-                    );
+                    callAlert("Successfull &#128077;", "<b>Google Sheet data fetched successfully</b>", "success", 3);
                 }
             },
 
@@ -285,19 +252,13 @@ export default function editFucntion({ attributes, setAttributes }) {
 
             complete: (res) => {
                 if (JSON.parse(res.responseText).response_type == "success") {
-                    let table_settings = JSON.parse(
-                        JSON.parse(res.responseText).table_data.table_settings
-                    );
-
-                    console.log(table_settings);
+                    let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings);
 
                     let table_name = JSON.parse(res.responseText).table_data.table_name;
 
-                    let dom = `<"#filtering_input"${
-                        table_settings.show_x_entries == "true" ? "l" : ""
-                    }${table_settings.search_bar == "true" ? "f" : ""}>rt<"#bottom_options"${
-                        table_settings.show_info_block == "true" ? "i" : ""
-                    }p>`;
+                    let dom = `<"#filtering_input"${table_settings.show_x_entries == "true" ? "l" : ""}${
+                        table_settings.search_bar == "true" ? "f" : ""
+                    }>rt<"#bottom_options"${table_settings.show_info_block == "true" ? "i" : ""}p>`;
 
                     let defaultRowsPerPage = table_settings.default_rows_per_page;
                     let allowSorting = table_settings.allow_sorting == "true" ? true : false;
@@ -315,22 +276,12 @@ export default function editFucntion({ attributes, setAttributes }) {
                         }
 
                         // Intitiale the data table feature in gutenberg table
-                        $("#" + id + " #create_tables").DataTable(
-                            table_object(
-                                defaultRowsPerPage,
-                                allowSorting,
-                                dom,
-                                verticalScroll,
-                                hideColumn
-                            )
-                        );
+                        $("#" + id + " #create_tables").DataTable(table_object(defaultRowsPerPage, allowSorting, dom, verticalScroll, hideColumn));
 
-                        update_default_attibutes(table_settings);
+                        update_default_attributes(table_settings);
 
-                        let swap_filter_state =
-                            table_settings.swap_filter_inputs == "true" ? true : false;
-                        let swap_bottom_state =
-                            table_settings.swap_bottom_options == "true" ? true : false;
+                        let swap_filter_state = table_settings.swap_filter_inputs == "true" ? true : false;
+                        let swap_bottom_state = table_settings.swap_bottom_options == "true" ? true : false;
 
                         swap_input_filter(id, swap_filter_state);
                         swap_bottom_options(id, swap_bottom_state);
@@ -356,17 +307,15 @@ export default function editFucntion({ attributes, setAttributes }) {
         return columnValues;
     }
 
-    function update_default_attibutes(ajax_table_settings) {
+    function update_default_attributes(ajax_table_settings) {
         const prevSettingObj = { ...attributes.table_settings };
         prevSettingObj.table_title = ajax_table_settings.table_title == "true" ? true : false;
         prevSettingObj.defaultRowsPerPage = ajax_table_settings.default_rows_per_page;
         prevSettingObj.showInfoBlock = ajax_table_settings.show_info_block == "true" ? true : false;
 
         prevSettingObj.showXEntries = ajax_table_settings.show_x_entries == "true" ? true : false;
-        prevSettingObj.swapFilterInputs =
-            ajax_table_settings.swap_filter_inputs == "true" ? true : false;
-        prevSettingObj.swapBottomOptions =
-            ajax_table_settings.swap_bottom_options == "true" ? true : false;
+        prevSettingObj.swapFilterInputs = ajax_table_settings.swap_filter_inputs == "true" ? true : false;
+        prevSettingObj.swapBottomOptions = ajax_table_settings.swap_bottom_options == "true" ? true : false;
         prevSettingObj.allowSorting = ajax_table_settings.allow_sorting == "true" ? true : false;
         prevSettingObj.searchBar = ajax_table_settings.search_bar == "true" ? true : false;
 
@@ -401,16 +350,15 @@ export default function editFucntion({ attributes, setAttributes }) {
             }
 
             // Update the Import sheet style input value
-            prevSettingObj.importStyles =
-                ajax_table_settings.import_styles == "true" ? true : false;
+            prevSettingObj.importStyles = ajax_table_settings.import_styles == "true" ? true : false;
         }
         setAttributes({ table_settings: prevSettingObj });
     }
 
     function table_changer(id = null, prevSettingObj) {
-        let dom = `<"#filtering_input"${prevSettingObj.showXEntries ? "l" : ""}${
-            prevSettingObj.searchBar ? "f" : ""
-        }>rt<"#bottom_options"${prevSettingObj.showInfoBlock ? "i" : ""}p>`;
+        let dom = `<"#filtering_input"${prevSettingObj.showXEntries ? "l" : ""}${prevSettingObj.searchBar ? "f" : ""}>rt<"#bottom_options"${
+            prevSettingObj.showInfoBlock ? "i" : ""
+        }p>`;
         if (id == null) {
             $("#" + spreadsheet_container.current.id + " #create_tables").DataTable(
                 table_object(
@@ -610,7 +558,7 @@ export default function editFucntion({ attributes, setAttributes }) {
         return arr.map((val) => `${val}`);
     }
 
-    // get the current screen size of user if greater than 740 return desktop or return mobile
+    // get the current screen size of user. If greater than 740 return desktop or return mobile
     function screenSize() {
         // Desktop screen size
         if (screen.width > 740) {
@@ -703,11 +651,7 @@ export default function editFucntion({ attributes, setAttributes }) {
 
                 {attributes.show_settings ? (
                     <>
-                        <PanelBody
-                            title="Display Settings"
-                            icon="admin-settings"
-                            initialOpen={false}
-                        >
+                        <PanelBody title="Display Settings" icon="admin-settings" initialOpen={false}>
                             <PanelRow>
                                 <ToggleControl
                                     label="Show Title"
@@ -728,32 +672,25 @@ export default function editFucntion({ attributes, setAttributes }) {
                                 <div class="default_rows">
                                     <h5 class="header">Default rows per page</h5>
                                     <p>This will show rows per page in the frontend</p>
-                                    <Dropdown
-                                        placeholder="Default rows per page"
-                                        defaultValue={attributes.table_settings.defaultRowsPerPage}
-                                        fluid
-                                        selection
-                                        options={rowsPerPage(isProPluginActive())}
-                                        onChange={(e, { value }) => {
+
+                                    <SelectControl
+                                        label="Default rows per page"
+                                        value={attributes.table_settings.defaultRowsPerPage}
+                                        onChange={(val) => {
                                             const prevSettingObj = {
                                                 ...attributes.table_settings,
                                             };
-                                            prevSettingObj.defaultRowsPerPage = value;
+                                            prevSettingObj.defaultRowsPerPage = val;
                                             setAttributes({ table_settings: prevSettingObj });
 
                                             saveChanges(attributes.sortcode_id, prevSettingObj);
 
                                             table_changer(attributes.sortcode_id, prevSettingObj);
 
-                                            swap_input_filter(
-                                                attributes.sortcode_id,
-                                                prevSettingObj.swapFilterInputs
-                                            );
-                                            swap_bottom_options(
-                                                attributes.sortcode_id,
-                                                prevSettingObj.swapBottomOptions
-                                            );
+                                            swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                            swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                         }}
+                                        options={rowsPerPage(isProPluginActive())}
                                     />
                                 </div>
                                 <br />
@@ -766,22 +703,15 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     checked={attributes.table_settings.showInfoBlock}
                                     onChange={() => {
                                         const prevSettingObj = { ...attributes.table_settings };
-                                        prevSettingObj.showInfoBlock =
-                                            !prevSettingObj.showInfoBlock;
+                                        prevSettingObj.showInfoBlock = !prevSettingObj.showInfoBlock;
                                         setAttributes({ table_settings: prevSettingObj });
 
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
 
                                         table_changer(attributes.sortcode_id, prevSettingObj);
 
-                                        swap_input_filter(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapFilterInputs
-                                        );
-                                        swap_bottom_options(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapBottomOptions
-                                        );
+                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                     }}
                                 />
                                 <br />
@@ -790,30 +720,23 @@ export default function editFucntion({ attributes, setAttributes }) {
                             {isProPluginActive() ? (
                                 <PanelRow>
                                     <div class="responsive_style">
-                                        <h5 class="header">Resposive Style</h5>
-                                        <p>
-                                            Allow the table to collapse or scroll on mobile and
-                                            tablet screen.
-                                        </p>
-                                        <Dropdown
-                                            placeholder="Resposive Style"
-                                            defaultValue={attributes.table_settings.responsiveStyle}
-                                            fluid
-                                            selection
-                                            options={responsiveStyles(
-                                                isProPluginActive(),
-                                                gswpts_gutenberg_block.responsiveStyles
-                                            )}
-                                            onChange={(e, { value }) => {
+                                        <h5 class="header">Responsive Style</h5>
+                                        <p>Allow the table to collapse or scroll on mobile and tablet screen.</p>
+
+                                        <SelectControl
+                                            label="Responsive Style"
+                                            value={attributes.table_settings.responsiveStyle}
+                                            onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.responsiveStyle = value;
+                                                prevSettingObj.responsiveStyle = val;
                                                 setAttributes({ table_settings: prevSettingObj });
 
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
                                             }}
+                                            options={responsiveStyles(isProPluginActive(), gswpts_gutenberg_block.responsiveStyles)}
                                         />
                                     </div>
                                     <br />
@@ -833,14 +756,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
 
                                         table_changer(attributes.sortcode_id, prevSettingObj);
-                                        swap_input_filter(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapFilterInputs
-                                        );
-                                        swap_bottom_options(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapBottomOptions
-                                        );
+                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                     }}
                                 />
                                 <br />
@@ -851,41 +768,27 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     <div class="verticall_scrolling">
                                         <h5 class="header">Table Height</h5>
                                         <p>
-                                            Choose the height of the table to scroll vertically.
-                                            Activating this feature will allow the table to behave
-                                            as sticky header
+                                            Choose the height of the table to scroll vertically. Activating this feature will allow the table to
+                                            behave as sticky header
                                         </p>
-                                        <Dropdown
-                                            placeholder="Vertical Scroll"
-                                            defaultValue={attributes.table_settings.verticalScroll}
-                                            fluid
-                                            selection
-                                            options={scrollHeights(
-                                                isProPluginActive(),
-                                                gswpts_gutenberg_block.scrollHeights
-                                            )}
-                                            onChange={(e, { value }) => {
+
+                                        <SelectControl
+                                            label="Vertical Scroll"
+                                            value={attributes.table_settings.verticalScroll}
+                                            onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.verticalScroll = value;
+                                                prevSettingObj.verticalScroll = val;
                                                 setAttributes({ table_settings: prevSettingObj });
 
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
-                                                swap_input_filter(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapFilterInputs
-                                                );
-                                                swap_bottom_options(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapBottomOptions
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
+                                                swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                                swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                             }}
+                                            options={scrollHeights(isProPluginActive(), gswpts_gutenberg_block.scrollHeights)}
                                         />
                                     </div>
                                     <br />
@@ -897,44 +800,30 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     <div class="cell_format">
                                         <h5 class="header">Format Table Cell</h5>
                                         <p>
-                                            Format the table cell as like google sheet cell
-                                            formatting. Format your cell as Wrap or Clip or Expanded
+                                            Format the table cell as like google sheet cell formatting. Format your cell as Wrap or Clip or Expanded
                                             style
                                         </p>
-                                        <Dropdown
-                                            placeholder="Cell Format"
-                                            defaultValue={attributes.table_settings.cellFormat}
-                                            fluid
-                                            selection
-                                            options={formatCellValues(isProPluginActive())}
-                                            onChange={(e, { value }) => {
+
+                                        <SelectControl
+                                            label="Cell Format"
+                                            value={attributes.table_settings.cellFormat}
+                                            onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.cellFormat = value;
+                                                prevSettingObj.cellFormat = val;
                                                 setAttributes({ table_settings: prevSettingObj });
 
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
 
-                                                changeCellFormat(
-                                                    prevSettingObj.cellFormat,
-                                                    attributes.sortcode_id
-                                                );
+                                                changeCellFormat(prevSettingObj.cellFormat, attributes.sortcode_id);
 
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
-                                                swap_input_filter(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapFilterInputs
-                                                );
-                                                swap_bottom_options(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapBottomOptions
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
+                                                swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                                swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                             }}
+                                            options={formatCellValues(isProPluginActive())}
                                         />
                                     </div>
                                     <br />
@@ -946,44 +835,30 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     <div class="redirection_type">
                                         <h5 class="header">Link Redirection Type</h5>
                                         <p>
-                                            Choose your desired table style for this table. This
-                                            will change the design & color of this table according
-                                            to your selected table design
+                                            Choose your desired table style for this table. This will change the design & color of this table
+                                            according to your selected table design
                                         </p>
-                                        <Dropdown
-                                            placeholder="Redirection Type"
-                                            defaultValue={attributes.table_settings.redirectionType}
-                                            fluid
-                                            selection
-                                            options={redirectionValues(isProPluginActive())}
-                                            onChange={(e, { value }) => {
+
+                                        <SelectControl
+                                            label="Redirection Type"
+                                            value={attributes.table_settings.redirectionType}
+                                            onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.redirectionType = value;
+                                                prevSettingObj.redirectionType = val;
                                                 setAttributes({ table_settings: prevSettingObj });
 
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
 
-                                                changeRedirectionType(
-                                                    prevSettingObj.redirectionType,
-                                                    attributes.sortcode_id
-                                                );
+                                                changeRedirectionType(prevSettingObj.redirectionType, attributes.sortcode_id);
 
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
-                                                swap_input_filter(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapFilterInputs
-                                                );
-                                                swap_bottom_options(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapBottomOptions
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
+                                                swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                                swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                             }}
+                                            options={redirectionValues(isProPluginActive())}
                                         />
                                     </div>
                                     <br />
@@ -997,13 +872,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     checked={attributes.table_settings.swapFilterInputs}
                                     onChange={() => {
                                         const prevSettingObj = { ...attributes.table_settings };
-                                        prevSettingObj.swapFilterInputs =
-                                            !prevSettingObj.swapFilterInputs;
+                                        prevSettingObj.swapFilterInputs = !prevSettingObj.swapFilterInputs;
                                         setAttributes({ table_settings: prevSettingObj });
-                                        swap_input_filter(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapFilterInputs
-                                        );
+                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
 
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
@@ -1018,13 +889,9 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     checked={attributes.table_settings.swapBottomOptions}
                                     onChange={() => {
                                         const prevSettingObj = { ...attributes.table_settings };
-                                        prevSettingObj.swapBottomOptions =
-                                            !prevSettingObj.swapBottomOptions;
+                                        prevSettingObj.swapBottomOptions = !prevSettingObj.swapBottomOptions;
                                         setAttributes({ table_settings: prevSettingObj });
-                                        swap_bottom_options(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapBottomOptions
-                                        );
+                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
 
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
@@ -1037,34 +904,26 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     <div class="table_style">
                                         <h5 class="header">Table Style</h5>
                                         <p>
-                                            Choose your desired table style for this table. This
-                                            will change the design & color of this table according
-                                            to your selected table design
+                                            Choose your desired table style for this table. This will change the design & color of this table
+                                            according to your selected table design
                                         </p>
-                                        <Dropdown
-                                            placeholder="Choose Style"
-                                            defaultValue={attributes.table_settings.tableStyle}
-                                            fluid
-                                            selection
-                                            options={tableStyles(
-                                                isProPluginActive(),
-                                                gswpts_gutenberg_block.tableStyles
-                                            )}
-                                            onChange={(e, { value }) => {
+
+                                        <SelectControl
+                                            label="Choose Style"
+                                            value={attributes.table_settings.tableStyle}
+                                            onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.tableStyle = value;
+                                                prevSettingObj.tableStyle = val;
                                                 setAttributes({ table_settings: prevSettingObj });
 
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
 
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
                                             }}
+                                            options={tableStyles(isProPluginActive(), gswpts_gutenberg_block.tableStyles)}
                                         />
                                     </div>
                                     <br />
@@ -1077,17 +936,16 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         <h5 class="header">Import Sheet Styles</h5>
                                         <ToggleControl
                                             label="Import Sheet Styles"
-                                            help=" Import cell backgorund color & cell font color from
+                                            help=" Import cell background color & cell font color from
                                             google sheet. If you activate this feature it will
-                                            overrider <i>Table Style</i> settings"
+                                            override <i>Table Style</i> settings"
                                             checked={attributes.table_settings.importStyles}
                                             onChange={(val) => {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
 
-                                                prevSettingObj.importStyles =
-                                                    !prevSettingObj.importStyles;
+                                                prevSettingObj.importStyles = !prevSettingObj.importStyles;
 
                                                 setAttributes({ table_settings: prevSettingObj });
 
@@ -1111,14 +969,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         prevSettingObj.allowSorting = !prevSettingObj.allowSorting;
                                         setAttributes({ table_settings: prevSettingObj });
                                         table_changer(attributes.sortcode_id, prevSettingObj);
-                                        swap_input_filter(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapFilterInputs
-                                        );
-                                        swap_bottom_options(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapBottomOptions
-                                        );
+                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
 
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
@@ -1136,14 +988,8 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         prevSettingObj.searchBar = !prevSettingObj.searchBar;
                                         setAttributes({ table_settings: prevSettingObj });
                                         table_changer(attributes.sortcode_id, prevSettingObj);
-                                        swap_input_filter(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapFilterInputs
-                                        );
-                                        swap_bottom_options(
-                                            attributes.sortcode_id,
-                                            prevSettingObj.swapBottomOptions
-                                        );
+                                        swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                        swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
 
                                         saveChanges(attributes.sortcode_id, prevSettingObj);
                                     }}
@@ -1177,17 +1023,14 @@ export default function editFucntion({ attributes, setAttributes }) {
                                     <div class="hide_column">
                                         <h5 class="header">Hide Columns In Desktop Screen:</h5>
                                         <p>Hide your table columns on desktop screen size.</p>
+
                                         <Dropdown
                                             placeholder=""
                                             defaultValue={
                                                 attributes.table_settings.hideColumn?.desktopValues
-                                                    ? convertArrayStringToInteger(
-                                                          attributes.table_settings.hideColumn
-                                                              .desktopValues
-                                                      )
+                                                    ? convertArrayStringToInteger(attributes.table_settings.hideColumn.desktopValues)
                                                     : ""
                                             }
-                                            fluid
                                             selection
                                             multiple
                                             options={attributes.tableColumns}
@@ -1195,24 +1038,14 @@ export default function editFucntion({ attributes, setAttributes }) {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
-                                                prevSettingObj.hideColumn.desktopValues =
-                                                    convertArrayIntegerToString(value);
+                                                prevSettingObj.hideColumn.desktopValues = convertArrayIntegerToString(value);
 
                                                 setAttributes({ table_settings: prevSettingObj });
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
 
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
-                                                swap_input_filter(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapFilterInputs
-                                                );
-                                                swap_bottom_options(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapBottomOptions
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
+                                                swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                                swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                             }}
                                         />
                                     </div>
@@ -1227,15 +1060,10 @@ export default function editFucntion({ attributes, setAttributes }) {
                                         <Dropdown
                                             placeholder=""
                                             defaultValue={
-                                                attributes.table_settings.hideColumn
-                                                    ?.mobileValues != null
-                                                    ? convertArrayStringToInteger(
-                                                          attributes.table_settings.hideColumn
-                                                              .mobileValues
-                                                      )
+                                                attributes.table_settings.hideColumn?.mobileValues != null
+                                                    ? convertArrayStringToInteger(attributes.table_settings.hideColumn.mobileValues)
                                                     : ""
                                             }
-                                            fluid
                                             selection
                                             multiple
                                             options={attributes.tableColumns}
@@ -1243,23 +1071,13 @@ export default function editFucntion({ attributes, setAttributes }) {
                                                 const prevSettingObj = {
                                                     ...attributes.table_settings,
                                                 };
-                                                prevSettingObj.hideColumn.mobileValues =
-                                                    convertArrayIntegerToString(value);
+                                                prevSettingObj.hideColumn.mobileValues = convertArrayIntegerToString(value);
                                                 setAttributes({ table_settings: prevSettingObj });
                                                 saveChanges(attributes.sortcode_id, prevSettingObj);
 
-                                                table_changer(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj
-                                                );
-                                                swap_input_filter(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapFilterInputs
-                                                );
-                                                swap_bottom_options(
-                                                    attributes.sortcode_id,
-                                                    prevSettingObj.swapBottomOptions
-                                                );
+                                                table_changer(attributes.sortcode_id, prevSettingObj);
+                                                swap_input_filter(attributes.sortcode_id, prevSettingObj.swapFilterInputs);
+                                                swap_bottom_options(attributes.sortcode_id, prevSettingObj.swapBottomOptions);
                                             }}
                                         />
                                     </div>
@@ -1281,17 +1099,10 @@ export default function editFucntion({ attributes, setAttributes }) {
             style={{ marginRight: "0" }}
         >
             {" "}
-            {attributes.table_name != "" && attributes.table_settings.table_title ? (
-                <h3> {attributes.table_name} </h3>
-            ) : (
-                <> </>
-            )}{" "}
+            {attributes.table_name != "" && attributes.table_settings.table_title ? <h3> {attributes.table_name} </h3> : <> </>}{" "}
             {attributes.block_init ? (
                 attributes.initializer_button_action == "choose_table" ? (
-                    <div
-                        id="spreadsheet_container"
-                        dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
-                    ></div>
+                    <div id="spreadsheet_container" dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}></div>
                 ) : (
                     <>
                         {attributes.is_table_saved_to_db == false ? (
@@ -1338,11 +1149,7 @@ export default function editFucntion({ attributes, setAttributes }) {
                         ) : (
                             <></>
                         )}
-                        <div
-                            ref={spreadsheet_container}
-                            id="spreadsheet_container"
-                            dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}
-                        ></div>{" "}
+                        <div ref={spreadsheet_container} id="spreadsheet_container" dangerouslySetInnerHTML={{ __html: attributes.innerHTML }}></div>{" "}
                     </>
                 )
             ) : (

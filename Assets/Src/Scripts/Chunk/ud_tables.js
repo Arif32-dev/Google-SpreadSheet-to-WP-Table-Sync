@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class UD_tables extends Base_Class {
+    class UD_tables extends BaseClass {
         constructor() {
             super($);
             this.deleteBtn = $("#delete_button, #tab_delete_button");
@@ -69,13 +69,11 @@ jQuery(document).ready(function ($) {
             }
 
             // implementing plain javascript for resolving (this) keyword conflict issue
-            document
-                .querySelector(".semntic-popup-modal .actions > .yes-btn")
-                .addEventListener("click", () => {
-                    if (arg.deleteAll) {
-                        this.delete_all_table(e);
-                    }
-                });
+            document.querySelector(".semntic-popup-modal .actions > .yes-btn").addEventListener("click", () => {
+                if (arg.deleteAll) {
+                    this.delete_all_table(e);
+                }
+            });
         }
 
         updateName(e) {
@@ -140,12 +138,7 @@ jQuery(document).ready(function ($) {
             if (data.ids.length > 0) {
                 this.ajax_request(data);
             } else {
-                this.call_alert(
-                    "Warning &#9888;&#65039;",
-                    "<b>No table is selected to delete</b>",
-                    "warning",
-                    3
-                );
+                this.call_alert("Warning &#9888;&#65039;", "<b>No table is selected to delete</b>", "warning", 3);
                 return;
             }
         }
@@ -155,10 +148,7 @@ jQuery(document).ready(function ($) {
 
             let action = null;
 
-            if (
-                data.dataActionType == "gswpts_ud_table" &&
-                (data.reqType == "delete" || data.reqType == "deleteAll")
-            ) {
+            if (data.dataActionType == "gswpts_ud_table" && (data.reqType == "delete" || data.reqType == "deleteAll")) {
                 currentTarget = $(`#table-${data.id}`);
             }
 
@@ -166,10 +156,7 @@ jQuery(document).ready(function ($) {
                 currentTarget = $(`#${data.id}`);
             }
 
-            if (
-                data.dataActionType == "gswpts_ud_tab" &&
-                (data.reqType == "delete" || data.reqType == "deleteAll")
-            ) {
+            if (data.dataActionType == "gswpts_ud_tab" && (data.reqType == "delete" || data.reqType == "deleteAll")) {
                 currentTarget = $(`#tab-${data.id}`);
             }
 
@@ -224,45 +211,27 @@ jQuery(document).ready(function ($) {
 
                 success: (res) => {
                     console.log(res);
-                    if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
-                    ) {
+                    if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
                     }
                     if (JSON.parse(res).response_type == "updated") {
                         currentTarget.html(`
                             <img src="${file_url.renameIcon}" width="24px" height="15px" alt="rename-icon"/>
                         `);
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
 
                     if (JSON.parse(res).response_type == "deleted") {
                         currentTarget.html("Deleted");
 
                         currentTarget.parent().parent().transition("fade");
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
 
                     if (JSON.parse(res).response_type == "deleted_All") {
                         this.remove_seleted_tables();
                         currentTarget.html("Delete Selected");
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
                 },
 

@@ -5,12 +5,12 @@ namespace GSWPTS\includes\classes;
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 class GlobalClass {
-    public function data_table_styles() {
+    public function dataTableStyles() {
         wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
     }
 
-    public function data_table_scripts() {
+    public function dataTableScripts() {
         wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
         wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
@@ -19,28 +19,28 @@ class GlobalClass {
      * @param $nonce_action
      * @param $nonce_name
      */
-    public function nonce_field(
+    public function nonceField(
         $nonce_action,
         $nonce_name
     ) {
         wp_nonce_field($nonce_action, $nonce_name);
     }
 
-    public function semantic_files() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
+    public function semanticFiles() {
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/semantic/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_script('GSWPTS-semantic-js', GSWPTS_BASE_URL . 'assets/public/common/semantic/semantic.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
-    public function frontend_tables_assets() {
-        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, false);
-        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
+    public function frontendTablesAssets() {
+        wp_enqueue_script('GSWPTS-frontend-table', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/js/jquery.datatables.min.js', ['jquery'], GSWPTS_VERSION, false);
+        wp_enqueue_script('GSWPTS-frontend-semantic', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/js/datatables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, false);
     }
 
     /**
      * @param  string  $string
      * @return mixed
      */
-    public function get_sheet_id(string $string) {
+    public function getSheetID(string $string) {
         $pattern = "/\//";
         $components = preg_split($pattern, $string);
         if ($components) {
@@ -64,10 +64,10 @@ class GlobalClass {
 
         // set the query arguments to fetch styles from google sheet
         if (isset($reqData['url']) && $reqData['url']) {
-            $queryData['sheetID'] = $this->get_sheet_id($reqData['url']);
+            $queryData['sheetID'] = $this->getSheetID($reqData['url']);
             $queryData['gID'] = $this->getGridID($reqData['url']);
         } else {
-            $queryData['sheetID'] = $this->get_sheet_id($reqData['dbResult'][0]->source_url);
+            $queryData['sheetID'] = $this->getSheetID($reqData['dbResult'][0]->source_url);
             $queryData['gID'] = $this->getGridID($reqData['dbResult'][0]->source_url);
         }
 
@@ -786,7 +786,7 @@ class GlobalClass {
             return false;
         }
 
-        $sheetID = (string) $this->get_sheet_id((string) $url);
+        $sheetID = (string) $this->getSheetID((string) $url);
 
         global $gswptsPro;
         $modifiedTime = $gswptsPro->getLastUpdatedtime($sheetID);
@@ -955,7 +955,7 @@ class GlobalClass {
      * @return string
      */
     public function get_csv_data(string $url) {
-        $sheet_id = $this->get_sheet_id($url);
+        $sheet_id = $this->getSheetID($url);
 
         if (!$sheet_id) {
             return;
@@ -1031,7 +1031,7 @@ class GlobalClass {
      * @param  $id
      * @return mixed
      */
-    public function fetch_db_by_id($id) {
+    public function fetchDbByID($id) {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
 
@@ -1064,7 +1064,7 @@ class GlobalClass {
      * Fetch all the saved tables
      * @return mixed
      */
-    public function fetch_gswpts_tables() {
+    public function fetchTables() {
         global $wpdb;
         $table = $wpdb->prefix . 'gswpts_tables';
         $result = $wpdb->get_results("SELECT * FROM " . $table . "");
@@ -1080,11 +1080,11 @@ class GlobalClass {
      * @return mixed
      */
     public function input_values(int $id) {
-        $db_result = $this->fetch_db_by_id($id);
+        $db_result = $this->fetchDbByID($id);
         if ($db_result) {
             $input_values = [
                 'source_url' => $db_result[0]->source_url,
-                'table_name' => $this->output_table_by_condition($db_result)
+                'table_name' => $this->outputTableName($db_result)
             ];
             return $input_values;
         } else {
@@ -1096,7 +1096,7 @@ class GlobalClass {
     /**
      * @param $db_result
      */
-    public function output_table_by_condition($db_result) {
+    public function outputTableName($db_result) {
         $table_settings = unserialize($db_result[0]->table_settings);
         if ($table_settings['table_title'] == 'true') {
             return '<h3>' . esc_html__($db_result[0]->table_name, 'sheetstowptable') . '</h3>';

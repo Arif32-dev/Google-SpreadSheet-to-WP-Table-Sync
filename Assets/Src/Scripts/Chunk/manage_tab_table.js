@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class ManageTabTables extends Base_Class {
+    class ManageTabTables extends BaseClass {
         constructor() {
             super($);
             this.tabContainer = $("#gswpts_tab_container");
@@ -68,10 +68,7 @@ jQuery(document).ready(function ($) {
                 type: "post",
 
                 success: (res) => {
-                    if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
-                    ) {
+                    if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                         this.tabContainer.html("");
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
                     }
@@ -97,19 +94,9 @@ jQuery(document).ready(function ($) {
                         });
 
                         if (JSON.parse(res.responseText).no_data == "true") {
-                            this.call_alert(
-                                "Warning &#9888;&#65039;",
-                                "<b>No tab found. Create a new</b>",
-                                "warning",
-                                3
-                            );
+                            this.call_alert("Warning &#9888;&#65039;", "<b>No tab found. Create a new</b>", "warning", 3);
                         } else {
-                            this.call_alert(
-                                "Successfull &#128077;",
-                                "<b>All Tabs Fetched Successfully</b>",
-                                "success",
-                                3
-                            );
+                            this.call_alert("Successfull &#128077;", "<b>All Tabs Fetched Successfully</b>", "success", 3);
                         }
                     }
                 },
@@ -166,12 +153,7 @@ jQuery(document).ready(function ($) {
             let tabID = target.attr("data-id");
 
             if (!tabID) {
-                this.call_alert(
-                    "Warning &#9888;&#65039;",
-                    "Tab id not found to update",
-                    "warning",
-                    3
-                );
+                this.call_alert("Warning &#9888;&#65039;", "Tab id not found to update", "warning", 3);
                 return;
             }
 
@@ -187,20 +169,12 @@ jQuery(document).ready(function ($) {
                 type: "post",
 
                 success: (res) => {
-                    if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
-                    ) {
+                    if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 4);
                     }
 
                     if (JSON.parse(res).response_type == "success") {
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
                 },
 

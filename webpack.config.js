@@ -1,9 +1,9 @@
 const path = require("path");
 const glob = require("glob-all");
 const PATHS = {
-    Src: path.join(__dirname, "Assets/Src"),
-    Includes: path.join(__dirname, "Includes"),
-    Public: path.join(__dirname, "Assets/Public"),
+    src: path.join(__dirname, "assets/src"),
+    includes: path.join(__dirname, "includes"),
+    public: path.join(__dirname, "assets/public"),
 };
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -26,13 +26,10 @@ const config = (env, options) => {
         if (options.mode == "production") {
             return [
                 new PurgecssPlugin({
-                    paths: glob.sync(
-                        [`${PATHS.Src}/**/*`, `${PATHS.Includes}/**/*`, `${PATHS.Public}/**/*`],
-                        { nodir: true }
-                    ),
+                    paths: glob.sync([`${PATHS.src}/**/*`, `${PATHS.includes}/**/*`, `${PATHS.public}/**/*`], { nodir: true }),
                 }),
                 new MiniCssExtractPlugin({
-                    filename: "Styles/[name].min.css",
+                    filename: "styles/[name].min.css",
                 }),
             ];
         } else {
@@ -56,16 +53,16 @@ const config = (env, options) => {
         mode: options.mode,
         entry: {
             admin: {
-                import: path.resolve(__dirname, "Assets/Src/Scripts/admin.js"),
-                filename: "Scripts/Backend/[name].min.js",
+                import: path.resolve(__dirname, "assets/src/scripts/admin.js"),
+                filename: "scripts/backend/[name].min.js",
             },
             frontend: {
-                import: path.resolve(__dirname, "Assets/Src/Scripts/frontend.js"),
-                filename: "Scripts/Frontend/[name].min.js",
+                import: path.resolve(__dirname, "assets/src/scripts/frontend.js"),
+                filename: "scripts/frontend/[name].min.js",
             },
         },
         output: {
-            path: path.resolve(__dirname, "Assets/Public/"),
+            path: path.resolve(__dirname, "assets/public/"),
         },
         module: {
             rules: [

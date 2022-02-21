@@ -1,6 +1,6 @@
 var $ = jQuery.noConflict();
 
-export default class Base_Class {
+export default class BaseClass {
     constructor() {
         this.sheet_form = $("#gswpts_create_table");
         this.sheet_details = $("#sheet_details");
@@ -138,32 +138,16 @@ export default class Base_Class {
         };
 
         if (this.isProPluginActive()) {
-            settings.responsiveStyle = $("#responsive_style")
-                .find("input[name=responsive_style]")
-                .val();
+            settings.responsiveStyle = $("#responsive_style").find("input[name=responsive_style]").val();
             settings.tableExport = $("#table_exporting").val().split(",") || null;
-            settings.verticalScroll = $("#vertical_scrolling")
-                .find("input[name=vertical_scrolling]")
-                .val();
+            settings.verticalScroll = $("#vertical_scrolling").find("input[name=vertical_scrolling]").val();
             settings.cellFormat = $("#cell_format").find("input[name=cell_format]").val();
-            settings.redirectionType = $("#redirection_type")
-                .find("input[name=redirection_type]")
-                .val();
+            settings.redirectionType = $("#redirection_type").find("input[name=redirection_type]").val();
             settings.tableCache = $("#table_cache").prop("checked");
             settings.tableStyle = $("#table_style").val();
-            settings.hideColumn = $("#hide_column").val()
-                ? JSON.parse($("#hide_column").val())
-                : "";
-            settings.hideRows = $("#hide_rows").val()
-                ? JSON.parse($("#hide_rows").val()).length
-                    ? JSON.parse($("#hide_rows").val())
-                    : ""
-                : "";
-            settings.hideCell = $("#hide_cell").val()
-                ? JSON.parse($("#hide_cell").val()).length
-                    ? JSON.parse($("#hide_cell").val())
-                    : ""
-                : "";
+            settings.hideColumn = $("#hide_column").val() ? JSON.parse($("#hide_column").val()) : "";
+            settings.hideRows = $("#hide_rows").val() ? (JSON.parse($("#hide_rows").val()).length ? JSON.parse($("#hide_rows").val()) : "") : "";
+            settings.hideCell = $("#hide_cell").val() ? (JSON.parse($("#hide_cell").val()).length ? JSON.parse($("#hide_cell").val()) : "") : "";
             settings.importStyles = $("#import_styles").prop("checked");
         }
         return settings;
@@ -355,10 +339,7 @@ export default class Base_Class {
                     action: function (e, dt, button, config) {
                         var data = dt.buttons.exportData();
 
-                        $.fn.dataTable.fileSave(
-                            new Blob([JSON.stringify(data)]),
-                            `${table_name}.json`
-                        );
+                        $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), `${table_name}.json`);
                     },
                 },
                 {
@@ -398,15 +379,11 @@ export default class Base_Class {
 
             if (this.screenSize() === "desktop") {
                 if (table_settings.hideColumn) {
-                    obj.columnDefs = this.hideColumnByScreen(
-                        table_settings.hideColumn.desktopValues
-                    );
+                    obj.columnDefs = this.hideColumnByScreen(table_settings.hideColumn.desktopValues);
                 }
             } else {
                 if (table_settings.hideColumn) {
-                    obj.columnDefs = this.hideColumnByScreen(
-                        table_settings.hideColumn.mobileValues
-                    );
+                    obj.columnDefs = this.hideColumnByScreen(table_settings.hideColumn.mobileValues);
                 }
             }
         }
@@ -443,20 +420,11 @@ export default class Base_Class {
     /* This function will reconfigure tables settings fields based on saved data */
     reconfigure_input_fields(settings) {
         $("#show_title").prop("checked", settings.table_title == "true" ? true : false);
-        $("#rows_per_page").dropdown(
-            "set selected",
-            settings.default_rows_per_page == "-1" ? "all" : settings.default_rows_per_page
-        );
+        $("#rows_per_page").dropdown("set selected", settings.default_rows_per_page == "-1" ? "all" : settings.default_rows_per_page);
         $("#info_block").prop("checked", settings.show_info_block == "true" ? true : false);
         $("#show_entries").prop("checked", settings.show_x_entries == "true" ? true : false);
-        $("#swap_filter_inputs").prop(
-            "checked",
-            settings.swap_filter_inputs == "true" ? true : false
-        );
-        $("#swap_bottom_options").prop(
-            "checked",
-            settings.swap_bottom_options == "true" ? true : false
-        );
+        $("#swap_filter_inputs").prop("checked", settings.swap_filter_inputs == "true" ? true : false);
+        $("#swap_bottom_options").prop("checked", settings.swap_bottom_options == "true" ? true : false);
         $("#sorting").prop("checked", settings.allow_sorting == "true" ? true : false);
         $("#search_table").prop("checked", settings.search_bar == "true" ? true : false);
 

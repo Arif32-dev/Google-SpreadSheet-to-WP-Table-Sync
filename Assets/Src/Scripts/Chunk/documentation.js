@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class Dashboard extends Base_Class {
+    class Dashboard extends BaseClass {
         constructor() {
             super($);
             this.sortcode_copy_btn = $(".dashboard_sortcode_copy_btn");
@@ -46,12 +46,7 @@ jQuery(document).ready(function ($) {
 
                 error: (err) => {
                     $(".other_products_section").html("");
-                    this.call_alert(
-                        "Error &#128683;",
-                        "<b>Something went wrong on fetching related products</b>",
-                        "error",
-                        3
-                    );
+                    this.call_alert("Error &#128683;", "<b>Something went wrong on fetching related products</b>", "error", 3);
                 },
             });
         }

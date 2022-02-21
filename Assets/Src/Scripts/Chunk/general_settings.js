@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class General_settings extends Base_Class {
+    class General_settings extends BaseClass {
         constructor() {
             super($);
             this.settings_checkbox = $(".settings_row input[type=checkbox]");

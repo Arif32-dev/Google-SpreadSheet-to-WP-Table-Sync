@@ -49,7 +49,7 @@ class TableFetch {
                         <tbody>
         ';
 
-        $fetched_tables = $gswpts->fetch_gswpts_tables();
+        $fetched_tables = $gswpts->fetchTables();
         if ($fetched_tables) {
             foreach ($fetched_tables as $table_data) {
 

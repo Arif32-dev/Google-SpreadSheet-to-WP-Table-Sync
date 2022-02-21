@@ -23,7 +23,6 @@
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-react": "^7.16.7",
         "@svgr/webpack": "^6.2.1",
-        "@wordpress/scripts": "^21.0.2",
         "babel-loader": "^8.2.3",
         "browser-sync": "^2.27.7",
         "browser-sync-webpack-plugin": "^2.3.0",
@@ -44,6 +43,6 @@
         "webpack-cli": "^4.9.2"
     },
     "dependencies": {
-        "semantic-ui-react": "^2.1.1"
+        "semantic-ui-react": "^2.1.2"
     }
 }

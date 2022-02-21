@@ -21,7 +21,7 @@ class TabFunctions {
     public function showTabCards() {
         global $gswpts;
 
-        $tables = $gswpts->fetch_gswpts_tables();
+        $tables = $gswpts->fetchTables();
 
         if (!$tables) {
             return null;

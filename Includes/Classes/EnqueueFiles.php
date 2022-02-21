@@ -10,12 +10,12 @@ if (!defined('ABSPATH')) {
 
 class EnqueueFiles {
     public function __construct() {
-        add_action('admin_enqueue_scripts', [$this, 'backend_files']);
-        add_action('wp_enqueue_scripts', [$this, 'frontend_files']);
-        add_action('enqueue_block_editor_assets', [$this, 'gutenberg_files']);
+        add_action('admin_enqueue_scripts', [$this, 'backendFiles']);
+        add_action('wp_enqueue_scripts', [$this, 'frontendFiles']);
+        add_action('enqueue_block_editor_assets', [$this, 'gutenbergFiles']);
     }
 
-    public function backend_files() {
+    public function backendFiles() {
         $current_screen = get_current_screen();
         $get_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : null;
 
@@ -29,10 +29,10 @@ class EnqueueFiles {
         ) {
 
             global $gswpts;
-            $gswpts->semantic_files();
+            $gswpts->semanticFiles();
 
-            $gswpts->data_table_styles();
-            $gswpts->data_table_scripts();
+            $gswpts->dataTableStyles();
+            $gswpts->dataTableScripts();
 
             do_action('gswpts_export_dependency_backend', $get_page);
 
@@ -70,12 +70,12 @@ class EnqueueFiles {
         }
     }
 
-    public function frontend_files() {
+    public function frontendFiles() {
 
         global $gswpts;
         wp_enqueue_script('jquery');
 
-        $gswpts->frontend_tables_assets();
+        $gswpts->frontendTablesAssets();
 
         do_action('gswpts_export_dependency_frontend');
 
@@ -100,7 +100,7 @@ class EnqueueFiles {
         ]);
     }
 
-    public function gutenberg_files() {
+    public function gutenbergFiles() {
 
         wp_enqueue_style('GSWPTS-gutenberg-css', GSWPTS_BASE_URL . 'assets/public/styles/gutenberg.min.css', [], GSWPTS_VERSION, 'all');
 
@@ -121,15 +121,18 @@ class EnqueueFiles {
                 'editor_style'  => 'GSWPTS-gutenberg-css'
             ]
         );
+
+        // register_block_type(GSWPTS_BASE_PATH . 'block.json');
+
         global $gswpts;
-        $gswpts->semantic_files();
-        $gswpts->data_table_styles();
-        $gswpts->data_table_scripts();
+        $gswpts->semanticFiles();
+        $gswpts->dataTableStyles();
+        $gswpts->dataTableScripts();
         $this->tableStylesCss();
 
         wp_localize_script('gswpts-gutenberg', 'gswpts_gutenberg_block', [
             'admin_ajax'       => esc_url(admin_url('admin-ajax.php')),
-            'table_details'    => $gswpts->fetch_gswpts_tables(),
+            'table_details'    => $gswpts->fetchTables(),
             'isProActive'      => $gswpts->isProActive(),
             'tableStyles'      => $gswpts->tableStylesArray(),
             'scrollHeights'    => $gswpts->scrollHeightArray(),

@@ -1,7 +1,7 @@
-import Base_Class from "./../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class Fetch_Sheet_Data extends Base_Class {
+    class Fetch_Sheet_Data extends BaseClass {
         constructor() {
             super($);
             this.events();
@@ -10,10 +10,7 @@ jQuery(document).ready(function ($) {
             this.fetch_data_by_id();
         }
         fetch_data_by_id() {
-            if (
-                !this.get_slug_parameter("id") ||
-                this.get_slug_parameter("subpage") != "create-table"
-            ) {
+            if (!this.get_slug_parameter("id") || this.get_slug_parameter("subpage") != "create-table") {
                 return;
             }
 
@@ -37,10 +34,7 @@ jQuery(document).ready(function ($) {
 
                     console.log(parsedResponse);
 
-                    if (
-                        parsedResponse.response_type == "invalid_action" ||
-                        parsedResponse.response_type == "invalid_request"
-                    ) {
+                    if (parsedResponse.response_type == "invalid_action" || parsedResponse.response_type == "invalid_request") {
                         this.sheet_container.html("");
                         this.call_alert("Error &#128683;", parsedResponse.output, "error", 4);
                     }
@@ -50,17 +44,10 @@ jQuery(document).ready(function ($) {
                         $("#gswpts_tabs ul li:not(:nth-child(1))").removeClass("disabled_checkbox");
 
                         setTimeout(() => {
-                            $(".edit_table_name")
-                                .siblings("input[name=table_name]")
-                                .val(parsedResponse.table_data.table_name);
+                            $(".edit_table_name").siblings("input[name=table_name]").val(parsedResponse.table_data.table_name);
                             $(".edit_table_name").parent().transition("fade up");
-                            $("#table_type").dropdown(
-                                "set selected",
-                                parsedResponse.table_data.source_type
-                            );
-                            this.sheet_form
-                                .find("input[name=file_input]")
-                                .val(parsedResponse.table_data.source_url);
+                            $("#table_type").dropdown("set selected", parsedResponse.table_data.source_type);
+                            this.sheet_form.find("input[name=file_input]").val(parsedResponse.table_data.source_url);
                             this.sheet_details.html(this.sheet_details_html(parsedResponse));
                             this.sheet_details.transition("scale");
                             this.show_shortcode(this.get_slug_parameter("id"));
@@ -79,37 +66,25 @@ jQuery(document).ready(function ($) {
 
                 complete: (res) => {
                     if (JSON.parse(res.responseText).response_type == "success") {
-                        let table_settings = JSON.parse(
-                            JSON.parse(res.responseText).table_data.table_settings
-                        );
+                        let table_settings = JSON.parse(JSON.parse(res.responseText).table_data.table_settings);
 
                         let table_name = JSON.parse(res.responseText).table_data.table_name;
 
-                        let dom = `<"#filtering_input"${
-                            table_settings.show_x_entries == "true" ? "l" : ""
-                        }${table_settings.search_bar == "true" ? "f" : ""}>rt<"#bottom_options"${
-                            table_settings.show_info_block == "true" ? "i" : ""
-                        }p>`;
+                        let dom = `<"#filtering_input"${table_settings.show_x_entries == "true" ? "l" : ""}${
+                            table_settings.search_bar == "true" ? "f" : ""
+                        }>rt<"#bottom_options"${table_settings.show_info_block == "true" ? "i" : ""}p>`;
 
                         if (this.isProPluginActive()) {
-                            dom = `B<"#filtering_input"${
-                                table_settings.show_x_entries == "true" ? "l" : ""
-                            }${
+                            dom = `B<"#filtering_input"${table_settings.show_x_entries == "true" ? "l" : ""}${
                                 table_settings.search_bar == "true" ? "f" : ""
-                            }>rt<"#bottom_options"${
-                                table_settings.show_info_block == "true" ? "i" : ""
-                            }p>`;
+                            }>rt<"#bottom_options"${table_settings.show_info_block == "true" ? "i" : ""}p>`;
                         }
 
-                        let swap_filter_inputs =
-                            table_settings.swap_filter_inputs == "true" ? true : false;
-                        let swap_bottom_options =
-                            table_settings.swap_bottom_options == "true" ? true : false;
+                        let swap_filter_inputs = table_settings.swap_filter_inputs == "true" ? true : false;
+                        let swap_bottom_options = table_settings.swap_bottom_options == "true" ? true : false;
 
                         /* This will trigger the change event and its related functionality in table_changes.js  */
-                        this.reconfigure_input_fields(
-                            JSON.parse(JSON.parse(res.responseText).table_data.table_settings)
-                        );
+                        this.reconfigure_input_fields(JSON.parse(JSON.parse(res.responseText).table_data.table_settings));
 
                         setTimeout(() => {
                             let tableSettings = {
@@ -120,14 +95,10 @@ jQuery(document).ready(function ($) {
                                 redirectionType: table_settings.redirection_type || "",
                                 responsiveStyle: table_settings.responsive_style || "",
                                 searchBar: table_settings.search_bar == "true" ? true : false,
-                                showInfoBlock:
-                                    table_settings.show_info_block == "true" ? true : false,
-                                showXEntries:
-                                    table_settings.show_x_entries == "true" ? true : false,
-                                swapBottomOptions:
-                                    table_settings.swap_bottom_options == "true" ? true : false,
-                                swapFilterInputs:
-                                    table_settings.swap_filter_inputs == "true" ? true : false,
+                                showInfoBlock: table_settings.show_info_block == "true" ? true : false,
+                                showXEntries: table_settings.show_x_entries == "true" ? true : false,
+                                swapBottomOptions: table_settings.swap_bottom_options == "true" ? true : false,
+                                swapFilterInputs: table_settings.swap_filter_inputs == "true" ? true : false,
                                 tableCache: table_settings.table_cache == "true" ? true : false,
                                 tableExport: table_settings.table_export || "",
                                 tableStyle: table_settings.table_style || "",
@@ -138,9 +109,7 @@ jQuery(document).ready(function ($) {
                                 importStyles: table_settings.import_styles == "true" ? true : false,
                             };
 
-                            $("#create_tables").DataTable(
-                                this.table_object(table_name, dom, tableSettings)
-                            );
+                            $("#create_tables").DataTable(this.table_object(table_name, dom, tableSettings));
 
                             this.addDraggingAbility();
 
@@ -158,12 +127,7 @@ jQuery(document).ready(function ($) {
 
                             this.show_fetch_btn();
 
-                            this.call_alert(
-                                "Successfull &#128077;",
-                                "<b>Google Sheet data fetched successfully</b>",
-                                "success",
-                                3
-                            );
+                            this.call_alert("Successfull &#128077;", "<b>Google Sheet data fetched successfully</b>", "success", 3);
 
                             if (!this.isProPluginActive()) {
                                 this.call_alert(

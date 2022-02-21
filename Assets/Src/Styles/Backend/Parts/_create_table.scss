@@ -482,11 +482,7 @@
     $label-selector: "~ ul > li";
     $slider-selector: "~ .slider";
     $content-selector: "~ .content > section";
-    @mixin tabs(
-        $label-selector: $label-selector,
-        $slider-selector: $slider-selector,
-        $content-selector: $content-selector
-    ) {
+    @mixin tabs($label-selector: $label-selector, $slider-selector: $slider-selector, $content-selector: $content-selector) {
         @for $i from 1 through $tab-count {
             &:nth-of-type(#{$i}):checked {
                 #{$label-selector}:nth-child(#{$i}) {
@@ -528,7 +524,7 @@
             li {
                 box-sizing: border-box;
                 flex: 1;
-                width: #{100% / $tab-count};
+                width: calc(100% / $tab-count);
                 padding: 0 10px;
                 text-align: center;
                 label {
@@ -566,7 +562,7 @@
         }
         .slider {
             position: relative;
-            width: #{100% / $tab-count};
+            width: calc(100% / $tab-count);
             transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
             .indicator {
                 position: relative;

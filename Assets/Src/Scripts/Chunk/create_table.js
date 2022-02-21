@@ -1,7 +1,7 @@
-import Base_Class from "../Base/base_class";
+import BaseClass from "../base/base_class";
 
 jQuery(document).ready(function ($) {
-    class Google_Sheets_Creation extends Base_Class {
+    class Google_Sheets_Creation extends BaseClass {
         constructor() {
             super($);
             this.sheet_url = "";
@@ -76,12 +76,7 @@ jQuery(document).ready(function ($) {
             let table_name = $("#table_name").val();
             let form_data = this.sheet_form.serialize();
             if (this.sheet_form.find("input[name=file_input]").val() == "") {
-                this.call_alert(
-                    "Warning &#9888;&#65039;",
-                    "<b>Form field is empty. Please fill out the field</b>",
-                    "warning",
-                    3
-                );
+                this.call_alert("Warning &#9888;&#65039;", "<b>Form field is empty. Please fill out the field</b>", "warning", 3);
                 return;
             }
 
@@ -125,10 +120,7 @@ jQuery(document).ready(function ($) {
                 },
 
                 success: (res) => {
-                    if (
-                        JSON.parse(res).response_type == "invalid_action" ||
-                        JSON.parse(res).response_type == "invalid_request"
-                    ) {
+                    if (JSON.parse(res).response_type == "invalid_action" || JSON.parse(res).response_type == "invalid_request") {
                         this.call_alert("Error &#128683;", JSON.parse(res).output, "error", 5);
                         this.btn_changer(submit_button, "Fetch Data", "fetch");
                         this.clear_fields();
@@ -136,12 +128,7 @@ jQuery(document).ready(function ($) {
                     }
 
                     if (JSON.parse(res).response_type == "empty_field") {
-                        this.call_alert(
-                            "Warning &#9888;&#65039;",
-                            JSON.parse(res).output,
-                            "warning",
-                            3
-                        );
+                        this.call_alert("Warning &#9888;&#65039;", JSON.parse(res).output, "warning", 3);
                         this.btn_changer(submit_button, "Fetch Data", "fetch");
                         this.sheet_container.html("");
                     }
@@ -169,12 +156,7 @@ jQuery(document).ready(function ($) {
                         this.sheet_details.addClass("mt-4 p-0");
                         this.sheet_details.html(this.sheet_details_html(JSON.parse(res)));
 
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                         let id = Object.values(JSON.parse(res).id)[0];
                         this.show_shortcode(id);
                         this.sheet_url = JSON.parse(res).sheet_url;
@@ -194,26 +176,12 @@ jQuery(document).ready(function ($) {
                                 Save Changes &nbsp; <i class='fas fa-save'></i>
                             `;
                         this.btn_changer(submit_button, html, "save_changes");
-                        this.call_alert(
-                            "Successfull &#128077;",
-                            JSON.parse(res).output,
-                            "success",
-                            3
-                        );
+                        this.call_alert("Successfull &#128077;", JSON.parse(res).output, "success", 3);
                     }
 
                     if (JSON.parse(res).response_type == "sheet_exists") {
-                        this.call_alert(
-                            "Warning &#9888;&#65039;",
-                            JSON.parse(res).output,
-                            "warning",
-                            3
-                        );
-                        this.btn_changer(
-                            submit_button,
-                            "Save Table &nbsp;<i class='fas fa-save'></i>",
-                            "save"
-                        );
+                        this.call_alert("Warning &#9888;&#65039;", JSON.parse(res).output, "warning", 3);
+                        this.btn_changer(submit_button, "Save Table &nbsp;<i class='fas fa-save'></i>", "save");
                     }
                 },
 
@@ -229,9 +197,7 @@ jQuery(document).ready(function ($) {
                             dom = 'B<"#filtering_input"lf>rt<"#bottom_options"ip>';
                         }
 
-                        $("#create_tables").DataTable(
-                            this.table_object(table_name, dom, default_settings)
-                        );
+                        $("#create_tables").DataTable(this.table_object(table_name, dom, default_settings));
 
                         this.addDraggingAbility();
 
@@ -244,12 +210,7 @@ jQuery(document).ready(function ($) {
                         this.setPdfUrl($("#file_input").val());
 
                         setTimeout(() => {
-                            this.call_alert(
-                                "Successfull &#128077;",
-                                "<b>Google Sheet data fetched successfully</b>",
-                                "success",
-                                3
-                            );
+                            this.call_alert("Successfull &#128077;", "<b>Google Sheet data fetched successfully</b>", "success", 3);
                             if (!this.isProPluginActive()) {
                                 this.call_alert(
                                     "Warning &#9888;&#65039;",
@@ -272,11 +233,7 @@ jQuery(document).ready(function ($) {
 
         changeBtnOnCondition(submit_button) {
             if (!this.get_slug_parameter("id")) {
-                this.btn_changer(
-                    submit_button,
-                    "Next&nbsp;<i class='fas fa-angle-double-right'></i>",
-                    "next"
-                );
+                this.btn_changer(submit_button, "Next&nbsp;<i class='fas fa-angle-double-right'></i>", "next");
 
                 submit_button.css({
                     backgroundColor: "#f2711c",
@@ -301,11 +258,7 @@ jQuery(document).ready(function ($) {
                 tabInputs.prop("checked", false);
                 tabInputs.next().prop("checked", true);
 
-                this.btn_changer(
-                    target,
-                    "Save & Use Table &nbsp;<i class='fas fa-save'></i>",
-                    "save"
-                );
+                this.btn_changer(target, "Save & Use Table &nbsp;<i class='fas fa-save'></i>", "save");
 
                 target.css({
                     backgroundColor: "#6435c9",
