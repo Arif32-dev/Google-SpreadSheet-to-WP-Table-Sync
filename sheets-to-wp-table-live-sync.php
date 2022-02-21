@@ -200,7 +200,7 @@ final class SheetsToWPTableLiveSync {
      * @return null
      */
     public function showReviewNotice() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/review_notice.php');
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/review_notice.php');
         return;
     }
 
@@ -208,7 +208,7 @@ final class SheetsToWPTableLiveSync {
      * @return null
      */
     public function showAffiliateNotice() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/affiliate_notice.php');
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/affiliate_notice.php');
         return;
     }
 

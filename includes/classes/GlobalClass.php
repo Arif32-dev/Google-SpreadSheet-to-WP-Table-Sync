@@ -1190,7 +1190,7 @@ class GlobalClass {
         if (!$values) {
             return;
         }
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/select_values.php', false, $values);
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/select_values.php', false, $values);
     }
 
     /**
@@ -1447,7 +1447,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -1491,7 +1491,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -1529,7 +1529,7 @@ class GlobalClass {
                 'type'          => 'custom-type',
                 'default_text'  => 'Hide Column',
                 'show_tooltip'  => false,
-                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
+                'icon_url'      => GSWPTS_BASE_URL . 'assets/public/icons/hide_column.svg'
             ],
             'hide_rows'    => [
                 'feature_title' => __('Hide Row\'s', 'sheetstowptable'),
@@ -1540,7 +1540,7 @@ class GlobalClass {
                 'type'          => 'custom-type',
                 'default_text'  => 'Hide Row',
                 'show_tooltip'  => false,
-                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
+                'icon_url'      => GSWPTS_BASE_URL . 'assets/public/icons/hide_column.svg'
             ],
             'hide_cell'    => [
                 'feature_title' => __('Hide Cell', 'sheetstowptable'),
@@ -1551,7 +1551,7 @@ class GlobalClass {
                 'type'          => 'custom-type',
                 'default_text'  => 'Hide Cell',
                 'show_tooltip'  => false,
-                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/hide_column.svg'
+                'icon_url'      => GSWPTS_BASE_URL . 'assets/public/icons/hide_column.svg'
             ]
         ];
 
@@ -1607,7 +1607,7 @@ class GlobalClass {
         }
 
         foreach ($settingsArray as $key => $setting) {
-            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/indiviual_feature.php', false, $setting);
+            load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/indiviual_feature.php', false, $setting);
         }
     }
 
@@ -1619,7 +1619,7 @@ class GlobalClass {
 
         $settingsArray = [
             'asynchronous_loading' => [
-                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
+                'template_path'   => GSWPTS_BASE_PATH . 'includes/templates/parts/general_settings.php',
                 'setting_title'   => __('Asynchronous Loading', 'sheetstowptable'),
                 'setting_tooltip' => __('Enable this feature for loading table asynchronously', 'sheetstowptable'),
                 'is_checked'      => $optionValues['asynchronous_loading'],
@@ -1631,7 +1631,7 @@ class GlobalClass {
 
             ],
             'custom_css'           => [
-                'template_path'   => GSWPTS_BASE_PATH . 'Includes/Templates/Parts/general_settings.php',
+                'template_path'   => GSWPTS_BASE_PATH . 'includes/templates/parts/general_settings.php',
                 'setting_title'   => __('Custom CSS', 'sheetstowptable'),
                 'setting_tooltip' => __('Write your own custom CSS to design the table.', 'sheetstowptable'),
                 'is_checked'      => $optionValues['custom_css'],
@@ -1685,42 +1685,42 @@ class GlobalClass {
     public function tableStylesArray(): array{
         $stylesArray = [
             'default-style' => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/default-style.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/default-style.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => false,
                 'isChecked' => $this->isProActive() ? false : true,
                 'label'     => 'Default Style'
             ],
             'style-1'       => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-2.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/style-2.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 1'
             ],
             'style-2'       => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-3.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/style-3.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 2'
             ],
             'style-3'       => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-4.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/style-4.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 3'
             ],
             'style-4'       => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-1.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/style-1.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
                 'label'     => 'Style 4'
             ],
             'style-5'       => [
-                'imgUrl'    => GSWPTS_BASE_URL . 'Assets/Public/Images/TableStyle/style-5.png',
+                'imgUrl'    => GSWPTS_BASE_URL . 'assets/public/images/tablestyle/style-5.png',
                 'inputName' => 'tableStyle',
                 'isPro'     => true,
                 'isChecked' => false,
@@ -1737,7 +1737,7 @@ class GlobalClass {
         $stylesArray = $this->tableStylesArray();
 
         foreach ($stylesArray as $key => $style) {
-            load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/table_style_template.php', false, [
+            load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/table_style_template.php', false, [
                 'isPro' => $style['isPro'],
                 'style' => $style,
                 'key'   => $key

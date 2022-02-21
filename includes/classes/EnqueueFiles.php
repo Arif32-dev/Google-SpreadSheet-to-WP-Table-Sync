@@ -122,8 +122,6 @@ class EnqueueFiles {
             ]
         );
 
-        // register_block_type(GSWPTS_BASE_PATH . 'block.json');
-
         global $gswpts;
         $gswpts->semanticFiles();
         $gswpts->dataTableStyles();
