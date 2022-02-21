@@ -6,13 +6,13 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'
 
 class GlobalClass {
     public function dataTableStyles() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/Semantic-UI-CSS-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
-        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/css/dataTables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/semantic-ui-css-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/css/datatables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
     }
 
     public function dataTableScripts() {
-        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/jquery.dataTables.min.js', ['jquery'], GSWPTS_VERSION, true);
-        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'Assets/Public/Common/DataTables/Tables/js/dataTables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-jquery-dataTable-js', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/js/jquery.datatables.min.js', ['jquery'], GSWPTS_VERSION, true);
+        wp_enqueue_script('GSWPTS-dataTable-semanticui-js', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/js/datatables.semanticui.min.js', ['jquery'], GSWPTS_VERSION, true);
     }
 
     /**
