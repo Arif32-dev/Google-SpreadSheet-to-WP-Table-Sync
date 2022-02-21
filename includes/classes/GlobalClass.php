@@ -6,7 +6,7 @@ defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'
 
 class GlobalClass {
     public function dataTableStyles() {
-        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/semantic-ui-css-master/semantic.min.css', [], GSWPTS_VERSION, 'all');
+        wp_enqueue_style('GSWPTS-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/semantic/semantic.min.css', [], GSWPTS_VERSION, 'all');
         wp_enqueue_style('GSWPTS-dataTable-semanticui-css', GSWPTS_BASE_URL . 'assets/public/common/datatables/tables/css/datatables.semanticui.min.css', [], GSWPTS_VERSION, 'all');
     }
 
