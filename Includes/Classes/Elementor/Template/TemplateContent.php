@@ -119,9 +119,13 @@ class TemplateContent {
             let target = $(e.currentTarget);
             tableID = target.attr("data-id");
 
+
+            $($('#elementor-preview-iframe')[0].contentWindow.document.querySelectorAll(".modal_wrapper")).remove();
+
             mainContainer = target.parent().parent();
 
             if(mainContainer.find('.modal_wrapper').length==0){
+
             <!-- Append the settings modal -->
             mainContainer.append(settingsModal(settings.choose_table));
             <!-- Append the table data into the container -->
@@ -135,6 +139,7 @@ class TemplateContent {
 
             $(promoCloseBtn).on('click', (event) => {
             target = $(event.currentTarget);
+
             target.parents('.modal_wrapper').removeClass('active');
             saveSettings(mainContainer, tableID);
             mainContainer.find('.modal_wrapper').remove();
@@ -499,7 +504,7 @@ class TemplateContent {
 
                     <?php $settingsClass = new TableSettings();?>
                     return `
-                    <div class="modal_wrappers" style="min-height: 740px;">
+                    <div class="modal_wrapper" style="min-height: 740px;">
                         <div class="modal_container">
 
                             <div class="settings_container">

@@ -225,11 +225,7 @@
         $label-selector: "~ ul > li";
         $slider-selector: "~ .slider";
         $content-selector: "~ .content > section";
-        @mixin tabs(
-            $label-selector: $label-selector,
-            $slider-selector: $slider-selector,
-            $content-selector: $content-selector
-        ) {
+        @mixin tabs($label-selector: $label-selector, $slider-selector: $slider-selector, $content-selector: $content-selector) {
             @for $i from 1 through $tab-count {
                 &:nth-of-type(#{$i}):checked {
                     #{$label-selector}:nth-child(#{$i}) {

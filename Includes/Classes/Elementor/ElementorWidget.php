@@ -31,14 +31,10 @@ class ElementorWidget extends \Elementor\Widget_Base {
         wp_enqueue_style('GSWPTS-elementor-table', GSWPTS_PRO_BASE_URL . 'Assets/Public/Styles/elementor.min.css', [], GSWPTS_PRO_VERSION, 'all');
 
         global $gswpts;
-        $gswpts->data_table_scripts();
+        $gswpts->dataTableScripts();
 
         $this->tableSettingsClass = new TableSettings();
     }
-
-    // public function get_script_depends() {
-    //     return ['script-handle', 'GSWPTS-buttons', 'GSWPTS-buttons-flash', 'GSWPTS-jszip', 'GSWPTS-pdfmake', 'GSWPTS-vfs_fonts', 'GSWPTS-buttons-html5', 'GSWPTS-buttons-print'];
-    // }
 
     public function get_name() {
         return 'sheets-to-wp-table-sync-live';
@@ -56,7 +52,7 @@ class ElementorWidget extends \Elementor\Widget_Base {
         return ['basic'];
     }
 
-    protected function _register_controls() {
+    protected function register_controls() {
 
         // Table choose section
         $this->start_controls_section(
@@ -135,7 +131,7 @@ class ElementorWidget extends \Elementor\Widget_Base {
             'select' => 'Select a table'
         ];
         global $gswpts;
-        $details = $gswpts->fetch_gswpts_tables();
+        $details = $gswpts->fetchTables();
         if ($details) {
             foreach ($details as $table) {
                 $options[$table->id] = $table->table_name;

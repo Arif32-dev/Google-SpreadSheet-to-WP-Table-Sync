@@ -50,7 +50,7 @@ class ElementorBase {
     public function loadWidgetCss() {
         echo '<style>
         .gswpts_icon {
-            background: url(' . esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg') . ');
+            background: url(' . esc_url(GSWPTS_BASE_URL . 'assets/public/images/logo_30_30.svg') . ');
             display: block;
             width: 30px;
             height: 30px;
