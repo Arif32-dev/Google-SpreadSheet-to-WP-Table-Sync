@@ -509,7 +509,7 @@ class TemplateContent {
 
                             <div class="settings_container">
                                 <span class="large_promo_close">
-                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Images/promo-close.svg'?>
+                                    <?php require GSWPTS_BASE_PATH . 'assets/public/images/promo-close.svg'?>
                                 </span>
                                 <div class="tabs">
 
@@ -520,7 +520,7 @@ class TemplateContent {
                                         <li title="Display Settings">
                                             <label for="tab1" role="button">
                                                 <span>
-                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/cogs-solid.svg';?>
+                                                    <?php require GSWPTS_BASE_PATH . 'assets/public/icons/cogs-solid.svg';?>
                                                 </span>
                                                 <span><?php _e('Display Settings', 'sheetstowptable-pro');?></span>
                                             </label>
@@ -528,7 +528,7 @@ class TemplateContent {
                                         <li title="Sort & Filter">
                                             <label for="tab2" role="button">
                                                 <span>
-                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/sort-numeric-up-solid.svg';?>
+                                                    <?php require GSWPTS_BASE_PATH . 'assets/public/icons/sort-numeric-up-solid.svg';?>
                                                 </span>
                                                 <span><?php _e('Sort & Filter', 'sheetstowptable');?></span>
                                             </label>
@@ -536,7 +536,7 @@ class TemplateContent {
                                         <li title="Table Tools">
                                             <label for="tab3" role="button">
                                                 <span>
-                                                    <?php require GSWPTS_BASE_PATH . 'Assets/Public/Icons/tools-solid.svg';?>
+                                                    <?php require GSWPTS_BASE_PATH . 'assets/public/icons/tools-solid.svg';?>
                                                 </span>
                                                 <span><?php _e('Table Tools', 'sheetstowptable');?></span>
                                             </label>
