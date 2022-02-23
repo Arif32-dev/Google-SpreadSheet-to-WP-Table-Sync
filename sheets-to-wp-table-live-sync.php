@@ -4,7 +4,7 @@
  * Plugin Name:       Sheets To WP Table Live Sync
  * Plugin URI:        https://wppool.dev/sheets-to-wp-table-live-sync/
  * Description:       Display Google Spreadsheet data to WordPress table in just a few clicks and keep the data always synced. Organize and display all your spreadsheet data in your WordPress quickly and effortlessly.
- * Version:           2.12.1
+ * Version:           2.12.2
  * Requires at least: 5.0
  * Requires PHP:      5.4
  * Author:            WPPOOL
@@ -18,7 +18,7 @@
 defined('ABSPATH') || wp_die(__('You can\'t access this page', 'sheetstowptable'));
 
 if (!defined('GSWPTS_VERSION')) {
-    define('GSWPTS_VERSION', '2.12.1');
+    define('GSWPTS_VERSION', '2.12.2');
     // define('GSWPTS_VERSION', time());
 }
 
@@ -93,7 +93,7 @@ final class SheetsToWPTableLiveSync {
      */
     public function include_file() {
 
-        new GSWPTS\Includes\PluginBase();
+        new GSWPTS\includes\PluginBase();
 
         if (get_option('gswpts_activation_redirect', false)) {
             delete_option('gswpts_activation_redirect');
@@ -151,7 +151,7 @@ final class SheetsToWPTableLiveSync {
      */
     public function register_active_deactive_hooks() {
         register_activation_hook(__FILE__, function () {
-            new GSWPTS\Includes\Classes\DbTables();
+            new \GSWPTS\includes\classes\DbTables();
             add_option('gswpts_activation_redirect', true);
 
             if (!get_option('gswptsActivationTime')) {
@@ -200,7 +200,7 @@ final class SheetsToWPTableLiveSync {
      * @return null
      */
     public function showReviewNotice() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/review_notice.php');
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/review_notice.php');
         return;
     }
 
@@ -208,7 +208,7 @@ final class SheetsToWPTableLiveSync {
      * @return null
      */
     public function showAffiliateNotice() {
-        load_template(GSWPTS_BASE_PATH . 'Includes/Templates/Parts/affiliate_notice.php');
+        load_template(GSWPTS_BASE_PATH . 'includes/templates/parts/affiliate_notice.php');
         return;
     }
 

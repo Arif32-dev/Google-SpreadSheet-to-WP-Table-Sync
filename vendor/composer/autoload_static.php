@@ -9,7 +9,7 @@ class ComposerStaticInitb90d4c6ba2afc6198d5c11959ce974d6
     public static $prefixLengthsPsr4 = array (
         'G' => 
         array (
-            'GSWPTS\\Includes\\' => 16,
+            'GSWPTS\\includes\\' => 16,
         ),
         'A' => 
         array (
@@ -18,9 +18,9 @@ class ComposerStaticInitb90d4c6ba2afc6198d5c11959ce974d6
     );
 
     public static $prefixDirsPsr4 = array (
-        'GSWPTS\\Includes\\' => 
+        'GSWPTS\\includes\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Includes',
+            0 => __DIR__ . '/../..' . '/includes',
         ),
         'Appsero\\' => 
         array (

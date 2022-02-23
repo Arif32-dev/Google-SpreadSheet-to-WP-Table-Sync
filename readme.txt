@@ -4,7 +4,7 @@ Tags: google sheets, wordpress tables, data tables, gutenberg blocks, tables
 Requires at least: 5.0
 Tested up to: 5.9
 Requires PHP: 5.4
-Stable tag: 2.12.1
+Stable tag: 2.12.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,7 +105,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🖌️ **Custom CSS:** Write your own custom CSS to design the table or the page itself. Your custom written CSS will be applied to front-end of the website.
 
-🤚 **Horizontall Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
+🤚 **Horizontal Dragging:** User will be able to drag the table horizontally. This will improve the reading experience of the table for the user's.
 
 🙈 **Hide column:** Hide your google sheet table column on desktop screen OR mobile screens. Protect you data if you don’t want to publish everything in the web.
 
@@ -113,7 +113,7 @@ After you set up a table, a shortcode is generated automatically. All you need t
 
 🚫 **Hide Cell:** Hide your google sheet cell data based on your custom cell selection.
 
-🎨 **Import Sheet Styles:** Import cell backgorund color & cell font color, font size, font widget, font family & all other style from google sheet.
+🎨 **Import Sheet Styles:** Import cell background color & cell font color, font size, font widget, font family & all other style from google sheet.
 
 🖼️ **Image Support:** Load image from any url that contains image. Just add the image url in your sheet and it will load that image in your website. 
 
@@ -131,7 +131,7 @@ If you like Sheets To WP Table Live Sync, then consider checking out our other a
 
 🎥 **[Easy Video Reviews](https://wordpress.org/plugins/easy-video-reviews/)**  - Easy Video Reviews is the best and easiest video review plugin for WordPress. Your customers can record and send video testimonials right from their browser, and you can manage and showcase anywhere on your WordPress website.
 
-💬 **[Chat Widgets for Multivendor Marketplaces](https://wordpress.org/plugins/chat-widgets-for-multivendor-marketplaces/)**  - This chat widget plugin makes it very easy for you to connect with your potential customers via their favorite social media channels like Facebook, Messenger, WhatsApp, Viber, Telegram, Slack, TikTok, and more.
+💬 **[Chat Widgets for Multi-vendor Marketplaces](https://wordpress.org/plugins/chat-widgets-for-multivendor-marketplaces/)**  - This chat widget plugin makes it very easy for you to connect with your potential customers via their favorite social media channels like Facebook, Messenger, WhatsApp, Viber, Telegram, Slack, TikTok, and more.
 
 
 
@@ -185,6 +185,11 @@ For instant support please send us a message on our Facebook page or you also co
 
 == Changelog ==
 
+= 2.12.2 =
+* Updated: Updated plugin folder & normal plugin update
+* Updated: Updated latest node.js package version
+* Fixed: Fixed some typo
+
 = 2.12.1 =
 * Fixed: Fixed tab management db update
 
@@ -210,8 +215,8 @@ For instant support please send us a message on our Facebook page or you also co
 = 2.10.0 =
 * New: Added import of all styles in sheet.
 * New: Added affiliate popup.
-* Updated: Modifed some UI/UX
-* Fixed: Fixed elementor header already sent issue.
+* Updated: Modified some UI/UX
+* Fixed: Fixed Elementor header already sent issue.
 
 = 2.9.0 =
 * New: Added sheet background  & font color import feature 🔥
@@ -256,7 +261,7 @@ For instant support please send us a message on our Facebook page or you also co
 * Improvement: Minor code improvements
 
 = 2.4.1 =
-* New: Horizontall drag feature for pro.
+* New: Horizontal drag feature for pro.
 * Improvement: Link support feature.
 * Improvement: Minor code improvement
 
@@ -313,7 +318,7 @@ For instant support please send us a message on our Facebook page or you also co
 
 = 1.1.2 =
 * Fix: Fixed spreadsheet data fetching issue for different server
-* Improvement: Added video documention in dashboard page
+* Improvement: Added video documentation in dashboard page
 
 = 1.0.1 =
 * Fix: Fixed user subscription
