@@ -80,7 +80,7 @@ class TableFetch {
                                         </a>
 
                                         <button type="button" value="edit" class="copyToken ui right icon button gswpts_edit_table ml-1" id="' . esc_attr($table_data->id) . '" style="width: 50px;height: 38px;">
-                                            <img src="' . GSWPTS_BASE_URL . 'Assets/Public/Icons/rename.svg' . '" width="24px" height="15px" alt="rename-icon"/>
+                                            <img src="' . GSWPTS_BASE_URL . 'assets/public/icons/rename.svg' . '" width="24px" height="15px" alt="rename-icon"/>
                                         </button>
 
                                     </div>

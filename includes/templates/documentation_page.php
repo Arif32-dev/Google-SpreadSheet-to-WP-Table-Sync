@@ -27,7 +27,7 @@ var HW_config = {
         <div class="row heading_row mr-0 ml-0 mb-3">
             <div class="col-12 p-0 mt-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex justify-content-start p-0 align-items-center">
-                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/logo_30_30.svg'); ?>" alt="">
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'assets/public/images/logo_30_30.svg'); ?>" alt="">
                     <span class="ml-2">
                         <strong><?php echo PlUGIN_NAME; ?></strong>
                     </span>
@@ -70,7 +70,7 @@ var HW_config = {
                             Help</a>
                     </div>
                     <div class="second_col">
-                        <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/need_help.svg') ?>"
+                        <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'assets/public/images/need_help.svg') ?>"
                             alt="need-help">
                     </div>
                 </div>
@@ -166,7 +166,7 @@ var HW_config = {
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6 p-0 m-0 d-flex align-items-center premium_svg">
-                            <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/premium.svg'); ?>"
+                            <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'assets/public/images/premium.svg'); ?>"
                                 alt="premium">
                         </div>
                     </div>
@@ -180,7 +180,7 @@ var HW_config = {
             <!-- Made by section  -->
             <div class="made_by">
                 <div class="made_by_container">
-                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'Assets/Public/Images/made-by.svg') ?>" alt="">
+                    <img src="<?php echo esc_url(GSWPTS_BASE_URL . 'assets/public/images/made-by.svg') ?>" alt="">
                     <div class="extras">
                         <span>
                             <a href="https://wppool.dev/" target="_blank">wppool.dev</a>

@@ -26,10 +26,10 @@
                             <i class="fas fa-info-circle"></i>
                             <span class="tooltiptext" style="width: 400px; min-height: 65px;">
                                 <?php if (isset($is_upcoming) && $is_upcoming) {?>
-                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'assets/public/images/feature-gif/' . $input_name . '.gif' ?>"
                                     height="150" alt="<?php echo esc_attr($input_name) ?>">
                                 <?php } else {?>
-                                <img src="<?php echo GSWPTS_BASE_URL . 'Assets/Public/Images/feature-gif/' . $input_name . '.gif' ?>"
+                                <img src="<?php echo GSWPTS_BASE_URL . 'assets/public/images/feature-gif/' . $input_name . '.gif' ?>"
                                     alt="<?php echo esc_attr($input_name) ?>">
                                 <?php }?>
                             </span>
