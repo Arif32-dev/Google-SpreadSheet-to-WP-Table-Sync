@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 
 class EnqueueFiles {
     public function __construct() {
-        add_action('admin_enqueue_scripts', [$this, 'backendFiles']);
+        add_action('admin_enqueue_scripts', [$this, 'backendFiles'], 9999);
         add_action('wp_enqueue_scripts', [$this, 'frontendFiles']);
         add_action('enqueue_block_editor_assets', [$this, 'gutenbergFiles']);
     }
@@ -18,6 +18,24 @@ class EnqueueFiles {
     public function backendFiles() {
         $current_screen = get_current_screen();
         $get_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : null;
+
+        if (($get_page == 'gswpts-dashboard') ||
+            ($get_page == 'gswpts-manage-tab') ||
+            ($get_page == 'gswpts-general-settings') ||
+            ($get_page == 'gswpts-documentation') ||
+            ($get_page == 'gswpts-recommendation') ||
+            ($get_page == 'sheets_to_wp_table_live_sync_pro_settings')
+        ) {
+            global $wp_scripts;
+
+            // Deregister all external script in these pages
+            foreach ($wp_scripts->registered as $registered) {
+                if (strpos($registered->src, '/wp-content/')) {
+                    wp_dequeue_script($registered->handle);
+                }
+            }
+
+        }
 
         if (($get_page == 'gswpts-dashboard') ||
             ($get_page == 'gswpts-manage-tab') ||
