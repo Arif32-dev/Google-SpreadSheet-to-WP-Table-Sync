@@ -1355,7 +1355,7 @@ class GlobalClass {
                 'type'          => 'custom-type',
                 'default_text'  => 'Choose Style',
                 'show_tooltip'  => false,
-                'icon_url'      => GSWPTS_BASE_URL . 'Assets/Public/Icons/table_style.svg'
+                'icon_url'      => GSWPTS_BASE_URL . 'assets/public/icons/table_style.svg'
             ],
             'import_styles'        => [
                 'feature_title' => __('Import Sheet Styles', 'sheetstowptable'),
